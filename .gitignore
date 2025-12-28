@@ -1,0 +1,47 @@
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+
+# IDE / Editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Node
+node_modules/
+dist/
+build/
+coverage/
+.next/
+.nuxt/
+.output/
+.cache/
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.env
+
+# Python (if applicable)
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+.env/
+
+# Miscellaneous
+.git/
+.svn/
+.hg/

@@ -1,0 +1,78 @@
+help me create a list of technology that should be included in my saas-starter:
+
+Principles:
+- hippa compliant
+- simple
+- performant
+- compatibility with AI
+
+- infra
+  - docker compose
+  - GitHub Actions workflows
+  - aptible (hosting)
+  - opentofu (IaC)
+    - aptible
+    - twilio
+    - sendgrid
+    - Checkov (Policy as Code)
+  - SOPS (versioned secrets)
+    - Age (encrypt secrets)
+- structure
+  - monorepo
+    - turborepo?
+- quality
+  - prettier (format)
+  - biome (lint)
+  - typecheck
+  - playwright (e2e)
+- front end (static)
+  - typescript
+  - pnpm (package management)
+    - openapi-typescript (types from swagger docs)
+  - tanstack (query, start, router, form)
+  - shadcn
+  - vitest (unit)
+  - axios (whitelist domains)
+- back of the front end (container)
+  - supertokens (auth)
+  - Server Functions (proxy python endpoints w jwt)
+  - SSR (for marketing site)
+- back end (container)
+  - python
+    - uv (dependency management)
+    - presidio (masking in logs, spans, traces)
+    - pydantic2 (validation)
+    - pydantic-settings (secret import)
+    - Structlog (logging)
+    - Server-Sent Events (SSE)
+  - fastapi
+    - SQLAlchemy (orm)
+      - Alembic (migrations)
+    - supertokens (auth)
+      - heartbeats
+      - require MFA
+    - PostgreSQL-Audit (audits)
+    - httpx (whitelist domains)
+- background worker (container)
+  - taskiq
+- database
+  - postgres
+  - redis
+- other containers
+  - garage (self-hosted s3, encrypted)
+    - object versioning
+  - clamav (s3 av scan)
+    - 2GB minimum
+- 3rd party integrations
+  - email (sendgrid)
+  - sms (twilio)
+
+Should consider things like:
+- security
+  - helmet (headers)
+- compliance
+  - audits by default (postgres trigger)
+- devex
+  - swagger docs
+  - logging (pino)
+  - otel observability (signoz)
