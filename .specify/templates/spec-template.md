@@ -95,6 +95,12 @@
 - **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
 - **FR-007**: System MUST retain user data for [NEEDS CLARIFICATION: retention period not specified]
 
+### Security & Compliance *(mandatory)*
+
+- **SEC-001**: Access Control: [Define role-based access requirements]
+- **SEC-002**: Data Protection: [Define encryption or masking requirements for PHI/PII]
+- **SEC-003**: Audit: [Define what events must be logged for HIPAA compliance]
+
 ### Key Entities *(include if feature involves data)*
 
 - **[Entity 1]**: [What it represents, key attributes without implementation]

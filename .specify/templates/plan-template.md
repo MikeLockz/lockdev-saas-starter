@@ -31,7 +31,10 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] **HIPAA Compliance**: Does this feature handle PHI? If so, are encryption, audit, and access controls defined?
+- [ ] **Operational Simplicity**: Does this introduce new infrastructure? If so, is it managed/boring?
+- [ ] **AI-Native**: Is the implementation compatible with AI-assisted development (clear patterns, typed interfaces)?
+- [ ] **Simplicity**: Are abstractions minimal and necessary?
 
 ## Project Structure
 

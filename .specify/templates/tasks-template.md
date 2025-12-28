@@ -94,6 +94,7 @@ Examples of foundational tasks (adjust based on your project):
 - [ ] T015 [US1] Implement [endpoint/feature] in src/[location]/[file].py
 - [ ] T016 [US1] Add validation and error handling
 - [ ] T017 [US1] Add logging for user story 1 operations
+- [ ] T018 [US1] Verify PHI masking in logs/traces (Compliance)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
