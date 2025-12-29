@@ -1,4 +1,4 @@
-help me create a list of technology that should be included in my saas-starter:
+List of technology that should be included in lockdev-saas-starter:
 
 Principles:
 - hippa compliant
@@ -19,7 +19,7 @@ Principles:
     - Age (encrypt secrets)
 - structure
   - monorepo
-    - turborepo?
+    - make
 - quality
   - prettier (format)
   - biome (lint)
@@ -27,16 +27,14 @@ Principles:
   - playwright (e2e)
 - front end (static)
   - typescript
+  - vite + react
   - pnpm (package management)
     - openapi-typescript (types from swagger docs)
-  - tanstack (query, start, router, form)
+  - tanstack (query, router, form)
   - shadcn
   - vitest (unit)
   - axios (whitelist domains)
-- back of the front end (container)
-  - supertokens (auth)
-  - Server Functions (proxy python endpoints w jwt)
-  - SSR (for marketing site)
+  - firebase (auth)
 - back end (container)
   - python
     - uv (dependency management)
@@ -45,24 +43,23 @@ Principles:
     - pydantic-settings (secret import)
     - Structlog (logging)
     - Server-Sent Events (SSE)
+    - pydantic-ai
+    - logfire
+    - textract
+    - LLM (Bedrock or Google AI)
   - fastapi
     - SQLAlchemy (orm)
       - Alembic (migrations)
-    - supertokens (auth)
-      - heartbeats
-      - require MFA
+    - firebase-admin (auth)
     - PostgreSQL-Audit (audits)
     - httpx (whitelist domains)
 - background worker (container)
-  - taskiq
+  - ARQ
 - database
   - postgres
   - redis
-- other containers
-  - garage (self-hosted s3, encrypted)
-    - object versioning
-  - clamav (s3 av scan)
-    - 2GB minimum
+- storage
+  - AWS S3
 - 3rd party integrations
   - email (sendgrid)
   - sms (twilio)
@@ -74,5 +71,5 @@ Should consider things like:
   - audits by default (postgres trigger)
 - devex
   - swagger docs
-  - logging (pino)
-  - otel observability (signoz)
+  - logging (cloudwatch)
+  - observability (sentry + logfire)
