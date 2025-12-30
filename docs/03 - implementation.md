@@ -457,20 +457,110 @@ This plan transforms the technical requirements into a linear, production-grade 
 *   **Verification:** `uv run alembic revision --autogenerate -m "init"` creates a migration file.
 
 ### Step 2.4: Users, Profiles & Tenants
-*   **File/Path:** `backend/src/models/user.py`
+*   **File/Path:** `backend/src/models/` (multiple files)
 *   **Action:** Create
 *   **Instruction:**
-    *   **Concept:** Separate Identity (User) from Clinical Data (Profile) to allow for "Right to be Forgotten" (deletion of User) while retaining Clinical Records (Profile) for compliance.
-    *   **Models:**
-        *   `User`: Auth ID, email, `user_type` [PATIENT, STAFF], `tenant_id`, `fcm_device_tokens` (List[str]).
-        *   `PatientProfile`: Linked to `User.id` (1:1). Contains DOB, Medical History.
-        *   `StaffProfile`: Linked to `User.id` (1:1). Contains NPI, Job Title.
-        *   `CareRelationship`: Links `proxy_user_id` to `patient_user_id`. Fields: `relationship_type` (POA, SPOUSE), `access_level` (READ_ONLY, FULL).
-    *   **Tenant Mapping:**
-        *   `Tenant`: Represents "Care Circle".
-        *   `Role`: [OWNER, MEMBER, CLINICIAN, ADMIN] stored on the `User` model.
+    *   **Concept:** Separate Identity (User) from Role (Provider, Patient, Staff, Proxy) to allow:
+        *   "Right to be Forgotten" (deletion of User) while retaining Clinical Records for compliance.
+        *   A single email address to hold multiple roles (e.g., Patient at Clinic A and Provider at Clinic B).
+        *   Multi-tenancy: Users can belong to 0-Many Organizations with strict data segregation.
+
+    *   **Core Entities:**
+        ```
+        Organization (Tenant)
+        ├── id (ULID)
+        ├── name
+        ├── tax_id
+        └── settings_json
+        
+        User (Authentication Record)
+        ├── id (ULID)
+        ├── email (unique)
+        ├── password_hash (nullable - OAuth users)
+        ├── mfa_enabled (boolean)
+        ├── fcm_device_tokens (Array[str])
+        └── deleted_at (soft delete)
+        
+        AuditLog (Immutable)
+        ├── id (ULID)
+        ├── actor_id → User.id
+        ├── target_resource
+        ├── action_type
+        ├── ip_address
+        └── timestamp
+        ```
+
+    *   **Role Entities:**
+        ```
+        Provider (Licensed Clinician)
+        ├── id (ULID)
+        ├── user_id → User.id
+        ├── npi_number (unique)
+        ├── dea_number
+        └── state_licenses (Array[{state, license_number, expiry}])
+        
+        Staff (Non-Provider Employee)
+        ├── id (ULID)
+        ├── user_id → User.id
+        ├── employee_id
+        └── job_title (enum: NURSE, BILLER, ADMIN, CALL_CENTER_AGENT)
+        
+        Patient (Care Receiver)
+        ├── id (ULID)
+        ├── user_id → User.id (nullable for Dependents)
+        ├── mrn (Medical Record Number)
+        ├── dob
+        ├── legal_sex
+        ├── gender_identity
+        └── is_self_managed (boolean - False for Dependents)
+        
+        Proxy (Care Manager)
+        ├── id (ULID)
+        ├── user_id → User.id
+        └── relationship_type (enum: PARENT, GUARDIAN, POA, SPOUSE)
+        ```
+
+    *   **Association Tables:**
+        ```
+        Organization_Member (User ↔ Organization)
+        ├── id (ULID)
+        ├── user_id → User.id
+        ├── organization_id → Organization.id
+        ├── role (enum: PROVIDER, STAFF, ADMIN)
+        └── role_entity_id (→ Provider.id or Staff.id based on role)
+        
+        Patient_Proxy_Assignment (Proxy ↔ Patient, M:M)
+        ├── id (ULID)
+        ├── proxy_id → Proxy.id
+        ├── patient_id → Patient.id
+        ├── permissions_mask (JSON: {can_view_clinical, can_view_billing, can_schedule})
+        ├── relationship_proof (nullable - document ID for POA verification)
+        └── expires_at (nullable - for temporary access)
+        
+        Care_Team (Provider ↔ Patient within Organization)
+        ├── id (ULID)
+        ├── provider_id → Provider.id
+        ├── patient_id → Patient.id
+        ├── organization_id → Organization.id
+        └── role (enum: PRIMARY, SPECIALIST, CONSULTANT)
+        ```
+
+    *   **Contact & Demographics:**
+        ```
+        Contact_Method
+        ├── id (ULID)
+        ├── user_id → User.id (nullable)
+        ├── patient_id → Patient.id (nullable, for dependents)
+        ├── type (enum: MOBILE, HOME, WORK, EMAIL)
+        ├── value
+        ├── is_primary (boolean)
+        └── is_safe_for_voicemail (boolean - CRITICAL for patient safety)
+        ```
+        *   **Safe Contact Protocol:** Logic MUST prevent automated messages/voicemails to contacts where `is_safe_for_voicemail = False` (e.g., domestic violence situations).
+
     *   **CRITICAL:** All Primary Keys must use **ULID**.
-*   **Verification:** Run migration. Verify 3 distinct tables created.
+    *   **CRITICAL:** All clinical data uses soft deletes (`deleted_at` timestamp) for legal retention.
+*   **Verification:** Run migration. Verify all tables created with proper foreign keys and indexes.
 
 ### Step 2.5: Auth & GCIP Integration
 *   **File/Path:** `backend/src/security/auth.py`
@@ -480,8 +570,8 @@ This plan transforms the technical requirements into a linear, production-grade 
     *   Initialize `firebase-admin` (works with GCIP).
     *   Create dependencies:
         *   `get_current_user`: Decodes JWT.
-        *   `get_auth_context`: Role-based access within Tenant.
-        *   `get_current_staff`: Enforces `user_type == STAFF`.
+        *   `get_auth_context`: Role-based access within Organization (via `Organization_Member`).
+        *   `get_current_staff`: Enforces user has `Provider` or `Staff` role entity.
     *   **MFA:**
         *   Enforce MFA policies in the **GCP Console** for the "Staff" tenant/group.
         *   Middleware should verify the token's `auth_time` or MFA claims.
@@ -521,19 +611,23 @@ This plan transforms the technical requirements into a linear, production-grade 
     ```python
     from sqladmin import Admin, ModelView
     from src.database import engine
-    from src.models import User, PatientProfile, StaffProfile, Tenant
+    from src.models import User, Patient, Provider, Staff, Organization
     
     admin = Admin(app, engine)
     
     class UserAdmin(ModelView, model=User):
-        column_list = [User.id, User.email, User.user_type, User.tenant_id]
+        column_list = [User.id, User.email, User.mfa_enabled]
         can_delete = False  # HIPAA: Soft delete only
     
-    class PatientProfileAdmin(ModelView, model=PatientProfile):
-        column_exclude_list = [PatientProfile.ssn]  # Never show PHI
+    class PatientAdmin(ModelView, model=Patient):
+        column_exclude_list = [Patient.dob]  # Minimize PHI exposure
+    
+    class OrganizationAdmin(ModelView, model=Organization):
+        column_list = [Organization.id, Organization.name, Organization.tax_id]
     
     admin.add_view(UserAdmin)
-    admin.add_view(PatientProfileAdmin)
+    admin.add_view(PatientAdmin)
+    admin.add_view(OrganizationAdmin)
     ```
 *   **Security:** SQLAdmin MUST be protected by `get_current_staff` dependency with `ADMIN` role check.
 *   **Verification:** Access `/admin` as ADMIN -> see CRUD interface. Access as non-admin -> 403.
@@ -642,11 +736,12 @@ This plan transforms the technical requirements into a linear, production-grade 
 *   **File/Path:** `frontend/src/routes/_auth.tsx` (TanStack Router)
 *   **Action:** Create
 *   **Instruction:**
-    *   Create a layout that checks auth state AND user role.
+    *   Create a layout that checks auth state AND user role (via `Organization_Member` lookup).
     *   **Loading State:** Return `<Skeleton />` or `null` while `auth.loading` is true. Do not render child routes until auth is resolved.
-    *   Differentiate between `/_auth/patient` (redirects if not patient/proxy) and `/_auth/staff` (redirects if not staff).
-    *   **Proxy Dashboard:** If `role == OWNER`, show list of Patients (Members) to select.
-    *   **Patient Dashboard:** If `role == MEMBER`, show only their own view.
+    *   Differentiate between `/_auth/patient` (redirects if not Patient or Proxy) and `/_auth/staff` (redirects if no Provider/Staff role).
+    *   **Proxy Dashboard:** If user is a Proxy, show list of managed Patients (via `Patient_Proxy_Assignment`) to select.
+    *   **Self-Managed Patient Dashboard:** If user has a Patient record with `is_self_managed = true`, show only their own view.
+    *   **Dependent Patient:** Accessed only via Proxy selection. No direct login.
     *   Handle "Consent Required" redirect if API returns 403 Consent Missing.
 *   **Verification:** Accessing staff dashboard as patient -> 403/Redirect.
 
