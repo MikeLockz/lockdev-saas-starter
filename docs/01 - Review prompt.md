@@ -6,11 +6,83 @@ Project Context:
 
 Goal: Building a multi-tenant with logical isolation healthcare platform with a patient mobile app and a call-center workflow.
 
-Primary Personas: Patients, Admin staff, Call center agents
+Primary Personas: Patients (Self-Managed & Dependent), Proxies (Guardians/POA), Providers, Clinical Staff, Administrative Staff, Call Center Agents, Organization Admins, Super Admins
 
 Key Constraints: Must be HIPAA compliant, 2-person dev team, needs to launch MVP in 3 months.
 
 Integration Needs: Heavy reliance on 3rd party APIs for telephony and EHR data.
+
+---
+
+## Data Model Requirements
+
+### User Actors & Roles
+
+**Clinical & Operational Staff:**
+- **Provider**: Licensed clinician (MD, DO, NP, PA). Holds unique identifiers (NPI, DEA). Can work across multiple Organizations.
+- **Clinical Staff**: Support personnel (Nurses, Medical Assistants) assisting Providers with patient data access.
+- **Administrative Staff**: Front-desk or billing personnel with scheduling/demographics access, restricted clinical notes.
+- **Organization Admin**: Manages settings and user list for a specific Tenant (Organization).
+
+**Patient & Family:**
+- **Self-Managed Patient**: Competent adult receiving care with direct login credentials.
+- **Dependent Patient**: Minor or incapacitated adult. **No login** - must be accessed via a Proxy.
+- **Patient Proxy**: Legal guardian, parent, or power of attorney. Logs in to manage one or more Dependent Patients.
+
+**System & Oversight:**
+- **Super Admin**: Platform owner with full access to all tenants for support and maintenance.
+- **Auditor/Compliance Officer**: Read-only access to Audit Logs; restricted PHI access.
+- **Service Account (Bot)**: Non-human users (e.g., "Billing System Integration") for accurate API logging.
+
+### Functional Requirements
+
+- **FR-01 User/Profile Separation**: System must decouple `User` (login credentials) from `Role` (Patient, Provider). Single email can hold multiple roles (e.g., Patient at Clinic A and Provider at Clinic B).
+- **FR-02 Multi-Tenancy**: Users can belong to 0-Many Organizations. Data from Org A must never leak to Org B unless explicitly shared.
+- **FR-03 Proxy Management**: Proxy can manage multiple Patients (1-to-Many). Patient can have multiple Proxies (Many-to-Many).
+- **FR-04 Granular Consent**: Proxy relationships must support granular scopes: `can_view_clinical`, `can_view_billing`, `can_schedule`.
+- **FR-05 Safe Contact Protocol**: System must distinguish standard phone number from "safe" contact method. Logic must prevent automated messages/voicemails to non-safe numbers (e.g., domestic violence situations).
+
+### Core Data Entities
+
+| Entity | Description | Key Attributes |
+| --- | --- | --- |
+| **Organization** | The tenant (Clinic/Hospital) | `id`, `name`, `tax_id`, `settings_json` |
+| **User** | The authentication record | `id`, `email`, `password_hash`, `mfa_enabled` |
+| **AuditLog** | Immutable record of actions | `actor_id`, `target_resource`, `action_type`, `ip_address`, `timestamp` |
+
+### Role Entities
+
+| Entity | Description | Key Attributes |
+| --- | --- | --- |
+| **Provider** | Licensed clinician profile | `npi_number`, `dea_number`, `state_licenses` (Array) |
+| **Staff** | Non-provider employee | `employee_id`, `job_title` (e.g., Nurse, Biller) |
+| **Patient** | The receiver of care | `mrn` (Medical Record Number), `dob`, `legal_sex`, `gender_identity` |
+| **Proxy** | The manager of care | `relationship_type` (Parent, Guardian) |
+
+### Association & Logic Tables
+
+- **Organization_Member**: Links `User` to `Organization` with a specific role (Provider, Staff).
+- **Patient_Proxy_Assignment**: Links `Proxy` to `Patient`. Attributes: `permissions_mask` (Binary/JSON for read/write scope), `relationship_proof` (document ID for POA).
+- **Care_Team**: Links `Provider` to `Patient` within an `Organization`.
+
+### Contact & Demographics
+
+- **Contact_Method**: `type` (Mobile, Home, Email), `value`, `is_primary`, `is_safe_for_voicemail` (Boolean - **Critical for patient safety**)
+
+### Non-Functional Requirements (Compliance)
+
+- **NFR-01**: Every Read/Write operation on Patient record must generate an `AuditLog` entry.
+- **NFR-02**: Audit logs must be immutable and stored for minimum 6 years (HIPAA retention).
+- **NFR-03**: All PHI must be encrypted at rest and in transit.
+- **NFR-04**: Super Admins cannot view PHI without generating explicit "Break Glass" audit log event.
+
+### Assumptions
+
+1. **US-Centric**: NPI and DEA identifiers are specific to US healthcare system.
+2. **Email as Identity**: Email is the unique identifier for `User` accounts.
+3. **Soft Deletes**: No clinical data is hard deleted; only soft deleted (`deleted_at` timestamp).
+
+---
 
 The Proposed Stack:
 
