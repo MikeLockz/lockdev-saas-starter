@@ -10,19 +10,22 @@ Principles:
   - docker compose
   - GitHub Actions workflows
   - aptible (hosting)
+    - app.domain.com (UI)
+    - api.domain.com (API)
   - opentofu (IaC)
     - aptible
-    - twilio
-    - sendgrid
+    - aws connect (IVR)
+    - aws ses
     - Checkov (Policy as Code)
   - SOPS (versioned secrets)
-    - Age (encrypt secrets)
+    - Age (encrypt secrets via local keys.txt)
 - structure
   - monorepo
     - make
 - quality
   - prettier (format)
   - biome (lint)
+  - pre-commit (git hooks)
   - typecheck
   - playwright (e2e)
 - front end (static)
@@ -31,10 +34,11 @@ Principles:
   - pnpm (package management)
     - openapi-typescript (types from swagger docs)
   - tanstack (query, router, form)
+  - zod (validation)
   - shadcn
   - vitest (unit)
   - axios (whitelist domains)
-  - firebase (auth)
+  - Google Cloud Identity Platform (client)
 - back end (container)
   - python
     - uv (dependency management)
@@ -42,16 +46,17 @@ Principles:
     - pydantic2 (validation)
     - pydantic-settings (secret import)
     - Structlog (logging)
+    - SlowAPI (rate limiting)
     - Server-Sent Events (SSE)
-    - pydantic-ai
-    - logfire
+    - google-cloud-aiplatform
     - textract
-    - LLM (Bedrock or Google AI)
+    - LLM (Google Gemini)
   - fastapi
     - SQLAlchemy (orm)
       - Alembic (migrations)
-    - firebase-admin (auth)
+    - Google Cloud Identity Platform (admin)
     - PostgreSQL-Audit (audits)
+    - Audit Middleware (Read Access Logging for Staff)
     - httpx (whitelist domains)
 - background worker (container)
   - ARQ
@@ -61,8 +66,9 @@ Principles:
 - storage
   - AWS S3
 - 3rd party integrations
-  - email (sendgrid)
-  - sms (twilio)
+  - email (aws ses)
+  - sms (aws end user messaging)
+  - voice (aws connect)
 
 Should consider things like:
 - security
@@ -72,4 +78,9 @@ Should consider things like:
 - devex
   - swagger docs
   - logging (cloudwatch)
-  - observability (sentry + logfire)
+  - observability (sentry + cloudwatch)
+  - MFA (Internal Staff)
+- data integrity
+  - ULID primary keys (Universally Unique Lexicographically Sortable Identifier)
+- legal
+  - consent & ToS tracking (versioned)

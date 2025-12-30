@@ -18,7 +18,7 @@ The Proposed Stack:
 
 * HIPAA Compliant (via BAA inheritance)
 * Operationally Boring (AWS and Aptible)
-* AI-Native (Python/FastAPI + Bedrock)
+* AI-Native (Python/FastAPI + Google Gemini)
 * Compatible with AI for development (lots of existing examples and great documentation)
 * Easy to understand (minimal layers, abstractions, coupling)
 * Cost effective with minimal vendor contracts
@@ -35,14 +35,20 @@ The Proposed Stack:
   * Services:
     * S3 (Storage + Encryption)
     * SES (Transactional Email)
-    * Textract / Bedrock (AI features)
+    * Connect (Call Center & IVR)
+    * End User Messaging (SMS)
+    * Textract (OCR)
     * Route53 (DNS)
+      * app.domain.com (Frontend)
+      * api.domain.com (Backend)
     * Secrets Manager
-      * GOOGLE_SERVICE_ACCOUNT_JSON=GCP service account with "Firebase Auth Admin"
+      * GOOGLE_SERVICE_ACCOUNT_JSON=GCP service account with "Identity Platform Admin"
 * **GCP (BAA):**
   * Identiy platform
     * Accept BAA
     * Disable analytics
+  * **Vertex AI:**
+    * Google Gemini
 
 
 * **IaC (OpenTofu/Terraform):**
@@ -51,7 +57,7 @@ The Proposed Stack:
 
 
 * **CI/CD:** GitHub Actions
-* **Secrets:** SOPS + Age (for local dev), Aptible Env Vars (production)
+* **Secrets:** SOPS + Age (local keys.txt), Aptible Env Vars (production)
 
 **Structure:**
 
@@ -73,6 +79,7 @@ The Proposed Stack:
 
 * **TS Lint/Format:** Biome
 * **Python Lint:** ruff
+* **Enforcement:** pre-commit
 * **E2E:** Playwright
 
 
@@ -86,41 +93,45 @@ Light front end that prioritizes simplicity and speed. No authoritative business
 
 * **Framework:** Vite + React (Drop "TanStack Start" for MVP stability)
 * **Routing:** TanStack Router
-* **Server State/Data:** TanStack Query
+* **Server State/Data:** TanStack Query (online only)
 * **Client state:** Zustand
 * **UI:** Shadcn/ui
   * Components are designed to be mobile friendly with large hit targets and adequit padding
-* **Auth:** GCP Firebase SDK
-  * firebase
+* **Forms:** React Hook Form + Zod
+* **Auth:** Google Cloud Identity Platform (GCIP)
+  * firebase (client sdk works with GCIP)
   * react-firebase-hooks
-* **API Client:** Orval or `openapi-typescript-codegen` (Auto-generate from FastAPI `openapi.json`)
-* **Mobile:** Capacitor (app wrapper)
+* **API Client:** Orval or `openapi-typescript-codegen` (Static generation via `generate_schema.py` -> TS Types + Zod Schemas)
+* **Mobile:** Capacitor (app wrapper) + vite-plugin-pwa (Online Only - No PHI Cache)
 
 **Back End (Container):**
 All business logic. Integrations other services and databases.
 
 * **Runtime:** Python 3.11+
 * **Framework:** FastAPI
-  * **Read access logging:** Write custom logger on routes that return PHI
+  * **Read access logging:** Audit Middleware (Logs 'READ' events on `/api/staff/*`)
   * **Server:** `uvicorn` 
 * **Package Manager:** `uv`
-* **Agentic Framework:** PydanticAI (tool calling, convo history, retries)
+* **Agentic Framework:** Vertex AI SDK + Pydantic (No agentic framework abstraction)
 * **Validation:** Pydantic v2
   * pydantic-settings (validate config on startup)
 * **CRUD Views:** sqladmin (internal super admin)
 * **Logging:** `structlog` (JSON logs for machine parsing)
   * single-line in prod
-  * mask PHI from logs
-* **AI Logging:** `logfire` (debug structured data pipelines)
-* **PII Masking:** Presidio (runs async on worker only)
+  * mask PHI from logs (Key-based masking only)
+* **Rate Limiting:** `slowapi` (Redis-backed in Prod)
+* **AI Logging:** `structlog` (JSON)
+* **PII Masking:** Presidio (Exceptions only)
   * scrub user generated content
   * scrub data that will be stored or processed by LLM (ie visit summary)
 * **Database ORM:** SQLAlchemy + Alembic
   * asyncio (AsyncSession) with asyncpg driver
     * do not use psycopg2
-* **Auth:** * firebase-admin
-  * Define auth dependency as a standard def (non-async) to run in thread pool
+* **Auth:** * Google Cloud Identity Platform (via firebase-admin)
+  - define auth dependency as a standard def (non-async) to run in thread pool
+  - **MFA:** Enforce MFA for all Internal Staff (Clinician/Admin)
 * **Audit:** `postgresql-audit` (Trigger-based history)
+* **Data Integrity:** ULID for all Primary Keys (Lexicographically Sortable)
 * **Errors:** sentry sdk: global exception handler (Override HTTPException and RequestValidationError)
 * **Traces:** sentry sdk: middleware on every inbound request (X-Request-ID header)
   * returns in response Headers
@@ -147,7 +158,7 @@ All business logic. Integrations other services and databases.
 **Data Persistence:**
 
 * **Database:** Aptible Managed Postgres 15+ (Encrypted at rest)
-  * Row level security
+  * Row Level Security (RLS) for Tenant Isolation
 * **Cache:** Aptible Managed Redis
 * **Object Storage:** **AWS S3** (Private, SSE-KMS Encrypted)
   * Ensure same region as Aptible
