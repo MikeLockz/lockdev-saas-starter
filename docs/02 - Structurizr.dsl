@@ -13,18 +13,15 @@ workspace "Healthcare SaaS Platform" "A HIPAA-compliant, AI-native care coordina
         # External Systems (Integrations & Infra)
         # ---------------------------------------------------------------------
         group "Google Cloud Platform" {
-            gcpAuth = softwareSystem "Identity Platform" "Handles OIDC authentication & session management." "External"
-        }
-
-        group "External Providers" {
-            ehr = softwareSystem "EHR System" "External Clinical Records (Source of Truth)." "External"
-            telephony = softwareSystem "Telephony Provider" "Twilio/Vonage Voice/SMS Gateway." "External"
+            gcpAuth = softwareSystem "Identity Platform" "Handles OIDC authentication, MFA & session management." "External"
         }
 
         group "AWS Services" {
-            bedrock = softwareSystem "AWS Bedrock" "LLM for summarization & intent detection." "External"
+            vertex = softwareSystem "Google Vertex AI" "LLM (Gemini) for summarization & intent detection." "External"
             ses = softwareSystem "AWS SES" "Transactional Email Service." "External"
             s3 = softwareSystem "AWS S3" "Private, Encrypted Object Storage." "External"
+            connect = softwareSystem "Amazon Connect" "IVR & Contact Center flows." "External"
+            messaging = softwareSystem "AWS End User Messaging" "Transactional SMS." "External"
         }
 
         # ---------------------------------------------------------------------
@@ -37,7 +34,7 @@ workspace "Healthcare SaaS Platform" "A HIPAA-compliant, AI-native care coordina
             webApp = container "Web Dashboard" "Agent/Admin interface." "Vite + React" "Browser"
 
             # Application Layer
-            api = container "API Application" "Business logic, HIPAA compliance, Tenant isolation." "Python 3.11, FastAPI" "API"
+            api = container "API Application" "Business logic, HIPAA compliance (Audit/Masking), Tenant isolation." "Python 3.11, FastAPI" "API"
             worker = container "Background Worker" "Async processing (AI, Email, Reports)." "Python, Arq" "Worker"
 
             # Data Layer (Aptible Managed)
@@ -64,13 +61,15 @@ workspace "Healthcare SaaS Platform" "A HIPAA-compliant, AI-native care coordina
             api -> s3 "Generates Pre-signed URLs" "Boto3"
             
             # API -> External Integrations
-            api -> telephony "Controls calls" "REST API"
+            api -> connect "Controls calls" "Boto3 (Connect)"
+            api -> messaging "Sends SMS" "Boto3 (Pinpoint/SMS)"
+            api -> ehr "Syncs data" "FHIR/HL7"
             api -> ehr "Syncs data" "FHIR/HL7"
 
             # Worker Logic
             worker -> redis "Dequeues jobs" "Arq"
             worker -> database "Reads/Writes" "SQLAlchemy"
-            worker -> bedrock "Sends prompts" "Boto3"
+            worker -> vertex "Sends prompts" "Google Cloud SDK"
             worker -> ses "Sends emails" "Boto3"
             worker -> s3 "Processes files" "Boto3"
         }
