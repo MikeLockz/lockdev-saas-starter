@@ -44,7 +44,7 @@ This plan transforms the technical requirements into a linear, production-grade 
     name = "lockdev-api"
     version = "0.1.0"
     requires-python = ">=3.11"
-    dependencies = ["fastapi", "uvicorn[standard]", "structlog", "presidio-analyzer", "google-cloud-aiplatform", "arq", "asyncpg", "python-ulid", "slowapi", "httpx", "sentry-sdk[fastapi]", "secure", "honcho"]
+    dependencies = ["fastapi", "uvicorn[standard]", "structlog", "presidio-analyzer", "google-cloud-aiplatform", "arq", "asyncpg", "python-ulid", "slowapi", "httpx", "sentry-sdk[fastapi]", "secure", "honcho", "stripe"]
     ```
 *   **Verification:** `cd backend && uv sync && uv run python -c "import fastapi; print(fastapi.__version__)"`
 
@@ -382,6 +382,83 @@ This plan transforms the technical requirements into a linear, production-grade 
 *   **Instruction:** Configure creation rules to use a local `keys.txt` (for dev) and AWS KMS (for prod if needed) to encrypt `.env` files.
 *   **Verification:** `sops -e .env > .env.enc` works.
 
+#### Local Environment Variables (`.env.example`)
+*   **File/Path:** `.env.example`
+*   **Action:** Create
+*   **Instruction:** Create `.env.example` as a template for local development. Copy to `.env` and populate with real values.
+
+```bash
+# =============================================================================
+# APP CONFIGURATION
+# =============================================================================
+ENVIRONMENT=development
+DEBUG=true
+ALLOWED_HOSTS=localhost,127.0.0.1,api.localhost
+
+# =============================================================================
+# DATABASE (PostgreSQL)
+# =============================================================================
+DATABASE_URL=postgresql+asyncpg://app:dev@localhost:5432/app_db
+# For docker-compose, use: postgresql+asyncpg://app:dev@db:5432/app_db
+
+# =============================================================================
+# REDIS (Cache & Background Jobs)
+# =============================================================================
+REDIS_URL=redis://localhost:6379/0
+# For docker-compose, use: redis://redis:6379/0
+
+# =============================================================================
+# FIREBASE / GOOGLE CLOUD IDENTITY PLATFORM
+# =============================================================================
+# Download from Firebase Console > Project Settings > Service Accounts
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
+
+# Firebase Project Config (for backend token verification)
+FIREBASE_PROJECT_ID=your-project-id
+
+# =============================================================================
+# AWS SERVICES
+# =============================================================================
+AWS_REGION=us-west-2
+AWS_ACCESS_KEY_ID=your-access-key
+AWS_SECRET_ACCESS_KEY=your-secret-key
+
+# S3 (Document Storage)
+AWS_S3_BUCKET=lockdev-documents-dev
+
+# SES (Transactional Email)
+AWS_SES_FROM_EMAIL=noreply@yourdomain.com
+
+# =============================================================================
+# OBSERVABILITY
+# =============================================================================
+# Sentry DSN (leave empty to disable in local dev)
+SENTRY_DSN=
+
+# Log Level
+LOG_LEVEL=DEBUG
+
+# =============================================================================
+# SECURITY
+# =============================================================================
+# CORS: Frontend URL for cross-origin requests
+FRONTEND_URL=http://localhost:5173
+
+# =============================================================================
+# FRONTEND ENVIRONMENT (.env in frontend/ directory)
+# =============================================================================
+# VITE_API_URL=http://localhost:8000
+# VITE_FIREBASE_API_KEY=your-firebase-api-key
+# VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+# VITE_FIREBASE_PROJECT_ID=your-project-id
+# VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+# VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
+# VITE_FIREBASE_APP_ID=1:123456789:web:abcdef
+```
+
+*   **CRITICAL:** Never commit `.env` to version control. Only `.env.example` should be committed.
+*   **Verification:** Copy `.env.example` to `.env`, fill in values, run `docker compose up` — no missing env var errors.
+
 > **Commit Checkpoint:** "feat(infra): walking skeleton with docker-compose, makefile, and linting"
 
 ---
@@ -471,7 +548,10 @@ This plan transforms the technical requirements into a linear, production-grade 
         ├── id (ULID)
         ├── name
         ├── tax_id
-        └── settings_json
+        ├── settings_json
+        ├── stripe_customer_id
+        ├── subscription_status (enum: ACTIVE, PAST_DUE, CANCELED, INCOMPLETE)
+        └── deleted_at (soft delete)
         
         User (Authentication Record)
         ├── id (ULID)
@@ -512,6 +592,8 @@ This plan transforms the technical requirements into a linear, production-grade 
         ├── dob
         ├── legal_sex
         ├── gender_identity
+        ├── stripe_customer_id
+        ├── subscription_status
         └── is_self_managed (boolean - False for Dependents)
         
         Proxy (Care Manager)
@@ -598,11 +680,14 @@ This plan transforms the technical requirements into a linear, production-grade 
 *   **Instruction:**
     *   Define `ConsentDocument` (type: [TOS, HIPAA], version: string, content: text).
     *   Define `UserConsent` (user_id, document_id, signed_at_ip, signed_at_timestamp).
-    *   **TCPA Compliance:** Add boolean column `communication_consent_sms` to `User` or `PatientProfile` (default: False).
+    *   **TCPA Compliance:** Add boolean columns to `User` or `PatientProfile` (default: False):
+        *   `communication_consent_transactional` — Consent for transactional communications (appointment reminders, billing alerts, etc.)
+        *   `communication_consent_marketing` — Consent for promotional/marketing communications (newsletters, offers, etc.)
     *   **Logic:**
         *   Middleware/Dependency `verify_latest_consents`: Block API if critical docs (TOS/HIPAA) are unsigned.
-        *   **SMS Service:** Check `communication_consent_sms` MUST be True before sending non-emergency messages.
-*   **Verification:** User cannot access API until consent is recorded. Attempt to send SMS to opted-out user -> Error/Skip.
+        *   **Transactional Service:** Check `communication_consent_transactional` MUST be True before sending non-emergency messages.
+        *   **Marketing Service:** Check `communication_consent_marketing` MUST be True before sending any promotional content.
+*   **Verification:** User cannot access API until consent is recorded. Attempt to send message to opted-out user -> Error/Skip.
 
 ### Step 2.8: Internal Admin Panel (SQLAdmin)
 *   **File/Path:** `backend/src/admin.py`
@@ -624,6 +709,7 @@ This plan transforms the technical requirements into a linear, production-grade 
     
     class OrganizationAdmin(ModelView, model=Organization):
         column_list = [Organization.id, Organization.name, Organization.tax_id]
+        can_delete = False  # HIPAA: Soft delete only
     
     admin.add_view(UserAdmin)
     admin.add_view(PatientAdmin)
@@ -638,6 +724,10 @@ This plan transforms the technical requirements into a linear, production-grade 
 
 ## Phase 3: Frontend Foundations (App Logic)
 **Goal:** Interactive UI with Authentication and API integration.
+
+> [!TIP]
+> For a comprehensive list of all frontend views and routes, see [06 - Frontend Views & Routes.md](file:///Users/mbp/Development/lockdev-saas-starter/docs/06%20-%20Frontend%20Views%20%26%20Routes.md).
+
 
 ### Step 3.1: Shadcn UI Setup
 *   **File/Path:** `frontend/components.json`
@@ -981,7 +1071,7 @@ This plan transforms the technical requirements into a linear, production-grade 
 ### Step 4.3: OpenTofu AWS Setup
 *   **File/Path:** `infra/aws/main.tf`
 *   **Action:** Create
-*   **Instruction:** Define S3 bucket (private, encrypted), ECR repositories, SES identity, and Secrets Manager for GCP credentials.
+*   **Instruction:** Define S3 bucket (private, encrypted), SES identity, and Secrets Manager for GCP credentials.
     *   **CRITICAL:** S3 bucket MUST be in the **same AWS region as Aptible** (us-east-1 or us-west-2) to minimize latency and data transfer costs.
 *   **File/Path:** `infra/aws/ses.tf`
 *   **Action:** Create
@@ -1304,6 +1394,34 @@ This plan transforms the technical requirements into a linear, production-grade 
     *   Aptible will capture stdout and forward to the configured log drain (AWS CloudWatch or S3).
     *   **Verification:** Verify logs in Aptible Dashboard or AWS CloudWatch appear as parsed JSON fields, not text blobs.
 
+### Step 5.6: Stripe Subscription & Webhooks
+*   **File/Path:** `backend/src/services/billing.py`
+*   **Action:** Create
+*   **Instruction:**
+    *   Initialize `stripe.api_key`.
+    *   **Logic:**
+        *   `create_customer(owner_id, type="ORG"|"PATIENT")`: Create Stripe Customer.
+        *   `create_checkout_session(owner_id, price_id)`: Generate URL.
+        *   `handle_webhook(event)`: Update `subscription_status` for either `Organization` or `Patient` based on metadata.
+    *   **Webhook Security:** Verify signature using `stripe.Webhook.construct_event`.
+*   **File/Path:** `backend/src/api/webhooks.py`
+*   **Action:** Create
+*   **Instruction:** Expose `POST /api/webhooks/stripe`.
+*   **Verification:** Use Stripe CLI to trigger `invoice.payment_succeeded` -> Verify `subscription_status` updates in DB.
+
+### Step 5.7: Behavioral Analytics (Telemetry)
+*   **File/Path:** `backend/src/api/telemetry.py`
+*   **Action:** Create
+*   **Instruction:**
+    *   Create endpoint `POST /api/telemetry`.
+    *   Accept `event_name` and `properties` (dict).
+    *   Log using `structlog` with `event_type="analytics"`.
+    *   Ensure `actor_id` and `org_id` are attached from context.
+*   **File/Path:** `frontend/src/hooks/useAnalytics.ts`
+*   **Action:** Create
+*   **Instruction:** Create hook to call telemetry endpoint.
+*   **Verification:** Call endpoint -> Verify log appears in stdout/CloudWatch with `event_type="analytics"`.
+
 > **Commit Checkpoint:** "feat(backend): ai, twilio, textract, and sse integrations"
 
 ---
@@ -1378,9 +1496,178 @@ This plan transforms the technical requirements into a linear, production-grade 
     ```
 *   **Verification:** `d2 user-journey.d2 user-journey.svg` generates SVG.
 
-### Step 6.3: OpenAPI (Auto-Generated)
+### Step 6.3: OpenAPI & API Reference
 *   **Note:** OpenAPI is auto-generated from FastAPI endpoints (see Step 3.2).
+*   **File/Path:** `docs/05 - API Reference.md`
+*   **Action:** Reference
+*   **Instruction:** A comprehensive API endpoint reference with request/response examples, authentication, and error codes. Keep in sync with OpenAPI spec.
 *   **Verification:** Access `/docs` (Swagger UI) or `/redoc` (ReDoc) on the running API.
+
+### Step 6.4: Developer Documentation
+*   **File/Path:** `README.md`
+*   **Action:** Create
+*   **Instruction:** Create project README with overview, tech stack, and quickstart.
+    ```markdown
+    # Lockdev SaaS Starter
+
+    HIPAA-compliant healthcare SaaS platform with multi-tenant architecture.
+
+    ## Tech Stack
+    - **Backend:** FastAPI, SQLAlchemy (Async), PostgreSQL, Redis, ARQ
+    - **Frontend:** React, Vite, TanStack (Query + Router), Zustand
+    - **Auth:** Firebase/GCIP with MFA enforcement
+    - **Infra:** Aptible (Containers) + AWS (S3, SES, Route53)
+
+    ## Quick Start
+
+    1. Clone and install dependencies:
+       ```bash
+       make install-all
+       ```
+
+    2. Copy environment template and configure:
+       ```bash
+       cp .env.example .env
+       # Edit .env with your credentials (see docs/SETUP.md)
+       ```
+
+    3. Start local development:
+       ```bash
+       docker compose up -d db redis  # Start database services
+       make dev                        # Start API + Frontend
+       ```
+
+    4. Access:
+       - Frontend: http://localhost:5173
+       - API: http://localhost:8000
+       - API Docs: http://localhost:8000/docs
+
+    ## Documentation
+    - [API Reference](docs/05%20-%20API%20Reference.md) - Complete endpoint documentation
+    - [Setup Guide](docs/SETUP.md) - Cloud service provisioning
+    - [Architecture](docs/architecture/) - C4 and D2 diagrams
+    ```
+
+*   **File/Path:** `docs/SETUP.md`
+*   **Action:** Create
+*   **Instruction:** Create detailed setup guide documenting cloud service provisioning methods.
+    ```markdown
+    # Setup Guide
+
+    This guide covers provisioning all required cloud services for local development and production.
+
+    ## Cloud Services Overview
+
+    | Service | Purpose | Provisioning Method | Environment |
+    |---------|---------|---------------------|-------------|
+    | PostgreSQL | Primary database | Docker Compose | Local |
+    | Redis | Cache & job queue | Docker Compose | Local |
+    | Firebase/GCIP | Authentication | **ClickOps** (Console) | All |
+    | Sentry | Error tracking | **ClickOps** (Console) | All |
+    | AWS S3 | Document storage | **OpenTofu** | Staging/Prod |
+    | AWS SES | Transactional email | **OpenTofu** | Staging/Prod |
+    | AWS Route53 | DNS | **OpenTofu** | Prod |
+    | AWS IAM | Service accounts | **OpenTofu** | All |
+    | Aptible | Container hosting | **ClickOps** (Dashboard) | Staging/Prod |
+
+    ---
+
+    ## ClickOps Services (Manual Console Setup)
+
+    ### 1. Firebase / Google Cloud Identity Platform
+    **One-time setup via GCP Console**
+
+    1. Create project at [console.firebase.google.com](https://console.firebase.google.com)
+    2. Enable Authentication > Sign-in providers:
+       - Email/Password
+       - Google
+    3. Enable Multi-Factor Authentication for Staff users
+    4. Configure SMTP (AWS SES) for email delivery:
+       - Settings > Email Templates > SMTP Settings
+    5. Download service account JSON:
+       - Project Settings > Service Accounts > Generate New Private Key
+    6. Copy values to `.env`:
+       ```bash
+       GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json
+       FIREBASE_PROJECT_ID=your-project-id
+       ```
+    7. Copy Firebase web config to `frontend/.env`:
+       ```bash
+       VITE_FIREBASE_API_KEY=...
+       VITE_FIREBASE_AUTH_DOMAIN=...
+       VITE_FIREBASE_PROJECT_ID=...
+       ```
+
+    ### 2. Sentry
+    **One-time setup via sentry.io**
+
+    1. Create project at [sentry.io](https://sentry.io)
+    2. Select "FastAPI" as platform
+    3. Copy DSN to `.env`:
+       ```bash
+       SENTRY_DSN=https://xxx@xxx.ingest.sentry.io/xxx
+       ```
+    4. **HIPAA Note:** Disable "Send Default PII" in project settings
+
+    ### 3. Aptible
+    **One-time setup via Aptible Dashboard**
+
+    1. Create account at [aptible.com](https://aptible.com)
+    2. Create Environment (e.g., `lockdev-staging`)
+    3. Create App (e.g., `lockdev-api`)
+    4. Create Database (PostgreSQL 15)
+    5. Create Redis instance
+    6. Note the Git remote URL for deployments
+
+    ---
+
+    ## OpenTofu Services (Infrastructure as Code)
+
+    These services are provisioned automatically via OpenTofu in `infra/`.
+
+    ### Bootstrap (One-Time)
+    ```bash
+    cd infra
+    tofu init
+    tofu apply -target=module.backend  # S3 + DynamoDB for state
+    ```
+
+    ### Provision AWS Resources
+    ```bash
+    tofu apply
+    ```
+
+    **What gets created:**
+    - **S3 Bucket:** Document storage with versioning & encryption
+    - **SES:** Verified domain + SMTP credentials
+    - **Route53:** DNS zone + records
+    - **IAM:** Service roles with least-privilege policies
+
+    ### Environment-Specific Variables
+    Create `infra/terraform.tfvars`:
+    ```hcl
+    environment     = "staging"
+    domain          = "staging.lockdev.com"
+    ses_from_email  = "noreply@lockdev.com"
+    ```
+
+    ---
+
+    ## Local Development Credentials
+
+    For local development, you need:
+
+    | Credential | How to Get |
+    |------------|------------|
+    | Firebase Service Account | GCP Console > IAM > Service Accounts |
+    | AWS Access Keys | AWS Console > IAM > Users > Security Credentials |
+    | Sentry DSN | Sentry Dashboard > Project Settings > Client Keys |
+
+    Copy `.env.example` to `.env` and populate all values before running `make dev`.
+    ```
+*   **Verification:** 
+    *   `README.md` renders correctly on GitHub
+    *   `docs/SETUP.md` contains all cloud services with clear ClickOps vs OpenTofu distinction
 
 > **Commit Checkpoint:** "docs: add c4 and d2 architecture diagrams"
 

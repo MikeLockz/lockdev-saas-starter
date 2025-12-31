@@ -70,6 +70,7 @@ Principles:
   - email (aws ses)
   - sms (aws end user messaging)
   - voice (aws connect)
+  - payments (stripe)
 
 Should consider things like:
 - security
@@ -112,7 +113,7 @@ Should consider things like:
 
 | Entity | Description | Key Attributes |
 | --- | --- | --- |
-| **Organization** | The tenant (Clinic/Hospital) | `id`, `name`, `tax_id`, `settings_json` |
+| **Organization** | The tenant (Clinic/Hospital) | `id`, `name`, `tax_id`, `settings_json`, `deleted_at`, `stripe_customer_id`, `subscription_status` |
 | **User** | The authentication record | `id`, `email`, `password_hash`, `mfa_enabled` |
 | **AuditLog** | Immutable record of actions | `actor_id`, `target_resource`, `action_type`, `ip_address`, `timestamp` |
 
@@ -122,7 +123,7 @@ Should consider things like:
 | --- | --- | --- |
 | **Provider** | Licensed clinician profile | `npi_number`, `dea_number`, `state_licenses` (Array) |
 | **Staff** | Non-provider employee | `employee_id`, `job_title` (e.g., Nurse, Biller) |
-| **Patient** | The receiver of care | `mrn` (Medical Record Number), `dob`, `legal_sex`, `gender_identity` |
+| **Patient** | The receiver of care | `mrn`, `dob`, `legal_sex`, `stripe_customer_id`, `subscription_status` |
 | **Proxy** | The manager of care | `relationship_type` (Parent, Guardian) |
 
 ### Association Tables
@@ -142,6 +143,9 @@ Should consider things like:
 - **FR-03 Proxy Management**: Many-to-Many relationships between Proxies and Patients.
 - **FR-04 Granular Consent**: Proxy permissions support scopes: `can_view_clinical`, `can_view_billing`, `can_schedule`.
 - **FR-05 Safe Contact Protocol**: Distinguish standard vs "safe" contact to protect patient privacy.
+- **FR-06 Subscriptions**: Dual-sided subscription model:
+    - **Organization**: Pays to retain active platform status.
+    - **Patient**: Pays a per-patient subscription (managed by Patient or Proxy) for access.
 
 ### Assumptions
 
