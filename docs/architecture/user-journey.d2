@@ -1,0 +1,241 @@
+# ============================================================================
+# LOCKDEV - User Journey Diagrams (D2)
+# ============================================================================
+# Run: d2 user-journey.d2 user-journey.svg
+# Docs: https://d2lang.com/
+
+# ============================================================================
+# PATIENT ONBOARDING FLOW
+# ============================================================================
+patient-onboarding: {
+  label: "Patient Onboarding Flow"
+  
+  patient: {
+    label: "Patient"
+    shape: person
+    style.fill: "#1E88E5"
+  }
+  
+  app: {
+    label: "Mobile/Web App"
+    shape: rectangle
+    style.fill: "#42A5F5"
+  }
+  
+  firebase: {
+    label: "Firebase Auth"
+    shape: cloud
+    style.fill: "#FF9800"
+  }
+  
+  api: {
+    label: "Backend API"
+    shape: hexagon
+    style.fill: "#4CAF50"
+  }
+  
+  consent: {
+    label: "Consent Screen"
+    shape: rectangle
+    style.fill: "#9C27B0"
+  }
+  
+  dashboard: {
+    label: "Patient Dashboard"
+    shape: rectangle
+    style.fill: "#00BCD4"
+  }
+  
+  # Flow
+  patient -> app: "1. Opens App"
+  app -> firebase: "2. Authenticate (Email/Google)"
+  firebase -> app: "3. Returns JWT Token"
+  app -> api: "4. GET /api/user/me"
+  api -> app: "5. {requires_consent: true}"
+  app -> consent: "6. Show ToS/HIPAA Consent"
+  consent -> api: "7. POST /api/consent"
+  api -> app: "8. {ok: true}"
+  app -> dashboard: "9. Redirect to Dashboard"
+}
+
+# ============================================================================
+# MFA ENROLLMENT FLOW
+# ============================================================================
+mfa-flow: {
+  label: "Staff MFA Enrollment"
+  
+  staff: {
+    label: "Staff User"
+    shape: person
+    style.fill: "#673AB7"
+  }
+  
+  login: {
+    label: "Login Page"
+    shape: rectangle
+  }
+  
+  firebase: {
+    label: "Firebase Auth"
+    shape: cloud
+    style.fill: "#FF9800"
+  }
+  
+  mfa-prompt: {
+    label: "MFA Setup"
+    shape: diamond
+    style.fill: "#FF5722"
+  }
+  
+  authenticator: {
+    label: "Authenticator App"
+    shape: rectangle
+    style.fill: "#607D8B"
+  }
+  
+  dashboard: {
+    label: "Staff Dashboard"
+    shape: rectangle
+    style.fill: "#00BCD4"
+  }
+  
+  # Flow
+  staff -> login: "1. Enter credentials"
+  login -> firebase: "2. Verify password"
+  firebase -> mfa-prompt: "3. MFA required for staff"
+  mfa-prompt -> authenticator: "4. Scan QR code"
+  authenticator -> mfa-prompt: "5. Enter TOTP code"
+  mfa-prompt -> firebase: "6. Verify TOTP"
+  firebase -> dashboard: "7. Session created"
+}
+
+# ============================================================================
+# DOCUMENT UPLOAD FLOW
+# ============================================================================
+document-flow: {
+  label: "Document Processing Pipeline"
+  
+  user: {
+    label: "User"
+    shape: person
+    style.fill: "#1E88E5"
+  }
+  
+  frontend: {
+    label: "Frontend"
+    shape: rectangle
+    style.fill: "#42A5F5"
+  }
+  
+  api: {
+    label: "API"
+    shape: hexagon
+    style.fill: "#4CAF50"
+  }
+  
+  s3: {
+    label: "AWS S3"
+    shape: cylinder
+    style.fill: "#FF9800"
+  }
+  
+  lambda: {
+    label: "Virus Scan Lambda"
+    shape: rectangle
+    style.fill: "#FF5722"
+  }
+  
+  worker: {
+    label: "ARQ Worker"
+    shape: hexagon
+    style.fill: "#9C27B0"
+  }
+  
+  textract: {
+    label: "AWS Textract"
+    shape: cloud
+    style.fill: "#FF9800"
+  }
+  
+  db: {
+    label: "PostgreSQL"
+    shape: cylinder
+    style.fill: "#2196F3"
+  }
+  
+  sse: {
+    label: "SSE Event"
+    shape: rectangle
+    style.fill: "#00BCD4"
+  }
+  
+  # Flow
+  user -> frontend: "1. Select file"
+  frontend -> api: "2. GET /api/documents/upload-url"
+  api -> frontend: "3. Presigned S3 URL"
+  frontend -> s3: "4. PUT file directly"
+  s3 -> lambda: "5. S3 trigger"
+  lambda -> s3: "6. Tag: scan-status=clean"
+  frontend -> api: "7. POST /api/documents/process"
+  api -> worker: "8. Enqueue job"
+  worker -> s3: "9. Download file"
+  worker -> textract: "10. Extract text"
+  textract -> worker: "11. OCR results"
+  worker -> db: "12. Save extracted text"
+  worker -> sse: "13. Publish event"
+  sse -> frontend: "14. Real-time update"
+}
+
+# ============================================================================
+# SUBSCRIPTION FLOW
+# ============================================================================
+billing-flow: {
+  label: "Stripe Subscription Flow"
+  
+  admin: {
+    label: "Org Admin"
+    shape: person
+    style.fill: "#673AB7"
+  }
+  
+  app: {
+    label: "Frontend"
+    shape: rectangle
+    style.fill: "#42A5F5"
+  }
+  
+  api: {
+    label: "Backend API"
+    shape: hexagon
+    style.fill: "#4CAF50"
+  }
+  
+  stripe: {
+    label: "Stripe"
+    shape: cloud
+    style.fill: "#635BFF"
+  }
+  
+  webhook: {
+    label: "Webhook Handler"
+    shape: hexagon
+    style.fill: "#4CAF50"
+  }
+  
+  db: {
+    label: "PostgreSQL"
+    shape: cylinder
+    style.fill: "#2196F3"
+  }
+  
+  # Flow
+  admin -> app: "1. Click Subscribe"
+  app -> api: "2. POST /api/billing/checkout"
+  api -> stripe: "3. Create Checkout Session"
+  stripe -> app: "4. Checkout URL"
+  app -> stripe: "5. Redirect to Stripe"
+  stripe -> admin: "6. Complete payment"
+  stripe -> webhook: "7. checkout.session.completed"
+  webhook -> db: "8. Update subscription_status"
+  webhook -> app: "9. Redirect to success page"
+}

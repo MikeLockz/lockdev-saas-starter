@@ -1,0 +1,94 @@
+{
+  "name": "eval-estree-expression",
+  "description": "Safely evaluate JavaScript (estree) expressions, sync and async.",
+  "version": "3.0.1",
+  "license": "MIT",
+  "homepage": "https://github.com/jonschlinkert/eval-estree-expression",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/eval-estree-expression",
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/eval-estree-expression/issues"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "lib"
+  ],
+  "scripts": {
+    "test": "mocha --recursive --ignore 'test/fixtures/**'",
+    "test:ci": "nyc --reporter=lcov npm run test",
+    "cover": "nyc --reporter=text --reporter=html npm run test"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.26.5",
+    "@babel/eslint-plugin": "^7.25.9",
+    "@babel/parser": "^7.26.7",
+    "escodegen": "^2.1.0",
+    "gulp-format-md": "^2.0.0",
+    "mocha": "^11.1.0",
+    "nyc": "^17.1.0",
+    "prettier": "^3.4.2"
+  },
+  "keywords": [
+    "@babel",
+    "@babel/parser",
+    "6to5",
+    "abstract",
+    "analysis",
+    "ast",
+    "babel",
+    "babel-cli",
+    "compiler",
+    "context",
+    "ecma",
+    "ecmascript",
+    "es6",
+    "estree",
+    "esprima",
+    "eval",
+    "evaluate",
+    "expr-eval",
+    "expression",
+    "function",
+    "invoke",
+    "javascript",
+    "js",
+    "math",
+    "operator",
+    "parse",
+    "parser",
+    "parsing",
+    "run",
+    "safe",
+    "safe-eval",
+    "static",
+    "syntax",
+    "tc39",
+    "transpile",
+    "transpiler",
+    "tree"
+  ],
+  "verb": {
+    "toc": true,
+    "layout": "default",
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "related": {
+      "list": [
+        "whence"
+      ]
+    },
+    "reflinks": [
+      "acorn",
+      "escodegen",
+      "esprima"
+    ],
+    "lint": {
+      "reflinks": true
+    }
+  }
+}

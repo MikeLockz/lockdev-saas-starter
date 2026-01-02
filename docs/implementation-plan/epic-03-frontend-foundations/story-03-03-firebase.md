@@ -2,7 +2,7 @@
 **User Story:** As a User, I want to log in using my credentials, so that I can access my data.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 3.3 from `docs/03`
@@ -18,8 +18,8 @@
     - Expose `user`, `loading`, `signIn`, `signOut`.
 
 ## Acceptance Criteria
-- [ ] `useAuth` returns user object after login.
-- [ ] Token is available for API calls.
+- [x] `useAuth` returns user object after login.
+- [x] Token is available for API calls.
 
 ## Verification Plan
 **Manual Verification:**

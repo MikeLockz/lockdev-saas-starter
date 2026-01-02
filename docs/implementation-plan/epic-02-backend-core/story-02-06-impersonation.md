@@ -2,7 +2,7 @@
 **User Story:** As an Admin, I want to impersonate a patient to debug issues, but with strict auditing, so that I can support users complianty.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 2.6 from `docs/03`

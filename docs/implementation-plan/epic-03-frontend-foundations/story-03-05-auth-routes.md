@@ -2,7 +2,7 @@
 **User Story:** As a Security Engineer, I want to restrict access to pages based on user roles, so that patients cannot see staff views.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 3.5 from `docs/03`
@@ -20,9 +20,9 @@
 2.  **Router:** Wrap sensitive routes in `_auth.tsx` layout using `AuthGuard`.
 
 ## Acceptance Criteria
-- [ ] Unauthenticated user -> Redirect to Login.
-- [ ] Patient accessing Staff route -> 403 / Redirect.
-- [ ] Unsigned consent -> Redirect to Consent.
+- [x] Unauthenticated user -> Redirect to Login.
+- [x] Patient accessing Staff route -> 403 / Redirect.
+- [x] Unsigned consent -> Redirect to Consent.
 
 ## Verification Plan
 **Manual Verification:**

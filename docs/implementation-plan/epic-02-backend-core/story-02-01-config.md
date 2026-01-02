@@ -2,7 +2,7 @@
 **User Story:** As a Developer, I want centralized configuration and a secure HTTP client, so that I prevent SSRF attacks and manage secrets properly.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 2.1 from `docs/03`

@@ -2,7 +2,7 @@
 **User Story:** As a Developer, I want visual user flows, so that I understand complex interactions like Auth.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 6.2 from `docs/03`
@@ -16,7 +16,7 @@
     - Map MFA flow.
 
 ## Acceptance Criteria
-- [ ] `d2` compiles the file to SVG.
+- [x] `d2` compiles the file to SVG.
 
 ## Verification Plan
 **Manual Verification:**

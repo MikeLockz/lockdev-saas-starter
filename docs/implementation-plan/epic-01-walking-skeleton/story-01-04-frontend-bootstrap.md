@@ -2,7 +2,7 @@
 **User Story:** As a Frontend Developer, I want a Vite project with React and TypeScript, so that I can begin UI development.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 1.4 from `docs/03`

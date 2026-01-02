@@ -2,7 +2,7 @@
 **User Story:** As a Designer, I want a consistent UI component library, so that the app looks professional and accessible.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 3.1 from `docs/03`
@@ -17,8 +17,8 @@
 3.  **Components:** Install `button`, `input`, `form`, `card`, `dialog`, `dropdown-menu`, `toast`, `avatar`, `skeleton`.
 
 ## Acceptance Criteria
-- [ ] `npx shadcn-ui@latest add button` works.
-- [ ] Components render correctly in a test page.
+- [x] `npx shadcn-ui@latest add button` works.
+- [x] Components render correctly in a test page.
 
 ## Verification Plan
 **Manual Verification:**

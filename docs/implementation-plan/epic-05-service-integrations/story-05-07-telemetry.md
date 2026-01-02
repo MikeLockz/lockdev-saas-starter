@@ -2,7 +2,7 @@
 **User Story:** As a Product Manager, I want to track user behavior, so that we can improve the UX.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 5.7 from `docs/03`
@@ -11,11 +11,11 @@
 **Goal:** Simple telemetry endpoint.
 
 **Changes Required:**
-1.  **Endpoint:** `POST /api/telemetry`.
-2.  **Frontend Hook:** `useAnalytics`.
+1.  **Endpoint:** `POST /api/telemetry` and `POST /api/telemetry/batch`.
+2.  **Frontend Hook:** `useAnalytics` with `track`, `pageView`, `trackClick`, `trackError`.
 
 ## Acceptance Criteria
-- [ ] Events are logged with `event_type="analytics"`.
+- [x] Events are logged with `event_type="analytics"`.
 
 ## Verification Plan
 **Manual Verification:**

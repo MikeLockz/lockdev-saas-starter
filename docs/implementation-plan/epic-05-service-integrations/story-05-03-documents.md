@@ -2,7 +2,7 @@
 **User Story:** As a User, I want to upload documents and have them automatically processed, so that I don't have to manualy enter data.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 5.3 from `docs/03`
@@ -18,8 +18,8 @@
     - Store results in DB.
 
 ## Acceptance Criteria
-- [ ] Upload URL allows file upload.
-- [ ] Worker processes file and saves text.
+- [x] Upload URL allows file upload.
+- [x] Worker processes file and saves text.
 
 ## Verification Plan
 **Manual Verification:**

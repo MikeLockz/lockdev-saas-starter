@@ -2,7 +2,7 @@
 **User Story:** As a Developer, I want standard commands for common tasks, so that I don't have to remember complex CLI arguments.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 1.7 from `docs/03`

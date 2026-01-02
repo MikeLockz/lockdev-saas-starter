@@ -2,7 +2,7 @@
 **User Story:** As a Frontend Developer, I want up-to-date API docs, so that I know how to call endpoints.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 6.3 from `docs/03`
@@ -15,7 +15,7 @@
 2.  **Code:** Ensure FastAPI generates correct schema (Epic 3 covered this, this story is for verification).
 
 ## Acceptance Criteria
-- [ ] `/docs` endpoint works.
+- [x] `/docs` endpoint works.
 
 ## Verification Plan
 **Manual Verification:**

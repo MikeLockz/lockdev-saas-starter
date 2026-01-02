@@ -2,7 +2,7 @@
 **User Story:** As a Developer, I want end-to-end type safety, so that I catch API integration errors at compile time.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 3.2 from `docs/03`
@@ -18,8 +18,8 @@
     - Script `generate:types` in `package.json`.
 
 ## Acceptance Criteria
-- [ ] `pnpm generate:types` creates `src/lib/api-types.d.ts`.
-- [ ] `pnpm generate:types` creates `src/lib/api-schemas.ts`.
+- [x] `pnpm generate:types` creates `src/lib/api-types.d.ts`.
+- [x] `pnpm generate:types` creates `src/lib/api-schemas.ts`.
 
 ## Verification Plan
 **Manual Verification:**

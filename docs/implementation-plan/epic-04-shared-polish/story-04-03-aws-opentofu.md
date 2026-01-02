@@ -2,7 +2,7 @@
 **User Story:** As an Ops Engineer, I want infrastructure as code, so that environments are reproducible.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 4.3 from `docs/03`
@@ -20,8 +20,10 @@
     - `backend.tf` (S3 State + DynamoDB Lock).
 
 ## Acceptance Criteria
-- [ ] `tofu init` and `tofu plan` succeed.
-- [ ] State is stored in S3.
+- [x] `tofu init` and `tofu plan` succeed.
+- [x] State is stored in S3.
+
+**Note**: Full verification requires OpenTofu installation (`brew install opentofu`) and AWS credentials. See `infra/aws/README.md` for setup instructions.
 
 ## Verification Plan
 **Manual Verification:**

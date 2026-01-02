@@ -2,7 +2,7 @@
 **User Story:** As a Developer, I want a clean monorepo structure with git initialized, so that I can organize backend, frontend, and infrastructure code.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 1.1 from `docs/03`

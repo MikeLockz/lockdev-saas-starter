@@ -2,7 +2,7 @@
 **User Story:** As a Developer, I want automated linting and formatting, so that the codebase remains consistent and clean.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 1.6 from `docs/03`

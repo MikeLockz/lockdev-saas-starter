@@ -2,7 +2,7 @@
 **User Story:** As a Patient, I want to receive SMS reminders, so that I don't miss appointments.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 5.2 from `docs/03`
@@ -17,8 +17,8 @@
     - **Safety:** Mask phone numbers in logs.
 
 ## Acceptance Criteria
-- [ ] `send_sms` sends message (verified via AWS console/logs).
-- [ ] Logs show masked phone numbers.
+- [x] `send_sms` sends message (verified via AWS console/logs).
+- [x] Logs show masked phone numbers.
 
 ## Verification Plan
 **Manual Verification:**
