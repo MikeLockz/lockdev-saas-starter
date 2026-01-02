@@ -2,7 +2,7 @@
 **User Story:** As a Developer, I want an async database connection, so that the API remains performant under load.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 2.2 from `docs/03`

@@ -1,0 +1,67 @@
+name: Infrastructure Security Scan
+
+on:
+  pull_request:
+    paths:
+      - 'infra/**'
+      - '.github/workflows/infra-scan.yml'
+  push:
+    branches:
+      - main
+      - staging
+    paths:
+      - 'infra/**'
+  workflow_dispatch:
+
+jobs:
+  checkov:
+    runs-on: ubuntu-latest
+    name: Checkov Infrastructure Scan
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Checkov
+        run: |
+          pip install checkov
+          checkov --version
+      
+      - name: Run Checkov scan
+        id: checkov
+        run: |
+          checkov -d infra \
+            --framework terraform \
+            --output cli \
+            --output junitxml \
+            --output-file-path console,checkov-results.xml \
+            --soft-fail
+        continue-on-error: true
+      
+      - name: Upload Checkov results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: checkov-results
+          path: checkov-results.xml
+      
+      - name: Evaluate results
+        run: |
+          if [ -f checkov-results.xml ]; then
+            # Check if there are any failures
+            if grep -q 'failures="[1-9]' checkov-results.xml; then
+              echo "❌ Checkov found security issues in infrastructure code"
+              echo "Review the scan results above for details"
+              exit 1
+            else
+              echo "✅ No security issues found"
+            fi
+          else
+            echo "⚠️  Checkov results file not found"
+            exit 1
+          fi

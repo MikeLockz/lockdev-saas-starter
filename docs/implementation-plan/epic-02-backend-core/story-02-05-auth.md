@@ -2,7 +2,7 @@
 **User Story:** As a Security Engineer, I want secure authentication with MFA enforcement, so that we meet HIPAA requirements.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 2.5 from `docs/03`

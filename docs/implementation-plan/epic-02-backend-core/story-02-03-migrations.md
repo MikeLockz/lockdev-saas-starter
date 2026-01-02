@@ -2,7 +2,7 @@
 **User Story:** As a Developer, I want version-controlled database migrations, so that schema changes are safe and reproducible.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 2.3 from `docs/03`

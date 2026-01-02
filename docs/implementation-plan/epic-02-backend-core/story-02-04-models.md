@@ -2,7 +2,7 @@
 **User Story:** As a System Architect, I want the core entity models defined, so that we can support multi-tenancy and role separation.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 2.4 from `docs/03`

@@ -16,19 +16,19 @@
 | Step 4.7 | `story-04-07-policy-code.md` | Pending |
 
 ## Execution Order
-1.  [ ] `story-04-01-logging.md`
-2.  [ ] `story-04-02-audit-rls.md`
-3.  [ ] `story-04-02b-read-audit.md`
-4.  [ ] `story-04-03-aws-opentofu.md`
-5.  [ ] `story-04-04-background-worker.md`
-6.  [ ] `story-04-05-aptible-deploy.md`
-7.  [ ] `story-04-06-dns-certs.md`
-8.  [ ] `story-04-07-policy-code.md`
+1.  [x] `story-04-01-logging.md`
+2.  [x] `story-04-02-audit-rls.md`
+3.  [x] `story-04-02b-read-audit.md`
+4.  [x] `story-04-03-aws-opentofu.md`
+5.  [x] `story-04-04-background-worker.md`
+6.  [x] `story-04-05-aptible-deploy.md`
+7.  [x] `story-04-06-dns-certs.md`
+8.  [x] `story-04-07-policy-code.md`
 
 ## Epic Verification
 **Completion Criteria:**
-- [ ] Logs are JSON formatted and masked.
-- [ ] RLS policies enforce tenant isolation.
-- [ ] Read access to PHI is logged.
-- [ ] Infra code passes Checkov scan.
-- [ ] Deployment pipeline works.
+- [x] Logs are JSON formatted and masked.
+- [x] RLS policies enforce tenant isolation.
+- [x] Read access to PHI is logged.
+- [x] Infra code passes Checkov scan.
+- [x] Deployment pipeline works.

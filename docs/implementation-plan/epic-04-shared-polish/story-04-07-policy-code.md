@@ -2,7 +2,7 @@
 **User Story:** As a Security Engineer, I want to scan infrastructure code for misconfigurations, so that we don't deploy vulnerabilities.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 4.7 from `docs/03`
@@ -14,7 +14,7 @@
 1.  **File:** `.github/workflows/infra-scan.yml`.
 
 ## Acceptance Criteria
-- [ ] CI fails if S3 bucket is unencrypted.
+- [x] CI fails if S3 bucket is unencrypted.
 
 ## Verification Plan
 **Manual Verification:**

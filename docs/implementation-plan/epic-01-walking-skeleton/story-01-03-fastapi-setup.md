@@ -2,7 +2,7 @@
 **User Story:** As a Backend Developer, I want a production-ready FastAPI application shell, so that I have security, observability, and health checks from day one.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 1.3 from `docs/03`

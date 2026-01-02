@@ -2,7 +2,7 @@
 **User Story:** As a Compliance Officer, I want to know when Staff views a patient's record, not just when they edit it.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 4.2b from `docs/03`
@@ -16,7 +16,7 @@
     - Log `READ_ACCESS` event to `audit_logs` (via side-effect/background task to avoid blocking).
 
 ## Acceptance Criteria
-- [ ] `GET /api/patients/{id}` creates an audit log entry.
+- [x] `GET /api/patients/{id}` creates an audit log entry.
 
 ## Verification Plan
 **Manual Verification:**

@@ -1,0 +1,82 @@
+{
+  "name": "openapi-zod-client",
+  "version": "1.18.3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/astahmer/openapi-zod-client.git"
+  },
+  "author": "Alexandre Stahmer <alexandre.stahmer@gmail.com>",
+  "main": "dist/openapi-zod-client.cjs.js",
+  "module": "dist/openapi-zod-client.esm.js",
+  "homepage": "https://github.com/astahmer/openapi-zod-client",
+  "bin": {
+    "openapi-zod-client": "./bin.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@apidevtools/swagger-parser": "^10.1.0",
+    "@liuli-util/fs-extra": "^0.1.0",
+    "@zodios/core": "^10.3.1",
+    "axios": "^1.6.0",
+    "cac": "^6.7.14",
+    "handlebars": "^4.7.7",
+    "openapi-types": "^12.0.2",
+    "openapi3-ts": "3.1.0",
+    "pastable": "^2.2.1",
+    "prettier": "^2.7.1",
+    "tanu": "^0.1.13",
+    "ts-pattern": "^5.0.1",
+    "whence": "^2.0.0",
+    "zod": "^3.19.1"
+  },
+  "devDependencies": {
+    "@astahmer/eslint-config-ts": "^0.1.5",
+    "@types/degit": "^2.8.3",
+    "@types/fs-extra": "^9.0.13",
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "^18.11.4",
+    "@types/prettier": "^2.7.1",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "degit": "^2.8.4",
+    "eslint": "^8.26.0",
+    "eslint-formatter-pretty": "^4.1.0",
+    "fast-glob": "^3.2.12",
+    "type-fest": "^2.19.0",
+    "typescript": "^5.1.6",
+    "vitest": "^0.22.1"
+  },
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts",
+      "cli.ts"
+    ]
+  },
+  "files": [
+    "bin.js",
+    "src",
+    "dist",
+    "cli",
+    "README.md"
+  ],
+  "keywords": [
+    "openapi",
+    "swagger",
+    "zod",
+    "client",
+    "zodios",
+    "generator",
+    "typescript"
+  ],
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "vitest",
+    "test:ci": "vitest run",
+    "lint:ts": "tsc --noEmit",
+    "lint": "eslint -c .eslintrc.build.js './src/**/*.ts' --cache --format=pretty",
+    "lint:fix": "eslint -c .eslintrc.build.js './src/**/*.ts' --cache --format=pretty --fix"
+  }
+}

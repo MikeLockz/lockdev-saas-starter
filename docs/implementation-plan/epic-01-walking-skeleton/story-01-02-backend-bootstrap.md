@@ -2,7 +2,7 @@
 **User Story:** As a Backend Developer, I want a Python project initialized with `uv` and FastAPI, so that I have a modern, fast environment.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 1.2 from `docs/03`

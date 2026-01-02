@@ -2,7 +2,7 @@
 **User Story:** As an SRE, I want a deployment pipeline, so that code goes to production reliably.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 4.5 from `docs/03`
@@ -18,7 +18,7 @@
     - Deploy code (`git push`).
 
 ## Acceptance Criteria
-- [ ] CI pipeline runs successfully (dry run).
+- [x] CI pipeline runs successfully (dry run).
 
 ## Verification Plan
 **Manual Verification:**

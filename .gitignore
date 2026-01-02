@@ -45,3 +45,4 @@ env/
 .git/
 .svn/
 .hg/
+backend/secrets/

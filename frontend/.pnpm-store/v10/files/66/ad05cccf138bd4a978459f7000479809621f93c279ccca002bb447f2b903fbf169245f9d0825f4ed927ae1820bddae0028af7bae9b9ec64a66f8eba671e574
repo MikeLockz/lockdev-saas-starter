@@ -1,0 +1,123 @@
+{
+  "name": "pastable",
+  "version": "2.2.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/astahmer/pastable.git"
+  },
+  "author": "Alexandre Stahmer <alexandre.stahmer@gmail.com>",
+  "main": "dist/pastable.cjs.js",
+  "module": "dist/pastable.esm.js",
+  "exports": {
+    ".": {
+      "module": "./dist/pastable.esm.js",
+      "default": "./dist/pastable.cjs.js"
+    },
+    "./react": {
+      "module": "./react/dist/pastable-react.esm.js",
+      "default": "./react/dist/pastable-react.cjs.js"
+    },
+    "./utils": {
+      "module": "./utils/dist/pastable-utils.esm.js",
+      "default": "./utils/dist/pastable-utils.cjs.js"
+    },
+    "./server": {
+      "module": "./server/dist/pastable-server.esm.js",
+      "default": "./server/dist/pastable-server.cjs.js"
+    },
+    "./typings": {
+      "module": "./typings/dist/pastable-typings.esm.js",
+      "default": "./typings/dist/pastable-typings.cjs.js"
+    },
+    "./machines": {
+      "module": "./machines/dist/pastable-machines.esm.js",
+      "default": "./machines/dist/pastable-machines.cjs.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "dist",
+    "react",
+    "utils",
+    "machines",
+    "typings",
+    "server"
+  ],
+  "preconstruct": {
+    "exports": true,
+    "entrypoints": [
+      "index.ts",
+      "react.ts",
+      "utils.ts",
+      "machines.ts",
+      "typings.ts",
+      "server.ts"
+    ]
+  },
+  "packageManager": "pnpm@6.24.0",
+  "sideEffects": false,
+  "devDependencies": {
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@preconstruct/cli": "^2.3.0",
+    "@types/node": "^18.11.18",
+    "@types/prettier": "^2.7.2",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@types/rimraf": "^3.0.2",
+    "c8": "^7.12.0",
+    "esno": "^0.16.3",
+    "mitata": "0.1.6",
+    "prettier": "^2.8.3",
+    "publint": "^0.1.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^4.1.1",
+    "typescript": "^4.9.4",
+    "vitest": "^0.27.2",
+    "xstate": "^4.35.2"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "xstate": ">=4.32.1"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "xstate": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=14.x"
+  },
+  "keywords": [
+    "pastable",
+    "snippets",
+    "reusable",
+    "utils",
+    "tiny",
+    "lodash",
+    "gists",
+    "typescript",
+    "react"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@babel/core": "^7.20.12",
+    "ts-toolbelt": "^9.6.0",
+    "type-fest": "^3.5.3"
+  },
+  "scripts": {
+    "build": "pnpm preconstruct build",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "release": "pnpm publint && pnpm build && pnpm publish && git push --follow-tags"
+  }
+}

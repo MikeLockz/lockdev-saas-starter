@@ -1,0 +1,36 @@
+{
+  "name": "tanu",
+  "version": "0.1.13",
+  "description": "Generate TypeScript types and interfaces using JavaScript or TypeScript code",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "typescript",
+    "compiler api",
+    "abstraction",
+    "wrapper",
+    "tsc",
+    "generation"
+  ],
+  "author": "Aries Clark <me@ariesclark.com> (https://ariesclark.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "@ariesclark/eslint-config": "^1.4.0",
+    "@types/node": "^18.6.3",
+    "eslint": "^8.21.0"
+  },
+  "dependencies": {
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  }
+}

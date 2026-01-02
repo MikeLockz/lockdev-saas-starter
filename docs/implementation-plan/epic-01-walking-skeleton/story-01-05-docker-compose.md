@@ -2,7 +2,7 @@
 **User Story:** As a Developer, I want to run the full stack with a single command, so that my local environment matches production components.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 1.5 from `docs/03`

@@ -1,0 +1,100 @@
+{
+  "name": "whence",
+  "description": "Add context awareness to your apps and frameworks by safely evaluating user-defined conditional expressions. Useful for evaluating expressions in config files, prompts, key bindings, completions, templates, and many other user cases.",
+  "version": "2.1.0",
+  "homepage": "https://github.com/jonschlinkert/whence",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/whence",
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/whence/issues"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha --recursive --ignore 'test/support/**'",
+    "test:ci": "nyc --reporter=lcov npm run test",
+    "cover": "nyc --reporter=text --reporter=html npm run test"
+  },
+  "dependencies": {
+    "@babel/parser": "^7.28.0",
+    "eval-estree-expression": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.28.0",
+    "@babel/eslint-plugin": "^7.27.1",
+    "eslint": "8.57.0",
+    "esprima": "^4.0.1",
+    "gulp-format-md": "^2.0.0",
+    "mocha": "^9.2.2",
+    "prettier": "^3.6.2"
+  },
+  "keywords": [
+    "@babel",
+    "@babel/parser",
+    "6to5",
+    "abstract",
+    "analysis",
+    "ast",
+    "babel",
+    "clause",
+    "compiler",
+    "context",
+    "context awareness",
+    "ecma",
+    "ecmascript",
+    "es6",
+    "esprima",
+    "estree",
+    "eval",
+    "evaluate",
+    "expr-eval",
+    "expression",
+    "function",
+    "invoke",
+    "javascript",
+    "js",
+    "match",
+    "math",
+    "object",
+    "operator",
+    "parse",
+    "parser",
+    "parsing",
+    "run",
+    "safe",
+    "safe-eval",
+    "static",
+    "syntax",
+    "tc39",
+    "transpile",
+    "transpiler",
+    "tree",
+    "when"
+  ],
+  "verb": {
+    "toc": false,
+    "layout": "default",
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "lint": {
+      "reflinks": true
+    },
+    "related": {
+      "list": []
+    },
+    "reflinks": [
+      "estree",
+      "eval-estree-expression"
+    ]
+  }
+}

@@ -2,7 +2,7 @@
 **User Story:** As a Developer, I want a structured way to handle API data and client state, so that the app is responsive and data-consistent.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 3.4 from `docs/03`
@@ -21,8 +21,8 @@
     - Toasts, Modals, Sidebar state.
 
 ## Acceptance Criteria
-- [ ] QueryClient provider wraps app.
-- [ ] Auth store persists session data.
+- [x] QueryClient provider wraps app.
+- [x] Auth store persists session data.
 
 ## Verification Plan
 **Manual Verification:**

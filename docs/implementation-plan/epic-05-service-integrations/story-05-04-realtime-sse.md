@@ -2,7 +2,7 @@
 **User Story:** As a User, I want to see updates immediately without refreshing, so that I can react quickly.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 5.4 from `docs/03`
@@ -17,7 +17,7 @@
     - Redis Pub/Sub listener.
 
 ## Acceptance Criteria
-- [ ] Client receives events pushed from backend.
+- [x] Client receives events pushed from backend.
 
 ## Verification Plan
 **Manual Verification:**

@@ -2,7 +2,7 @@
 **User Story:** As a Mobile User, I want the app to work on my phone and handle offline states gracefully, so that I can use it on the go.
 
 ## Status
-- [ ] **Pending**
+- [x] **Done**
 
 ## Context
 - **Roadmap Ref:** Step 3.7 from `docs/03`
@@ -18,9 +18,9 @@
 2.  **Manifest:** Define icons, colors.
 
 ## Acceptance Criteria
-- [ ] App is installable.
-- [ ] Offline mode shows "No Internet" but loads app shell.
-- [ ] API requests are NOT cached.
+- [x] App is installable.
+- [x] Offline mode shows "No Internet" but loads app shell.
+- [x] API requests are NOT cached.
 
 ## Verification Plan
 **Manual Verification:**

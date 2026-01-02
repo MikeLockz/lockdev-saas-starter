@@ -2,7 +2,7 @@
 **User Story:** As a User, I want AI-powered summaries, so that I can quickly understand complex data.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 5.1 from `docs/03`
@@ -18,8 +18,8 @@
     - **Compliance:** Ensure "Zero Retention" config.
 
 ## Acceptance Criteria
-- [ ] Service returns valid JSON summary.
-- [ ] Unit tests mock the API call successfully.
+- [x] Service returns valid JSON summary.
+- [x] Unit tests mock the API call successfully.
 
 ## Verification Plan
 **Automated Tests:**

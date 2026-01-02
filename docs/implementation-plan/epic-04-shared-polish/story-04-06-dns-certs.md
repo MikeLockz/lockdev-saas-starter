@@ -2,7 +2,7 @@
 **User Story:** As an Admin, I want a custom domain with HTTPS, so that users trust the site.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 4.6 from `docs/03`
@@ -15,7 +15,7 @@
 2.  **Manual:** Provision Endpoint in Aptible.
 
 ## Acceptance Criteria
-- [ ] DNS records created in Terraform state.
+- [x] DNS records created in Terraform state.
 
 ## Verification Plan
 **Manual Verification:**

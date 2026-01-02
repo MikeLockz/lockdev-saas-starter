@@ -2,7 +2,7 @@
 **User Story:** As a Contributor, I want clear setup instructions, so that I can start working quickly.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 6.4 from `docs/03`
@@ -15,7 +15,7 @@
 2.  **File:** `docs/SETUP.md` (Cloud provisioning).
 
 ## Acceptance Criteria
-- [ ] Instructions are accurate and copy-pasteable.
+- [x] Instructions are accurate and copy-pasteable.
 
 ## Verification Plan
 **Manual Verification:**

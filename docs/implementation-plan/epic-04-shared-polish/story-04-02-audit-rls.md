@@ -2,7 +2,7 @@
 **User Story:** As a Compliance Officer, I want strict data isolation and an immutable audit trail, so that we meet HIPAA requirements.
 
 ## Status
-- [ ] **Pending**
+- [x] **Complete**
 
 ## Context
 - **Roadmap Ref:** Step 4.2 from `docs/03`
@@ -19,8 +19,8 @@
 2.  **Code:** Ensure `set_session_context` (Epic 2) is correctly populating the variables.
 
 ## Acceptance Criteria
-- [ ] User A cannot query User B's data (RLS).
-- [ ] All writes generate an Audit Log entry.
+- [x] User A cannot query User B's data (RLS).
+- [x] All writes generate an Audit Log entry.
 
 ## Verification Plan
 **Automated Tests:**
