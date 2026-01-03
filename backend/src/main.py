@@ -15,7 +15,7 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.admin import setup_admin
-from src.api import admin, consent, events, telemetry, users, webhooks
+from src.api import admin, consent, events, organizations, telemetry, users, webhooks, invitations, patients, providers, staff, appointments, documents, proxies, billing, notifications, messaging, calls, tasks, support
 from src.config import settings
 from src.database import engine, get_db
 from src.logging import configure_logging, request_id_ctx
@@ -54,10 +54,27 @@ setup_admin(app, engine)
 
 app.include_router(admin.router, prefix=settings.API_V1_STR)
 app.include_router(consent.router, prefix=settings.API_V1_STR)
-app.include_router(users.router, prefix=settings.API_V1_STR)
+app.include_router(users.router, prefix=f"{settings.API_V1_STR}/users") # Wait, checking users registration again.
+app.include_router(organizations.router, prefix=f"{settings.API_V1_STR}/organizations")
+app.include_router(patients.router, prefix=f"{settings.API_V1_STR}/organizations/{{org_id}}/patients", tags=["patients"])
+app.include_router(providers.router, prefix=f"{settings.API_V1_STR}/organizations/{{org_id}}/providers", tags=["providers"])
+app.include_router(staff.router, prefix=f"{settings.API_V1_STR}/organizations/{{org_id}}/staff", tags=["staff"])
+app.include_router(appointments.router, prefix=f"{settings.API_V1_STR}/organizations/{{org_id}}/appointments", tags=["appointments"])
+app.include_router(documents.router, prefix=settings.API_V1_STR, tags=["documents"])
+app.include_router(invitations.router, prefix=f"{settings.API_V1_STR}/invitations")
+app.include_router(proxies.router, prefix=f"{settings.API_V1_STR}/organizations/{{org_id}}/patients/{{patient_id}}/proxies", tags=["proxies"])
 app.include_router(events.router, prefix=settings.API_V1_STR)
 app.include_router(telemetry.router, prefix=settings.API_V1_STR)
 app.include_router(webhooks.router, prefix=settings.API_V1_STR)
+app.include_router(billing.router, prefix=f"{settings.API_V1_STR}/organizations/{{org_id}}/billing", tags=["billing"])
+app.include_router(notifications.router, prefix=f"{settings.API_V1_STR}/users/me/notifications", tags=["notifications"])
+app.include_router(messaging.router, prefix=f"{settings.API_V1_STR}/users/me/threads", tags=["messaging"])
+app.include_router(calls.router, prefix=f"{settings.API_V1_STR}/organizations/{{org_id}}/calls", tags=["calls"])
+app.include_router(tasks.router, prefix=f"{settings.API_V1_STR}/organizations/{{org_id}}/tasks", tags=["tasks"])
+app.include_router(tasks.user_tasks_router, prefix=f"{settings.API_V1_STR}/users/tasks", tags=["tasks"])
+app.include_router(support.router, prefix=f"{settings.API_V1_STR}/support", tags=["support"])
+
+
 
 # 1. TrustedHostMiddleware
 app.add_middleware(

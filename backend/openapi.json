@@ -130,11 +130,11 @@
         ]
       }
     },
-    "/api/v1/me": {
+    "/api/v1/users/me": {
       "get": {
         "summary": "Read Users Me",
-        "description": "Get current user.",
-        "operationId": "read_users_me_api_v1_me_get",
+        "description": "Get current user profile.",
+        "operationId": "read_users_me_api_v1_users_me_get",
         "responses": {
           "200": {
             "description": "Successful Response",
@@ -152,6 +152,1130 @@
             "HTTPBearer": []
           }
         ]
+      },
+      "delete": {
+        "summary": "Delete Users Me",
+        "description": "Soft delete user account (HIPAA compliance - data retained).\n\nThis action cannot be undone. The account becomes inaccessible but\ndata is retained for legal compliance.",
+        "operationId": "delete_users_me_api_v1_users_me_delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDeleteRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDeleteResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Update Users Me",
+        "description": "Update current user's profile.",
+        "operationId": "update_users_me_api_v1_users_me_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/me/sessions": {
+      "get": {
+        "summary": "List Sessions",
+        "description": "List all active sessions for the current user.",
+        "operationId": "list_sessions_api_v1_users_me_sessions_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 50,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/me/sessions/{session_id}": {
+      "delete": {
+        "summary": "Revoke Session",
+        "description": "Terminate a specific session.\n\nIf session_id matches the current session, this is equivalent to logout.",
+        "operationId": "revoke_session_api_v1_users_me_sessions__session_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionRevokeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/me/export": {
+      "post": {
+        "summary": "Request Export",
+        "description": "Request a HIPAA data export.\n\nThis initiates a background job. The user receives an email with a\nsecure download link when the export is ready (typically 24-48 hours).",
+        "operationId": "request_export_api_v1_users_me_export_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserExportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserExportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/me/communication-preferences": {
+      "get": {
+        "summary": "Get Communication Preferences",
+        "description": "Get user's communication opt-in status.",
+        "operationId": "get_communication_preferences_api_v1_users_me_communication_preferences_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunicationPreferencesRead"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "patch": {
+        "summary": "Update Communication Preferences",
+        "description": "Update communication preferences.\n\nPer TCPA compliance, transactional_consent must be True for appointment\nreminders and billing alerts. marketing_consent controls promotional\ncommunications.",
+        "operationId": "update_communication_preferences_api_v1_users_me_communication_preferences_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommunicationPreferencesUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CommunicationPreferencesRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/me/mfa/setup": {
+      "post": {
+        "summary": "Mfa Setup",
+        "description": "Initialize MFA setup.\n\nReturns a TOTP secret and provisioning URI for authenticator apps.\nThe secret is stored temporarily until verified.",
+        "operationId": "mfa_setup_api_v1_users_me_mfa_setup_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MFASetupResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/me/mfa/verify": {
+      "post": {
+        "summary": "Mfa Verify",
+        "description": "Complete MFA setup by verifying a TOTP code.\n\nReturns backup codes (shown only once - user must save them).",
+        "operationId": "mfa_verify_api_v1_users_me_mfa_verify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MFAVerifyRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MFAVerifyResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/me/mfa/disable": {
+      "post": {
+        "summary": "Mfa Disable",
+        "description": "Disable MFA for the account.\n\nRequires password confirmation for security.",
+        "operationId": "mfa_disable_api_v1_users_me_mfa_disable_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MFADisableRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MFADisableResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/users/device-token": {
+      "post": {
+        "summary": "Register Device Token",
+        "description": "Register an FCM token for push notifications.\n\nIf the token already exists for this user, updates the device info.",
+        "operationId": "register_device_token_api_v1_users_device_token_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeviceTokenRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceTokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Remove Device Token",
+        "description": "Remove an FCM token (logout cleanup).",
+        "operationId": "remove_device_token_api_v1_users_device_token_delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeviceTokenDeleteRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeviceTokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/organizations": {
+      "get": {
+        "summary": "List Organizations",
+        "description": "List all organizations the current user is a member of.",
+        "operationId": "list_organizations_api_v1_organizations_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/OrganizationRead"
+                  },
+                  "type": "array",
+                  "title": "Response List Organizations Api V1 Organizations Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create Organization",
+        "description": "Create a new organization and make the current user an ADMIN.",
+        "operationId": "create_organization_api_v1_organizations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/organizations/{org_id}": {
+      "get": {
+        "summary": "Get Organization",
+        "description": "Get organization details. Requires membership.",
+        "operationId": "get_organization_api_v1_organizations__org_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Org Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Organization",
+        "description": "Update organization. Requires ADMIN role.",
+        "operationId": "update_organization_api_v1_organizations__org_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Org Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/organizations/{org_id}/members": {
+      "get": {
+        "summary": "List Members",
+        "description": "List members of an organization. Requires membership.",
+        "operationId": "list_members_api_v1_organizations__org_id__members_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Org Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MemberRead"
+                  },
+                  "title": "Response List Members Api V1 Organizations  Org Id  Members Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/organizations/{org_id}/invitations": {
+      "post": {
+        "summary": "Create Invitation",
+        "description": "Invite a user to the organization. Requires ADMIN role.",
+        "operationId": "create_invitation_api_v1_organizations__org_id__invitations_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Org Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InvitationCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvitationRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Invitations",
+        "description": "List pending invitations. Requires ADMIN role.",
+        "operationId": "list_invitations_api_v1_organizations__org_id__invitations_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Org Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InvitationRead"
+                  },
+                  "title": "Response List Invitations Api V1 Organizations  Org Id  Invitations Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/invitations/{token}": {
+      "get": {
+        "summary": "Get Invitation",
+        "description": "Get invitation details from token. Public endpoint.",
+        "operationId": "get_invitation_api_v1_invitations__token__get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvitationRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/invitations/{token}/accept": {
+      "post": {
+        "summary": "Accept Invitation",
+        "description": "Accept an invitation. Requires user to be logged in.",
+        "operationId": "accept_invitation_api_v1_invitations__token__accept_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvitationRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/events": {
+      "get": {
+        "tags": [
+          "Real-Time Events"
+        ],
+        "summary": "Get Events",
+        "description": "Server-Sent Events stream for real-time updates.\n\nThis endpoint establishes a long-lived HTTP connection for\nserver-to-client push notifications.\n\nThe client will receive events such as:\n- notification.new: New notification created\n- message.new: New message in subscribed thread\n- appointment.reminder: Upcoming appointment reminder\n- appointment.updated: Appointment rescheduled/cancelled\n- document.processed: Document finished OCR/virus scan\n- document.scan_complete: Virus scan completed\n- consent.required: New consent document available\n- call.incoming: Incoming call (Call Center)\n- call.completed: Call ended\n- heartbeat: Keep-alive (every 30 seconds)\n\nAuthentication can be provided via:\n- Authorization header: Bearer {token}\n- Query parameter: ?token={token}\n\nReturns:\n    StreamingResponse with text/event-stream content type",
+        "operationId": "get_events_api_v1_events_get",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "JWT token for authentication",
+              "title": "Token"
+            },
+            "description": "JWT token for authentication"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/events/organizations/{org_id}": {
+      "get": {
+        "tags": [
+          "Real-Time Events"
+        ],
+        "summary": "Get Org Events",
+        "description": "Organization-scoped SSE stream for admin views.\n\nThis endpoint provides organization-level events in addition\nto standard user events. Requires ADMIN or SUPER_ADMIN role.\n\nAdditional event types:\n- member.joined: New member accepted invitation\n- member.removed: Member removed from organization\n- subscription.updated: Subscription status changed\n- license.expiring: Provider license expiring soon\n\nArgs:\n    org_id: Organization ID\n\nReturns:\n    StreamingResponse with text/event-stream content type\n\nRaises:\n    HTTPException: If user is not admin of the organization",
+        "operationId": "get_org_events_api_v1_events_organizations__org_id__get",
+        "parameters": [
+          {
+            "name": "org_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Org Id"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "JWT token for authentication",
+              "title": "Token"
+            },
+            "description": "JWT token for authentication"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/telemetry": {
+      "post": {
+        "tags": [
+          "Telemetry"
+        ],
+        "summary": "Log Telemetry Event",
+        "description": "Log a behavioral analytics event.\n\nThis endpoint accepts telemetry events from the frontend and logs them\nusing structlog with `event_type=\"analytics\"` for CloudWatch filtering.\n\n**Use Cases:**\n- Page views and navigation patterns\n- Feature usage tracking\n- Button clicks and user interactions\n- Error events (client-side)\n- Performance metrics\n\n**Privacy:**\n- Do not send PII/PHI in the properties\n- User ID is automatically attached from context\n- IP address is logged for basic analytics\n\nArgs:\n    event: The telemetry event with name and properties\n\nReturns:\n    Confirmation that the event was logged",
+        "operationId": "log_telemetry_event_api_v1_telemetry_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TelemetryEvent"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TelemetryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/telemetry/batch": {
+      "post": {
+        "tags": [
+          "Telemetry"
+        ],
+        "summary": "Log Telemetry Batch",
+        "description": "Log multiple telemetry events in a batch.\n\nThis endpoint is optimized for sending multiple events at once,\nreducing the number of HTTP requests from the frontend.\n\n**Use Cases:**\n- Offline event buffering\n- Page unload event flushing\n- Session aggregation\n\nArgs:\n    events: List of telemetry events\n\nReturns:\n    Confirmation that all events were logged",
+        "operationId": "log_telemetry_batch_api_v1_telemetry_batch_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/TelemetryEvent"
+                },
+                "type": "array",
+                "title": "Events"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TelemetryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/webhooks/stripe": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Handle Stripe Webhook",
+        "description": "Handle incoming Stripe webhook events.\n\nThis endpoint receives events from Stripe and processes them:\n- Verifies the webhook signature for security\n- Parses the event and dispatches to appropriate handlers\n- Updates database records based on event type\n\n**Security:**\n- Signature verification using STRIPE_WEBHOOK_SECRET\n- Raw body parsing to prevent tampering\n\n**Handled Events:**\n- checkout.session.completed: Subscription activated\n- invoice.payment_succeeded: Payment confirmed\n- invoice.payment_failed: Payment failed, status updated\n- customer.subscription.updated: Subscription status changed\n- customer.subscription.deleted: Subscription canceled\n\nReturns:\n    Success response for Stripe acknowledgment",
+        "operationId": "handle_stripe_webhook_api_v1_webhooks_stripe_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Handle Stripe Webhook Api V1 Webhooks Stripe Post"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/health": {
@@ -189,6 +1313,60 @@
   },
   "components": {
     "schemas": {
+      "CommunicationPreferencesRead": {
+        "properties": {
+          "transactional_consent": {
+            "type": "boolean",
+            "title": "Transactional Consent"
+          },
+          "marketing_consent": {
+            "type": "boolean",
+            "title": "Marketing Consent"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transactional_consent",
+          "marketing_consent",
+          "updated_at"
+        ],
+        "title": "CommunicationPreferencesRead",
+        "description": "Communication preferences response."
+      },
+      "CommunicationPreferencesUpdate": {
+        "properties": {
+          "transactional_consent": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transactional Consent"
+          },
+          "marketing_consent": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Marketing Consent"
+          }
+        },
+        "type": "object",
+        "title": "CommunicationPreferencesUpdate",
+        "description": "Update communication preferences."
+      },
       "ConsentSignRequest": {
         "properties": {
           "document_id": {
@@ -201,6 +1379,68 @@
           "document_id"
         ],
         "title": "ConsentSignRequest"
+      },
+      "DeviceTokenDeleteRequest": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token"
+        ],
+        "title": "DeviceTokenDeleteRequest",
+        "description": "Request to delete a device token."
+      },
+      "DeviceTokenRequest": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "maxLength": 512,
+            "minLength": 1,
+            "title": "Token"
+          },
+          "platform": {
+            "type": "string",
+            "pattern": "^(ios|android|web)$",
+            "title": "Platform"
+          },
+          "device_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Device Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token",
+          "platform"
+        ],
+        "title": "DeviceTokenRequest",
+        "description": "Request to register a device token."
+      },
+      "DeviceTokenResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "DeviceTokenResponse",
+        "description": "Response after registering device token."
       },
       "HTTPValidationError": {
         "properties": {
@@ -228,6 +1468,680 @@
         ],
         "title": "ImpersonationRequest"
       },
+      "InvitationCreate": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "role"
+        ],
+        "title": "InvitationCreate"
+      },
+      "InvitationRead": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "title": "Email"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "organization_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Organization Id"
+          },
+          "invited_by_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Invited By User Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expires At"
+          },
+          "accepted_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accepted At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "role",
+          "id",
+          "token",
+          "status",
+          "organization_id",
+          "invited_by_user_id",
+          "created_at",
+          "expires_at"
+        ],
+        "title": "InvitationRead"
+      },
+      "MFADisableRequest": {
+        "properties": {
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "password"
+        ],
+        "title": "MFADisableRequest",
+        "description": "Request to disable MFA."
+      },
+      "MFADisableResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "mfa_enabled": {
+            "type": "boolean",
+            "title": "Mfa Enabled",
+            "default": false
+          },
+          "disabled_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Disabled At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "disabled_at"
+        ],
+        "title": "MFADisableResponse",
+        "description": "Response after disabling MFA."
+      },
+      "MFASetupResponse": {
+        "properties": {
+          "secret": {
+            "type": "string",
+            "title": "Secret"
+          },
+          "provisioning_uri": {
+            "type": "string",
+            "title": "Provisioning Uri"
+          },
+          "qr_code_data_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Qr Code Data Url"
+          },
+          "expires_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expires At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "secret",
+          "provisioning_uri",
+          "expires_at"
+        ],
+        "title": "MFASetupResponse",
+        "description": "Response for MFA setup initialization."
+      },
+      "MFAVerifyRequest": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "maxLength": 6,
+            "minLength": 6,
+            "pattern": "^[0-9]{6}$",
+            "title": "Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "title": "MFAVerifyRequest",
+        "description": "Request to verify MFA code and enable MFA."
+      },
+      "MFAVerifyResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "mfa_enabled": {
+            "type": "boolean",
+            "title": "Mfa Enabled",
+            "default": true
+          },
+          "backup_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Backup Codes"
+          },
+          "enabled_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Enabled At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "backup_codes",
+          "enabled_at"
+        ],
+        "title": "MFAVerifyResponse",
+        "description": "Response after MFA verification."
+      },
+      "MemberRead": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "User Id"
+          },
+          "organization_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Organization Id"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "organization_id",
+          "role",
+          "created_at"
+        ],
+        "title": "MemberRead"
+      },
+      "OrganizationCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "Name"
+          },
+          "tax_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tax Id"
+          },
+          "settings_json": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Settings Json"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "OrganizationCreate"
+      },
+      "OrganizationRead": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "Name"
+          },
+          "tax_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tax Id"
+          },
+          "settings_json": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Settings Json"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "stripe_customer_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stripe Customer Id"
+          },
+          "subscription_status": {
+            "type": "string",
+            "title": "Subscription Status"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          },
+          "member_count": {
+            "type": "integer",
+            "title": "Member Count"
+          },
+          "patient_count": {
+            "type": "integer",
+            "title": "Patient Count"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "id",
+          "stripe_customer_id",
+          "subscription_status",
+          "is_active",
+          "member_count",
+          "patient_count",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "OrganizationRead"
+      },
+      "OrganizationUpdate": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "tax_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tax Id"
+          },
+          "settings_json": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Settings Json"
+          }
+        },
+        "type": "object",
+        "title": "OrganizationUpdate"
+      },
+      "SessionListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/SessionRead"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit",
+            "default": 50
+          },
+          "offset": {
+            "type": "integer",
+            "title": "Offset",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "SessionListResponse",
+        "description": "Paginated list of sessions."
+      },
+      "SessionRead": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "device": {
+            "type": "string",
+            "title": "Device"
+          },
+          "ip_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ip Address"
+          },
+          "location": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Location"
+          },
+          "is_current": {
+            "type": "boolean",
+            "title": "Is Current",
+            "default": false
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "last_active_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Last Active At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "device",
+          "created_at",
+          "last_active_at"
+        ],
+        "title": "SessionRead",
+        "description": "Session information response."
+      },
+      "SessionRevokeResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "terminated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Terminated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "terminated_at"
+        ],
+        "title": "SessionRevokeResponse",
+        "description": "Response after revoking a session."
+      },
+      "TelemetryEvent": {
+        "properties": {
+          "event_name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Event Name"
+          },
+          "properties": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Properties"
+          }
+        },
+        "type": "object",
+        "required": [
+          "event_name"
+        ],
+        "title": "TelemetryEvent",
+        "description": "Telemetry event payload from the frontend."
+      },
+      "TelemetryResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "event_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Event Id"
+          }
+        },
+        "type": "object",
+        "title": "TelemetryResponse",
+        "description": "Response confirming event was logged."
+      },
+      "UserDeleteRequest": {
+        "properties": {
+          "password": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Password"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "password"
+        ],
+        "title": "UserDeleteRequest",
+        "description": "Request body for account deletion."
+      },
+      "UserDeleteResponse": {
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "title": "Success",
+            "default": true
+          },
+          "deleted_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Deleted At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "deleted_at"
+        ],
+        "title": "UserDeleteResponse",
+        "description": "Response after account deletion."
+      },
+      "UserExportRequest": {
+        "properties": {
+          "format": {
+            "type": "string",
+            "pattern": "^(json|pdf)$",
+            "title": "Format",
+            "default": "json"
+          },
+          "include_documents": {
+            "type": "boolean",
+            "title": "Include Documents",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "UserExportRequest",
+        "description": "Request body for HIPAA data export."
+      },
+      "UserExportResponse": {
+        "properties": {
+          "export_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Export Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "PENDING"
+          },
+          "estimated_completion": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Estimated Completion"
+          }
+        },
+        "type": "object",
+        "required": [
+          "export_id",
+          "estimated_completion"
+        ],
+        "title": "UserExportResponse",
+        "description": "Response after requesting data export."
+      },
       "UserRead": {
         "properties": {
           "id": {
@@ -240,15 +2154,7 @@
             "format": "email",
             "title": "Email"
           },
-          "is_active": {
-            "type": "boolean",
-            "title": "Is Active"
-          },
-          "is_super_admin": {
-            "type": "boolean",
-            "title": "Is Super Admin"
-          },
-          "full_name": {
+          "display_name": {
             "anyOf": [
               {
                 "type": "string"
@@ -257,12 +2163,32 @@
                 "type": "null"
               }
             ],
-            "title": "Full Name"
+            "title": "Display Name"
           },
-          "role": {
-            "type": "string",
-            "title": "Role",
-            "default": "guest"
+          "is_super_admin": {
+            "type": "boolean",
+            "title": "Is Super Admin",
+            "default": false
+          },
+          "mfa_enabled": {
+            "type": "boolean",
+            "title": "Mfa Enabled",
+            "default": false
+          },
+          "requires_consent": {
+            "type": "boolean",
+            "title": "Requires Consent",
+            "default": true
+          },
+          "transactional_consent": {
+            "type": "boolean",
+            "title": "Transactional Consent",
+            "default": true
+          },
+          "marketing_consent": {
+            "type": "boolean",
+            "title": "Marketing Consent",
+            "default": false
           },
           "created_at": {
             "type": "string",
@@ -279,12 +2205,30 @@
         "required": [
           "id",
           "email",
-          "is_active",
-          "is_super_admin",
           "created_at",
           "updated_at"
         ],
-        "title": "UserRead"
+        "title": "UserRead",
+        "description": "Full user profile response."
+      },
+      "UserUpdate": {
+        "properties": {
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 255
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          }
+        },
+        "type": "object",
+        "title": "UserUpdate",
+        "description": "Update user profile fields."
       },
       "ValidationError": {
         "properties": {

@@ -5,6 +5,7 @@ import sqlalchemy as sa
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from src.config import settings
 from src.models import Base
+from httpx import AsyncClient
 
 # Use the configured database URL (assuming it points to a test/dev DB)
 TEST_DATABASE_URL = settings.DATABASE_URL
@@ -34,7 +35,41 @@ def mock_presidio():
     from unittest.mock import MagicMock
     with patch("src.logging.get_analyzer_engine") as mock_engine:
         mock_instance = MagicMock()
-        # Mock analyze method to return empty list or whatever minimal needed
         mock_instance.analyze.return_value = []
         mock_engine.return_value = mock_instance
         yield mock_engine
+
+@pytest.fixture
+async def client() -> AsyncClient:
+    from httpx import ASGITransport
+    from src.main import app
+    
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://localhost"
+    ) as client:
+        yield client
+
+@pytest.fixture
+async def test_user(db_session):
+    from src.models import User
+    import uuid
+    
+    email = f"test_user_{uuid.uuid4()}@example.com"
+    user = User(
+        email=email,
+        password_hash="dummy_hash",
+        display_name="Test User",
+    )
+    db_session.add(user)
+    await db_session.commit()
+    await db_session.refresh(user)
+    
+    yield user
+    
+    await db_session.delete(user)
+    await db_session.commit()
+
+@pytest.fixture
+async def test_user_token_headers(test_user):
+    # In local env, auth.py accepts "mock_{email}" as a valid token
+    return {"Authorization": f"Bearer mock_{test_user.email}"}
