@@ -141,6 +141,40 @@ async def process_document_task(ctx: dict[str, Any], s3_key: str) -> dict[str, A
         }
 
 
+
+async def send_invitation_email(ctx: dict[str, Any], email: str, token: str, org_name: str) -> dict[str, Any]:
+    """
+    Send organization invitation email.
+    
+    Args:
+        ctx: ARQ context
+        email: Recipient email
+        token: Invitation token
+        org_name: Organization name
+    """
+    job_id = ctx.get("job_id", "unknown")
+    invite_url = f"{settings.FRONTEND_URL}/invitations/{token}"
+    subject = f"You've been invited to join {org_name}"
+    body = f"""
+    Hello,
+
+    You have been invited to join {org_name} on Lockdev SaaS.
+    Click the link below to accept the invitation:
+
+    {invite_url}
+
+    This link will expire in 48 hours.
+    """
+    
+    logger.info(f"Sending invitation email to {email}", extra={"job_id": job_id, "invite_url": invite_url})
+    
+    # Simulate sending
+    await asyncio.sleep(0.5)
+    
+    logger.info("Invitation email sent", extra={"job_id": job_id, "to": email})
+    return {"status": "sent", "to": email, "org_name": org_name}
+
+
 # =============================================================================
 # Worker Lifecycle Hooks
 # =============================================================================
@@ -227,6 +261,8 @@ class WorkerSettings:
     functions = [
         health_check_task,
         send_email_task,
+        send_email_task,
+        send_invitation_email,
         process_document_task,
     ]
     

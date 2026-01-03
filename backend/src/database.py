@@ -65,17 +65,18 @@ def receive_after_begin(session, transaction, connection):
         # But better to use parameters if possible. 
         # set_config(name, value, is_local) is better: SELECT set_config('app.current_user_id', :uid, false)
         
-        if uid:
-            session.execute(
-                text("SELECT set_config('app.current_user_id', :uid, false)"), 
-                {"uid": str(uid)}
-            )
-        
-        if tid:
-            session.execute(
-                text("SELECT set_config('app.current_tenant_id', :tid, false)"), 
-                {"tid": str(tid)}
-            )
+        if connection:
+            if uid:
+                connection.execute(
+                    text("SELECT set_config('app.current_user_id', :uid, false)"), 
+                    {"uid": str(uid)}
+                )
+            
+            if tid:
+                connection.execute(
+                    text("SELECT set_config('app.current_tenant_id', :tid, false)"), 
+                    {"tid": str(tid)}
+                )
 
 # DB Tracing: Inject request_id
 @event.listens_for(engine.sync_engine, "before_cursor_execute", retval=True)

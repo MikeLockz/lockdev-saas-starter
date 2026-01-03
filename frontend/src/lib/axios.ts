@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useOrgStore } from "@/store/org-store";
+import { auth } from "@/lib/firebase";
 
 // Whitelist of allowed domains
 const ALLOWED_DOMAINS = [
@@ -17,7 +19,25 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(
-  (config) => {
+  async (config) => {
+    // 1. Inject Organization ID
+    const currentOrgId = useOrgStore.getState().currentOrgId;
+    if (currentOrgId && config.headers) {
+      config.headers["X-Organization-Id"] = currentOrgId;
+    }
+
+    // 2. Inject Auth Token
+    if (auth.currentUser && config.headers) {
+      try {
+        const token = await auth.currentUser.getIdToken();
+        config.headers["Authorization"] = `Bearer ${token}`;
+      } catch (error) {
+        console.warn("Failed to get ID token", error);
+        // Continue without token, let backend handle 401
+      }
+    }
+
+    // 3. Security Check
     if (config.url) {
       try {
         // Handle relative URLs (they are safe as they go to baseURL)
@@ -48,4 +68,17 @@ api.interceptors.request.use(
   (error) => {
     return Promise.reject(error);
   },
+);
+
+// Add response interceptor for global error handling (optional but good practice)
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // Handle unauthorized access (e.g., redirect to login)
+      // For now, we rely on the component or router to handle 401s, 
+      // but we could dispatch a global event here.
+    }
+    return Promise.reject(error);
+  }
 );

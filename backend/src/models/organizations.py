@@ -21,6 +21,10 @@ class Organization(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
 
     members: Mapped[List["OrganizationMember"]] = relationship(back_populates="organization")
     patients: Mapped[List["OrganizationPatient"]] = relationship(back_populates="organization")
+    documents: Mapped[List["Document"]] = relationship(back_populates="organization")
+    message_threads: Mapped[List["MessageThread"]] = relationship(back_populates="organization")
+    calls: Mapped[List["Call"]] = relationship(back_populates="organization")
+    tasks: Mapped[List["Task"]] = relationship(back_populates="organization")
 
 class OrganizationMember(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
     __tablename__ = "organization_memberships"

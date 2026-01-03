@@ -16,9 +16,22 @@
 | **Epic 4: Shared Polish** | [x] Done | Builder | `epic-04-shared-polish/` |
 | **Epic 5: Service Integrations** | [x] Done | Builder | `epic-05-service-integrations/` |
 | **Epic 6: Architecture Docs** | [x] Done | Builder | `epic-06-architecture-docs/` |
+| **Epic 7: User Identity** | [x] Done | Builder | `epic-07-user-identity/` |
+| **Epic 8: Organizations** | [x] Done | Builder | `epic-08-organizations/` |
+| **Epic 9: Dashboard Wiring** | [x] Done | Builder | `epic-09-dashboard-wiring/` |
+| **Epic 10: Patient Management** | [x] Done | Builder | `epic-10-patient-management/` |
+| **Epic 11: Providers & Care Teams** | [x] Done | Builder | `epic-11-providers-care-teams/` |
+| **Epic 12: Appointments** | [x] Done | Builder | `epic-12-appointments/` |
+| **Epic 13: Document Management** | [x] Done | Builder | `epic-13-document-management/` |
+| **Epic 14: Proxies** | [x] Done | Builder | `epic-14-proxies/` |
+| **Epic 15: Billing** | [x] Done | Builder | `epic-15-billing/` |
+| **Epic 16: Notifications & Messaging** | [x] Done | Builder | `epic-16-notifications-messaging/` |
+| **Epic 17: Call Center & Tasks** | [x] Done | Builder | `epic-17-call-center-tasks/` |
+| **Epic 18: Support & Compliance** | [x] Done | Builder | `epic-18-support-compliance/` |
+| **Epic 19: Super Admin** | [x] Done | Builder | `epic-19-super-admin/` |
 
 ## Execution Strategy
-1.  Execute Epics sequentially (1 -> 6).
+1.  Execute Epics sequentially (1 -> 19).
 2.  Within each Epic, execute Stories sequentially (unless marked parallel).
 3.  **Continuous Execution:** Upon successful verification of a Story or Epic, **IMMEDIATELY** proceed to the next available Story or Epic. Do not stop for user confirmation unless explicitly "BLOCKED" or if a critical failure occurs.
 4.  **Blocking:** Do not proceed to the next Epic until the current Epic's verification criteria are met.

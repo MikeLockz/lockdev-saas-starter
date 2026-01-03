@@ -46,3 +46,4 @@ env/
 .svn/
 .hg/
 backend/secrets/
+shadcn-admin/

@@ -1,5 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useAuth } from '@/hooks/useAuth'
+import { useCurrentUser } from '@/hooks/api/useCurrentUser'
+import { useOrganizations } from '@/hooks/api/useOrganizations'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
 import {
@@ -14,50 +16,91 @@ import {
   Calendar,
   MessageSquare,
   Activity,
+  AlertCircle,
 } from 'lucide-react'
+import { Skeleton } from '@/components/ui/skeleton'
+import { Button } from '@/components/ui/button'
 
 export const Route = createFileRoute('/_auth/dashboard')({
   component: Dashboard,
 })
 
-const stats = [
-  {
-    title: 'Total Patients',
-    value: '1,234',
-    description: '+12% from last month',
-    icon: Users,
-  },
-  {
-    title: 'Appointments Today',
-    value: '24',
-    description: '8 remaining',
-    icon: Calendar,
-  },
-  {
-    title: 'Unread Messages',
-    value: '7',
-    description: '3 urgent',
-    icon: MessageSquare,
-  },
-  {
-    title: 'Active Sessions',
-    value: '573',
-    description: '+201 since last hour',
-    icon: Activity,
-  },
-]
-
 function Dashboard() {
-  const { user } = useAuth()
+  const { user: firebaseUser } = useAuth()
+  const { data: currentUser, isLoading: isUserLoading, error: userError, refetch: refetchUser } = useCurrentUser()
+  const { data: organizations, isLoading: isOrgsLoading, error: orgsError, refetch: refetchOrgs } = useOrganizations()
+
+  const isLoading = isUserLoading || isOrgsLoading
+  const hasError = userError || orgsError
+
+  // Derive display name from API data first, fallback to Firebase
+  const displayName = currentUser?.display_name ||
+    firebaseUser?.displayName ||
+    firebaseUser?.email?.split('@')[0] ||
+    'User'
+
+  // Stats derived from real data where available
+  const stats = [
+    {
+      title: 'Organizations',
+      value: isLoading ? '-' : (organizations?.length?.toString() || '0'),
+      description: 'Active organizations',
+      icon: Users,
+    },
+    {
+      title: 'Appointments Today',
+      value: '-',
+      description: 'Coming soon',
+      icon: Calendar,
+    },
+    {
+      title: 'Unread Messages',
+      value: '-',
+      description: 'Coming soon',
+      icon: MessageSquare,
+    },
+    {
+      title: 'Active Sessions',
+      value: '-',
+      description: 'Coming soon',
+      icon: Activity,
+    },
+  ]
+
+  if (hasError) {
+    return (
+      <>
+        <Header fixed>
+          <h1 className="text-lg font-semibold">Dashboard</h1>
+        </Header>
+        <Main>
+          <div className="flex flex-col items-center justify-center gap-4 py-12">
+            <AlertCircle className="h-12 w-12 text-destructive" />
+            <h2 className="text-lg font-semibold">Failed to load dashboard</h2>
+            <p className="text-muted-foreground">
+              {userError?.message || orgsError?.message || 'An error occurred'}
+            </p>
+            <Button onClick={() => { refetchUser(); refetchOrgs(); }}>
+              Try Again
+            </Button>
+          </div>
+        </Main>
+      </>
+    )
+  }
 
   return (
     <>
       <Header fixed>
         <h1 className="text-lg font-semibold">Dashboard</h1>
         <div className="ml-auto flex items-center space-x-4">
-          <span className="text-sm text-muted-foreground hidden sm:inline">
-            Welcome back, {user?.displayName || user?.email?.split('@')[0] || 'User'}
-          </span>
+          {isLoading ? (
+            <Skeleton className="h-4 w-32" />
+          ) : (
+            <span className="text-sm text-muted-foreground hidden sm:inline">
+              Welcome back, {displayName}
+            </span>
+          )}
         </div>
       </Header>
 
@@ -74,10 +117,19 @@ function Dashboard() {
                   <stat.icon className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">{stat.value}</div>
-                  <p className="text-xs text-muted-foreground">
-                    {stat.description}
-                  </p>
+                  {isLoading ? (
+                    <>
+                      <Skeleton className="h-8 w-16 mb-1" />
+                      <Skeleton className="h-3 w-24" />
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-2xl font-bold">{stat.value}</div>
+                      <p className="text-xs text-muted-foreground">
+                        {stat.description}
+                      </p>
+                    </>
+                  )}
                 </CardContent>
               </Card>
             ))}
@@ -110,34 +162,49 @@ function Dashboard() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {[
-                    { name: 'John Smith', action: 'Appointment completed', time: '2 min ago' },
-                    { name: 'Sarah Johnson', action: 'New message received', time: '15 min ago' },
-                    { name: 'Mike Davis', action: 'Document uploaded', time: '1 hour ago' },
-                    { name: 'Emily Brown', action: 'Appointment scheduled', time: '2 hours ago' },
-                    { name: 'Robert Wilson', action: 'Prescription renewed', time: '3 hours ago' },
-                  ].map((activity, index) => (
-                    <div key={index} className="flex items-center gap-4">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-muted">
-                        <span className="text-sm font-medium">
-                          {activity.name.charAt(0)}
-                        </span>
+                {isLoading ? (
+                  <div className="space-y-4">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <div key={i} className="flex items-center gap-4">
+                        <Skeleton className="h-9 w-9 rounded-full" />
+                        <div className="flex-1 space-y-2">
+                          <Skeleton className="h-4 w-24" />
+                          <Skeleton className="h-3 w-32" />
+                        </div>
+                        <Skeleton className="h-3 w-16" />
                       </div>
-                      <div className="flex-1 space-y-1">
-                        <p className="text-sm font-medium leading-none">
-                          {activity.name}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {activity.action}
-                        </p>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {[
+                      { name: 'John Smith', action: 'Appointment completed', time: '2 min ago' },
+                      { name: 'Sarah Johnson', action: 'New message received', time: '15 min ago' },
+                      { name: 'Mike Davis', action: 'Document uploaded', time: '1 hour ago' },
+                      { name: 'Emily Brown', action: 'Appointment scheduled', time: '2 hours ago' },
+                      { name: 'Robert Wilson', action: 'Prescription renewed', time: '3 hours ago' },
+                    ].map((activity, index) => (
+                      <div key={index} className="flex items-center gap-4">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-muted">
+                          <span className="text-sm font-medium">
+                            {activity.name.charAt(0)}
+                          </span>
+                        </div>
+                        <div className="flex-1 space-y-1">
+                          <p className="text-sm font-medium leading-none">
+                            {activity.name}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            {activity.action}
+                          </p>
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {activity.time}
+                        </div>
                       </div>
-                      <div className="text-xs text-muted-foreground">
-                        {activity.time}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>

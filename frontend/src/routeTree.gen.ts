@@ -9,18 +9,35 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ConsentRouteImport } from './routes/consent'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as InviteTokenRouteImport } from './routes/invite.$token'
+import { Route as AuthSettingsRouteImport } from './routes/_auth/settings'
+import { Route as AuthNotificationsRouteImport } from './routes/_auth/notifications'
+import { Route as AuthMessagesRouteImport } from './routes/_auth/messages'
 import { Route as AuthDashboardRouteImport } from './routes/_auth/dashboard'
+import { Route as AuthTasksIndexRouteImport } from './routes/_auth/tasks/index'
+import { Route as AuthSuperAdminIndexRouteImport } from './routes/_auth/super-admin/index'
+import { Route as AuthPatientsIndexRouteImport } from './routes/_auth/patients/index'
+import { Route as AuthMessagesIndexRouteImport } from './routes/_auth/messages/index'
+import { Route as AuthHelpIndexRouteImport } from './routes/_auth/help/index'
+import { Route as AuthCallCenterIndexRouteImport } from './routes/_auth/call-center/index'
+import { Route as AuthAppointmentsIndexRouteImport } from './routes/_auth/appointments/index'
+import { Route as AuthSuperAdminUsersRouteImport } from './routes/_auth/super-admin/users'
+import { Route as AuthSuperAdminOrganizationsRouteImport } from './routes/_auth/super-admin/organizations'
+import { Route as AuthPatientsNewRouteImport } from './routes/_auth/patients/new'
+import { Route as AuthPatientsPatientIdRouteImport } from './routes/_auth/patients/$patientId'
+import { Route as AuthMessagesThreadIdRouteImport } from './routes/_auth/messages/$threadId'
+import { Route as AuthHelpTicketsRouteImport } from './routes/_auth/help/tickets'
+import { Route as AuthHelpContactRouteImport } from './routes/_auth/help/contact'
+import { Route as AuthAdminStaffRouteImport } from './routes/_auth/admin/staff'
+import { Route as AuthAdminProvidersRouteImport } from './routes/_auth/admin/providers'
+import { Route as AuthAdminMembersRouteImport } from './routes/_auth/admin/members'
+import { Route as AuthAdminBillingRouteImport } from './routes/_auth/admin/billing'
+import { Route as AuthAdminAuditLogsRouteImport } from './routes/_auth/admin/audit-logs'
 
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -40,9 +57,125 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InviteTokenRoute = InviteTokenRouteImport.update({
+  id: '/invite/$token',
+  path: '/invite/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthSettingsRoute = AuthSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthNotificationsRoute = AuthNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthMessagesRoute = AuthMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AuthRoute,
+} as any)
 const AuthDashboardRoute = AuthDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthTasksIndexRoute = AuthTasksIndexRouteImport.update({
+  id: '/tasks/',
+  path: '/tasks/',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthSuperAdminIndexRoute = AuthSuperAdminIndexRouteImport.update({
+  id: '/super-admin/',
+  path: '/super-admin/',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthPatientsIndexRoute = AuthPatientsIndexRouteImport.update({
+  id: '/patients/',
+  path: '/patients/',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthMessagesIndexRoute = AuthMessagesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthMessagesRoute,
+} as any)
+const AuthHelpIndexRoute = AuthHelpIndexRouteImport.update({
+  id: '/help/',
+  path: '/help/',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthCallCenterIndexRoute = AuthCallCenterIndexRouteImport.update({
+  id: '/call-center/',
+  path: '/call-center/',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthAppointmentsIndexRoute = AuthAppointmentsIndexRouteImport.update({
+  id: '/appointments/',
+  path: '/appointments/',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthSuperAdminUsersRoute = AuthSuperAdminUsersRouteImport.update({
+  id: '/super-admin/users',
+  path: '/super-admin/users',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthSuperAdminOrganizationsRoute =
+  AuthSuperAdminOrganizationsRouteImport.update({
+    id: '/super-admin/organizations',
+    path: '/super-admin/organizations',
+    getParentRoute: () => AuthRoute,
+  } as any)
+const AuthPatientsNewRoute = AuthPatientsNewRouteImport.update({
+  id: '/patients/new',
+  path: '/patients/new',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthPatientsPatientIdRoute = AuthPatientsPatientIdRouteImport.update({
+  id: '/patients/$patientId',
+  path: '/patients/$patientId',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthMessagesThreadIdRoute = AuthMessagesThreadIdRouteImport.update({
+  id: '/$threadId',
+  path: '/$threadId',
+  getParentRoute: () => AuthMessagesRoute,
+} as any)
+const AuthHelpTicketsRoute = AuthHelpTicketsRouteImport.update({
+  id: '/help/tickets',
+  path: '/help/tickets',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthHelpContactRoute = AuthHelpContactRouteImport.update({
+  id: '/help/contact',
+  path: '/help/contact',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthAdminStaffRoute = AuthAdminStaffRouteImport.update({
+  id: '/admin/staff',
+  path: '/admin/staff',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthAdminProvidersRoute = AuthAdminProvidersRouteImport.update({
+  id: '/admin/providers',
+  path: '/admin/providers',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthAdminMembersRoute = AuthAdminMembersRouteImport.update({
+  id: '/admin/members',
+  path: '/admin/members',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthAdminBillingRoute = AuthAdminBillingRouteImport.update({
+  id: '/admin/billing',
+  path: '/admin/billing',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthAdminAuditLogsRoute = AuthAdminAuditLogsRouteImport.update({
+  id: '/admin/audit-logs',
+  path: '/admin/audit-logs',
   getParentRoute: () => AuthRoute,
 } as any)
 
@@ -50,15 +183,58 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/consent': typeof ConsentRoute
   '/login': typeof LoginRoute
-  '/settings': typeof SettingsRoute
   '/dashboard': typeof AuthDashboardRoute
+  '/messages': typeof AuthMessagesRouteWithChildren
+  '/notifications': typeof AuthNotificationsRoute
+  '/settings': typeof AuthSettingsRoute
+  '/invite/$token': typeof InviteTokenRoute
+  '/admin/audit-logs': typeof AuthAdminAuditLogsRoute
+  '/admin/billing': typeof AuthAdminBillingRoute
+  '/admin/members': typeof AuthAdminMembersRoute
+  '/admin/providers': typeof AuthAdminProvidersRoute
+  '/admin/staff': typeof AuthAdminStaffRoute
+  '/help/contact': typeof AuthHelpContactRoute
+  '/help/tickets': typeof AuthHelpTicketsRoute
+  '/messages/$threadId': typeof AuthMessagesThreadIdRoute
+  '/patients/$patientId': typeof AuthPatientsPatientIdRoute
+  '/patients/new': typeof AuthPatientsNewRoute
+  '/super-admin/organizations': typeof AuthSuperAdminOrganizationsRoute
+  '/super-admin/users': typeof AuthSuperAdminUsersRoute
+  '/appointments': typeof AuthAppointmentsIndexRoute
+  '/call-center': typeof AuthCallCenterIndexRoute
+  '/help': typeof AuthHelpIndexRoute
+  '/messages/': typeof AuthMessagesIndexRoute
+  '/patients': typeof AuthPatientsIndexRoute
+  '/super-admin': typeof AuthSuperAdminIndexRoute
+  '/tasks': typeof AuthTasksIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/consent': typeof ConsentRoute
   '/login': typeof LoginRoute
-  '/settings': typeof SettingsRoute
   '/dashboard': typeof AuthDashboardRoute
+  '/notifications': typeof AuthNotificationsRoute
+  '/settings': typeof AuthSettingsRoute
+  '/invite/$token': typeof InviteTokenRoute
+  '/admin/audit-logs': typeof AuthAdminAuditLogsRoute
+  '/admin/billing': typeof AuthAdminBillingRoute
+  '/admin/members': typeof AuthAdminMembersRoute
+  '/admin/providers': typeof AuthAdminProvidersRoute
+  '/admin/staff': typeof AuthAdminStaffRoute
+  '/help/contact': typeof AuthHelpContactRoute
+  '/help/tickets': typeof AuthHelpTicketsRoute
+  '/messages/$threadId': typeof AuthMessagesThreadIdRoute
+  '/patients/$patientId': typeof AuthPatientsPatientIdRoute
+  '/patients/new': typeof AuthPatientsNewRoute
+  '/super-admin/organizations': typeof AuthSuperAdminOrganizationsRoute
+  '/super-admin/users': typeof AuthSuperAdminUsersRoute
+  '/appointments': typeof AuthAppointmentsIndexRoute
+  '/call-center': typeof AuthCallCenterIndexRoute
+  '/help': typeof AuthHelpIndexRoute
+  '/messages': typeof AuthMessagesIndexRoute
+  '/patients': typeof AuthPatientsIndexRoute
+  '/super-admin': typeof AuthSuperAdminIndexRoute
+  '/tasks': typeof AuthTasksIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -66,22 +242,119 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteWithChildren
   '/consent': typeof ConsentRoute
   '/login': typeof LoginRoute
-  '/settings': typeof SettingsRoute
   '/_auth/dashboard': typeof AuthDashboardRoute
+  '/_auth/messages': typeof AuthMessagesRouteWithChildren
+  '/_auth/notifications': typeof AuthNotificationsRoute
+  '/_auth/settings': typeof AuthSettingsRoute
+  '/invite/$token': typeof InviteTokenRoute
+  '/_auth/admin/audit-logs': typeof AuthAdminAuditLogsRoute
+  '/_auth/admin/billing': typeof AuthAdminBillingRoute
+  '/_auth/admin/members': typeof AuthAdminMembersRoute
+  '/_auth/admin/providers': typeof AuthAdminProvidersRoute
+  '/_auth/admin/staff': typeof AuthAdminStaffRoute
+  '/_auth/help/contact': typeof AuthHelpContactRoute
+  '/_auth/help/tickets': typeof AuthHelpTicketsRoute
+  '/_auth/messages/$threadId': typeof AuthMessagesThreadIdRoute
+  '/_auth/patients/$patientId': typeof AuthPatientsPatientIdRoute
+  '/_auth/patients/new': typeof AuthPatientsNewRoute
+  '/_auth/super-admin/organizations': typeof AuthSuperAdminOrganizationsRoute
+  '/_auth/super-admin/users': typeof AuthSuperAdminUsersRoute
+  '/_auth/appointments/': typeof AuthAppointmentsIndexRoute
+  '/_auth/call-center/': typeof AuthCallCenterIndexRoute
+  '/_auth/help/': typeof AuthHelpIndexRoute
+  '/_auth/messages/': typeof AuthMessagesIndexRoute
+  '/_auth/patients/': typeof AuthPatientsIndexRoute
+  '/_auth/super-admin/': typeof AuthSuperAdminIndexRoute
+  '/_auth/tasks/': typeof AuthTasksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/consent' | '/login' | '/settings' | '/dashboard'
+  fullPaths:
+    | '/'
+    | '/consent'
+    | '/login'
+    | '/dashboard'
+    | '/messages'
+    | '/notifications'
+    | '/settings'
+    | '/invite/$token'
+    | '/admin/audit-logs'
+    | '/admin/billing'
+    | '/admin/members'
+    | '/admin/providers'
+    | '/admin/staff'
+    | '/help/contact'
+    | '/help/tickets'
+    | '/messages/$threadId'
+    | '/patients/$patientId'
+    | '/patients/new'
+    | '/super-admin/organizations'
+    | '/super-admin/users'
+    | '/appointments'
+    | '/call-center'
+    | '/help'
+    | '/messages/'
+    | '/patients'
+    | '/super-admin'
+    | '/tasks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/consent' | '/login' | '/settings' | '/dashboard'
+  to:
+    | '/'
+    | '/consent'
+    | '/login'
+    | '/dashboard'
+    | '/notifications'
+    | '/settings'
+    | '/invite/$token'
+    | '/admin/audit-logs'
+    | '/admin/billing'
+    | '/admin/members'
+    | '/admin/providers'
+    | '/admin/staff'
+    | '/help/contact'
+    | '/help/tickets'
+    | '/messages/$threadId'
+    | '/patients/$patientId'
+    | '/patients/new'
+    | '/super-admin/organizations'
+    | '/super-admin/users'
+    | '/appointments'
+    | '/call-center'
+    | '/help'
+    | '/messages'
+    | '/patients'
+    | '/super-admin'
+    | '/tasks'
   id:
     | '__root__'
     | '/'
     | '/_auth'
     | '/consent'
     | '/login'
-    | '/settings'
     | '/_auth/dashboard'
+    | '/_auth/messages'
+    | '/_auth/notifications'
+    | '/_auth/settings'
+    | '/invite/$token'
+    | '/_auth/admin/audit-logs'
+    | '/_auth/admin/billing'
+    | '/_auth/admin/members'
+    | '/_auth/admin/providers'
+    | '/_auth/admin/staff'
+    | '/_auth/help/contact'
+    | '/_auth/help/tickets'
+    | '/_auth/messages/$threadId'
+    | '/_auth/patients/$patientId'
+    | '/_auth/patients/new'
+    | '/_auth/super-admin/organizations'
+    | '/_auth/super-admin/users'
+    | '/_auth/appointments/'
+    | '/_auth/call-center/'
+    | '/_auth/help/'
+    | '/_auth/messages/'
+    | '/_auth/patients/'
+    | '/_auth/super-admin/'
+    | '/_auth/tasks/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -89,18 +362,11 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRouteWithChildren
   ConsentRoute: typeof ConsentRoute
   LoginRoute: typeof LoginRoute
-  SettingsRoute: typeof SettingsRoute
+  InviteTokenRoute: typeof InviteTokenRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -129,6 +395,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/invite/$token': {
+      id: '/invite/$token'
+      path: '/invite/$token'
+      fullPath: '/invite/$token'
+      preLoaderRoute: typeof InviteTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_auth/settings': {
+      id: '/_auth/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthSettingsRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/notifications': {
+      id: '/_auth/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AuthNotificationsRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/messages': {
+      id: '/_auth/messages'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof AuthMessagesRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/_auth/dashboard': {
       id: '/_auth/dashboard'
       path: '/dashboard'
@@ -136,15 +430,202 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthDashboardRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_auth/tasks/': {
+      id: '/_auth/tasks/'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof AuthTasksIndexRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/super-admin/': {
+      id: '/_auth/super-admin/'
+      path: '/super-admin'
+      fullPath: '/super-admin'
+      preLoaderRoute: typeof AuthSuperAdminIndexRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/patients/': {
+      id: '/_auth/patients/'
+      path: '/patients'
+      fullPath: '/patients'
+      preLoaderRoute: typeof AuthPatientsIndexRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/messages/': {
+      id: '/_auth/messages/'
+      path: '/'
+      fullPath: '/messages/'
+      preLoaderRoute: typeof AuthMessagesIndexRouteImport
+      parentRoute: typeof AuthMessagesRoute
+    }
+    '/_auth/help/': {
+      id: '/_auth/help/'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof AuthHelpIndexRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/call-center/': {
+      id: '/_auth/call-center/'
+      path: '/call-center'
+      fullPath: '/call-center'
+      preLoaderRoute: typeof AuthCallCenterIndexRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/appointments/': {
+      id: '/_auth/appointments/'
+      path: '/appointments'
+      fullPath: '/appointments'
+      preLoaderRoute: typeof AuthAppointmentsIndexRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/super-admin/users': {
+      id: '/_auth/super-admin/users'
+      path: '/super-admin/users'
+      fullPath: '/super-admin/users'
+      preLoaderRoute: typeof AuthSuperAdminUsersRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/super-admin/organizations': {
+      id: '/_auth/super-admin/organizations'
+      path: '/super-admin/organizations'
+      fullPath: '/super-admin/organizations'
+      preLoaderRoute: typeof AuthSuperAdminOrganizationsRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/patients/new': {
+      id: '/_auth/patients/new'
+      path: '/patients/new'
+      fullPath: '/patients/new'
+      preLoaderRoute: typeof AuthPatientsNewRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/patients/$patientId': {
+      id: '/_auth/patients/$patientId'
+      path: '/patients/$patientId'
+      fullPath: '/patients/$patientId'
+      preLoaderRoute: typeof AuthPatientsPatientIdRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/messages/$threadId': {
+      id: '/_auth/messages/$threadId'
+      path: '/$threadId'
+      fullPath: '/messages/$threadId'
+      preLoaderRoute: typeof AuthMessagesThreadIdRouteImport
+      parentRoute: typeof AuthMessagesRoute
+    }
+    '/_auth/help/tickets': {
+      id: '/_auth/help/tickets'
+      path: '/help/tickets'
+      fullPath: '/help/tickets'
+      preLoaderRoute: typeof AuthHelpTicketsRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/help/contact': {
+      id: '/_auth/help/contact'
+      path: '/help/contact'
+      fullPath: '/help/contact'
+      preLoaderRoute: typeof AuthHelpContactRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/admin/staff': {
+      id: '/_auth/admin/staff'
+      path: '/admin/staff'
+      fullPath: '/admin/staff'
+      preLoaderRoute: typeof AuthAdminStaffRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/admin/providers': {
+      id: '/_auth/admin/providers'
+      path: '/admin/providers'
+      fullPath: '/admin/providers'
+      preLoaderRoute: typeof AuthAdminProvidersRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/admin/members': {
+      id: '/_auth/admin/members'
+      path: '/admin/members'
+      fullPath: '/admin/members'
+      preLoaderRoute: typeof AuthAdminMembersRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/admin/billing': {
+      id: '/_auth/admin/billing'
+      path: '/admin/billing'
+      fullPath: '/admin/billing'
+      preLoaderRoute: typeof AuthAdminBillingRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/admin/audit-logs': {
+      id: '/_auth/admin/audit-logs'
+      path: '/admin/audit-logs'
+      fullPath: '/admin/audit-logs'
+      preLoaderRoute: typeof AuthAdminAuditLogsRouteImport
+      parentRoute: typeof AuthRoute
+    }
   }
 }
 
+interface AuthMessagesRouteChildren {
+  AuthMessagesThreadIdRoute: typeof AuthMessagesThreadIdRoute
+  AuthMessagesIndexRoute: typeof AuthMessagesIndexRoute
+}
+
+const AuthMessagesRouteChildren: AuthMessagesRouteChildren = {
+  AuthMessagesThreadIdRoute: AuthMessagesThreadIdRoute,
+  AuthMessagesIndexRoute: AuthMessagesIndexRoute,
+}
+
+const AuthMessagesRouteWithChildren = AuthMessagesRoute._addFileChildren(
+  AuthMessagesRouteChildren,
+)
+
 interface AuthRouteChildren {
   AuthDashboardRoute: typeof AuthDashboardRoute
+  AuthMessagesRoute: typeof AuthMessagesRouteWithChildren
+  AuthNotificationsRoute: typeof AuthNotificationsRoute
+  AuthSettingsRoute: typeof AuthSettingsRoute
+  AuthAdminAuditLogsRoute: typeof AuthAdminAuditLogsRoute
+  AuthAdminBillingRoute: typeof AuthAdminBillingRoute
+  AuthAdminMembersRoute: typeof AuthAdminMembersRoute
+  AuthAdminProvidersRoute: typeof AuthAdminProvidersRoute
+  AuthAdminStaffRoute: typeof AuthAdminStaffRoute
+  AuthHelpContactRoute: typeof AuthHelpContactRoute
+  AuthHelpTicketsRoute: typeof AuthHelpTicketsRoute
+  AuthPatientsPatientIdRoute: typeof AuthPatientsPatientIdRoute
+  AuthPatientsNewRoute: typeof AuthPatientsNewRoute
+  AuthSuperAdminOrganizationsRoute: typeof AuthSuperAdminOrganizationsRoute
+  AuthSuperAdminUsersRoute: typeof AuthSuperAdminUsersRoute
+  AuthAppointmentsIndexRoute: typeof AuthAppointmentsIndexRoute
+  AuthCallCenterIndexRoute: typeof AuthCallCenterIndexRoute
+  AuthHelpIndexRoute: typeof AuthHelpIndexRoute
+  AuthPatientsIndexRoute: typeof AuthPatientsIndexRoute
+  AuthSuperAdminIndexRoute: typeof AuthSuperAdminIndexRoute
+  AuthTasksIndexRoute: typeof AuthTasksIndexRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthDashboardRoute: AuthDashboardRoute,
+  AuthMessagesRoute: AuthMessagesRouteWithChildren,
+  AuthNotificationsRoute: AuthNotificationsRoute,
+  AuthSettingsRoute: AuthSettingsRoute,
+  AuthAdminAuditLogsRoute: AuthAdminAuditLogsRoute,
+  AuthAdminBillingRoute: AuthAdminBillingRoute,
+  AuthAdminMembersRoute: AuthAdminMembersRoute,
+  AuthAdminProvidersRoute: AuthAdminProvidersRoute,
+  AuthAdminStaffRoute: AuthAdminStaffRoute,
+  AuthHelpContactRoute: AuthHelpContactRoute,
+  AuthHelpTicketsRoute: AuthHelpTicketsRoute,
+  AuthPatientsPatientIdRoute: AuthPatientsPatientIdRoute,
+  AuthPatientsNewRoute: AuthPatientsNewRoute,
+  AuthSuperAdminOrganizationsRoute: AuthSuperAdminOrganizationsRoute,
+  AuthSuperAdminUsersRoute: AuthSuperAdminUsersRoute,
+  AuthAppointmentsIndexRoute: AuthAppointmentsIndexRoute,
+  AuthCallCenterIndexRoute: AuthCallCenterIndexRoute,
+  AuthHelpIndexRoute: AuthHelpIndexRoute,
+  AuthPatientsIndexRoute: AuthPatientsIndexRoute,
+  AuthSuperAdminIndexRoute: AuthSuperAdminIndexRoute,
+  AuthTasksIndexRoute: AuthTasksIndexRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
@@ -154,7 +635,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRouteWithChildren,
   ConsentRoute: ConsentRoute,
   LoginRoute: LoginRoute,
-  SettingsRoute: SettingsRoute,
+  InviteTokenRoute: InviteTokenRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
