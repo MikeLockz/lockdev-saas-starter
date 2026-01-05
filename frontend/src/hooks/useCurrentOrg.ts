@@ -1,10 +1,13 @@
 import { useOrgStore } from '@/store/org-store';
 import { useOrganizations } from './useOrganizations';
+import { useUserProfile } from './useUserProfile';
 import { useMemo, useEffect } from 'react';
 
 export function useCurrentOrg() {
     const { currentOrgId, setCurrentOrgId } = useOrgStore();
-    const { data: organizations, isLoading, error } = useOrganizations();
+    const { profile } = useUserProfile();
+    const isSuperAdmin = profile?.is_super_admin ?? false;
+    const { data: organizations, isLoading, error } = useOrganizations({ forSuperAdmin: isSuperAdmin });
 
     const currentOrg = useMemo(() =>
         organizations?.find(org => org.id === currentOrgId),
@@ -31,3 +34,4 @@ export function useCurrentOrg() {
         setCurrentOrgId
     };
 }
+

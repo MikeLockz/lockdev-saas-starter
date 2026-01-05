@@ -83,6 +83,8 @@ async def sign_consent(
         resource_type="CONSENT",
         resource_id=doc.id,
         changes_json={"version": doc.version, "ip": ip},
+        ip_address=ip,
+        user_agent=user_agent,
     )
     db.add(audit)
 

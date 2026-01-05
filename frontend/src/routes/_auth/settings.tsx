@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { ProfileForm, SessionList, MFASetup, PreferencesForm } from '@/components/settings';
+import { ProfileForm, SessionList, MFASetup, PreferencesForm, TimezonePreferences } from '@/components/settings';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -89,6 +89,7 @@ export function Settings() {
 
             {activeTab === 'privacy' && (
               <div className="space-y-6">
+                <TimezonePreferences />
                 <PreferencesForm />
               </div>
             )}

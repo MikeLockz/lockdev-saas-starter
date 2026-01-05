@@ -113,8 +113,8 @@ Should consider things like:
 
 | Entity | Description | Key Attributes |
 | --- | --- | --- |
-| **Organization** | The tenant (Clinic/Hospital) | `id`, `name`, `tax_id`, `settings_json`, `deleted_at`, `stripe_customer_id`, `subscription_status` |
-| **User** | The authentication record | `id`, `email`, `password_hash`, `mfa_enabled` |
+| **Organization** | The tenant (Clinic/Hospital) | `id`, `name`, `tax_id`, `timezone`, `settings_json`, `deleted_at`, `stripe_customer_id`, `subscription_status` |
+| **User** | The authentication record | `id`, `email`, `password_hash`, `mfa_enabled`, `timezone` (optional override) |
 | **AuditLog** | Immutable record of actions | `actor_id`, `target_resource`, `action_type`, `ip_address`, `timestamp` |
 
 ### Role Entities
@@ -146,6 +146,10 @@ Should consider things like:
 - **FR-06 Subscriptions**: Dual-sided subscription model:
     - **Organization**: Pays to retain active platform status.
     - **Patient**: Pays a per-patient subscription (managed by Patient or Proxy) for access.
+- **FR-07 Timezone Support**: All user-facing date/times displayed in configured timezone.
+    - **Organization**: Stores default timezone (IANA format, e.g., "America/New_York").
+    - **User**: Optional timezone override (null = use organization default).
+    - **Storage**: All datetimes stored as UTC with timezone awareness.
 
 ### Assumptions
 

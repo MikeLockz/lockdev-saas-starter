@@ -35,6 +35,19 @@ api.interceptors.request.use(
         console.warn("Failed to get ID token", error);
         // Continue without token, let backend handle 401
       }
+    } else if (config.headers) {
+      // Check for mock user in localStorage (for local development)
+      const mockUserJson = localStorage.getItem("lockdev_mock_user");
+      if (mockUserJson) {
+        try {
+          const mockUser = JSON.parse(mockUserJson);
+          if (mockUser.email) {
+            config.headers["Authorization"] = `Bearer mock_${mockUser.email}`;
+          }
+        } catch {
+          // Invalid JSON, ignore
+        }
+      }
     }
 
     // 3. Security Check

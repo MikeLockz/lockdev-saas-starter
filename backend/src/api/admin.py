@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -30,7 +30,7 @@ async def require_admin(user: User = Depends(get_current_user)):
 
 @router.post("/impersonate/{patient_id}")
 async def impersonate_patient(
-    patient_id: str, req: ImpersonationRequest, admin: User = Depends(require_admin), db: AsyncSession = Depends(get_db)
+    patient_id: str, req: ImpersonationRequest, request: Request, admin: User = Depends(require_admin), db: AsyncSession = Depends(get_db)
 ):
     try:
         pid = uuid.UUID(patient_id)
@@ -44,6 +44,8 @@ async def impersonate_patient(
         resource_type="PATIENT",
         resource_id=pid,
         changes_json={"reason": req.reason},
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
     )
     db.add(audit)
     await db.commit()
@@ -74,6 +76,7 @@ class AuditLogListResponse(BaseModel):
 
 @router.get("/audit-logs", response_model=AuditLogListResponse)
 async def list_audit_logs(
+    request: Request,
     action_type: Optional[str] = Query(None),
     resource_type: Optional[str] = Query(None),
     resource_id: Optional[uuid.UUID] = Query(None),
@@ -102,7 +105,9 @@ async def list_audit_logs(
             "actor_user_id": str(actor_user_id) if actor_user_id else None,
             "date_from": date_from.isoformat() if date_from else None,
             "date_to": date_to.isoformat() if date_to else None,
-        }}
+        }},
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
     )
     db.add(access_audit)
     
@@ -145,6 +150,7 @@ async def list_audit_logs(
 
 @router.get("/audit-logs/export")
 async def export_audit_logs(
+    request: Request,
     action_type: Optional[str] = Query(None),
     resource_type: Optional[str] = Query(None),
     resource_id: Optional[uuid.UUID] = Query(None),
@@ -163,6 +169,8 @@ async def export_audit_logs(
         action_type="EXPORT",
         resource_type="AUDIT_LOG",
         resource_id=admin.id,
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
     )
     db.add(export_audit)
     
@@ -295,6 +303,11 @@ class OrganizationUpdate(BaseModel):
     subscription_status: Optional[str] = None
 
 
+class OrganizationCreate(BaseModel):
+    name: str
+    subscription_status: str = "trial"
+
+
 class UserAdminUpdate(BaseModel):
     is_super_admin: Optional[bool] = None
 
@@ -332,6 +345,40 @@ async def list_all_organizations(
     )
 
 
+@router.post("/super-admin/organizations", response_model=OrganizationAdminRead, status_code=201)
+async def create_organization(
+    data: OrganizationCreate,
+    request: Request,
+    admin: User = Depends(require_admin),
+    db: AsyncSession = Depends(get_db),
+):
+    """Create a new organization (super admin only)."""
+    org = Organization(
+        name=data.name,
+        subscription_status=data.subscription_status,
+        is_active=True,
+        member_count=0,
+        patient_count=0,
+    )
+    db.add(org)
+    
+    # Audit
+    audit = AuditLog(
+        actor_user_id=admin.id,
+        action_type="CREATE",
+        resource_type="ORGANIZATION",
+        resource_id=org.id,
+        changes_json={"name": data.name, "subscription_status": data.subscription_status},
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+    )
+    db.add(audit)
+    
+    await db.commit()
+    await db.refresh(org)
+    return org
+
+
 @router.get("/super-admin/organizations/{org_id}", response_model=OrganizationAdminRead)
 async def get_organization_detail(
     org_id: uuid.UUID,
@@ -353,6 +400,7 @@ async def get_organization_detail(
 async def update_organization(
     org_id: uuid.UUID,
     update: OrganizationUpdate,
+    request: Request,
     admin: User = Depends(require_admin),
     db: AsyncSession = Depends(get_db),
 ):
@@ -375,6 +423,8 @@ async def update_organization(
         resource_type="ORGANIZATION",
         resource_id=org.id,
         changes_json=update_data,
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
     )
     db.add(audit)
     
@@ -428,6 +478,7 @@ async def list_all_users(
 @router.patch("/super-admin/users/{user_id}/unlock")
 async def unlock_user(
     user_id: uuid.UUID,
+    request: Request,
     admin: User = Depends(require_admin),
     db: AsyncSession = Depends(get_db),
 ):
@@ -448,6 +499,8 @@ async def unlock_user(
         action_type="UNLOCK",
         resource_type="USER",
         resource_id=user.id,
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
     )
     db.add(audit)
     
@@ -459,6 +512,7 @@ async def unlock_user(
 async def update_user_admin(
     user_id: uuid.UUID,
     update: UserAdminUpdate,
+    request: Request,
     admin: User = Depends(require_admin),
     db: AsyncSession = Depends(get_db),
 ):
@@ -481,6 +535,8 @@ async def update_user_admin(
         resource_type="USER",
         resource_id=user.id,
         changes_json=update_data,
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
     )
     db.add(audit)
     
@@ -497,6 +553,7 @@ async def get_system_health(
     """Get system health status."""
     from src.config import settings
     import redis.asyncio as redis
+    from datetime import datetime, timezone
     
     # Check DB
     db_status = "healthy"
@@ -507,12 +564,50 @@ async def get_system_health(
     
     # Check Redis
     redis_status = "healthy"
+    r = None
     try:
         r = redis.from_url(settings.REDIS_URL)
         await r.ping()
-        await r.close()
     except Exception:
         redis_status = "unhealthy"
+    
+    # Check ARQ worker health
+    worker_status = "no_workers"
+    try:
+        if r is None:
+            r = redis.from_url(settings.REDIS_URL)
+        
+        # ARQ stores worker health checks with keys like 'arq:health-check:<worker_name>'
+        # Each worker updates its health check key periodically (default every 60 seconds)
+        health_check_keys = await r.keys("arq:health-check:*")
+        
+        if health_check_keys:
+            active_workers = 0
+            for key in health_check_keys:
+                # Get the TTL of the health check key
+                # If it exists and has TTL, the worker is alive
+                ttl = await r.ttl(key)
+                if ttl > 0:
+                    active_workers += 1
+            
+            if active_workers > 0:
+                worker_status = "healthy"
+            else:
+                worker_status = "unhealthy"
+        else:
+            # No health check keys found - workers may not be running
+            # Also check for queued jobs to see if the system is configured
+            queue_info = await r.keys("arq:queue:*")
+            if queue_info:
+                worker_status = "no_workers"
+            else:
+                worker_status = "not_configured"
+    except Exception as e:
+        logger.warning(f"Failed to check ARQ worker health: {e}")
+        worker_status = "unknown"
+    finally:
+        if r:
+            await r.close()
     
     # Metrics (basic counts)
     user_count = await db.scalar(select(sql_func.count()).select_from(User))
@@ -521,7 +616,7 @@ async def get_system_health(
     return SystemHealth(
         db_status=db_status,
         redis_status=redis_status,
-        worker_status="unknown",  # Would need ARQ inspection
+        worker_status=worker_status,
         metrics={
             "total_users": user_count or 0,
             "total_organizations": org_count or 0,

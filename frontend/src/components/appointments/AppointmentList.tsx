@@ -1,5 +1,7 @@
 import { useState, useMemo } from 'react';
-import { format, startOfDay, endOfDay, addDays } from 'date-fns';
+import { startOfDay, endOfDay, addDays } from 'date-fns';
+import { formatDateTime } from '@/lib/timezone';
+import { useTimezoneContext } from '@/contexts/TimezoneContext';
 import { useAppointments, useUpdateAppointmentStatus } from '@/hooks/api/useAppointments';
 import { useProviders } from '@/hooks/useProviders';
 import { AppointmentCard } from './AppointmentCard';
@@ -32,14 +34,15 @@ interface AppointmentListProps {
 }
 
 export function AppointmentList({ patientId, onCreate }: AppointmentListProps) {
+    const timezone = useTimezoneContext();
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
     const [providerFilter, setProviderFilter] = useState<string>('all');
     const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
     const [appointmentToCancel, setAppointmentToCancel] = useState<string | null>(null);
     const [cancellationReason, setCancellationReason] = useState('');
 
-    const dateFrom = format(startOfDay(selectedDate), "yyyy-MM-dd'T'HH:mm:ss");
-    const dateTo = format(endOfDay(selectedDate), "yyyy-MM-dd'T'HH:mm:ss");
+    const dateFrom = formatDateTime(startOfDay(selectedDate), "yyyy-MM-dd'T'HH:mm:ss", 'UTC');
+    const dateTo = formatDateTime(endOfDay(selectedDate), "yyyy-MM-dd'T'HH:mm:ss", 'UTC');
 
     const { data: appointments, isLoading, error, refetch } = useAppointments({
         date_from: dateFrom,
@@ -122,7 +125,7 @@ export function AppointmentList({ patientId, onCreate }: AppointmentListProps) {
                     </Button>
                     <Button variant="outline" onClick={handleToday}>
                         <Calendar className="h-4 w-4 mr-2" />
-                        {format(selectedDate, 'EEEE, MMMM d, yyyy')}
+                        {formatDateTime(selectedDate, 'EEEE, MMMM d, yyyy', timezone)}
                     </Button>
                     <Button variant="outline" size="icon" onClick={handleNextDay}>
                         <ChevronRight className="h-4 w-4" />
@@ -163,7 +166,7 @@ export function AppointmentList({ patientId, onCreate }: AppointmentListProps) {
                     <Calendar className="h-12 w-12 text-muted-foreground mb-4" />
                     <h3 className="text-lg font-medium">No appointments</h3>
                     <p className="text-muted-foreground">
-                        No appointments scheduled for {format(selectedDate, 'MMMM d, yyyy')}
+                        No appointments scheduled for {formatDateTime(selectedDate, 'MMMM d, yyyy', timezone)}
                     </p>
                     {onCreate && (
                         <Button onClick={onCreate} className="mt-4">

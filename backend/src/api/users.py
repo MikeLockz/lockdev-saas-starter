@@ -289,6 +289,123 @@ async def update_communication_preferences(
 
 
 # =============================================================================
+# Timezone Endpoints
+# =============================================================================
+
+from pydantic import BaseModel
+from src.validators import validate_timezone
+from src.constants import DEFAULT_TIMEZONE
+
+
+class TimezoneResponse(BaseModel):
+    """Response for timezone endpoint."""
+    timezone: str
+    source: str  # "user" or "organization"
+
+
+class TimezoneUpdateRequest(BaseModel):
+    """Request to update user timezone."""
+    timezone: str
+
+
+@router.get("/me/timezone", response_model=TimezoneResponse)
+async def get_user_timezone(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Get the current user's effective timezone.
+    
+    Resolution order:
+    1. User's personal timezone preference (if set)
+    2. Organization's timezone (if user has org membership)
+    3. Default timezone (America/New_York)
+    
+    Returns timezone string and source indicator.
+    """
+    # If user has a personal timezone set
+    if current_user.timezone:
+        return TimezoneResponse(timezone=current_user.timezone, source="user")
+    
+    # Try to get organization timezone
+    from src.models.organizations import OrganizationMember, Organization
+    
+    stmt = (
+        select(Organization.timezone)
+        .join(OrganizationMember)
+        .where(OrganizationMember.user_id == current_user.id)
+        .where(OrganizationMember.deleted_at == None)
+        .where(Organization.deleted_at == None)
+        .limit(1)
+    )
+    result = await db.execute(stmt)
+    org_tz = result.scalar_one_or_none()
+    
+    if org_tz:
+        return TimezoneResponse(timezone=org_tz, source="organization")
+    
+    # Default fallback
+    return TimezoneResponse(timezone=DEFAULT_TIMEZONE, source="organization")
+
+
+@router.patch("/me/timezone", response_model=TimezoneResponse)
+async def update_user_timezone(
+    tz_update: TimezoneUpdateRequest,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Update the current user's timezone preference.
+    
+    Set to a valid IANA timezone identifier to override organization default.
+    """
+    if not validate_timezone(tz_update.timezone):
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"Invalid timezone: {tz_update.timezone}. Must be a valid IANA timezone.",
+        )
+    
+    current_user.timezone = tz_update.timezone
+    current_user.updated_at = datetime.now(timezone.utc)
+    await db.commit()
+    await db.refresh(current_user)
+    
+    return TimezoneResponse(timezone=current_user.timezone, source="user")
+
+
+@router.delete("/me/timezone", response_model=TimezoneResponse)
+async def clear_user_timezone(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Clear the user's timezone preference to use organization default.
+    """
+    current_user.timezone = None
+    current_user.updated_at = datetime.now(timezone.utc)
+    await db.commit()
+    
+    # Return effective timezone (org or default)
+    from src.models.organizations import OrganizationMember, Organization
+    
+    stmt = (
+        select(Organization.timezone)
+        .join(OrganizationMember)
+        .where(OrganizationMember.user_id == current_user.id)
+        .where(OrganizationMember.deleted_at == None)
+        .where(Organization.deleted_at == None)
+        .limit(1)
+    )
+    result = await db.execute(stmt)
+    org_tz = result.scalar_one_or_none()
+    
+    return TimezoneResponse(
+        timezone=org_tz or DEFAULT_TIMEZONE,
+        source="organization"
+    )
+
+
+# =============================================================================
 # MFA Endpoints
 # =============================================================================
 
@@ -541,7 +658,7 @@ async def remove_device_token(
 
 from src.models.profiles import Patient, Proxy
 from src.models.assignments import PatientProxyAssignment
-from src.schemas.proxies import ProxyPatientRead, ProxyPatientInfo, ProxyPermissions
+from src.schemas.proxies import ProxyPatientRead, ProxyPatientInfo, ProxyPermissions, ProxyProfileRead
 from typing import List
 
 
@@ -604,3 +721,16 @@ async def get_my_proxy_patients(
     
     return patients
 
+
+@router.get("/me/proxy", response_model=Optional[ProxyProfileRead], tags=["proxies"])
+async def get_my_proxy_profile(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Get the current user's proxy profile if they are a proxy.
+    Returns None if the user is not a proxy.
+    """
+    stmt = select(Proxy).where(Proxy.user_id == current_user.id).where(Proxy.deleted_at == None)
+    result = await db.execute(stmt)
+    return result.scalar_one_or_none()

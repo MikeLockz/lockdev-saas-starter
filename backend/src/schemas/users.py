@@ -14,6 +14,8 @@ class UserRead(BaseModel):
     requires_consent: bool = True
     transactional_consent: bool = True
     marketing_consent: bool = False
+    timezone: Optional[str] = None
+    effective_timezone: str = "America/New_York"  # Computed: user.timezone ?? org.timezone ?? DEFAULT
     created_at: datetime
     updated_at: datetime
 
@@ -23,6 +25,7 @@ class UserRead(BaseModel):
 class UserUpdate(BaseModel):
     """Update user profile fields."""
     display_name: Optional[str] = Field(None, max_length=255)
+    timezone: Optional[str] = Field(None, max_length=50)
 
 
 class CommunicationPreferencesRead(BaseModel):

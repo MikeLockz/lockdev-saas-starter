@@ -15,6 +15,7 @@ class Organization(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
     stripe_customer_id: Mapped[Optional[str]] = mapped_column(String(100))
     subscription_status: Mapped[str] = mapped_column(String(50), default="INCOMPLETE")
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    timezone: Mapped[str] = mapped_column(String(50), default="America/New_York", nullable=False)
     
     member_count: Mapped[int] = mapped_column(Integer, default=0)
     patient_count: Mapped[int] = mapped_column(Integer, default=0)

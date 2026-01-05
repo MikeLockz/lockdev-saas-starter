@@ -2,7 +2,7 @@
 from uuid import UUID
 from datetime import datetime, timezone
 from typing import Optional, List
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
@@ -58,7 +58,9 @@ async def _log_audit(
     resource_type: str,
     resource_id: UUID,
     action: str,
-    changes: dict = None
+    changes: dict = None,
+    ip_address: str = None,
+    user_agent: str = None
 ):
     """Create audit log entry for proxy operations."""
     log = AuditLog(
@@ -68,6 +70,8 @@ async def _log_audit(
         resource_id=resource_id,
         action_type=action,
         changes_json=changes,
+        ip_address=ip_address,
+        user_agent=user_agent,
     )
     db.add(log)
 
@@ -128,6 +132,7 @@ async def assign_proxy(
     org_id: UUID,
     patient_id: UUID,
     data: ProxyAssignmentCreate,
+    request: Request,
     member: OrganizationMember = Depends(get_current_org_member),
     db: AsyncSession = Depends(get_db)
 ):
@@ -200,7 +205,9 @@ async def assign_proxy(
     # Audit log
     await _log_audit(
         db, member.user_id, org_id, "PROXY_ASSIGNMENT", assignment.id, "CREATE",
-        {"proxy_email": data.email, "relationship": data.relationship_type}
+        {"proxy_email": data.email, "relationship": data.relationship_type},
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent")
     )
     
     await db.commit()
@@ -234,6 +241,7 @@ async def update_proxy_permissions(
     patient_id: UUID,
     assignment_id: UUID,
     data: ProxyAssignmentUpdate,
+    request: Request,
     member: OrganizationMember = Depends(get_current_org_member),
     db: AsyncSession = Depends(get_db)
 ):
@@ -299,7 +307,9 @@ async def update_proxy_permissions(
     if changes:
         await _log_audit(
             db, member.user_id, org_id, "PROXY_ASSIGNMENT", assignment.id, "UPDATE",
-            changes
+            changes,
+            ip_address=request.client.host if request.client else None,
+            user_agent=request.headers.get("user-agent")
         )
     
     await db.commit()
@@ -332,6 +342,7 @@ async def revoke_proxy(
     org_id: UUID,
     patient_id: UUID,
     assignment_id: UUID,
+    request: Request,
     member: OrganizationMember = Depends(get_current_org_member),
     db: AsyncSession = Depends(get_db)
 ):
@@ -365,7 +376,9 @@ async def revoke_proxy(
     # Audit log
     await _log_audit(
         db, member.user_id, org_id, "PROXY_ASSIGNMENT", assignment.id, "DELETE",
-        {"revoked_at": str(now)}
+        {"revoked_at": str(now)},
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent")
     )
     
     await db.commit()

@@ -2,8 +2,15 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useAuth } from '@/hooks/useAuth'
 import { useCurrentUser } from '@/hooks/api/useCurrentUser'
 import { useOrganizations } from '@/hooks/api/useOrganizations'
+import { useTodaysAppointmentsCount, useUnreadCount, useActiveSessionsCount } from '@/hooks/api/useDashboardStats'
+import { useUserRole } from '@/hooks/useUserRole'
 import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
+import { ProviderOverviewCard } from '@/components/dashboard/ProviderOverviewCard'
+import { PatientOverviewCard } from '@/components/dashboard/PatientOverviewCard'
+import { StaffOverviewCard } from '@/components/dashboard/StaffOverviewCard'
+import { SuperAdminOverviewCard } from '@/components/dashboard/SuperAdminOverviewCard'
+import { ProxyOverviewCard } from '@/components/dashboard/ProxyOverviewCard'
 import {
   Card,
   CardContent,
@@ -29,8 +36,12 @@ function Dashboard() {
   const { user: firebaseUser } = useAuth()
   const { data: currentUser, isLoading: isUserLoading, error: userError, refetch: refetchUser } = useCurrentUser()
   const { data: organizations, isLoading: isOrgsLoading, error: orgsError, refetch: refetchOrgs } = useOrganizations()
+  const { data: appointmentsToday, isLoading: isApptsLoading } = useTodaysAppointmentsCount()
+  const { data: unreadNotifications, isLoading: isNotifLoading } = useUnreadCount()
+  const { data: activeSessions, isLoading: isSessionsLoading } = useActiveSessionsCount()
+  const { roleInfo, isLoading: isRoleLoading } = useUserRole()
 
-  const isLoading = isUserLoading || isOrgsLoading
+  const isLoading = isUserLoading || isOrgsLoading || isRoleLoading
   const hasError = userError || orgsError
 
   // Derive display name from API data first, fallback to Firebase
@@ -49,20 +60,20 @@ function Dashboard() {
     },
     {
       title: 'Appointments Today',
-      value: '-',
-      description: 'Coming soon',
+      value: isApptsLoading ? '-' : (appointmentsToday?.toString() ?? '0'),
+      description: 'Scheduled & confirmed',
       icon: Calendar,
     },
     {
-      title: 'Unread Messages',
-      value: '-',
-      description: 'Coming soon',
+      title: 'Unread Notifications',
+      value: isNotifLoading ? '-' : (unreadNotifications?.count?.toString() ?? '0'),
+      description: 'Across all types',
       icon: MessageSquare,
     },
     {
       title: 'Active Sessions',
-      value: '-',
-      description: 'Coming soon',
+      value: isSessionsLoading ? '-' : (activeSessions?.toString() ?? '0'),
+      description: 'Your login sessions',
       icon: Activity,
     },
   ]
@@ -137,21 +148,43 @@ function Dashboard() {
 
           {/* Main Content Grid */}
           <div className="grid gap-4 lg:grid-cols-7">
-            {/* Overview Card */}
-            <Card className="lg:col-span-4">
-              <CardHeader>
-                <CardTitle>Overview</CardTitle>
-                <CardDescription>
-                  Patient activity for the current month
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="h-[300px] flex items-center justify-center">
-                <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                  <Activity className="h-12 w-12" />
-                  <p className="text-sm">Activity chart will be displayed here</p>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Overview Card - Role-specific or generic */}
+            {roleInfo?.role === 'super_admin' ? (
+              <SuperAdminOverviewCard />
+            ) : roleInfo?.role === 'provider' && roleInfo.providerId ? (
+              <ProviderOverviewCard
+                providerId={roleInfo.providerId}
+                userId={currentUser?.id || ''}
+              />
+            ) : roleInfo?.role === 'patient' && roleInfo.patientId ? (
+              <PatientOverviewCard
+                patientId={roleInfo.patientId}
+              />
+            ) : roleInfo?.role === 'staff' && roleInfo.staffId ? (
+              <StaffOverviewCard
+                staffId={roleInfo.staffId}
+                userId={currentUser?.id || ''}
+                jobTitle={null}
+                department={null}
+              />
+            ) : roleInfo?.role === 'proxy' && roleInfo.proxyId ? (
+              <ProxyOverviewCard proxyId={roleInfo.proxyId} />
+            ) : (
+              <Card className="lg:col-span-4">
+                <CardHeader>
+                  <CardTitle>Overview</CardTitle>
+                  <CardDescription>
+                    Activity for the current month
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="h-[300px] flex items-center justify-center">
+                  <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                    <Activity className="h-12 w-12" />
+                    <p className="text-sm">Activity chart will be displayed here</p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Recent Activity Card */}
             <Card className="lg:col-span-3">

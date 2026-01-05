@@ -12,7 +12,8 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Trash2, UserPlus } from 'lucide-react'
-import { format } from 'date-fns'
+import { formatDateTime } from '@/lib/timezone'
+import { useTimezoneContext } from '@/contexts/TimezoneContext'
 import { CareTeamAssignModal } from './CareTeamAssignModal'
 import {
     AlertDialog,
@@ -30,6 +31,7 @@ interface CareTeamListProps {
 }
 
 export function CareTeamList({ patientId }: CareTeamListProps) {
+    const timezone = useTimezoneContext()
     const { data, isLoading } = useCareTeam(patientId)
     const removeMember = useRemoveFromCareTeam()
     const [isAssignOpen, setIsAssignOpen] = useState(false)
@@ -96,7 +98,7 @@ export function CareTeamList({ patientId }: CareTeamListProps) {
                                     </TableCell>
                                     <TableCell>{member.provider_specialty || '—'}</TableCell>
                                     <TableCell>
-                                        {format(new Date(member.assigned_at), 'MMM d, yyyy')}
+                                        {formatDateTime(new Date(member.assigned_at), 'MMM d, yyyy', timezone)}
                                     </TableCell>
                                     <TableCell className="text-right">
                                         <Button

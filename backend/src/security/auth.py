@@ -21,28 +21,69 @@ from src.models import User
 from src.models.sessions import UserSession
 
 # Initialize Firebase
+import os
+import logging
+
+_firebase_logger = logging.getLogger(__name__)
+
 try:
     firebase_admin.get_app()
 except ValueError:
-    try:
-        # In production, use explicit credentials or Application Default
-        cred = credentials.ApplicationDefault()
-        firebase_admin.initialize_app(cred)
-    except Exception:
-        # In local dev without Google Creds, we might skip init but verify_token will fail unless mocked
-        pass
+    _firebase_initialized = False
+    
+    # Try explicit credentials file first (for local development)
+    creds_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
+    if creds_path and os.path.exists(creds_path):
+        try:
+            cred = credentials.Certificate(creds_path)
+            firebase_admin.initialize_app(cred)
+            _firebase_initialized = True
+            _firebase_logger.info(f"Firebase initialized with credentials from: {creds_path}")
+        except Exception as e:
+            _firebase_logger.warning(f"Failed to initialize Firebase with certificate: {e}")
+    
+    # Fall back to Application Default Credentials (for cloud deployment)
+    if not _firebase_initialized:
+        try:
+            cred = credentials.ApplicationDefault()
+            firebase_admin.initialize_app(cred)
+            _firebase_initialized = True
+            _firebase_logger.info("Firebase initialized with Application Default Credentials")
+        except Exception as e:
+            _firebase_logger.warning(
+                f"Firebase not initialized: {e}. "
+                "Mock authentication will be used in local environment."
+            )
 
 security = HTTPBearer()
 
 
 async def verify_token(request: Request, token: HTTPAuthorizationCredentials = Depends(security)):
     """Verify Firebase JWT token."""
-    # Mock for local dev testing without real Firebase token
-    if settings.ENVIRONMENT == "local" and token.credentials.startswith("mock_"):
-        # Format: mock_EMAIL
+    import logging
+    logger = logging.getLogger(__name__)
+    
+    # SECURITY: Explicitly reject mock tokens in non-local environments
+    # This is defense-in-depth - even if someone misconfigures ENVIRONMENT,
+    # we log the attempt and reject it explicitly.
+    if token.credentials.startswith("mock_"):
+        if settings.ENVIRONMENT != "local":
+            # Log security event - someone attempted mock auth in non-local env
+            logger.warning(
+                f"SECURITY: Mock token rejected in {settings.ENVIRONMENT} environment. "
+                f"Client IP: {request.client.host if request.client else 'unknown'}"
+            )
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Mock authentication is not allowed in this environment",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        # Local environment - allow mock auth for development/testing
         email = token.credentials.split("_", 1)[1]
+        logger.info(f"Mock auth used for: {email}")
         return {"uid": "mock_uid", "email": email}
 
+    # Real Firebase token verification
     try:
         decoded_token = auth.verify_id_token(token.credentials, check_revoked=True)
         return decoded_token
@@ -77,7 +118,7 @@ async def get_or_create_session(
         UserSession.is_revoked == False,  # noqa: E712
     )
     result = await db.execute(stmt)
-    session = result.scalar_one_or_none()
+    session = result.scalars().first()  # Use .first() to handle multiple sessions gracefully
     
     now = datetime.now(timezone.utc)
     

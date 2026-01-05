@@ -107,11 +107,22 @@ async def update_organization(
     """
     Update organization. Requires ADMIN role.
     """
+    from src.validators import validate_timezone
+    
     stmt = select(Organization).where(Organization.id == org_id)
     result = await db.execute(stmt)
     org = result.scalar_one()
 
     update_data = org_update.model_dump(exclude_unset=True)
+    
+    # Validate timezone if provided
+    if "timezone" in update_data and update_data["timezone"]:
+        if not validate_timezone(update_data["timezone"]):
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail=f"Invalid timezone: {update_data['timezone']}. Must be a valid IANA timezone.",
+            )
+    
     for field, value in update_data.items():
         setattr(org, field, value)
     

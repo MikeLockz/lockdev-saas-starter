@@ -131,3 +131,33 @@ export function useDeleteProvider() {
         },
     });
 }
+
+/**
+ * Get the provider profile for the current user.
+ * Returns undefined if the current user is not a provider.
+ */
+export function useCurrentUserProvider() {
+    const { orgId } = useCurrentOrg();
+    const { data: providers, isLoading } = useProviders();
+
+    return useQuery<Provider | null>({
+        queryKey: ['current-user-provider', orgId],
+        queryFn: async () => {
+            // Get current user ID
+            const userResponse = await api.get('/api/v1/users/me');
+            const userId = userResponse.data?.id;
+
+            if (!userId || !providers?.items) return null;
+
+            // Find provider matching current user
+            const match = providers.items.find((p) => p.user_id === userId);
+            if (!match) return null;
+
+            // Fetch full provider details
+            const response = await api.get(`/api/v1/organizations/${orgId}/providers/${match.id}`);
+            return response.data;
+        },
+        enabled: !!orgId && !isLoading && !!providers?.items?.length,
+        staleTime: 5 * 60 * 1000, // 5 minutes
+    });
+}

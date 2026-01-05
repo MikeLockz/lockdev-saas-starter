@@ -124,3 +124,33 @@ export function useDeleteStaff() {
         },
     });
 }
+
+/**
+ * Get the staff profile for the current user.
+ * Returns null if the current user is not a staff member.
+ */
+export function useCurrentUserStaff() {
+    const { orgId } = useCurrentOrg();
+    const { data: staffList, isLoading } = useStaff();
+
+    return useQuery<Staff | null>({
+        queryKey: ['current-user-staff', orgId],
+        queryFn: async () => {
+            // Get current user ID
+            const userResponse = await api.get('/api/v1/users/me');
+            const userId = userResponse.data?.id;
+
+            if (!userId || !staffList?.items) return null;
+
+            // Find staff matching current user
+            const match = staffList.items.find((s) => s.user_id === userId);
+            if (!match) return null;
+
+            // Fetch full staff details
+            const response = await api.get(`/api/v1/organizations/${orgId}/staff/${match.id}`);
+            return response.data;
+        },
+        enabled: !!orgId && !isLoading && !!staffList?.items?.length,
+        staleTime: 5 * 60 * 1000, // 5 minutes
+    });
+}

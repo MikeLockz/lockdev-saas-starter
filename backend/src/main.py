@@ -43,9 +43,14 @@ async def lifespan(_app: FastAPI):
     # Shutdown
     # Shutdown
 
+# Disable API docs in production for security
+_is_production = settings.ENVIRONMENT == "production"
+
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    openapi_url=f"{settings.API_V1_STR}/openapi.json",
+    openapi_url=f"{settings.API_V1_STR}/openapi.json" if not _is_production else None,
+    docs_url="/docs" if not _is_production else None,
+    redoc_url="/redoc" if not _is_production else None,
     lifespan=lifespan,
 )
 
@@ -76,29 +81,29 @@ app.include_router(support.router, prefix=f"{settings.API_V1_STR}/support", tags
 
 
 
-# 1. TrustedHostMiddleware
-app.add_middleware(
-    TrustedHostMiddleware, 
-    allowed_hosts=settings.ALLOWED_HOSTS
-)
+# ============================================================================
+# MIDDLEWARE STACK
+# ============================================================================
+# NOTE: In FastAPI/Starlette, middleware is executed in REVERSE order of
+# how it's added. Middleware added LAST executes FIRST (outermost).
+#
+# Desired execution order (request flow):
+#   1. GZip (decompress incoming)
+#   2. CORS (handle preflight, add headers)
+#   3. TrustedHost (reject bad Host headers)
+#   4. Rate Limiting (protect from abuse)
+#   5. Security Headers (add to all responses)
+#   6. Request ID (tracing)
+#   7. Audit (logging)
+#   8. → Application routes
+#
+# Therefore, we add them in REVERSE order:
+# ============================================================================
 
-# 2. CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.BACKEND_CORS_ORIGINS,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# 7. Audit Middleware (innermost - closest to app)
+app.add_middleware(AuditMiddleware)
 
-# 3. Security Headers (Custom Middleware Wrapper)
-@app.middleware("http")
-async def set_secure_headers(request: Request, call_next):
-    response = await call_next(request)
-    secure_headers.set_headers(response)
-    return response
-
-# 4. Request ID (Custom Middleware)
+# 6. Request ID
 @app.middleware("http")
 async def request_id_middleware(request: Request, call_next):
     request_id = str(uuid.uuid4())
@@ -110,16 +115,41 @@ async def request_id_middleware(request: Request, call_next):
     finally:
         request_id_ctx.reset(token)
 
-# 5. Audit Middleware (Read Access Logging)
-app.add_middleware(AuditMiddleware)
+# 5. Security Headers
+# Skip CSP for documentation routes so Swagger UI can load CDN assets
+_DOC_PATHS = ("/docs", "/redoc", "/openapi.json", f"{settings.API_V1_STR}/openapi.json")
 
-# 6. SlowAPI
+@app.middleware("http")
+async def set_secure_headers(request: Request, call_next):
+    response = await call_next(request)
+    # Don't apply strict CSP to documentation routes
+    if not request.url.path.startswith(_DOC_PATHS):
+        secure_headers.set_headers(response)
+    return response
+
+# 4. Rate Limiting (SlowAPI)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)
 
-# 7. GZip
+# 3. TrustedHost - reject requests with invalid Host headers
+app.add_middleware(
+    TrustedHostMiddleware, 
+    allowed_hosts=settings.ALLOWED_HOSTS
+)
+
+# 2. CORS - must run BEFORE TrustedHost to handle OPTIONS preflight
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.BACKEND_CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# 1. GZip (outermost - first to process request, last to process response)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
+
 
 
 @app.get("/health")

@@ -3,6 +3,7 @@ import { auth } from "@/lib/firebase";
 import {
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithEmailAndPassword,
   signOut as firebaseSignOut,
 } from "firebase/auth";
 import type { User } from "firebase/auth";
@@ -43,6 +44,26 @@ export function useAuth() {
     }
   }, []);
 
+  const signInWithEmail = async (email: string, password: string) => {
+    try {
+      return await signInWithEmailAndPassword(auth, email, password);
+    } catch (err: unknown) {
+      const error = err as { code?: string; message?: string };
+      console.error("Email Sign-in failed:", error.code, error.message);
+      let errorMessage = error.message || "Sign-in failed";
+      if (error.code === "auth/user-not-found") {
+        errorMessage = "No account found with this email.";
+      } else if (error.code === "auth/wrong-password") {
+        errorMessage = "Incorrect password.";
+      } else if (error.code === "auth/invalid-email") {
+        errorMessage = "Invalid email address.";
+      } else if (error.code === "auth/invalid-credential") {
+        errorMessage = "Invalid email or password.";
+      }
+      throw new Error(errorMessage);
+    }
+  };
+
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -79,6 +100,7 @@ export function useAuth() {
     user: mockUser || user,
     loading: loading && !mockUser,
     error,
+    signInWithEmail,
     signInWithGoogle,
     signInDev,
     signOut,

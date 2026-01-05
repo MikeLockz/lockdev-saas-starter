@@ -8,7 +8,8 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ArrowLeft, Phone, Mail, AlertTriangle, CheckCircle } from 'lucide-react'
-import { format } from 'date-fns'
+import { formatDateTime } from '@/lib/timezone'
+import { useTimezoneContext } from '@/contexts/TimezoneContext'
 import { CareTeamList } from '@/components/care-team/CareTeamList'
 import { AppointmentList } from '@/components/appointments'
 import { FileUploader, DocumentList } from '@/components/documents'
@@ -18,6 +19,7 @@ export const Route = createFileRoute('/_auth/patients/$patientId')({
 })
 
 function PatientDetailPage() {
+    const timezone = useTimezoneContext()
     const navigate = useNavigate()
     const { patientId } = Route.useParams()
     const { data: patient, isLoading, error } = usePatient(patientId)
@@ -94,7 +96,7 @@ function PatientDetailPage() {
                                 <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                                     <div>
                                         <dt className="text-sm font-medium text-muted-foreground">Date of Birth</dt>
-                                        <dd className="text-sm">{format(new Date(patient.dob), 'MMMM d, yyyy')}</dd>
+                                        <dd className="text-sm">{formatDateTime(new Date(patient.dob), 'MMMM d, yyyy', timezone)}</dd>
                                     </div>
                                     <div>
                                         <dt className="text-sm font-medium text-muted-foreground">Legal Sex</dt>
@@ -115,7 +117,7 @@ function PatientDetailPage() {
                                     <div>
                                         <dt className="text-sm font-medium text-muted-foreground">Enrolled</dt>
                                         <dd className="text-sm">
-                                            {patient.enrolled_at ? format(new Date(patient.enrolled_at), 'MMMM d, yyyy') : '—'}
+                                            {patient.enrolled_at ? formatDateTime(new Date(patient.enrolled_at), 'MMMM d, yyyy', timezone) : '—'}
                                         </dd>
                                     </div>
                                 </dl>

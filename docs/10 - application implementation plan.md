@@ -401,8 +401,40 @@
 
 ---
 
+## Phase 6: Timezone Support
+**Goal:** Display all user-facing dates/times in configured timezone.
+
+### Step 6.1: Timezone Schema & API
+**Requirements Reference:**
+*   **DDL:** `docs/04 - sql.ddl` (Cols: `timezone` in `organizations` and `users`)
+*   **API:** `docs/05 - API Reference.md` (Section: "Organizations", "Users")
+
+**1. Database**
+*   **Migration:** Add `timezone` column to `organizations` (NOT NULL, default 'America/New_York') and `users` (nullable).
+
+**2. Backend (API)**
+*   **Endpoints:**
+    *   `GET /api/users/me/timezone`: Returns effective timezone with source.
+    *   `PATCH /api/users/me/timezone`: Update user preference.
+*   **Schemas:** Add `timezone` to `OrganizationRead`, `OrganizationUpdate`, `UserRead`, `UserUpdate`.
+
+### Step 6.2: Timezone Frontend
+**Requirements Reference:**
+*   **UI:** `docs/06 - Frontend Views & Routes.md` (Routes: `/settings/organization`, `/settings/profile`)
+
+**1. Dependencies**
+*   Install `date-fns-tz` for timezone-aware formatting.
+
+**2. Frontend (UI)**
+*   **Utilities:** Create `formatDateTime()` and `useTimezone()` hook.
+*   **Components:** Update all date-displaying components (Appointments, Notifications, Messages, etc.) to use timezone.
+*   **Settings:** Add timezone selector to Organization Settings and User Profile.
+
+---
+
 ## Final Checklist
 1.  **Audit Middleware:** Included in Step 1.1.5 and verified in Step 2.1.
 2.  **Soft Delete:** Included in Base Schema.
 3.  **RBAC:** Defined in API implementation details.
-4.  **Drift Check:** PASSED. All tables and critical HIPAA flows (Export, Delete, Consent, Session Monitoring) are now explicitly scheduled. Super Admin routes mapped. API gaps (`mark-all-read`, `device-token`) closed.
+4.  **Timezone:** Organization-level timezone with user override (Phase 6).
+5.  **Drift Check:** PASSED. All tables and critical HIPAA flows (Export, Delete, Consent, Session Monitoring) are now explicitly scheduled. Super Admin routes mapped. API gaps (`mark-all-read`, `device-token`) closed.
