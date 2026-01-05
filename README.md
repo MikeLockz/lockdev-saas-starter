@@ -76,6 +76,30 @@ make dev
 | API Docs (ReDoc) | http://localhost:8000/redoc |
 | Admin Panel | http://localhost:8000/admin |
 
+### 5. Seed Test Data
+
+```bash
+# Seed E2E test users (runs inside Docker - no config needed)
+make seed
+
+# Or seed individually:
+make seed-e2e      # Creates organization, super admin, staff, provider, patient
+make seed-patients # Adds 50 dummy patients
+```
+
+#### Dev Login Users
+
+After seeding, use these mock users via the dev login buttons on the login page:
+
+| User | Email | Role |
+|------|-------|------|
+| Super Admin | `e2e@example.com` | Platform-wide admin |
+| Staff | `staff@example.com` | Organization staff member |
+| Provider | `provider@example.com` | Licensed provider (NPI: 1234567890) |
+| Patient | `patient@example.com` | Patient portal user |
+
+> **Note:** Dev login buttons only appear when running in development mode (`pnpm dev`).
+
 ## 📁 Project Structure
 
 ```

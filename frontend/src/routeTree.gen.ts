@@ -27,6 +27,7 @@ import { Route as AuthCallCenterIndexRouteImport } from './routes/_auth/call-cen
 import { Route as AuthAppointmentsIndexRouteImport } from './routes/_auth/appointments/index'
 import { Route as AuthSuperAdminUsersRouteImport } from './routes/_auth/super-admin/users'
 import { Route as AuthSuperAdminOrganizationsRouteImport } from './routes/_auth/super-admin/organizations'
+import { Route as AuthProxyPatientsRouteImport } from './routes/_auth/proxy/patients'
 import { Route as AuthPatientsNewRouteImport } from './routes/_auth/patients/new'
 import { Route as AuthPatientsPatientIdRouteImport } from './routes/_auth/patients/$patientId'
 import { Route as AuthMessagesThreadIdRouteImport } from './routes/_auth/messages/$threadId'
@@ -128,6 +129,11 @@ const AuthSuperAdminOrganizationsRoute =
     path: '/super-admin/organizations',
     getParentRoute: () => AuthRoute,
   } as any)
+const AuthProxyPatientsRoute = AuthProxyPatientsRouteImport.update({
+  id: '/proxy/patients',
+  path: '/proxy/patients',
+  getParentRoute: () => AuthRoute,
+} as any)
 const AuthPatientsNewRoute = AuthPatientsNewRouteImport.update({
   id: '/patients/new',
   path: '/patients/new',
@@ -198,6 +204,7 @@ export interface FileRoutesByFullPath {
   '/messages/$threadId': typeof AuthMessagesThreadIdRoute
   '/patients/$patientId': typeof AuthPatientsPatientIdRoute
   '/patients/new': typeof AuthPatientsNewRoute
+  '/proxy/patients': typeof AuthProxyPatientsRoute
   '/super-admin/organizations': typeof AuthSuperAdminOrganizationsRoute
   '/super-admin/users': typeof AuthSuperAdminUsersRoute
   '/appointments': typeof AuthAppointmentsIndexRoute
@@ -226,6 +233,7 @@ export interface FileRoutesByTo {
   '/messages/$threadId': typeof AuthMessagesThreadIdRoute
   '/patients/$patientId': typeof AuthPatientsPatientIdRoute
   '/patients/new': typeof AuthPatientsNewRoute
+  '/proxy/patients': typeof AuthProxyPatientsRoute
   '/super-admin/organizations': typeof AuthSuperAdminOrganizationsRoute
   '/super-admin/users': typeof AuthSuperAdminUsersRoute
   '/appointments': typeof AuthAppointmentsIndexRoute
@@ -257,6 +265,7 @@ export interface FileRoutesById {
   '/_auth/messages/$threadId': typeof AuthMessagesThreadIdRoute
   '/_auth/patients/$patientId': typeof AuthPatientsPatientIdRoute
   '/_auth/patients/new': typeof AuthPatientsNewRoute
+  '/_auth/proxy/patients': typeof AuthProxyPatientsRoute
   '/_auth/super-admin/organizations': typeof AuthSuperAdminOrganizationsRoute
   '/_auth/super-admin/users': typeof AuthSuperAdminUsersRoute
   '/_auth/appointments/': typeof AuthAppointmentsIndexRoute
@@ -288,6 +297,7 @@ export interface FileRouteTypes {
     | '/messages/$threadId'
     | '/patients/$patientId'
     | '/patients/new'
+    | '/proxy/patients'
     | '/super-admin/organizations'
     | '/super-admin/users'
     | '/appointments'
@@ -316,6 +326,7 @@ export interface FileRouteTypes {
     | '/messages/$threadId'
     | '/patients/$patientId'
     | '/patients/new'
+    | '/proxy/patients'
     | '/super-admin/organizations'
     | '/super-admin/users'
     | '/appointments'
@@ -346,6 +357,7 @@ export interface FileRouteTypes {
     | '/_auth/messages/$threadId'
     | '/_auth/patients/$patientId'
     | '/_auth/patients/new'
+    | '/_auth/proxy/patients'
     | '/_auth/super-admin/organizations'
     | '/_auth/super-admin/users'
     | '/_auth/appointments/'
@@ -493,6 +505,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSuperAdminOrganizationsRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_auth/proxy/patients': {
+      id: '/_auth/proxy/patients'
+      path: '/proxy/patients'
+      fullPath: '/proxy/patients'
+      preLoaderRoute: typeof AuthProxyPatientsRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/_auth/patients/new': {
       id: '/_auth/patients/new'
       path: '/patients/new'
@@ -594,6 +613,7 @@ interface AuthRouteChildren {
   AuthHelpTicketsRoute: typeof AuthHelpTicketsRoute
   AuthPatientsPatientIdRoute: typeof AuthPatientsPatientIdRoute
   AuthPatientsNewRoute: typeof AuthPatientsNewRoute
+  AuthProxyPatientsRoute: typeof AuthProxyPatientsRoute
   AuthSuperAdminOrganizationsRoute: typeof AuthSuperAdminOrganizationsRoute
   AuthSuperAdminUsersRoute: typeof AuthSuperAdminUsersRoute
   AuthAppointmentsIndexRoute: typeof AuthAppointmentsIndexRoute
@@ -618,6 +638,7 @@ const AuthRouteChildren: AuthRouteChildren = {
   AuthHelpTicketsRoute: AuthHelpTicketsRoute,
   AuthPatientsPatientIdRoute: AuthPatientsPatientIdRoute,
   AuthPatientsNewRoute: AuthPatientsNewRoute,
+  AuthProxyPatientsRoute: AuthProxyPatientsRoute,
   AuthSuperAdminOrganizationsRoute: AuthSuperAdminOrganizationsRoute,
   AuthSuperAdminUsersRoute: AuthSuperAdminUsersRoute,
   AuthAppointmentsIndexRoute: AuthAppointmentsIndexRoute,

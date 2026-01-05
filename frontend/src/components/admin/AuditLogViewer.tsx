@@ -54,14 +54,14 @@ export function AuditLogViewer() {
                         <div>
                             <label className="block text-sm font-medium mb-1">Action Type</label>
                             <Select
-                                value={filters.action_type || ''}
-                                onValueChange={(v) => setFilters({ ...filters, action_type: v || undefined })}
+                                value={filters.action_type || '__all__'}
+                                onValueChange={(v) => setFilters({ ...filters, action_type: v === '__all__' ? undefined : v })}
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="All" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="">All</SelectItem>
+                                    <SelectItem value="__all__">All</SelectItem>
                                     {ACTION_TYPES.map((t) => (
                                         <SelectItem key={t} value={t}>{t}</SelectItem>
                                     ))}
@@ -72,14 +72,14 @@ export function AuditLogViewer() {
                         <div>
                             <label className="block text-sm font-medium mb-1">Resource Type</label>
                             <Select
-                                value={filters.resource_type || ''}
-                                onValueChange={(v) => setFilters({ ...filters, resource_type: v || undefined })}
+                                value={filters.resource_type || '__all__'}
+                                onValueChange={(v) => setFilters({ ...filters, resource_type: v === '__all__' ? undefined : v })}
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="All" />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="">All</SelectItem>
+                                    <SelectItem value="__all__">All</SelectItem>
                                     {RESOURCE_TYPES.map((t) => (
                                         <SelectItem key={t} value={t}>{t}</SelectItem>
                                     ))}

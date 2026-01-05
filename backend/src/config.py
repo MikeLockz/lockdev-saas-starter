@@ -71,7 +71,14 @@ class Settings(BaseSettings):
 
     @computed_field
     def BACKEND_CORS_ORIGINS(self) -> list[str]:
-        return [self.FRONTEND_URL]
+        # Include common local development ports
+        origins = [self.FRONTEND_URL]
+        # Also allow Vite dev server on alternate ports
+        local_ports = ["http://localhost:5173", "http://localhost:5174", "http://127.0.0.1:5173", "http://127.0.0.1:5174"]
+        for origin in local_ports:
+            if origin not in origins:
+                origins.append(origin)
+        return origins
 
 
 settings = Settings()

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { format } from 'date-fns';
+import { formatDateTime } from '@/lib/timezone';
+import { useTimezoneContext } from '@/contexts/TimezoneContext';
 import { Download, Trash2, FileText, FileImage, Loader2 } from 'lucide-react';
 import {
     usePatientDocuments,
@@ -51,6 +52,7 @@ const DOCUMENT_TYPE_LABELS: Record<string, string> = {
 };
 
 export function DocumentList({ patientId }: DocumentListProps) {
+    const timezone = useTimezoneContext();
     const [typeFilter, setTypeFilter] = useState<string>('all');
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [documentToDelete, setDocumentToDelete] = useState<string | null>(null);
@@ -174,7 +176,7 @@ export function DocumentList({ patientId }: DocumentListProps) {
                                 </TableCell>
                                 <TableCell className="text-muted-foreground">
                                     {doc.uploaded_at
-                                        ? format(new Date(doc.uploaded_at), 'MMM d, yyyy')
+                                        ? formatDateTime(new Date(doc.uploaded_at), 'MMM d, yyyy', timezone)
                                         : '—'}
                                 </TableCell>
                                 <TableCell className="text-right">

@@ -156,3 +156,52 @@ export const useDischargePatient = () => {
         },
     });
 };
+
+/**
+ * Get the patient profile for the current user.
+ * Returns undefined if the current user is not a patient.
+ */
+export const useCurrentUserPatient = () => {
+    const currentOrgId = useOrgStore((state) => state.currentOrgId);
+    const { data: patients, isLoading } = usePatients({ limit: 100 });
+
+    return useQuery<Patient | null>({
+        queryKey: ['current-user-patient', currentOrgId],
+        queryFn: async () => {
+            // Get current user ID
+            const userResponse = await api.get('/api/v1/users/me');
+            const userId = userResponse.data?.id;
+
+            if (!userId || !patients?.items) return null;
+
+            // Find patient matching current user
+            const match = patients.items.find((_p) => {
+                // Need to fetch full patient to get user_id 
+                return true; // Check below
+            });
+
+            if (!match) return null;
+
+            // Fetch full patient details and check user_id
+            const response = await api.get(`/api/v1/organizations/${currentOrgId}/patients/${match.id}`);
+            const fullPatient = response.data as Patient;
+
+            if (fullPatient.user_id === userId) {
+                return fullPatient;
+            }
+
+            // If first match didn't work, search through all
+            for (const item of patients.items) {
+                const resp = await api.get(`/api/v1/organizations/${currentOrgId}/patients/${item.id}`);
+                const patient = resp.data as Patient;
+                if (patient.user_id === userId) {
+                    return patient;
+                }
+            }
+
+            return null;
+        },
+        enabled: !!currentOrgId && !isLoading && !!patients?.items?.length,
+        staleTime: 5 * 60 * 1000, // 5 minutes
+    });
+};

@@ -22,13 +22,15 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Search, ChevronLeft, ChevronRight, Plus } from 'lucide-react'
-import { format } from 'date-fns'
+import { formatDateTime } from '@/lib/timezone'
+import { useTimezoneContext } from '@/contexts/TimezoneContext'
 
 interface PatientTableProps {
     onPatientClick?: (patient: PatientListItem) => void
 }
 
 export function PatientTable({ onPatientClick }: PatientTableProps) {
+    const timezone = useTimezoneContext()
     const navigate = useNavigate()
     const [searchInput, setSearchInput] = useState('')
     const [status, setStatus] = useState<string>('ACTIVE')
@@ -138,7 +140,7 @@ export function PatientTable({ onPatientClick }: PatientTableProps) {
                                         {patient.last_name}, {patient.first_name}
                                     </TableCell>
                                     <TableCell>
-                                        {format(new Date(patient.dob), 'MM/dd/yyyy')}
+                                        {formatDateTime(new Date(patient.dob), 'MM/dd/yyyy', timezone)}
                                     </TableCell>
                                     <TableCell className="font-mono text-sm">
                                         {patient.medical_record_number || '—'}
@@ -149,7 +151,7 @@ export function PatientTable({ onPatientClick }: PatientTableProps) {
                                         </Badge>
                                     </TableCell>
                                     <TableCell className="text-muted-foreground">
-                                        {patient.enrolled_at ? format(new Date(patient.enrolled_at), 'MM/dd/yyyy') : '—'}
+                                        {patient.enrolled_at ? formatDateTime(new Date(patient.enrolled_at), 'MM/dd/yyyy', timezone) : '—'}
                                     </TableCell>
                                 </TableRow>
                             ))

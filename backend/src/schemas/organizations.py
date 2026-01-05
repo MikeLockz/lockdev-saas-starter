@@ -7,6 +7,7 @@ class OrganizationBase(BaseModel):
     name: str = Field(..., max_length=255)
     tax_id: Optional[str] = Field(None, max_length=50)
     settings_json: Dict[str, Any] = Field(default_factory=dict)
+    timezone: str = Field(default="America/New_York", max_length=50)
 
 class OrganizationCreate(OrganizationBase):
     pass
@@ -15,6 +16,7 @@ class OrganizationUpdate(BaseModel):
     name: Optional[str] = Field(None, max_length=255)
     tax_id: Optional[str] = Field(None, max_length=50)
     settings_json: Optional[Dict[str, Any]] = None
+    timezone: Optional[str] = Field(None, max_length=50)
 
 class OrganizationRead(OrganizationBase):
     id: UUID

@@ -1,4 +1,5 @@
-import { format } from "date-fns"
+import { formatDateTime } from "@/lib/timezone"
+import { useTimezoneContext } from "@/contexts/TimezoneContext"
 
 import { useCurrentOrg } from "@/hooks/useCurrentOrg"
 import { useOrgMembers } from "@/hooks/useOrgMembers"
@@ -11,6 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 // So I will implement a custom simple table here.
 
 export function MemberTable() {
+    const timezone = useTimezoneContext()
     const { orgId } = useCurrentOrg()
     const { data: members, isLoading } = useOrgMembers(orgId)
 
@@ -55,7 +57,7 @@ export function MemberTable() {
                             <td className="p-4 align-middle">{member.email}</td>
                             <td className="p-4 align-middle capitalize">{member.role}</td>
                             <td className="p-4 align-middle">
-                                {member.created_at ? format(new Date(member.created_at), "MMM d, yyyy") : "-"}
+                                {member.created_at ? formatDateTime(new Date(member.created_at), "MMM d, yyyy", timezone) : "-"}
                             </td>
                         </tr>
                     ))}

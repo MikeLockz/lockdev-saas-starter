@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Send, User as UserIcon } from "lucide-react";
-import { formatDistanceToNow } from "date-fns";
+import { formatRelativeTime } from "@/lib/timezone";
+import { useTimezoneContext } from "@/contexts/TimezoneContext";
 import { cn } from "@/lib/utils";
 import { useCurrentUser } from "@/hooks/api/useCurrentUser";
 
@@ -13,6 +14,7 @@ interface ChatInterfaceProps {
 }
 
 export function ChatInterface({ threadId }: ChatInterfaceProps) {
+    const timezone = useTimezoneContext();
     const { data: user } = useCurrentUser();
     const { data: thread, isLoading } = useThread(threadId);
     const sendMessage = useSendMessage();
@@ -111,7 +113,7 @@ export function ChatInterface({ threadId }: ChatInterfaceProps) {
                                     isMe && "flex-row-reverse"
                                 )}>
                                     <span className="font-medium">{msg.sender_name || "Unknown"}</span>
-                                    <span>{formatDistanceToNow(new Date(msg.created_at), { addSuffix: true })}</span>
+                                    <span>{formatRelativeTime(msg.created_at, timezone)}</span>
                                 </div>
 
                                 <div className={cn(

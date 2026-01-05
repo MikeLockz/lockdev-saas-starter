@@ -1,9 +1,14 @@
+import { createFileRoute } from '@tanstack/react-router';
 import { useMyProxyPatients } from "@/hooks/api/useMyProxyPatients";
 import { ProxyPatientCard } from "@/components/proxies/ProxyPatientCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Users } from "lucide-react";
 
-export default function ProxyPatientsPage() {
+export const Route = createFileRoute('/_auth/proxy/patients')({
+    component: ProxyPatientsPage,
+});
+
+function ProxyPatientsPage() {
     const { data: proxyPatients, isLoading, error } = useMyProxyPatients();
 
     if (isLoading) {

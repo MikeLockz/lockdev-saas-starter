@@ -925,6 +925,7 @@ Create a new organization (tenant).
 |-------|------|----------|-------------|
 | `name` | string | Yes | Organization display name |
 | `tax_id` | string | No | EIN for billing purposes |
+| `timezone` | string | No | IANA timezone (default: "America/New_York") |
 | `settings` | object | No | Custom branding settings |
 
 **Response:** `201 Created`

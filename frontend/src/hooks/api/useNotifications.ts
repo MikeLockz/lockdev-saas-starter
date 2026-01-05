@@ -39,7 +39,7 @@ export const useNotifications = (page = 1, size = 20, isRead?: boolean) => {
                 params.append("is_read", isRead.toString());
             }
             const { data } = await api.get<NotificationListResponse>(
-                `/users/me/notifications?${params.toString()}`
+                `/api/v1/users/me/notifications?${params.toString()}`
             );
             return data;
         },
@@ -51,7 +51,7 @@ export const useUnreadCount = () => {
         queryKey: ["notifications", "unread-count"],
         queryFn: async () => {
             const { data } = await api.get<UnreadCountResponse>(
-                "/users/me/notifications/unread-count"
+                "/api/v1/users/me/notifications/unread-count"
             );
             return data;
         },
@@ -64,7 +64,7 @@ export const useMarkNotificationRead = () => {
     return useMutation({
         mutationFn: async (notificationId: string) => {
             const { data } = await api.patch<Notification>(
-                `/users/me/notifications/${notificationId}/read`
+                `/api/v1/users/me/notifications/${notificationId}/read`
             );
             return data;
         },
@@ -78,7 +78,7 @@ export const useMarkAllNotificationsRead = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: async () => {
-            await api.post("/users/me/notifications/read-all");
+            await api.post("/api/v1/users/me/notifications/read-all");
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["notifications"] });
@@ -90,7 +90,7 @@ export const useDeleteNotification = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: async (notificationId: string) => {
-            await api.delete(`/users/me/notifications/${notificationId}`);
+            await api.delete(`/api/v1/users/me/notifications/${notificationId}`);
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["notifications"] });

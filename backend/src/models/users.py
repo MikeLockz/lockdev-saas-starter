@@ -21,6 +21,7 @@ class User(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
     last_login_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
     failed_login_attempts: Mapped[int] = mapped_column(Integer, default=0)
     locked_until: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
+    timezone: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
 
     # Relationships
     memberships: Mapped[List["OrganizationMember"]] = relationship(back_populates="user")

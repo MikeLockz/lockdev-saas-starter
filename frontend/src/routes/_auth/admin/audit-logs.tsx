@@ -1,4 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { Header } from '@/components/layout/header';
+import { Main } from '@/components/layout/main';
 import { AuditLogViewer } from '../../../components/admin/AuditLogViewer';
 
 export const Route = createFileRoute('/_auth/admin/audit-logs')({
@@ -7,9 +9,13 @@ export const Route = createFileRoute('/_auth/admin/audit-logs')({
 
 function AuditLogsPage() {
     return (
-        <div className="container mx-auto py-8">
-            <h1 className="text-3xl font-bold mb-8">Audit Logs</h1>
-            <AuditLogViewer />
-        </div>
+        <>
+            <Header fixed>
+                <h1 className="text-lg font-semibold">Audit Logs</h1>
+            </Header>
+            <Main>
+                <AuditLogViewer />
+            </Main>
+        </>
     );
 }

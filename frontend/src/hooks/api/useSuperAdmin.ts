@@ -94,6 +94,24 @@ export function useUpdateOrganization() {
     });
 }
 
+export interface OrganizationCreateData {
+    name: string;
+    subscription_status?: string;
+}
+
+export function useCreateOrganization() {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: async (data: OrganizationCreateData) => {
+            const response = await api.post('/api/v1/admin/super-admin/organizations', data);
+            return response.data as OrganizationAdmin;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['super-admin', 'organizations'] });
+        },
+    });
+}
+
 export function useSuperAdminUsers(params: UserSearchParams = {}) {
     return useQuery<UserListResponse>({
         queryKey: ['super-admin', 'users', params],

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { format } from 'date-fns';
+import { formatDateTime } from '@/lib/timezone';
+import { useTimezoneContext } from '@/contexts/TimezoneContext';
 import { useForm } from 'react-hook-form';
 import { Phone, Clock, ArrowUpRight, ArrowDownLeft, User as UserIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
@@ -154,6 +155,7 @@ export function CallLogForm({ activeCall, onClose }: { activeCall?: Call; onClos
 }
 
 export function CallCard({ call, onClick }: { call: Call; onClick: () => void }) {
+    const timezone = useTimezoneContext();
     return (
         <div
             onClick={onClick}
@@ -166,7 +168,7 @@ export function CallCard({ call, onClick }: { call: Call; onClick: () => void })
                 <div>
                     <div className="font-medium">{call.patient_name || call.phone_number}</div>
                     <div className="text-sm text-muted-foreground flex items-center space-x-2">
-                        <span>{format(new Date(call.started_at || call.created_at), 'MMM d, h:mm a')}</span>
+                        <span>{formatDateTime(new Date(call.started_at || call.created_at), 'MMM d, h:mm a', timezone)}</span>
                         {call.duration_seconds && (
                             <>
                                 <span>•</span>
@@ -309,7 +311,7 @@ export function CallCenterDashboard() {
                                             <div className="text-right">
                                                 <Badge variant="outline" className="mb-1">{call.outcome || 'No outcome'}</Badge>
                                                 <div className="text-xs text-muted-foreground">
-                                                    {format(new Date(call.created_at), 'h:mm a')}
+                                                    {formatDateTime(new Date(call.created_at), 'h:mm a', useTimezoneContext())}
                                                 </div>
                                             </div>
                                         </div>

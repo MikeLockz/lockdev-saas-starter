@@ -1,4 +1,5 @@
-import { formatDistanceToNow } from "date-fns";
+import { formatRelativeTime } from "@/lib/timezone";
+import { useTimezoneContext } from "@/contexts/TimezoneContext";
 import {
     Calendar,
     MessageSquare,
@@ -22,6 +23,7 @@ export function NotificationItem({
     onDelete,
     compact = false
 }: NotificationItemProps) {
+    const timezone = useTimezoneContext();
     const Icon = getIcon(notification.type);
 
     return (
@@ -46,7 +48,7 @@ export function NotificationItem({
                         {notification.title}
                     </p>
                     <span className="text-xs text-muted-foreground whitespace-nowrap shrink-0">
-                        {formatDistanceToNow(new Date(notification.created_at), { addSuffix: true })}
+                        {formatRelativeTime(notification.created_at, timezone)}
                     </span>
                 </div>
 

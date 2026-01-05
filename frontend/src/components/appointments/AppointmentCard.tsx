@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { AppointmentStatusBadge } from './AppointmentStatusBadge';
-import { format } from 'date-fns';
+import { formatDateTime } from '@/lib/timezone';
+import { useTimezoneContext } from '@/contexts/TimezoneContext';
 import { Clock, User, Stethoscope, CheckCircle, XCircle, CheckCheck } from 'lucide-react';
 import type { Appointment } from '@/hooks/api/useAppointments';
 
@@ -13,6 +14,7 @@ interface AppointmentCardProps {
 }
 
 export function AppointmentCard({ appointment, onConfirm, onCancel, onComplete }: AppointmentCardProps) {
+    const timezone = useTimezoneContext();
     const scheduledDate = new Date(appointment.scheduled_at);
     const canConfirm = appointment.status === 'SCHEDULED';
     const canCancel = ['SCHEDULED', 'CONFIRMED'].includes(appointment.status);
@@ -34,7 +36,7 @@ export function AppointmentCard({ appointment, onConfirm, onCancel, onComplete }
                             <div className="flex items-center gap-1.5">
                                 <Clock className="h-4 w-4 text-muted-foreground" />
                                 <span className="font-medium">
-                                    {format(scheduledDate, 'h:mm a')}
+                                    {formatDateTime(scheduledDate, 'h:mm a', timezone)}
                                 </span>
                                 <span className="text-muted-foreground">
                                     ({appointment.duration_minutes} min)

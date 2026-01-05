@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
 from src.database import get_db, tenant_id_ctx
-from src.models.organizations import OrganizationMember
+from src.models.organizations import OrganizationMember, Organization
 from src.security.auth import get_current_user
 from src.models.users import User
 
@@ -18,7 +18,29 @@ class OrgAccess:
         current_user: User = Depends(get_current_user),
         db: AsyncSession = Depends(get_db)
     ) -> OrganizationMember:
-        # Query membership
+        # Super Admins can access any organization with implicit ADMIN privileges
+        if current_user.is_super_admin:
+            # Verify the organization exists
+            org_stmt = select(Organization).where(Organization.id == org_id)
+            org_result = await db.execute(org_stmt)
+            org = org_result.scalar_one_or_none()
+            
+            if not org:
+                raise HTTPException(status_code=404, detail="Organization not found")
+            
+            # Set RLS context for tenant
+            tenant_id_ctx.set(str(org_id))
+            
+            # Return a synthetic OrganizationMember with ADMIN role for Super Admins
+            # Note: This is not persisted, just used for authorization
+            synthetic_member = OrganizationMember(
+                organization_id=org_id,
+                user_id=current_user.id,
+                role="ADMIN"
+            )
+            return synthetic_member
+        
+        # Query membership for regular users
         stmt = select(OrganizationMember).where(
             OrganizationMember.organization_id == org_id,
             OrganizationMember.user_id == current_user.id

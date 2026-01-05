@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { format, isPast, isToday } from 'date-fns';
+import { isPast, isToday } from 'date-fns';
+import { formatDateTime } from '@/lib/timezone';
+import { useTimezoneContext } from '@/contexts/TimezoneContext';
 import { List, Kanban as KanbanIcon, Plus, Trash2, Calendar, User } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -107,6 +109,7 @@ export function TaskCreateModal({ open, onOpenChange }: { open: boolean; onOpenC
 }
 
 function TaskCard({ task }: { task: Task }) {
+    const timezone = useTimezoneContext();
     const updateTask = useUpdateTask();
     const deleteTask = useDeleteTask();
 
@@ -150,7 +153,7 @@ function TaskCard({ task }: { task: Task }) {
                 {task.due_date && (
                     <div className={cn("flex items-center", isOverdue && "text-red-500 font-medium")}>
                         <Calendar className="h-3 w-3 mr-1" />
-                        {format(new Date(task.due_date), 'MMM d')}
+                        {formatDateTime(new Date(task.due_date), 'MMM d', timezone)}
                     </div>
                 )}
             </div>

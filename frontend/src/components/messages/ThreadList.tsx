@@ -1,4 +1,5 @@
-import { formatDistanceToNow } from "date-fns";
+import { formatRelativeTime } from "@/lib/timezone";
+import { useTimezoneContext } from "@/contexts/TimezoneContext";
 import { cn } from "@/lib/utils";
 import type { Thread } from "@/hooks/api/useMessaging";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +14,8 @@ interface ThreadListProps {
 }
 
 export function ThreadList({ threads, isLoading, selectedId, onSelect }: ThreadListProps) {
+    const timezone = useTimezoneContext();
+
     if (isLoading) {
         return (
             <div className="space-y-2 p-2">
@@ -60,7 +63,7 @@ export function ThreadList({ threads, isLoading, selectedId, onSelect }: ThreadL
                                 {thread.subject}
                             </span>
                             <span className="text-[10px] text-muted-foreground shrink-0 ml-2">
-                                {formatDistanceToNow(new Date(thread.updated_at), { addSuffix: false })}
+                                {formatRelativeTime(thread.updated_at, timezone).replace(' ago', '')}
                             </span>
                         </div>
 

@@ -89,3 +89,14 @@ class ProxyListResponse(BaseModel):
     """List of proxies for a patient."""
     patient_id: UUID
     proxies: List[ProxyAssignmentRead]
+
+
+class ProxyProfileRead(BaseModel):
+    """Proxy profile for the current user."""
+    id: UUID
+    user_id: UUID
+    relationship_to_patient: Optional[str] = None
+    created_at: datetime
+    
+    model_config = {"from_attributes": True}
+

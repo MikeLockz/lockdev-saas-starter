@@ -5,6 +5,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/lib/query-client";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { routeTree } from "./routeTree.gen";
+import { TimezoneProvider } from "@/contexts/TimezoneContext";
 import "./index.css";
 import * as Sentry from "@sentry/react";
 
@@ -17,10 +18,10 @@ if (import.meta.env.VITE_SENTRY_DSN) {
       Sentry.replayIntegration(),
     ],
     // Tracing
-    tracesSampleRate: 1.0, 
+    tracesSampleRate: 1.0,
     // Session Replay
-    replaysSessionSampleRate: 0.1, 
-    replaysOnErrorSampleRate: 1.0, 
+    replaysSessionSampleRate: 0.1,
+    replaysOnErrorSampleRate: 1.0,
     // PII
     sendDefaultPii: false,
   });
@@ -43,7 +44,9 @@ if (!root) throw new Error("Root element not found");
 createRoot(root).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <TimezoneProvider>
+        <RouterProvider router={router} />
+      </TimezoneProvider>
     </QueryClientProvider>
   </StrictMode>,
 );

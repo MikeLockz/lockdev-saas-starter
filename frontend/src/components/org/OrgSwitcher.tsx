@@ -1,4 +1,5 @@
 import { ChevronsUpDown, Check, Plus } from "lucide-react"
+import { useNavigate } from "@tanstack/react-router"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -11,14 +12,15 @@ import {
     DropdownMenuGroup,
 } from "@/components/ui/dropdown-menu"
 import { useCurrentOrg } from "@/hooks/useCurrentOrg"
+import { useUserProfile } from "@/hooks/useUserProfile"
 import { cn } from "@/lib/utils"
 
 export function OrgSwitcher() {
     const { organization, organizations, setCurrentOrgId, isLoading } = useCurrentOrg()
+    const { profile } = useUserProfile()
+    const navigate = useNavigate()
 
-    // If loading or no organizations, maybe show a skeleton or simplified view
-    // For now, we'll just handle empty state
-
+    const isSuperAdmin = profile?.is_super_admin ?? false
     const currentOrgName = organization?.name || "Select Organization"
 
     return (
@@ -57,12 +59,17 @@ export function OrgSwitcher() {
                         <DropdownMenuItem disabled>No organizations found</DropdownMenuItem>
                     )}
                 </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onSelect={() => console.log("Create Org clicked")}>
-                    <Plus className="mr-2 h-4 w-4" />
-                    Create Organization
-                </DropdownMenuItem>
+                {isSuperAdmin && (
+                    <>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onSelect={() => navigate({ to: '/super-admin/organizations' })}>
+                            <Plus className="mr-2 h-4 w-4" />
+                            Create Organization
+                        </DropdownMenuItem>
+                    </>
+                )}
             </DropdownMenuContent>
         </DropdownMenu>
     )
 }
+

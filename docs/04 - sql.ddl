@@ -14,6 +14,7 @@ CREATE TABLE users (
     display_name VARCHAR(255),
     is_super_admin BOOLEAN DEFAULT FALSE, -- Platform owner access
     mfa_enabled BOOLEAN DEFAULT FALSE,
+    timezone VARCHAR(50), -- Optional IANA timezone override (null = use org default)
     transactional_consent BOOLEAN DEFAULT TRUE, -- TCPA Compliance
     marketing_consent BOOLEAN DEFAULT FALSE,
     requires_consent BOOLEAN DEFAULT TRUE, -- Cache flag for mandatory consents
@@ -47,6 +48,7 @@ CREATE TABLE organizations (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name VARCHAR(255) NOT NULL,
     tax_id VARCHAR(50), -- EIN for billing
+    timezone VARCHAR(50) DEFAULT 'America/New_York' NOT NULL, -- IANA timezone (e.g., America/Los_Angeles)
     settings_json JSONB DEFAULT '{}', -- Tenant specific configs (logo, colors)
     stripe_customer_id VARCHAR(100), -- External Billing ID
     subscription_status VARCHAR(50) DEFAULT 'INCOMPLETE', -- 'ACTIVE', 'PAST_DUE', 'CANCELED'
