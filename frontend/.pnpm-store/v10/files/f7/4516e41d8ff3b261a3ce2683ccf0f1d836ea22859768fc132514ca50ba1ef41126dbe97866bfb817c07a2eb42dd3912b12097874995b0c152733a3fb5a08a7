@@ -1,4 +1,0 @@
-{
-    "main": "dist/pastable-react.cjs.js",
-    "module": "dist/pastable-react.esm.js"
-}

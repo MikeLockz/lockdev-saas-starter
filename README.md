@@ -47,8 +47,8 @@ make install-all
 
 ```bash
 # Copy environment templates
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env
+cp apps/backend/.env.example apps/backend/.env
+cp apps/frontend/.env.example apps/frontend/.env
 
 # Edit with your credentials (see docs/SETUP.md for details)
 ```
@@ -60,7 +60,7 @@ cp frontend/.env.example frontend/.env
 docker compose up -d db redis
 
 # Run database migrations
-cd backend && uv run alembic upgrade head && cd ..
+cd apps/backend && uv run alembic upgrade head && cd ../..
 
 # Start API and Frontend (in separate terminals)
 make dev
@@ -104,27 +104,29 @@ After seeding, use these mock users via the dev login buttons on the login page:
 
 ```
 lockdev-saas-starter/
-├── backend/                 # FastAPI application
-│   ├── src/
-│   │   ├── api/            # API routes (events, users, webhooks, etc.)
-│   │   ├── models/         # SQLAlchemy models
-│   │   ├── services/       # Business logic (AI, billing, documents)
-│   │   └── middleware/     # Auth, audit, context middleware
-│   ├── migrations/         # Alembic migrations
-│   └── tests/              # pytest test suite
-├── frontend/               # React SPA
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
-│   │   ├── hooks/          # Custom hooks (useAuth, useAnalytics)
-│   │   ├── routes/         # Page components
-│   │   └── stores/         # Zustand state stores
-│   └── public/             # Static assets
-├── infra/                  # Infrastructure as Code
-│   └── aws/               # OpenTofu AWS configuration
-├── docs/                   # Documentation
-│   ├── architecture/       # C4 and D2 diagrams
+├── apps/                    # Application packages
+│   ├── backend/             # FastAPI application
+│   │   ├── src/
+│   │   │   ├── api/         # API routes (events, users, webhooks, etc.)
+│   │   │   ├── models/      # SQLAlchemy models
+│   │   │   ├── services/    # Business logic (AI, billing, documents)
+│   │   │   └── middleware/  # Auth, audit, context middleware
+│   │   ├── migrations/      # Alembic migrations
+│   │   └── tests/           # pytest test suite
+│   └── frontend/            # React SPA
+│       ├── src/
+│       │   ├── components/  # Reusable UI components
+│       │   ├── hooks/       # Custom hooks (useAuth, useAnalytics)
+│       │   ├── routes/      # Page components
+│       │   └── stores/      # Zustand state stores
+│       └── public/          # Static assets
+├── packages/                # Shared packages (future)
+├── infra/                   # Infrastructure as Code
+│   └── aws/                # OpenTofu AWS configuration
+├── docs/                    # Documentation
+│   ├── architecture/        # C4 and D2 diagrams
 │   └── implementation-plan/ # Story-based implementation tracking
-└── docker-compose.yml      # Local development services
+└── docker-compose.yml       # Local development services
 ```
 
 ## 📖 Documentation
@@ -157,15 +159,15 @@ lockdev-saas-starter/
 
 ```bash
 # Backend tests
-cd backend
+cd apps/backend
 uv run pytest
 
 # Frontend tests
-cd frontend
+cd apps/frontend
 pnpm test
 
 # E2E tests (Playwright)
-cd frontend
+cd apps/frontend
 pnpm test:e2e
 ```
 
