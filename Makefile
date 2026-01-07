@@ -1,4 +1,4 @@
-.PHONY: install-all dev dev-stop dev-logs dev-logs-worker check test clean migrate seed seed-e2e seed-patients stop
+.PHONY: install-all dev dev-stop dev-logs dev-logs-worker check test clean migrate seed seed-e2e seed-patients stop agent agent-install
 
 # Default ports
 FRONTEND_PORT ?= 5173
@@ -6,11 +6,13 @@ BACKEND_PORT ?= 8000
 
 install-all:
 	@echo "Installing Backend..."
-	cd backend && uv sync
+	cd apps/backend && uv sync
 	@echo "Installing Frontend..."
-	cd frontend && pnpm install
+	cd apps/frontend && pnpm install
 	@echo "Installing Pre-commit..."
-	cd backend && uv run pre-commit install
+	cd apps/backend && uv run pre-commit install
+	@echo "Installing Agent..."
+	cd agent && uv venv && . .venv/bin/activate && uv pip install -r requirements.txt
 
 # Stop any existing dev processes
 stop:
@@ -43,14 +45,14 @@ dev: stop
 	@echo "Starting Frontend (Vite)..."
 	@echo "  → Frontend will be available at http://localhost:$(FRONTEND_PORT)"
 	@echo ""
-	cd frontend && pnpm dev
+	cd apps/frontend && pnpm dev
 
 # Start dev without stopping (for manual control)
 dev-start:
 	@echo "Starting Backend (Docker)..."
 	docker compose up -d db redis api worker --build
 	@echo "Starting Frontend..."
-	cd frontend && pnpm dev
+	cd apps/frontend && pnpm dev
 
 # Just stop dev processes (alias)
 dev-stop: stop
@@ -86,32 +88,42 @@ seed-patients:
 check:
 	@echo "Running Checks..."
 	@echo "Backend Ruff..."
-	cd backend && uv run ruff check .
-	cd backend && uv run ruff format --check .
+	cd apps/backend && uv run ruff check .
+	cd apps/backend && uv run ruff format --check .
 	@echo "Frontend Biome..."
-	cd frontend && pnpm biome check .
+	cd apps/frontend && pnpm biome check .
 	@echo "Pre-commit..."
-	backend/.venv/bin/pre-commit run --all-files
+	apps/backend/.venv/bin/pre-commit run --all-files
 
 test:
 	@echo "Running Tests..."
 	@echo "Backend..."
 	docker compose exec api pytest
 	@echo "Frontend..."
-	cd frontend && pnpm test
+	cd apps/frontend && pnpm test
 
 test-backend:
 	docker compose exec api pytest
 
 test-frontend:
-	cd frontend && pnpm test
+	cd apps/frontend && pnpm test
 
 clean:
 	@echo "Cleaning up..."
-	rm -rf backend/.venv frontend/node_modules
+	rm -rf apps/backend/.venv apps/frontend/node_modules
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name ".pytest_cache" -exec rm -rf {} + 2>/dev/null || true
 	@echo "✓ Cleaned"
+
+# Agent Commands
+agent-install:
+	@echo "Setting up Agent environment..."
+	cd agent && uv venv && . .venv/bin/activate && uv pip install -r requirements.txt
+	@echo "✓ Agent dependencies installed"
+
+agent:
+	@echo "Starting AI Agent..."
+	cd agent && . .venv/bin/activate && python run.py
 
 # Show help
 help:
@@ -129,5 +141,7 @@ help:
 	@echo "  make test          - Run all tests"
 	@echo "  make test-backend  - Run backend tests only"
 	@echo "  make test-frontend - Run frontend tests only"
+	@echo "  make agent-install - Install agent dependencies"
+	@echo "  make agent         - Run AI agent workflow"
 	@echo "  make clean         - Remove generated files"
 

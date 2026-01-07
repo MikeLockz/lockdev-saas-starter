@@ -16,11 +16,11 @@ services:
       - "6379:6379"
 
   api:
-    build: ./backend
+    build: ./apps/backend
     working_dir: /app
     command: uv run uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir src
     volumes:
-      - ./backend:/app
+      - ./apps/backend:/app
       - /app/.venv
     ports:
       - "8000:8000"
@@ -34,11 +34,11 @@ services:
       - redis
 
   worker:
-    build: ./backend
+    build: ./apps/backend
     working_dir: /app
     command: uv run arq src.worker.WorkerSettings
     volumes:
-      - ./backend:/app
+      - ./apps/backend:/app
       - /app/.venv
     env_file: .env
     environment:
@@ -50,11 +50,11 @@ services:
       - redis
 
   web:
-    build: ./frontend
+    build: ./apps/frontend
     working_dir: /app
     command: pnpm dev --host
     volumes:
-      - ./frontend:/app
+      - ./apps/frontend:/app
     ports:
       - "5173:5173"
     environment:

@@ -1,4 +1,0 @@
-{
-    "main": "dist/pastable-machines.cjs.js",
-    "module": "dist/pastable-machines.esm.js"
-}

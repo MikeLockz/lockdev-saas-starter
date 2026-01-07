@@ -40,10 +40,13 @@ venv/
 .venv/
 env/
 .env/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
 
 # Miscellaneous
 .git/
 .svn/
 .hg/
-backend/secrets/
+apps/backend/secrets/
 shadcn-admin/
