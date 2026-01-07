@@ -138,7 +138,11 @@ Text to summarize:
             raise RuntimeError(f"Failed to parse JSON response: {e}") from e
 
         # Validate and return using Pydantic
-        result = SummaryResponse(**result_data)
+        try:
+            result = SummaryResponse(**result_data)
+        except Exception as e:  # Catch pydantic validation errors
+            logger.error("schema_validation_failed", error=str(e), result_data=result_data)
+            raise RuntimeError(f"AI returned invalid schema: {e}") from e
 
         logger.info(
             "summarize_text_success",

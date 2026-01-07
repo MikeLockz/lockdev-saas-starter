@@ -27,20 +27,26 @@ class User(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
     timezone: Mapped[str | None] = mapped_column(String(50), nullable=True)
 
     # Relationships
-    memberships: Mapped[list["OrganizationMember"]] = relationship(back_populates="user")
-    provider_profile: Mapped[Optional["Provider"]] = relationship(back_populates="user")
-    staff_profile: Mapped[Optional["Staff"]] = relationship(back_populates="user")
-    patient_profile: Mapped[Optional["Patient"]] = relationship(back_populates="user")
-    proxy_profile: Mapped[Optional["Proxy"]] = relationship(back_populates="user")
-    consents: Mapped[list["UserConsent"]] = relationship(back_populates="user")
-    sessions: Mapped[list["UserSession"]] = relationship(back_populates="user")
-    devices: Mapped[list["UserDevice"]] = relationship(back_populates="user")
-    notifications: Mapped[list["Notification"]] = relationship(back_populates="user")
-    message_participations: Mapped[list["MessageParticipant"]] = relationship(back_populates="user")
-    sent_messages: Mapped[list["Message"]] = relationship(back_populates="sender")
-    calls: Mapped[list["Call"]] = relationship(back_populates="agent")
-    assigned_tasks: Mapped[list["Task"]] = relationship(foreign_keys="[Task.assignee_id]", back_populates="assignee")
-    created_tasks: Mapped[list["Task"]] = relationship(foreign_keys="[Task.created_by_id]", back_populates="created_by")
+    memberships: Mapped[list["OrganizationMember"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    provider_profile: Mapped[Optional["Provider"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    staff_profile: Mapped[Optional["Staff"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    patient_profile: Mapped[Optional["Patient"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    proxy_profile: Mapped[Optional["Proxy"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    consents: Mapped[list["UserConsent"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    sessions: Mapped[list["UserSession"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    devices: Mapped[list["UserDevice"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    notifications: Mapped[list["Notification"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    message_participations: Mapped[list["MessageParticipant"]] = relationship(
+        back_populates="user", cascade="all, delete-orphan"
+    )
+    sent_messages: Mapped[list["Message"]] = relationship(back_populates="sender", cascade="all, delete-orphan")
+    calls: Mapped[list["Call"]] = relationship(back_populates="agent", cascade="all, delete-orphan")
+    assigned_tasks: Mapped[list["Task"]] = relationship(
+        foreign_keys="[Task.assignee_id]", back_populates="assignee", cascade="all, delete-orphan"
+    )
+    created_tasks: Mapped[list["Task"]] = relationship(
+        foreign_keys="[Task.created_by_id]", back_populates="created_by", cascade="all, delete-orphan"
+    )
     support_tickets: Mapped[list["SupportTicket"]] = relationship(
-        foreign_keys="[SupportTicket.user_id]", back_populates="user"
+        foreign_keys="[SupportTicket.user_id]", back_populates="user", cascade="all, delete-orphan"
     )

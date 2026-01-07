@@ -17,7 +17,7 @@ import firebase_admin
 from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from firebase_admin import auth, credentials
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.config import settings
@@ -174,6 +174,9 @@ async def get_current_user(
 
     # Set RLS context with DB UUID
     user_id_ctx.set(str(user.id))
+
+    # Ensure DB session has the correct context set (since transaction started before ctx was set)
+    await db.execute(text("SELECT set_config('app.current_user_id', :uid, false)"), {"uid": str(user.id)})
 
     # Get or create session for tracking
     firebase_uid = decoded_token.get("uid", "unknown")

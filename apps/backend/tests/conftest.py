@@ -44,6 +44,19 @@ def mock_presidio():
         yield mock_engine
 
 
+@pytest.fixture(autouse=True)
+def reset_context_vars():
+    from src.database import tenant_id_ctx, user_id_ctx
+
+    token_user = user_id_ctx.set(None)
+    token_tenant = tenant_id_ctx.set(None)
+
+    yield
+
+    user_id_ctx.reset(token_user)
+    tenant_id_ctx.reset(token_tenant)
+
+
 @pytest.fixture
 async def client() -> AsyncClient:
     from httpx import ASGITransport

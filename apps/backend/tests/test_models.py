@@ -8,8 +8,11 @@ from src.models import Patient, User
 
 @pytest.mark.asyncio
 async def test_create_user_and_patient(db_session):
+    import uuid
+
+    email = f"test_patient_{uuid.uuid4()}@example.com"
     # Create User
-    user = User(email="test_patient@example.com", password_hash="hash")
+    user = User(email=email, password_hash="hash")
     db_session.add(user)
     await db_session.flush()  # Get ID
 
@@ -21,7 +24,7 @@ async def test_create_user_and_patient(db_session):
     await db_session.commit()
 
     # Verify
-    stmt = select(User).where(User.email == "test_patient@example.com")
+    stmt = select(User).where(User.email == email)
     result = await db_session.execute(stmt)
     fetched_user = result.scalar_one()
 

@@ -37,17 +37,21 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 
 # Event Listeners
 
+
 # Prevent connection pool leakage by discarding session state on checkin
-# @event.listens_for(engine.sync_engine, "checkin")
-# def receive_checkin(dbapi_connection, connection_record):
-#     cursor = dbapi_connection.cursor()
-#     try:
-#         cursor.execute("DISCARD ALL")
-#     except Exception:
-#         # In case connection is dead
-#         pass
-#     finally:
-#         cursor.close()
+@event.listens_for(engine.sync_engine, "checkin")
+def receive_checkin(dbapi_connection, connection_record):
+    if dbapi_connection is None:
+        return
+    cursor = dbapi_connection.cursor()
+    try:
+        cursor.execute("ROLLBACK")
+        cursor.execute("RESET ALL")
+    except Exception:
+        # In case connection is dead
+        pass
+    finally:
+        cursor.close()
 
 
 # RLS Setup

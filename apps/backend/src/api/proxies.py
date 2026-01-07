@@ -83,8 +83,8 @@ async def list_patient_proxies(
         .join(Proxy, PatientProxyAssignment.proxy_id == Proxy.id)
         .join(User, Proxy.user_id == User.id)
         .where(PatientProxyAssignment.patient_id == patient_id)
-        .where(PatientProxyAssignment.revoked_at is None)
-        .where(PatientProxyAssignment.deleted_at is None)
+        .where(PatientProxyAssignment.revoked_at.is_(None))
+        .where(PatientProxyAssignment.deleted_at.is_(None))
         .order_by(PatientProxyAssignment.granted_at.desc())
     )
     result = await db.execute(stmt)
@@ -131,7 +131,7 @@ async def assign_proxy(
     now = datetime.now(UTC)
 
     # Find user by email
-    user_stmt = select(User).where(User.email == data.email).where(User.deleted_at is None)
+    user_stmt = select(User).where(User.email == data.email).where(User.deleted_at.is_(None))
     user_result = await db.execute(user_stmt)
     user = user_result.scalar_one_or_none()
 
@@ -142,7 +142,7 @@ async def assign_proxy(
         )
 
     # Find or create proxy profile for this user
-    proxy_stmt = select(Proxy).where(Proxy.user_id == user.id).where(Proxy.deleted_at is None)
+    proxy_stmt = select(Proxy).where(Proxy.user_id == user.id).where(Proxy.deleted_at.is_(None))
     proxy_result = await db.execute(proxy_stmt)
     proxy = proxy_result.scalar_one_or_none()
 
@@ -156,8 +156,8 @@ async def assign_proxy(
         select(PatientProxyAssignment)
         .where(PatientProxyAssignment.proxy_id == proxy.id)
         .where(PatientProxyAssignment.patient_id == patient_id)
-        .where(PatientProxyAssignment.revoked_at is None)
-        .where(PatientProxyAssignment.deleted_at is None)
+        .where(PatientProxyAssignment.revoked_at.is_(None))
+        .where(PatientProxyAssignment.deleted_at.is_(None))
     )
     existing_result = await db.execute(existing_stmt)
     if existing_result.scalar_one_or_none():
@@ -182,6 +182,7 @@ async def assign_proxy(
         updated_at=now,
     )
     db.add(assignment)
+    await db.flush()
 
     # Audit log
     await _log_audit(
@@ -240,8 +241,8 @@ async def update_proxy_permissions(
         .join(User, Proxy.user_id == User.id)
         .where(PatientProxyAssignment.id == assignment_id)
         .where(PatientProxyAssignment.patient_id == patient_id)
-        .where(PatientProxyAssignment.revoked_at is None)
-        .where(PatientProxyAssignment.deleted_at is None)
+        .where(PatientProxyAssignment.revoked_at.is_(None))
+        .where(PatientProxyAssignment.deleted_at.is_(None))
     )
     result = await db.execute(stmt)
     row = result.one_or_none()
@@ -349,8 +350,8 @@ async def revoke_proxy(
         select(PatientProxyAssignment)
         .where(PatientProxyAssignment.id == assignment_id)
         .where(PatientProxyAssignment.patient_id == patient_id)
-        .where(PatientProxyAssignment.revoked_at is None)
-        .where(PatientProxyAssignment.deleted_at is None)
+        .where(PatientProxyAssignment.revoked_at.is_(None))
+        .where(PatientProxyAssignment.deleted_at.is_(None))
     )
     result = await db.execute(stmt)
     assignment = result.scalar_one_or_none()

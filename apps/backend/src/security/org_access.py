@@ -1,7 +1,7 @@
 from uuid import UUID
 
 from fastapi import Depends, HTTPException, Path
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database import get_db, tenant_id_ctx
@@ -32,6 +32,8 @@ class OrgAccess:
 
             # Set RLS context for tenant
             tenant_id_ctx.set(str(org_id))
+            if db.in_transaction():
+                await db.execute(text("SELECT set_config('app.current_tenant_id', :tid, false)"), {"tid": str(org_id)})
 
             # Return a synthetic OrganizationMember with ADMIN role for Super Admins
             # Note: This is not persisted, just used for authorization
@@ -55,6 +57,8 @@ class OrgAccess:
 
         # Set RLS context for tenant
         tenant_id_ctx.set(str(org_id))
+        if db.in_transaction():
+            await db.execute(text("SELECT set_config('app.current_tenant_id', :tid, false)"), {"tid": str(org_id)})
 
         return member
 

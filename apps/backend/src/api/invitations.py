@@ -75,7 +75,7 @@ async def accept_invitation(
         select(OrganizationMember)
         .where(OrganizationMember.organization_id == invitation.organization_id)
         .where(OrganizationMember.user_id == current_user.id)
-        .where(OrganizationMember.deleted_at is None)
+        .where(OrganizationMember.deleted_at.is_(None))
     )
     result = await db.execute(stmt)
     if result.scalar_one_or_none():

@@ -48,7 +48,7 @@ async def create_staff(
         select(Staff)
         .where(Staff.organization_id == org_id)
         .where(Staff.user_id == staff_data.user_id)
-        .where(Staff.deleted_at is None)
+        .where(Staff.deleted_at.is_(None))
     )
     existing_staff_result = await db.execute(existing_staff_stmt)
     if existing_staff_result.scalar_one_or_none():
@@ -104,7 +104,7 @@ async def list_staff(
         select(Staff, User)
         .join(User, Staff.user_id == User.id)
         .where(Staff.organization_id == org_id)
-        .where(Staff.deleted_at is None)
+        .where(Staff.deleted_at.is_(None))
     )
 
     # Apply filters
@@ -159,7 +159,7 @@ async def get_staff(
         .join(User, Staff.user_id == User.id)
         .where(Staff.id == staff_id)
         .where(Staff.organization_id == org_id)
-        .where(Staff.deleted_at is None)
+        .where(Staff.deleted_at.is_(None))
     )
     result = await db.execute(stmt)
     row = result.first()
@@ -200,7 +200,7 @@ async def update_staff(
         .options(selectinload(Staff.user))
         .where(Staff.id == staff_id)
         .where(Staff.organization_id == org_id)
-        .where(Staff.deleted_at is None)
+        .where(Staff.deleted_at.is_(None))
     )
     result = await db.execute(stmt)
     staff = result.scalar_one_or_none()
@@ -250,7 +250,10 @@ async def delete_staff(
     Requires admin access.
     """
     stmt = (
-        select(Staff).where(Staff.id == staff_id).where(Staff.organization_id == org_id).where(Staff.deleted_at is None)
+        select(Staff)
+        .where(Staff.id == staff_id)
+        .where(Staff.organization_id == org_id)
+        .where(Staff.deleted_at.is_(None))
     )
     result = await db.execute(stmt)
     staff = result.scalar_one_or_none()

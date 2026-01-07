@@ -49,7 +49,7 @@ async def create_provider(
             select(Provider)
             .where(Provider.organization_id == org_id)
             .where(Provider.npi_number == provider_data.npi_number)
-            .where(Provider.deleted_at is None)
+            .where(Provider.deleted_at.is_(None))
         )
         existing_result = await db.execute(existing_stmt)
         if existing_result.scalar_one_or_none():
@@ -63,7 +63,7 @@ async def create_provider(
         select(Provider)
         .where(Provider.organization_id == org_id)
         .where(Provider.user_id == provider_data.user_id)
-        .where(Provider.deleted_at is None)
+        .where(Provider.deleted_at.is_(None))
     )
     existing_provider_result = await db.execute(existing_provider_stmt)
     if existing_provider_result.scalar_one_or_none():
@@ -124,7 +124,7 @@ async def list_providers(
         select(Provider, User)
         .join(User, Provider.user_id == User.id)
         .where(Provider.organization_id == org_id)
-        .where(Provider.deleted_at is None)
+        .where(Provider.deleted_at.is_(None))
     )
 
     # Apply filters
@@ -179,7 +179,7 @@ async def get_provider(
         .join(User, Provider.user_id == User.id)
         .where(Provider.id == provider_id)
         .where(Provider.organization_id == org_id)
-        .where(Provider.deleted_at is None)
+        .where(Provider.deleted_at.is_(None))
     )
     result = await db.execute(stmt)
     row = result.first()
@@ -223,7 +223,7 @@ async def update_provider(
         .options(selectinload(Provider.user))
         .where(Provider.id == provider_id)
         .where(Provider.organization_id == org_id)
-        .where(Provider.deleted_at is None)
+        .where(Provider.deleted_at.is_(None))
     )
     result = await db.execute(stmt)
     provider = result.scalar_one_or_none()
@@ -239,7 +239,7 @@ async def update_provider(
             .where(Provider.organization_id == org_id)
             .where(Provider.npi_number == update_data["npi_number"])
             .where(Provider.id != provider_id)
-            .where(Provider.deleted_at is None)
+            .where(Provider.deleted_at.is_(None))
         )
         existing_result = await db.execute(existing_stmt)
         if existing_result.scalar_one_or_none():
@@ -295,7 +295,7 @@ async def delete_provider(
         select(Provider)
         .where(Provider.id == provider_id)
         .where(Provider.organization_id == org_id)
-        .where(Provider.deleted_at is None)
+        .where(Provider.deleted_at.is_(None))
     )
     result = await db.execute(stmt)
     provider = result.scalar_one_or_none()
