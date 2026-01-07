@@ -4,2110 +4,2110 @@
  */
 
 export interface paths {
-    "/api/v1/admin/impersonate/{patient_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Impersonate Patient */
-        post: operations["impersonate_patient_api_v1_admin_impersonate__patient_id__post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  "/api/v1/admin/impersonate/{patient_id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/consent/required": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Required Consents
-         * @description List all active consents and status for the current user.
-         */
-        get: operations["get_required_consents_api_v1_consent_required_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Impersonate Patient */
+    post: operations["impersonate_patient_api_v1_admin_impersonate__patient_id__post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/consent/required": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/consent": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Sign Consent
-         * @description Sign a specific consent document.
-         */
-        post: operations["sign_consent_api_v1_consent_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Required Consents
+     * @description List all active consents and status for the current user.
+     */
+    get: operations["get_required_consents_api_v1_consent_required_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/consent": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/users/me": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Read Users Me
-         * @description Get current user profile.
-         */
-        get: operations["read_users_me_api_v1_users_me_get"];
-        put?: never;
-        post?: never;
-        /**
-         * Delete Users Me
-         * @description Soft delete user account (HIPAA compliance - data retained).
-         *
-         *     This action cannot be undone. The account becomes inaccessible but
-         *     data is retained for legal compliance.
-         */
-        delete: operations["delete_users_me_api_v1_users_me_delete"];
-        options?: never;
-        head?: never;
-        /**
-         * Update Users Me
-         * @description Update current user's profile.
-         */
-        patch: operations["update_users_me_api_v1_users_me_patch"];
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Sign Consent
+     * @description Sign a specific consent document.
+     */
+    post: operations["sign_consent_api_v1_consent_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/users/me": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/users/me/sessions": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * List Sessions
-         * @description List all active sessions for the current user.
-         */
-        get: operations["list_sessions_api_v1_users_me_sessions_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Read Users Me
+     * @description Get current user profile.
+     */
+    get: operations["read_users_me_api_v1_users_me_get"];
+    put?: never;
+    post?: never;
+    /**
+     * Delete Users Me
+     * @description Soft delete user account (HIPAA compliance - data retained).
+     *
+     *     This action cannot be undone. The account becomes inaccessible but
+     *     data is retained for legal compliance.
+     */
+    delete: operations["delete_users_me_api_v1_users_me_delete"];
+    options?: never;
+    head?: never;
+    /**
+     * Update Users Me
+     * @description Update current user's profile.
+     */
+    patch: operations["update_users_me_api_v1_users_me_patch"];
+    trace?: never;
+  };
+  "/api/v1/users/me/sessions": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/users/me/sessions/{session_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /**
-         * Revoke Session
-         * @description Terminate a specific session.
-         *
-         *     If session_id matches the current session, this is equivalent to logout.
-         */
-        delete: operations["revoke_session_api_v1_users_me_sessions__session_id__delete"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * List Sessions
+     * @description List all active sessions for the current user.
+     */
+    get: operations["list_sessions_api_v1_users_me_sessions_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/users/me/sessions/{session_id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/users/me/export": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Request Export
-         * @description Request a HIPAA data export.
-         *
-         *     This initiates a background job. The user receives an email with a
-         *     secure download link when the export is ready (typically 24-48 hours).
-         */
-        post: operations["request_export_api_v1_users_me_export_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    /**
+     * Revoke Session
+     * @description Terminate a specific session.
+     *
+     *     If session_id matches the current session, this is equivalent to logout.
+     */
+    delete: operations["revoke_session_api_v1_users_me_sessions__session_id__delete"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/users/me/export": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/users/me/communication-preferences": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Communication Preferences
-         * @description Get user's communication opt-in status.
-         */
-        get: operations["get_communication_preferences_api_v1_users_me_communication_preferences_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /**
-         * Update Communication Preferences
-         * @description Update communication preferences.
-         *
-         *     Per TCPA compliance, transactional_consent must be True for appointment
-         *     reminders and billing alerts. marketing_consent controls promotional
-         *     communications.
-         */
-        patch: operations["update_communication_preferences_api_v1_users_me_communication_preferences_patch"];
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Request Export
+     * @description Request a HIPAA data export.
+     *
+     *     This initiates a background job. The user receives an email with a
+     *     secure download link when the export is ready (typically 24-48 hours).
+     */
+    post: operations["request_export_api_v1_users_me_export_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/users/me/communication-preferences": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/users/me/mfa/setup": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Mfa Setup
-         * @description Initialize MFA setup.
-         *
-         *     Returns a TOTP secret and provisioning URI for authenticator apps.
-         *     The secret is stored temporarily until verified.
-         */
-        post: operations["mfa_setup_api_v1_users_me_mfa_setup_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Communication Preferences
+     * @description Get user's communication opt-in status.
+     */
+    get: operations["get_communication_preferences_api_v1_users_me_communication_preferences_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Update Communication Preferences
+     * @description Update communication preferences.
+     *
+     *     Per TCPA compliance, transactional_consent must be True for appointment
+     *     reminders and billing alerts. marketing_consent controls promotional
+     *     communications.
+     */
+    patch: operations["update_communication_preferences_api_v1_users_me_communication_preferences_patch"];
+    trace?: never;
+  };
+  "/api/v1/users/me/mfa/setup": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/users/me/mfa/verify": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Mfa Verify
-         * @description Complete MFA setup by verifying a TOTP code.
-         *
-         *     Returns backup codes (shown only once - user must save them).
-         */
-        post: operations["mfa_verify_api_v1_users_me_mfa_verify_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Mfa Setup
+     * @description Initialize MFA setup.
+     *
+     *     Returns a TOTP secret and provisioning URI for authenticator apps.
+     *     The secret is stored temporarily until verified.
+     */
+    post: operations["mfa_setup_api_v1_users_me_mfa_setup_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/users/me/mfa/verify": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/users/me/mfa/disable": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Mfa Disable
-         * @description Disable MFA for the account.
-         *
-         *     Requires password confirmation for security.
-         */
-        post: operations["mfa_disable_api_v1_users_me_mfa_disable_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Mfa Verify
+     * @description Complete MFA setup by verifying a TOTP code.
+     *
+     *     Returns backup codes (shown only once - user must save them).
+     */
+    post: operations["mfa_verify_api_v1_users_me_mfa_verify_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/users/me/mfa/disable": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/users/device-token": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Register Device Token
-         * @description Register an FCM token for push notifications.
-         *
-         *     If the token already exists for this user, updates the device info.
-         */
-        post: operations["register_device_token_api_v1_users_device_token_post"];
-        /**
-         * Remove Device Token
-         * @description Remove an FCM token (logout cleanup).
-         */
-        delete: operations["remove_device_token_api_v1_users_device_token_delete"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Mfa Disable
+     * @description Disable MFA for the account.
+     *
+     *     Requires password confirmation for security.
+     */
+    post: operations["mfa_disable_api_v1_users_me_mfa_disable_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/users/device-token": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/organizations": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * List Organizations
-         * @description List all organizations the current user is a member of.
-         */
-        get: operations["list_organizations_api_v1_organizations_get"];
-        put?: never;
-        /**
-         * Create Organization
-         * @description Create a new organization and make the current user an ADMIN.
-         */
-        post: operations["create_organization_api_v1_organizations_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Register Device Token
+     * @description Register an FCM token for push notifications.
+     *
+     *     If the token already exists for this user, updates the device info.
+     */
+    post: operations["register_device_token_api_v1_users_device_token_post"];
+    /**
+     * Remove Device Token
+     * @description Remove an FCM token (logout cleanup).
+     */
+    delete: operations["remove_device_token_api_v1_users_device_token_delete"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/organizations": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/organizations/{org_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Organization
-         * @description Get organization details. Requires membership.
-         */
-        get: operations["get_organization_api_v1_organizations__org_id__get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /**
-         * Update Organization
-         * @description Update organization. Requires ADMIN role.
-         */
-        patch: operations["update_organization_api_v1_organizations__org_id__patch"];
-        trace?: never;
+    /**
+     * List Organizations
+     * @description List all organizations the current user is a member of.
+     */
+    get: operations["list_organizations_api_v1_organizations_get"];
+    put?: never;
+    /**
+     * Create Organization
+     * @description Create a new organization and make the current user an ADMIN.
+     */
+    post: operations["create_organization_api_v1_organizations_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/organizations/{org_id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/organizations/{org_id}/members": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * List Members
-         * @description List members of an organization. Requires membership.
-         */
-        get: operations["list_members_api_v1_organizations__org_id__members_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Organization
+     * @description Get organization details. Requires membership.
+     */
+    get: operations["get_organization_api_v1_organizations__org_id__get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /**
+     * Update Organization
+     * @description Update organization. Requires ADMIN role.
+     */
+    patch: operations["update_organization_api_v1_organizations__org_id__patch"];
+    trace?: never;
+  };
+  "/api/v1/organizations/{org_id}/members": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/organizations/{org_id}/invitations": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * List Invitations
-         * @description List pending invitations. Requires ADMIN role.
-         */
-        get: operations["list_invitations_api_v1_organizations__org_id__invitations_get"];
-        put?: never;
-        /**
-         * Create Invitation
-         * @description Invite a user to the organization. Requires ADMIN role.
-         */
-        post: operations["create_invitation_api_v1_organizations__org_id__invitations_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * List Members
+     * @description List members of an organization. Requires membership.
+     */
+    get: operations["list_members_api_v1_organizations__org_id__members_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/organizations/{org_id}/invitations": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/invitations/{token}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Invitation
-         * @description Get invitation details from token. Public endpoint.
-         */
-        get: operations["get_invitation_api_v1_invitations__token__get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * List Invitations
+     * @description List pending invitations. Requires ADMIN role.
+     */
+    get: operations["list_invitations_api_v1_organizations__org_id__invitations_get"];
+    put?: never;
+    /**
+     * Create Invitation
+     * @description Invite a user to the organization. Requires ADMIN role.
+     */
+    post: operations["create_invitation_api_v1_organizations__org_id__invitations_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/invitations/{token}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/invitations/{token}/accept": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Accept Invitation
-         * @description Accept an invitation. Requires user to be logged in.
-         */
-        post: operations["accept_invitation_api_v1_invitations__token__accept_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Invitation
+     * @description Get invitation details from token. Public endpoint.
+     */
+    get: operations["get_invitation_api_v1_invitations__token__get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/invitations/{token}/accept": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/events": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Events
-         * @description Server-Sent Events stream for real-time updates.
-         *
-         *     This endpoint establishes a long-lived HTTP connection for
-         *     server-to-client push notifications.
-         *
-         *     The client will receive events such as:
-         *     - notification.new: New notification created
-         *     - message.new: New message in subscribed thread
-         *     - appointment.reminder: Upcoming appointment reminder
-         *     - appointment.updated: Appointment rescheduled/cancelled
-         *     - document.processed: Document finished OCR/virus scan
-         *     - document.scan_complete: Virus scan completed
-         *     - consent.required: New consent document available
-         *     - call.incoming: Incoming call (Call Center)
-         *     - call.completed: Call ended
-         *     - heartbeat: Keep-alive (every 30 seconds)
-         *
-         *     Authentication can be provided via:
-         *     - Authorization header: Bearer {token}
-         *     - Query parameter: ?token={token}
-         *
-         *     Returns:
-         *         StreamingResponse with text/event-stream content type
-         */
-        get: operations["get_events_api_v1_events_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Accept Invitation
+     * @description Accept an invitation. Requires user to be logged in.
+     */
+    post: operations["accept_invitation_api_v1_invitations__token__accept_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/events": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/events/organizations/{org_id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /**
-         * Get Org Events
-         * @description Organization-scoped SSE stream for admin views.
-         *
-         *     This endpoint provides organization-level events in addition
-         *     to standard user events. Requires ADMIN or SUPER_ADMIN role.
-         *
-         *     Additional event types:
-         *     - member.joined: New member accepted invitation
-         *     - member.removed: Member removed from organization
-         *     - subscription.updated: Subscription status changed
-         *     - license.expiring: Provider license expiring soon
-         *
-         *     Args:
-         *         org_id: Organization ID
-         *
-         *     Returns:
-         *         StreamingResponse with text/event-stream content type
-         *
-         *     Raises:
-         *         HTTPException: If user is not admin of the organization
-         */
-        get: operations["get_org_events_api_v1_events_organizations__org_id__get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Events
+     * @description Server-Sent Events stream for real-time updates.
+     *
+     *     This endpoint establishes a long-lived HTTP connection for
+     *     server-to-client push notifications.
+     *
+     *     The client will receive events such as:
+     *     - notification.new: New notification created
+     *     - message.new: New message in subscribed thread
+     *     - appointment.reminder: Upcoming appointment reminder
+     *     - appointment.updated: Appointment rescheduled/cancelled
+     *     - document.processed: Document finished OCR/virus scan
+     *     - document.scan_complete: Virus scan completed
+     *     - consent.required: New consent document available
+     *     - call.incoming: Incoming call (Call Center)
+     *     - call.completed: Call ended
+     *     - heartbeat: Keep-alive (every 30 seconds)
+     *
+     *     Authentication can be provided via:
+     *     - Authorization header: Bearer {token}
+     *     - Query parameter: ?token={token}
+     *
+     *     Returns:
+     *         StreamingResponse with text/event-stream content type
+     */
+    get: operations["get_events_api_v1_events_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/events/organizations/{org_id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/telemetry": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Log Telemetry Event
-         * @description Log a behavioral analytics event.
-         *
-         *     This endpoint accepts telemetry events from the frontend and logs them
-         *     using structlog with `event_type="analytics"` for CloudWatch filtering.
-         *
-         *     **Use Cases:**
-         *     - Page views and navigation patterns
-         *     - Feature usage tracking
-         *     - Button clicks and user interactions
-         *     - Error events (client-side)
-         *     - Performance metrics
-         *
-         *     **Privacy:**
-         *     - Do not send PII/PHI in the properties
-         *     - User ID is automatically attached from context
-         *     - IP address is logged for basic analytics
-         *
-         *     Args:
-         *         event: The telemetry event with name and properties
-         *
-         *     Returns:
-         *         Confirmation that the event was logged
-         */
-        post: operations["log_telemetry_event_api_v1_telemetry_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /**
+     * Get Org Events
+     * @description Organization-scoped SSE stream for admin views.
+     *
+     *     This endpoint provides organization-level events in addition
+     *     to standard user events. Requires ADMIN or SUPER_ADMIN role.
+     *
+     *     Additional event types:
+     *     - member.joined: New member accepted invitation
+     *     - member.removed: Member removed from organization
+     *     - subscription.updated: Subscription status changed
+     *     - license.expiring: Provider license expiring soon
+     *
+     *     Args:
+     *         org_id: Organization ID
+     *
+     *     Returns:
+     *         StreamingResponse with text/event-stream content type
+     *
+     *     Raises:
+     *         HTTPException: If user is not admin of the organization
+     */
+    get: operations["get_org_events_api_v1_events_organizations__org_id__get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/telemetry": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/telemetry/batch": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Log Telemetry Batch
-         * @description Log multiple telemetry events in a batch.
-         *
-         *     This endpoint is optimized for sending multiple events at once,
-         *     reducing the number of HTTP requests from the frontend.
-         *
-         *     **Use Cases:**
-         *     - Offline event buffering
-         *     - Page unload event flushing
-         *     - Session aggregation
-         *
-         *     Args:
-         *         events: List of telemetry events
-         *
-         *     Returns:
-         *         Confirmation that all events were logged
-         */
-        post: operations["log_telemetry_batch_api_v1_telemetry_batch_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Log Telemetry Event
+     * @description Log a behavioral analytics event.
+     *
+     *     This endpoint accepts telemetry events from the frontend and logs them
+     *     using structlog with `event_type="analytics"` for CloudWatch filtering.
+     *
+     *     **Use Cases:**
+     *     - Page views and navigation patterns
+     *     - Feature usage tracking
+     *     - Button clicks and user interactions
+     *     - Error events (client-side)
+     *     - Performance metrics
+     *
+     *     **Privacy:**
+     *     - Do not send PII/PHI in the properties
+     *     - User ID is automatically attached from context
+     *     - IP address is logged for basic analytics
+     *
+     *     Args:
+     *         event: The telemetry event with name and properties
+     *
+     *     Returns:
+     *         Confirmation that the event was logged
+     */
+    post: operations["log_telemetry_event_api_v1_telemetry_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/telemetry/batch": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/api/v1/webhooks/stripe": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * Handle Stripe Webhook
-         * @description Handle incoming Stripe webhook events.
-         *
-         *     This endpoint receives events from Stripe and processes them:
-         *     - Verifies the webhook signature for security
-         *     - Parses the event and dispatches to appropriate handlers
-         *     - Updates database records based on event type
-         *
-         *     **Security:**
-         *     - Signature verification using STRIPE_WEBHOOK_SECRET
-         *     - Raw body parsing to prevent tampering
-         *
-         *     **Handled Events:**
-         *     - checkout.session.completed: Subscription activated
-         *     - invoice.payment_succeeded: Payment confirmed
-         *     - invoice.payment_failed: Payment failed, status updated
-         *     - customer.subscription.updated: Subscription status changed
-         *     - customer.subscription.deleted: Subscription canceled
-         *
-         *     Returns:
-         *         Success response for Stripe acknowledgment
-         */
-        post: operations["handle_stripe_webhook_api_v1_webhooks_stripe_post"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Log Telemetry Batch
+     * @description Log multiple telemetry events in a batch.
+     *
+     *     This endpoint is optimized for sending multiple events at once,
+     *     reducing the number of HTTP requests from the frontend.
+     *
+     *     **Use Cases:**
+     *     - Offline event buffering
+     *     - Page unload event flushing
+     *     - Session aggregation
+     *
+     *     Args:
+     *         events: List of telemetry events
+     *
+     *     Returns:
+     *         Confirmation that all events were logged
+     */
+    post: operations["log_telemetry_batch_api_v1_telemetry_batch_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/webhooks/stripe": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/health": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Health Check */
-        get: operations["health_check_health_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /**
+     * Handle Stripe Webhook
+     * @description Handle incoming Stripe webhook events.
+     *
+     *     This endpoint receives events from Stripe and processes them:
+     *     - Verifies the webhook signature for security
+     *     - Parses the event and dispatches to appropriate handlers
+     *     - Updates database records based on event type
+     *
+     *     **Security:**
+     *     - Signature verification using STRIPE_WEBHOOK_SECRET
+     *     - Raw body parsing to prevent tampering
+     *
+     *     **Handled Events:**
+     *     - checkout.session.completed: Subscription activated
+     *     - invoice.payment_succeeded: Payment confirmed
+     *     - invoice.payment_failed: Payment failed, status updated
+     *     - customer.subscription.updated: Subscription status changed
+     *     - customer.subscription.deleted: Subscription canceled
+     *
+     *     Returns:
+     *         Success response for Stripe acknowledgment
+     */
+    post: operations["handle_stripe_webhook_api_v1_webhooks_stripe_post"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/health": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/health/deep": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Deep Health Check */
-        get: operations["deep_health_check_health_deep_get"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Health Check */
+    get: operations["health_check_health_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/health/deep": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    /** Deep Health Check */
+    get: operations["deep_health_check_health_deep_get"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
-        /**
-         * CommunicationPreferencesRead
-         * @description Communication preferences response.
-         */
-        CommunicationPreferencesRead: {
-            /** Transactional Consent */
-            transactional_consent: boolean;
-            /** Marketing Consent */
-            marketing_consent: boolean;
-            /**
-             * Updated At
-             * Format: date-time
-             */
-            updated_at: string;
-        };
-        /**
-         * CommunicationPreferencesUpdate
-         * @description Update communication preferences.
-         */
-        CommunicationPreferencesUpdate: {
-            /** Transactional Consent */
-            transactional_consent?: boolean | null;
-            /** Marketing Consent */
-            marketing_consent?: boolean | null;
-        };
-        /** ConsentSignRequest */
-        ConsentSignRequest: {
-            /** Document Id */
-            document_id: string;
-        };
-        /**
-         * DeviceTokenDeleteRequest
-         * @description Request to delete a device token.
-         */
-        DeviceTokenDeleteRequest: {
-            /** Token */
-            token: string;
-        };
-        /**
-         * DeviceTokenRequest
-         * @description Request to register a device token.
-         */
-        DeviceTokenRequest: {
-            /** Token */
-            token: string;
-            /** Platform */
-            platform: string;
-            /** Device Name */
-            device_name?: string | null;
-        };
-        /**
-         * DeviceTokenResponse
-         * @description Response after registering device token.
-         */
-        DeviceTokenResponse: {
-            /**
-             * Success
-             * @default true
-             */
-            success: boolean;
-        };
-        /** HTTPValidationError */
-        HTTPValidationError: {
-            /** Detail */
-            detail?: components["schemas"]["ValidationError"][];
-        };
-        /** ImpersonationRequest */
-        ImpersonationRequest: {
-            /** Reason */
-            reason: string;
-        };
-        /** InvitationCreate */
-        InvitationCreate: {
-            /**
-             * Email
-             * Format: email
-             */
-            email: string;
-            /** Role */
-            role: string;
-        };
-        /** InvitationRead */
-        InvitationRead: {
-            /**
-             * Email
-             * Format: email
-             */
-            email: string;
-            /** Role */
-            role: string;
-            /**
-             * Id
-             * Format: uuid
-             */
-            id: string;
-            /** Token */
-            token: string;
-            /** Status */
-            status: string;
-            /**
-             * Organization Id
-             * Format: uuid
-             */
-            organization_id: string;
-            /**
-             * Invited By User Id
-             * Format: uuid
-             */
-            invited_by_user_id: string;
-            /**
-             * Created At
-             * Format: date-time
-             */
-            created_at: string;
-            /**
-             * Expires At
-             * Format: date-time
-             */
-            expires_at: string;
-            /** Accepted At */
-            accepted_at?: string | null;
-        };
-        /**
-         * MFADisableRequest
-         * @description Request to disable MFA.
-         */
-        MFADisableRequest: {
-            /** Password */
-            password: string;
-        };
-        /**
-         * MFADisableResponse
-         * @description Response after disabling MFA.
-         */
-        MFADisableResponse: {
-            /**
-             * Success
-             * @default true
-             */
-            success: boolean;
-            /**
-             * Mfa Enabled
-             * @default false
-             */
-            mfa_enabled: boolean;
-            /**
-             * Disabled At
-             * Format: date-time
-             */
-            disabled_at: string;
-        };
-        /**
-         * MFASetupResponse
-         * @description Response for MFA setup initialization.
-         */
-        MFASetupResponse: {
-            /** Secret */
-            secret: string;
-            /** Provisioning Uri */
-            provisioning_uri: string;
-            /** Qr Code Data Url */
-            qr_code_data_url?: string | null;
-            /**
-             * Expires At
-             * Format: date-time
-             */
-            expires_at: string;
-        };
-        /**
-         * MFAVerifyRequest
-         * @description Request to verify MFA code and enable MFA.
-         */
-        MFAVerifyRequest: {
-            /** Code */
-            code: string;
-        };
-        /**
-         * MFAVerifyResponse
-         * @description Response after MFA verification.
-         */
-        MFAVerifyResponse: {
-            /**
-             * Success
-             * @default true
-             */
-            success: boolean;
-            /**
-             * Mfa Enabled
-             * @default true
-             */
-            mfa_enabled: boolean;
-            /** Backup Codes */
-            backup_codes: string[];
-            /**
-             * Enabled At
-             * Format: date-time
-             */
-            enabled_at: string;
-        };
-        /** MemberRead */
-        MemberRead: {
-            /**
-             * Id
-             * Format: uuid
-             */
-            id: string;
-            /**
-             * User Id
-             * Format: uuid
-             */
-            user_id: string;
-            /**
-             * Organization Id
-             * Format: uuid
-             */
-            organization_id: string;
-            /** Email */
-            email?: string | null;
-            /** Display Name */
-            display_name?: string | null;
-            /** Role */
-            role: string;
-            /**
-             * Created At
-             * Format: date-time
-             */
-            created_at: string;
-        };
-        /** OrganizationCreate */
-        OrganizationCreate: {
-            /** Name */
-            name: string;
-            /** Tax Id */
-            tax_id?: string | null;
-            /** Settings Json */
-            settings_json?: {
-                [key: string]: unknown;
-            };
-        };
-        /** OrganizationRead */
-        OrganizationRead: {
-            /** Name */
-            name: string;
-            /** Tax Id */
-            tax_id?: string | null;
-            /** Settings Json */
-            settings_json?: {
-                [key: string]: unknown;
-            };
-            /**
-             * Id
-             * Format: uuid
-             */
-            id: string;
-            /** Stripe Customer Id */
-            stripe_customer_id: string | null;
-            /** Subscription Status */
-            subscription_status: string;
-            /** Is Active */
-            is_active: boolean;
-            /** Member Count */
-            member_count: number;
-            /** Patient Count */
-            patient_count: number;
-            /**
-             * Created At
-             * Format: date-time
-             */
-            created_at: string;
-            /**
-             * Updated At
-             * Format: date-time
-             */
-            updated_at: string;
-        };
-        /** OrganizationUpdate */
-        OrganizationUpdate: {
-            /** Name */
-            name?: string | null;
-            /** Tax Id */
-            tax_id?: string | null;
-            /** Settings Json */
-            settings_json?: {
-                [key: string]: unknown;
-            } | null;
-        };
-        /**
-         * SessionListResponse
-         * @description Paginated list of sessions.
-         */
-        SessionListResponse: {
-            /** Items */
-            items: components["schemas"]["SessionRead"][];
-            /** Total */
-            total: number;
-            /**
-             * Limit
-             * @default 50
-             */
-            limit: number;
-            /**
-             * Offset
-             * @default 0
-             */
-            offset: number;
-        };
-        /**
-         * SessionRead
-         * @description Session information response.
-         */
-        SessionRead: {
-            /**
-             * Id
-             * Format: uuid
-             */
-            id: string;
-            /** Device */
-            device: string;
-            /** Ip Address */
-            ip_address?: string | null;
-            /** Location */
-            location?: string | null;
-            /**
-             * Is Current
-             * @default false
-             */
-            is_current: boolean;
-            /**
-             * Created At
-             * Format: date-time
-             */
-            created_at: string;
-            /**
-             * Last Active At
-             * Format: date-time
-             */
-            last_active_at: string;
-        };
-        /**
-         * SessionRevokeResponse
-         * @description Response after revoking a session.
-         */
-        SessionRevokeResponse: {
-            /**
-             * Success
-             * @default true
-             */
-            success: boolean;
-            /**
-             * Terminated At
-             * Format: date-time
-             */
-            terminated_at: string;
-        };
-        /**
-         * TelemetryEvent
-         * @description Telemetry event payload from the frontend.
-         */
-        TelemetryEvent: {
-            /** Event Name */
-            event_name: string;
-            /** Properties */
-            properties?: {
-                [key: string]: unknown;
-            };
-        };
-        /**
-         * TelemetryResponse
-         * @description Response confirming event was logged.
-         */
-        TelemetryResponse: {
-            /**
-             * Success
-             * @default true
-             */
-            success: boolean;
-            /** Event Id */
-            event_id?: string | null;
-        };
-        /**
-         * UserDeleteRequest
-         * @description Request body for account deletion.
-         */
-        UserDeleteRequest: {
-            /** Password */
-            password: string;
-            /** Reason */
-            reason?: string | null;
-        };
-        /**
-         * UserDeleteResponse
-         * @description Response after account deletion.
-         */
-        UserDeleteResponse: {
-            /**
-             * Success
-             * @default true
-             */
-            success: boolean;
-            /**
-             * Deleted At
-             * Format: date-time
-             */
-            deleted_at: string;
-        };
-        /**
-         * UserExportRequest
-         * @description Request body for HIPAA data export.
-         */
-        UserExportRequest: {
-            /**
-             * Format
-             * @default json
-             */
-            format: string;
-            /**
-             * Include Documents
-             * @default false
-             */
-            include_documents: boolean;
-        };
-        /**
-         * UserExportResponse
-         * @description Response after requesting data export.
-         */
-        UserExportResponse: {
-            /**
-             * Export Id
-             * Format: uuid
-             */
-            export_id: string;
-            /**
-             * Status
-             * @default PENDING
-             */
-            status: string;
-            /**
-             * Estimated Completion
-             * Format: date-time
-             */
-            estimated_completion: string;
-        };
-        /**
-         * UserRead
-         * @description Full user profile response.
-         */
-        UserRead: {
-            /**
-             * Id
-             * Format: uuid
-             */
-            id: string;
-            /**
-             * Email
-             * Format: email
-             */
-            email: string;
-            /** Display Name */
-            display_name?: string | null;
-            /**
-             * Is Super Admin
-             * @default false
-             */
-            is_super_admin: boolean;
-            /**
-             * Mfa Enabled
-             * @default false
-             */
-            mfa_enabled: boolean;
-            /**
-             * Requires Consent
-             * @default true
-             */
-            requires_consent: boolean;
-            /**
-             * Transactional Consent
-             * @default true
-             */
-            transactional_consent: boolean;
-            /**
-             * Marketing Consent
-             * @default false
-             */
-            marketing_consent: boolean;
-            /**
-             * Created At
-             * Format: date-time
-             */
-            created_at: string;
-            /**
-             * Updated At
-             * Format: date-time
-             */
-            updated_at: string;
-        };
-        /**
-         * UserUpdate
-         * @description Update user profile fields.
-         */
-        UserUpdate: {
-            /** Display Name */
-            display_name?: string | null;
-        };
-        /** ValidationError */
-        ValidationError: {
-            /** Location */
-            loc: (string | number)[];
-            /** Message */
-            msg: string;
-            /** Error Type */
-            type: string;
-        };
+  schemas: {
+    /**
+     * CommunicationPreferencesRead
+     * @description Communication preferences response.
+     */
+    CommunicationPreferencesRead: {
+      /** Transactional Consent */
+      transactional_consent: boolean;
+      /** Marketing Consent */
+      marketing_consent: boolean;
+      /**
+       * Updated At
+       * Format: date-time
+       */
+      updated_at: string;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    /**
+     * CommunicationPreferencesUpdate
+     * @description Update communication preferences.
+     */
+    CommunicationPreferencesUpdate: {
+      /** Transactional Consent */
+      transactional_consent?: boolean | null;
+      /** Marketing Consent */
+      marketing_consent?: boolean | null;
+    };
+    /** ConsentSignRequest */
+    ConsentSignRequest: {
+      /** Document Id */
+      document_id: string;
+    };
+    /**
+     * DeviceTokenDeleteRequest
+     * @description Request to delete a device token.
+     */
+    DeviceTokenDeleteRequest: {
+      /** Token */
+      token: string;
+    };
+    /**
+     * DeviceTokenRequest
+     * @description Request to register a device token.
+     */
+    DeviceTokenRequest: {
+      /** Token */
+      token: string;
+      /** Platform */
+      platform: string;
+      /** Device Name */
+      device_name?: string | null;
+    };
+    /**
+     * DeviceTokenResponse
+     * @description Response after registering device token.
+     */
+    DeviceTokenResponse: {
+      /**
+       * Success
+       * @default true
+       */
+      success: boolean;
+    };
+    /** HTTPValidationError */
+    HTTPValidationError: {
+      /** Detail */
+      detail?: components["schemas"]["ValidationError"][];
+    };
+    /** ImpersonationRequest */
+    ImpersonationRequest: {
+      /** Reason */
+      reason: string;
+    };
+    /** InvitationCreate */
+    InvitationCreate: {
+      /**
+       * Email
+       * Format: email
+       */
+      email: string;
+      /** Role */
+      role: string;
+    };
+    /** InvitationRead */
+    InvitationRead: {
+      /**
+       * Email
+       * Format: email
+       */
+      email: string;
+      /** Role */
+      role: string;
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Token */
+      token: string;
+      /** Status */
+      status: string;
+      /**
+       * Organization Id
+       * Format: uuid
+       */
+      organization_id: string;
+      /**
+       * Invited By User Id
+       * Format: uuid
+       */
+      invited_by_user_id: string;
+      /**
+       * Created At
+       * Format: date-time
+       */
+      created_at: string;
+      /**
+       * Expires At
+       * Format: date-time
+       */
+      expires_at: string;
+      /** Accepted At */
+      accepted_at?: string | null;
+    };
+    /**
+     * MFADisableRequest
+     * @description Request to disable MFA.
+     */
+    MFADisableRequest: {
+      /** Password */
+      password: string;
+    };
+    /**
+     * MFADisableResponse
+     * @description Response after disabling MFA.
+     */
+    MFADisableResponse: {
+      /**
+       * Success
+       * @default true
+       */
+      success: boolean;
+      /**
+       * Mfa Enabled
+       * @default false
+       */
+      mfa_enabled: boolean;
+      /**
+       * Disabled At
+       * Format: date-time
+       */
+      disabled_at: string;
+    };
+    /**
+     * MFASetupResponse
+     * @description Response for MFA setup initialization.
+     */
+    MFASetupResponse: {
+      /** Secret */
+      secret: string;
+      /** Provisioning Uri */
+      provisioning_uri: string;
+      /** Qr Code Data Url */
+      qr_code_data_url?: string | null;
+      /**
+       * Expires At
+       * Format: date-time
+       */
+      expires_at: string;
+    };
+    /**
+     * MFAVerifyRequest
+     * @description Request to verify MFA code and enable MFA.
+     */
+    MFAVerifyRequest: {
+      /** Code */
+      code: string;
+    };
+    /**
+     * MFAVerifyResponse
+     * @description Response after MFA verification.
+     */
+    MFAVerifyResponse: {
+      /**
+       * Success
+       * @default true
+       */
+      success: boolean;
+      /**
+       * Mfa Enabled
+       * @default true
+       */
+      mfa_enabled: boolean;
+      /** Backup Codes */
+      backup_codes: string[];
+      /**
+       * Enabled At
+       * Format: date-time
+       */
+      enabled_at: string;
+    };
+    /** MemberRead */
+    MemberRead: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * User Id
+       * Format: uuid
+       */
+      user_id: string;
+      /**
+       * Organization Id
+       * Format: uuid
+       */
+      organization_id: string;
+      /** Email */
+      email?: string | null;
+      /** Display Name */
+      display_name?: string | null;
+      /** Role */
+      role: string;
+      /**
+       * Created At
+       * Format: date-time
+       */
+      created_at: string;
+    };
+    /** OrganizationCreate */
+    OrganizationCreate: {
+      /** Name */
+      name: string;
+      /** Tax Id */
+      tax_id?: string | null;
+      /** Settings Json */
+      settings_json?: {
+        [key: string]: unknown;
+      };
+    };
+    /** OrganizationRead */
+    OrganizationRead: {
+      /** Name */
+      name: string;
+      /** Tax Id */
+      tax_id?: string | null;
+      /** Settings Json */
+      settings_json?: {
+        [key: string]: unknown;
+      };
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Stripe Customer Id */
+      stripe_customer_id: string | null;
+      /** Subscription Status */
+      subscription_status: string;
+      /** Is Active */
+      is_active: boolean;
+      /** Member Count */
+      member_count: number;
+      /** Patient Count */
+      patient_count: number;
+      /**
+       * Created At
+       * Format: date-time
+       */
+      created_at: string;
+      /**
+       * Updated At
+       * Format: date-time
+       */
+      updated_at: string;
+    };
+    /** OrganizationUpdate */
+    OrganizationUpdate: {
+      /** Name */
+      name?: string | null;
+      /** Tax Id */
+      tax_id?: string | null;
+      /** Settings Json */
+      settings_json?: {
+        [key: string]: unknown;
+      } | null;
+    };
+    /**
+     * SessionListResponse
+     * @description Paginated list of sessions.
+     */
+    SessionListResponse: {
+      /** Items */
+      items: components["schemas"]["SessionRead"][];
+      /** Total */
+      total: number;
+      /**
+       * Limit
+       * @default 50
+       */
+      limit: number;
+      /**
+       * Offset
+       * @default 0
+       */
+      offset: number;
+    };
+    /**
+     * SessionRead
+     * @description Session information response.
+     */
+    SessionRead: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /** Device */
+      device: string;
+      /** Ip Address */
+      ip_address?: string | null;
+      /** Location */
+      location?: string | null;
+      /**
+       * Is Current
+       * @default false
+       */
+      is_current: boolean;
+      /**
+       * Created At
+       * Format: date-time
+       */
+      created_at: string;
+      /**
+       * Last Active At
+       * Format: date-time
+       */
+      last_active_at: string;
+    };
+    /**
+     * SessionRevokeResponse
+     * @description Response after revoking a session.
+     */
+    SessionRevokeResponse: {
+      /**
+       * Success
+       * @default true
+       */
+      success: boolean;
+      /**
+       * Terminated At
+       * Format: date-time
+       */
+      terminated_at: string;
+    };
+    /**
+     * TelemetryEvent
+     * @description Telemetry event payload from the frontend.
+     */
+    TelemetryEvent: {
+      /** Event Name */
+      event_name: string;
+      /** Properties */
+      properties?: {
+        [key: string]: unknown;
+      };
+    };
+    /**
+     * TelemetryResponse
+     * @description Response confirming event was logged.
+     */
+    TelemetryResponse: {
+      /**
+       * Success
+       * @default true
+       */
+      success: boolean;
+      /** Event Id */
+      event_id?: string | null;
+    };
+    /**
+     * UserDeleteRequest
+     * @description Request body for account deletion.
+     */
+    UserDeleteRequest: {
+      /** Password */
+      password: string;
+      /** Reason */
+      reason?: string | null;
+    };
+    /**
+     * UserDeleteResponse
+     * @description Response after account deletion.
+     */
+    UserDeleteResponse: {
+      /**
+       * Success
+       * @default true
+       */
+      success: boolean;
+      /**
+       * Deleted At
+       * Format: date-time
+       */
+      deleted_at: string;
+    };
+    /**
+     * UserExportRequest
+     * @description Request body for HIPAA data export.
+     */
+    UserExportRequest: {
+      /**
+       * Format
+       * @default json
+       */
+      format: string;
+      /**
+       * Include Documents
+       * @default false
+       */
+      include_documents: boolean;
+    };
+    /**
+     * UserExportResponse
+     * @description Response after requesting data export.
+     */
+    UserExportResponse: {
+      /**
+       * Export Id
+       * Format: uuid
+       */
+      export_id: string;
+      /**
+       * Status
+       * @default PENDING
+       */
+      status: string;
+      /**
+       * Estimated Completion
+       * Format: date-time
+       */
+      estimated_completion: string;
+    };
+    /**
+     * UserRead
+     * @description Full user profile response.
+     */
+    UserRead: {
+      /**
+       * Id
+       * Format: uuid
+       */
+      id: string;
+      /**
+       * Email
+       * Format: email
+       */
+      email: string;
+      /** Display Name */
+      display_name?: string | null;
+      /**
+       * Is Super Admin
+       * @default false
+       */
+      is_super_admin: boolean;
+      /**
+       * Mfa Enabled
+       * @default false
+       */
+      mfa_enabled: boolean;
+      /**
+       * Requires Consent
+       * @default true
+       */
+      requires_consent: boolean;
+      /**
+       * Transactional Consent
+       * @default true
+       */
+      transactional_consent: boolean;
+      /**
+       * Marketing Consent
+       * @default false
+       */
+      marketing_consent: boolean;
+      /**
+       * Created At
+       * Format: date-time
+       */
+      created_at: string;
+      /**
+       * Updated At
+       * Format: date-time
+       */
+      updated_at: string;
+    };
+    /**
+     * UserUpdate
+     * @description Update user profile fields.
+     */
+    UserUpdate: {
+      /** Display Name */
+      display_name?: string | null;
+    };
+    /** ValidationError */
+    ValidationError: {
+      /** Location */
+      loc: (string | number)[];
+      /** Message */
+      msg: string;
+      /** Error Type */
+      type: string;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    impersonate_patient_api_v1_admin_impersonate__patient_id__post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                patient_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ImpersonationRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+  impersonate_patient_api_v1_admin_impersonate__patient_id__post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        patient_id: string;
+      };
+      cookie?: never;
     };
-    get_required_consents_api_v1_consent_required_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ImpersonationRequest"];
+      };
     };
-    sign_consent_api_v1_consent_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ConsentSignRequest"];
-            };
+        content: {
+          "application/json": unknown;
         };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
     };
-    read_users_me_api_v1_users_me_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserRead"];
-                };
-            };
-        };
+  };
+  get_required_consents_api_v1_consent_required_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    delete_users_me_api_v1_users_me_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UserDeleteRequest"];
-            };
+        content: {
+          "application/json": unknown;
         };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserDeleteResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+      };
     };
-    update_users_me_api_v1_users_me_patch: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UserUpdate"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserRead"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+  };
+  sign_consent_api_v1_consent_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    list_sessions_api_v1_users_me_sessions_get: {
-        parameters: {
-            query?: {
-                limit?: number;
-                offset?: number;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SessionListResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ConsentSignRequest"];
+      };
     };
-    revoke_session_api_v1_users_me_sessions__session_id__delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                session_id: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["SessionRevokeResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
+        content: {
+          "application/json": unknown;
         };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
     };
-    request_export_api_v1_users_me_export_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UserExportRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            202: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserExportResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+  };
+  read_users_me_api_v1_users_me_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    get_communication_preferences_api_v1_users_me_communication_preferences_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CommunicationPreferencesRead"];
-                };
-            };
+        content: {
+          "application/json": components["schemas"]["UserRead"];
         };
+      };
     };
-    update_communication_preferences_api_v1_users_me_communication_preferences_patch: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CommunicationPreferencesUpdate"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["CommunicationPreferencesRead"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+  };
+  delete_users_me_api_v1_users_me_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    mfa_setup_api_v1_users_me_mfa_setup_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MFASetupResponse"];
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UserDeleteRequest"];
+      };
     };
-    mfa_verify_api_v1_users_me_mfa_verify_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["MFAVerifyRequest"];
-            };
+        content: {
+          "application/json": components["schemas"]["UserDeleteResponse"];
         };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MFAVerifyResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
     };
-    mfa_disable_api_v1_users_me_mfa_disable_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["MFADisableRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MFADisableResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+  };
+  update_users_me_api_v1_users_me_patch: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    register_device_token_api_v1_users_device_token_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["DeviceTokenRequest"];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DeviceTokenResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UserUpdate"];
+      };
     };
-    remove_device_token_api_v1_users_device_token_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["DeviceTokenDeleteRequest"];
-            };
+        content: {
+          "application/json": components["schemas"]["UserRead"];
         };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DeviceTokenResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
     };
-    list_organizations_api_v1_organizations_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrganizationRead"][];
-                };
-            };
-        };
+  };
+  list_sessions_api_v1_users_me_sessions_get: {
+    parameters: {
+      query?: {
+        limit?: number;
+        offset?: number;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    create_organization_api_v1_organizations_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["OrganizationCreate"];
-            };
+        content: {
+          "application/json": components["schemas"]["SessionListResponse"];
         };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrganizationRead"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
     };
-    get_organization_api_v1_organizations__org_id__get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                org_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrganizationRead"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+  };
+  revoke_session_api_v1_users_me_sessions__session_id__delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        session_id: string;
+      };
+      cookie?: never;
     };
-    update_organization_api_v1_organizations__org_id__patch: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                org_id: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["OrganizationUpdate"];
-            };
+        content: {
+          "application/json": components["schemas"]["SessionRevokeResponse"];
         };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["OrganizationRead"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
     };
-    list_members_api_v1_organizations__org_id__members_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                org_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["MemberRead"][];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+  };
+  request_export_api_v1_users_me_export_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    list_invitations_api_v1_organizations__org_id__invitations_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                org_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["InvitationRead"][];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UserExportRequest"];
+      };
     };
-    create_invitation_api_v1_organizations__org_id__invitations_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                org_id: string;
-            };
-            cookie?: never;
+    responses: {
+      /** @description Successful Response */
+      202: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["InvitationCreate"];
-            };
+        content: {
+          "application/json": components["schemas"]["UserExportResponse"];
         };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["InvitationRead"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
     };
-    get_invitation_api_v1_invitations__token__get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                token: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["InvitationRead"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+  };
+  get_communication_preferences_api_v1_users_me_communication_preferences_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    accept_invitation_api_v1_invitations__token__accept_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                token: string;
-            };
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["InvitationRead"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
+        content: {
+          "application/json": components["schemas"]["CommunicationPreferencesRead"];
         };
+      };
     };
-    get_events_api_v1_events_get: {
-        parameters: {
-            query?: {
-                /** @description JWT token for authentication */
-                token?: string | null;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+  };
+  update_communication_preferences_api_v1_users_me_communication_preferences_patch: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    get_org_events_api_v1_events_organizations__org_id__get: {
-        parameters: {
-            query?: {
-                /** @description JWT token for authentication */
-                token?: string | null;
-            };
-            header?: never;
-            path: {
-                org_id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CommunicationPreferencesUpdate"];
+      };
     };
-    log_telemetry_event_api_v1_telemetry_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TelemetryEvent"];
-            };
+        content: {
+          "application/json": components["schemas"]["CommunicationPreferencesRead"];
         };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TelemetryResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
         };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
     };
-    log_telemetry_batch_api_v1_telemetry_batch_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["TelemetryEvent"][];
-            };
-        };
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TelemetryResponse"];
-                };
-            };
-            /** @description Validation Error */
-            422: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["HTTPValidationError"];
-                };
-            };
-        };
+  };
+  mfa_setup_api_v1_users_me_mfa_setup_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    handle_stripe_webhook_api_v1_webhooks_stripe_post: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
         };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": {
-                        [key: string]: unknown;
-                    };
-                };
-            };
+        content: {
+          "application/json": components["schemas"]["MFASetupResponse"];
         };
+      };
     };
-    health_check_health_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+  };
+  mfa_verify_api_v1_users_me_mfa_verify_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    deep_health_check_health_deep_get: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Successful Response */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": unknown;
-                };
-            };
-        };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["MFAVerifyRequest"];
+      };
     };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["MFAVerifyResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  mfa_disable_api_v1_users_me_mfa_disable_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["MFADisableRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["MFADisableResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  register_device_token_api_v1_users_device_token_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["DeviceTokenRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DeviceTokenResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  remove_device_token_api_v1_users_device_token_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["DeviceTokenDeleteRequest"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DeviceTokenResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  list_organizations_api_v1_organizations_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["OrganizationRead"][];
+        };
+      };
+    };
+  };
+  create_organization_api_v1_organizations_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["OrganizationCreate"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["OrganizationRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  get_organization_api_v1_organizations__org_id__get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        org_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["OrganizationRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  update_organization_api_v1_organizations__org_id__patch: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        org_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["OrganizationUpdate"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["OrganizationRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  list_members_api_v1_organizations__org_id__members_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        org_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["MemberRead"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  list_invitations_api_v1_organizations__org_id__invitations_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        org_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["InvitationRead"][];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  create_invitation_api_v1_organizations__org_id__invitations_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        org_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["InvitationCreate"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["InvitationRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  get_invitation_api_v1_invitations__token__get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        token: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["InvitationRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  accept_invitation_api_v1_invitations__token__accept_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        token: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["InvitationRead"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  get_events_api_v1_events_get: {
+    parameters: {
+      query?: {
+        /** @description JWT token for authentication */
+        token?: string | null;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  get_org_events_api_v1_events_organizations__org_id__get: {
+    parameters: {
+      query?: {
+        /** @description JWT token for authentication */
+        token?: string | null;
+      };
+      header?: never;
+      path: {
+        org_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": unknown;
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  log_telemetry_event_api_v1_telemetry_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TelemetryEvent"];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TelemetryResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  log_telemetry_batch_api_v1_telemetry_batch_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["TelemetryEvent"][];
+      };
+    };
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TelemetryResponse"];
+        };
+      };
+      /** @description Validation Error */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["HTTPValidationError"];
+        };
+      };
+    };
+  };
+  handle_stripe_webhook_api_v1_webhooks_stripe_post: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": {
+            [key: string]: unknown;
+          };
+        };
+      };
+    };
+  };
+  health_check_health_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": unknown;
+        };
+      };
+    };
+  };
+  deep_health_check_health_deep_get: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": unknown;
+        };
+      };
+    };
+  };
 }

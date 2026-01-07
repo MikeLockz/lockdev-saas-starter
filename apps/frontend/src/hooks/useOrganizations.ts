@@ -1,35 +1,34 @@
-import { useQuery } from '@tanstack/react-query';
-import { api } from '@/lib/axios';
-import { useAuth } from './useAuth';
-import type { components } from '@/lib/api-types';
+import { useQuery } from "@tanstack/react-query";
+import type { components } from "@/lib/api-types";
+import { api } from "@/lib/axios";
+import { useAuth } from "./useAuth";
 
-export type Organization = components['schemas']['OrganizationRead'];
+export type Organization = components["schemas"]["OrganizationRead"];
 
 export interface UseOrganizationsOptions {
-    forSuperAdmin?: boolean;
+  forSuperAdmin?: boolean;
 }
 
 export function useOrganizations(options?: UseOrganizationsOptions) {
-    const { user } = useAuth();
-    const forSuperAdmin = options?.forSuperAdmin ?? false;
+  const { user } = useAuth();
+  const forSuperAdmin = options?.forSuperAdmin ?? false;
 
-    return useQuery<Organization[]>({
-        queryKey: ['organizations', { forSuperAdmin }],
-        queryFn: async () => {
-            // Return empty if no user, but enabled check handles this mostly
-            if (!user) return [];
-            const token = await user.getIdToken();
-            const endpoint = forSuperAdmin
-                ? '/api/v1/admin/super-admin/organizations'
-                : '/api/v1/organizations';
-            const response = await api.get(endpoint, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            // Super admin endpoint returns { items: [...], total, page, page_size }
-            return forSuperAdmin ? response.data.items : response.data;
-        },
-        enabled: !!user,
-        staleTime: 5 * 60 * 1000, // 5 minutes cache
-    });
+  return useQuery<Organization[]>({
+    queryKey: ["organizations", { forSuperAdmin }],
+    queryFn: async () => {
+      // Return empty if no user, but enabled check handles this mostly
+      if (!user) return [];
+      const token = await user.getIdToken();
+      const endpoint = forSuperAdmin
+        ? "/api/v1/admin/super-admin/organizations"
+        : "/api/v1/organizations";
+      const response = await api.get(endpoint, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      // Super admin endpoint returns { items: [...], total, page, page_size }
+      return forSuperAdmin ? response.data.items : response.data;
+    },
+    enabled: !!user,
+    staleTime: 5 * 60 * 1000, // 5 minutes cache
+  });
 }
-

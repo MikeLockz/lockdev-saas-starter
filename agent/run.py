@@ -3,14 +3,14 @@ import argparse
 import sys
 from dotenv import load_dotenv
 
-# Load Keys FIRST, before importing modules that initialize LLMs
-load_dotenv()
-
 from graph import app
 from nodes.reviewer import reviewer_node
 from nodes.pm import pm_node
 from nodes.staff_engineer import staff_engineer_node
 from nodes.spec_reviewer import spec_reviewer_node
+
+# Load Keys FIRST, before modules use them (though many load at runtime)
+load_dotenv()
 
 
 def main():

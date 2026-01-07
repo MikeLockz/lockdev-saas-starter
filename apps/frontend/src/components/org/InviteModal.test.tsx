@@ -1,10 +1,9 @@
-
 import { render, screen, waitFor } from "@testing-library/react";
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { InviteModal } from "./InviteModal";
+import userEvent from "@testing-library/user-event";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useCreateInvitation } from "../../hooks/useCreateInvitation";
 import { useCurrentOrg } from "../../hooks/useCurrentOrg";
-import userEvent from "@testing-library/user-event";
+import { InviteModal } from "./InviteModal";
 
 // Mock hooks
 vi.mock("../../hooks/useCreateInvitation");
@@ -12,21 +11,29 @@ vi.mock("../../hooks/useCurrentOrg");
 
 // Mock ResizeObserver for Radix UI
 (globalThis as any).ResizeObserver = class ResizeObserver {
-    observe() { }
-    unobserve() { }
-    disconnect() { }
+  observe() {}
+  unobserve() {}
+  disconnect() {}
 };
 
 // Mock the dialog to avoid portal/state complexity in simple unit test
 // We want to verify form submission logic, not Radix behavior
 vi.mock("../ui/dialog", () => ({
-    Dialog: ({ children, open }: any) => <div>{open ? <div data-testid="dialog-content">{children}</div> : children}</div>,
-    DialogTrigger: ({ children, onClick }: any) => <button onClick={onClick} data-testid="dialog-trigger">{children}</button>,
-    DialogContent: ({ children }: any) => <div>{children}</div>,
-    DialogHeader: ({ children }: any) => <div>{children}</div>,
-    DialogTitle: ({ children }: any) => <div>{children}</div>,
-    DialogDescription: ({ children }: any) => <div>{children}</div>,
-    DialogFooter: ({ children }: any) => <div>{children}</div>,
+  Dialog: ({ children, open }: any) => (
+    <div>
+      {open ? <div data-testid="dialog-content">{children}</div> : children}
+    </div>
+  ),
+  DialogTrigger: ({ children, onClick }: any) => (
+    <button onClick={onClick} data-testid="dialog-trigger">
+      {children}
+    </button>
+  ),
+  DialogContent: ({ children }: any) => <div>{children}</div>,
+  DialogHeader: ({ children }: any) => <div>{children}</div>,
+  DialogTitle: ({ children }: any) => <div>{children}</div>,
+  DialogDescription: ({ children }: any) => <div>{children}</div>,
+  DialogFooter: ({ children }: any) => <div>{children}</div>,
 }));
 
 // We need to simulate the state change since we mocked the Dialog which usually handles it.
@@ -57,58 +64,58 @@ vi.mock("../ui/dialog", () => ({
 // This is the standard way to test Radix.
 
 describe("InviteModal", () => {
-    const mockCreateInvitation = vi.fn();
+  const mockCreateInvitation = vi.fn();
 
-    beforeEach(() => {
-        vi.clearAllMocks();
-        (useCreateInvitation as any).mockReturnValue({
-            mutate: mockCreateInvitation,
-            isPending: false,
-        });
-        (useCurrentOrg as any).mockReturnValue({
-            organization: { id: "org-123", name: "Test Org" },
-        });
-
-        // Mock pointer capture for Radix
-        window.HTMLElement.prototype.setPointerCapture = vi.fn();
-        window.HTMLElement.prototype.releasePointerCapture = vi.fn();
-        window.HTMLElement.prototype.hasPointerCapture = vi.fn();
+  beforeEach(() => {
+    vi.clearAllMocks();
+    (useCreateInvitation as any).mockReturnValue({
+      mutate: mockCreateInvitation,
+      isPending: false,
+    });
+    (useCurrentOrg as any).mockReturnValue({
+      organization: { id: "org-123", name: "Test Org" },
     });
 
-    // Unmock UI for this test to rely on real Radix behavior
-    vi.unmock("../ui/dialog");
+    // Mock pointer capture for Radix
+    window.HTMLElement.prototype.setPointerCapture = vi.fn();
+    window.HTMLElement.prototype.releasePointerCapture = vi.fn();
+    window.HTMLElement.prototype.hasPointerCapture = vi.fn();
+  });
 
-    it("opens and submits invitation", async () => {
-        const user = userEvent.setup();
-        render(<InviteModal />);
+  // Unmock UI for this test to rely on real Radix behavior
+  vi.unmock("../ui/dialog");
 
-        // 1. Check Trigger
-        const inviteBtn = screen.getByRole("button", { name: /invite member/i });
-        expect(inviteBtn).toBeInTheDocument();
+  it("opens and submits invitation", async () => {
+    const user = userEvent.setup();
+    render(<InviteModal />);
 
-        // 2. Open Modal
-        await user.click(inviteBtn);
+    // 1. Check Trigger
+    const inviteBtn = screen.getByRole("button", { name: /invite member/i });
+    expect(inviteBtn).toBeInTheDocument();
 
-        // 3. Check Form Content (Header)
-        expect(await screen.findByText("Invite Team Member")).toBeInTheDocument();
+    // 2. Open Modal
+    await user.click(inviteBtn);
 
-        // 4. Fill Form
-        const emailInput = screen.getByLabelText(/email address/i);
-        await user.type(emailInput, "test@example.com");
+    // 3. Check Form Content (Header)
+    expect(await screen.findByText("Invite Team Member")).toBeInTheDocument();
 
-        const roleSelect = screen.getByLabelText(/role/i);
-        await user.selectOptions(roleSelect, "ADMIN");
+    // 4. Fill Form
+    const emailInput = screen.getByLabelText(/email address/i);
+    await user.type(emailInput, "test@example.com");
 
-        // 5. Submit
-        const submitBtn = screen.getByRole("button", { name: "Send Invitation" });
-        await user.click(submitBtn);
+    const roleSelect = screen.getByLabelText(/role/i);
+    await user.selectOptions(roleSelect, "ADMIN");
 
-        // 6. Verify Hook Call
-        await waitFor(() => {
-            expect(mockCreateInvitation).toHaveBeenCalledWith(
-                { email: "test@example.com", role: "ADMIN" },
-                expect.any(Object)
-            );
-        });
+    // 5. Submit
+    const submitBtn = screen.getByRole("button", { name: "Send Invitation" });
+    await user.click(submitBtn);
+
+    // 6. Verify Hook Call
+    await waitFor(() => {
+      expect(mockCreateInvitation).toHaveBeenCalledWith(
+        { email: "test@example.com", role: "ADMIN" },
+        expect.any(Object),
+      );
     });
+  });
 });

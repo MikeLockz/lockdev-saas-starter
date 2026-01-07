@@ -13,7 +13,6 @@ Implements:
 """
 
 from datetime import UTC, datetime
-from typing import Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Request, status
@@ -716,7 +715,7 @@ async def get_my_proxy_patients(current_user: User = Depends(get_current_user), 
     return patients
 
 
-@router.get("/me/proxy", response_model=Optional[ProxyProfileRead], tags=["proxies"])
+@router.get("/me/proxy", response_model=ProxyProfileRead | None, tags=["proxies"])
 async def get_my_proxy_profile(current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
     """
     Get the current user's proxy profile if they are a proxy.

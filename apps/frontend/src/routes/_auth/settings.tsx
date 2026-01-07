@@ -1,23 +1,29 @@
-import { useState } from 'react';
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { ProfileForm, SessionList, MFASetup, PreferencesForm, TimezonePreferences } from '@/components/settings';
-import { Button } from '@/components/ui/button';
-import { useAuth } from '@/hooks/useAuth';
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
+import {
+  MFASetup,
+  PreferencesForm,
+  ProfileForm,
+  SessionList,
+  TimezonePreferences,
+} from "@/components/settings";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
 
 const TABS = [
-  { id: 'profile', label: 'Profile', icon: '👤' },
-  { id: 'security', label: 'Security', icon: '🔒' },
-  { id: 'privacy', label: 'Privacy', icon: '🔔' },
+  { id: "profile", label: "Profile", icon: "👤" },
+  { id: "security", label: "Security", icon: "🔒" },
+  { id: "privacy", label: "Privacy", icon: "🔔" },
 ] as const;
 
-type TabId = (typeof TABS)[number]['id'];
+type TabId = (typeof TABS)[number]["id"];
 
-export const Route = createFileRoute('/_auth/settings')({
+export const Route = createFileRoute("/_auth/settings")({
   component: Settings,
 });
 
 export function Settings() {
-  const [activeTab, setActiveTab] = useState<TabId>('profile');
+  const [activeTab, setActiveTab] = useState<TabId>("profile");
   const { user, signOut } = useAuth();
 
   const handleLogout = async () => {
@@ -30,7 +36,10 @@ export function Settings() {
       <header className="border-b bg-background">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link to="/dashboard" className="text-lg font-semibold hover:text-primary">
+            <Link
+              to="/dashboard"
+              className="text-lg font-semibold hover:text-primary"
+            >
               ← Back to Dashboard
             </Link>
           </div>
@@ -56,13 +65,15 @@ export function Settings() {
           <nav className="lg:w-64 space-y-1">
             {TABS.map((tab) => (
               <button
+                type="button"
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`
                   w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors
-                  ${activeTab === tab.id
-                    ? 'bg-primary text-primary-foreground'
-                    : 'hover:bg-muted'
+                  ${
+                    activeTab === tab.id
+                      ? "bg-primary text-primary-foreground"
+                      : "hover:bg-muted"
                   }
                 `}
               >
@@ -74,20 +85,20 @@ export function Settings() {
 
           {/* Tab Content */}
           <div className="flex-1 min-w-0 max-w-3xl">
-            {activeTab === 'profile' && (
+            {activeTab === "profile" && (
               <div className="space-y-6">
                 <ProfileForm />
               </div>
             )}
 
-            {activeTab === 'security' && (
+            {activeTab === "security" && (
               <div className="space-y-6">
                 <SessionList />
                 <MFASetup />
               </div>
             )}
 
-            {activeTab === 'privacy' && (
+            {activeTab === "privacy" && (
               <div className="space-y-6">
                 <TimezonePreferences />
                 <PreferencesForm />

@@ -1,13 +1,13 @@
+import type { User } from "firebase/auth";
+import {
+  signOut as firebaseSignOut,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
+import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/lib/firebase";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithEmailAndPassword,
-  signOut as firebaseSignOut,
-} from "firebase/auth";
-import type { User } from "firebase/auth";
-import { useState, useEffect } from "react";
 
 const MOCK_USER_KEY = "lockdev_mock_user";
 
@@ -31,10 +31,11 @@ export function useAuth() {
         providerData: [],
         refreshToken: "",
         tenantId: null,
-        delete: async () => { },
+        delete: async () => {},
         getIdToken: async () => `mock_${parsed.email}`,
-        getIdTokenResult: async () => ({ token: `mock_${parsed.email}` } as any),
-        reload: async () => { },
+        getIdTokenResult: async () =>
+          ({ token: `mock_${parsed.email}` }) as any,
+        reload: async () => {},
         toJSON: () => ({}),
         phoneNumber: null,
         photoURL: null,
@@ -73,7 +74,9 @@ export function useAuth() {
       // Surface the error so user can see it
       console.error("Google Sign-in failed:", error.code, error.message);
       if (error.code === "auth/operation-not-allowed") {
-        alert("Google Sign-in is not enabled in Firebase Console. Please enable it or use the 'E2E User' button for local development.");
+        alert(
+          "Google Sign-in is not enabled in Firebase Console. Please enable it or use the 'E2E User' button for local development.",
+        );
       } else {
         alert(`Sign-in failed: ${error.message}`);
       }

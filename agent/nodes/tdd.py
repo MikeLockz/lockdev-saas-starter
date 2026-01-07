@@ -104,16 +104,6 @@ def tdd_node(state):
         # We need to be careful not to remove internal code blocks if any (unlikely in this context)
         # But usually the whole chunk is the code.
 
-        # Simple cleaner: remove the first line if it starts with ``` and the last line if it is ```
-        file_lines = file_content.strip().split("\n")
-
-        cleaned_lines = []
-        in_code_block = False
-
-        # Iterate to find the main code block
-        # Heuristic: The content usually is wrapped in one big ``` block.
-        # We'll just strip all lines starting with ``` from the beginning and end.
-
         # Alternative: Regex replace
         code_clean = re.sub(
             r"^```\w*\s*", "", file_content.strip(), count=1

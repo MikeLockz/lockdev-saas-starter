@@ -1,4 +1,4 @@
-export { AppointmentStatusBadge } from './AppointmentStatusBadge';
-export { AppointmentCard } from './AppointmentCard';
-export { AppointmentList } from './AppointmentList';
-export { AppointmentCreateModal } from './AppointmentCreateModal';
+export { AppointmentCard } from "./AppointmentCard";
+export { AppointmentCreateModal } from "./AppointmentCreateModal";
+export { AppointmentList } from "./AppointmentList";
+export { AppointmentStatusBadge } from "./AppointmentStatusBadge";

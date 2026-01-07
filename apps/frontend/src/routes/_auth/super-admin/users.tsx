@@ -1,11 +1,11 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Header } from '@/components/layout/header'
-import { Main } from '@/components/layout/main'
-import { UserManagementTable } from '@/components/super-admin/UserManagementTable'
+import { createFileRoute } from "@tanstack/react-router";
+import { Header } from "@/components/layout/header";
+import { Main } from "@/components/layout/main";
+import { UserManagementTable } from "@/components/super-admin/UserManagementTable";
 
-export const Route = createFileRoute('/_auth/super-admin/users')({
+export const Route = createFileRoute("/_auth/super-admin/users")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
   return (
@@ -17,5 +17,5 @@ function RouteComponent() {
         <UserManagementTable />
       </Main>
     </>
-  )
+  );
 }

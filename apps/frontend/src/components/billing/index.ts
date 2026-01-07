@@ -1,2 +1,2 @@
-export { SubscriptionCard } from "./SubscriptionCard";
 export { PlanSelector } from "./PlanSelector";
+export { SubscriptionCard } from "./SubscriptionCard";

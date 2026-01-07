@@ -1,6 +1,6 @@
 // FILENAME: src/components/PatientCard.tsx
-import React from 'react';
-import { UiPatient } from '@/types/patient';
+import type React from "react";
+import type { UiPatient } from "@/types/patient";
 
 interface PatientCardProps {
   patient: UiPatient;
@@ -15,7 +15,10 @@ const PatientCard: React.FC<PatientCardProps> = ({ patient }) => {
         <p>Date of Birth: {patient.dateOfBirth}</p>
         <p>Email: {patient.email}</p>
         <p>Phone: {patient.phone}</p>
-        <p>Address: {patient.address}, {patient.city}, {patient.state} {patient.zipCode}</p>
+        <p>
+          Address: {patient.address}, {patient.city}, {patient.state}{" "}
+          {patient.zipCode}
+        </p>
       </div>
     </div>
   );
