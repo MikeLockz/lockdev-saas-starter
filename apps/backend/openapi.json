@@ -7,9 +7,7 @@
   "paths": {
     "/api/v1/admin/impersonate/{patient_id}": {
       "post": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "Impersonate Patient",
         "operationId": "impersonate_patient_api_v1_admin_impersonate__patient_id__post",
         "security": [
@@ -62,9 +60,7 @@
     },
     "/api/v1/consent/required": {
       "get": {
-        "tags": [
-          "consent"
-        ],
+        "tags": ["consent"],
         "summary": "Get Required Consents",
         "description": "List all active consents and status for the current user.",
         "operationId": "get_required_consents_api_v1_consent_required_get",
@@ -87,9 +83,7 @@
     },
     "/api/v1/consent": {
       "post": {
-        "tags": [
-          "consent"
-        ],
+        "tags": ["consent"],
         "summary": "Sign Consent",
         "description": "Sign a specific consent document.",
         "operationId": "sign_consent_api_v1_consent_post",
@@ -1059,9 +1053,7 @@
     },
     "/api/v1/events": {
       "get": {
-        "tags": [
-          "Real-Time Events"
-        ],
+        "tags": ["Real-Time Events"],
         "summary": "Get Events",
         "description": "Server-Sent Events stream for real-time updates.\n\nThis endpoint establishes a long-lived HTTP connection for\nserver-to-client push notifications.\n\nThe client will receive events such as:\n- notification.new: New notification created\n- message.new: New message in subscribed thread\n- appointment.reminder: Upcoming appointment reminder\n- appointment.updated: Appointment rescheduled/cancelled\n- document.processed: Document finished OCR/virus scan\n- document.scan_complete: Virus scan completed\n- consent.required: New consent document available\n- call.incoming: Incoming call (Call Center)\n- call.completed: Call ended\n- heartbeat: Keep-alive (every 30 seconds)\n\nAuthentication can be provided via:\n- Authorization header: Bearer {token}\n- Query parameter: ?token={token}\n\nReturns:\n    StreamingResponse with text/event-stream content type",
         "operationId": "get_events_api_v1_events_get",
@@ -1109,9 +1101,7 @@
     },
     "/api/v1/events/organizations/{org_id}": {
       "get": {
-        "tags": [
-          "Real-Time Events"
-        ],
+        "tags": ["Real-Time Events"],
         "summary": "Get Org Events",
         "description": "Organization-scoped SSE stream for admin views.\n\nThis endpoint provides organization-level events in addition\nto standard user events. Requires ADMIN or SUPER_ADMIN role.\n\nAdditional event types:\n- member.joined: New member accepted invitation\n- member.removed: Member removed from organization\n- subscription.updated: Subscription status changed\n- license.expiring: Provider license expiring soon\n\nArgs:\n    org_id: Organization ID\n\nReturns:\n    StreamingResponse with text/event-stream content type\n\nRaises:\n    HTTPException: If user is not admin of the organization",
         "operationId": "get_org_events_api_v1_events_organizations__org_id__get",
@@ -1168,9 +1158,7 @@
     },
     "/api/v1/telemetry": {
       "post": {
-        "tags": [
-          "Telemetry"
-        ],
+        "tags": ["Telemetry"],
         "summary": "Log Telemetry Event",
         "description": "Log a behavioral analytics event.\n\nThis endpoint accepts telemetry events from the frontend and logs them\nusing structlog with `event_type=\"analytics\"` for CloudWatch filtering.\n\n**Use Cases:**\n- Page views and navigation patterns\n- Feature usage tracking\n- Button clicks and user interactions\n- Error events (client-side)\n- Performance metrics\n\n**Privacy:**\n- Do not send PII/PHI in the properties\n- User ID is automatically attached from context\n- IP address is logged for basic analytics\n\nArgs:\n    event: The telemetry event with name and properties\n\nReturns:\n    Confirmation that the event was logged",
         "operationId": "log_telemetry_event_api_v1_telemetry_post",
@@ -1210,9 +1198,7 @@
     },
     "/api/v1/telemetry/batch": {
       "post": {
-        "tags": [
-          "Telemetry"
-        ],
+        "tags": ["Telemetry"],
         "summary": "Log Telemetry Batch",
         "description": "Log multiple telemetry events in a batch.\n\nThis endpoint is optimized for sending multiple events at once,\nreducing the number of HTTP requests from the frontend.\n\n**Use Cases:**\n- Offline event buffering\n- Page unload event flushing\n- Session aggregation\n\nArgs:\n    events: List of telemetry events\n\nReturns:\n    Confirmation that all events were logged",
         "operationId": "log_telemetry_batch_api_v1_telemetry_batch_post",
@@ -1256,9 +1242,7 @@
     },
     "/api/v1/webhooks/stripe": {
       "post": {
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "summary": "Handle Stripe Webhook",
         "description": "Handle incoming Stripe webhook events.\n\nThis endpoint receives events from Stripe and processes them:\n- Verifies the webhook signature for security\n- Parses the event and dispatches to appropriate handlers\n- Updates database records based on event type\n\n**Security:**\n- Signature verification using STRIPE_WEBHOOK_SECRET\n- Raw body parsing to prevent tampering\n\n**Handled Events:**\n- checkout.session.completed: Subscription activated\n- invoice.payment_succeeded: Payment confirmed\n- invoice.payment_failed: Payment failed, status updated\n- customer.subscription.updated: Subscription status changed\n- customer.subscription.deleted: Subscription canceled\n\nReturns:\n    Success response for Stripe acknowledgment",
         "operationId": "handle_stripe_webhook_api_v1_webhooks_stripe_post",
@@ -1375,9 +1359,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "document_id"
-        ],
+        "required": ["document_id"],
         "title": "ConsentSignRequest"
       },
       "DeviceTokenDeleteRequest": {
@@ -1390,9 +1372,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "token"
-        ],
+        "required": ["token"],
         "title": "DeviceTokenDeleteRequest",
         "description": "Request to delete a device token."
       },
@@ -1423,10 +1403,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "token",
-          "platform"
-        ],
+        "required": ["token", "platform"],
         "title": "DeviceTokenRequest",
         "description": "Request to register a device token."
       },
@@ -1463,9 +1440,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "reason"
-        ],
+        "required": ["reason"],
         "title": "ImpersonationRequest"
       },
       "InvitationCreate": {
@@ -1481,10 +1456,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "email",
-          "role"
-        ],
+        "required": ["email", "role"],
         "title": "InvitationCreate"
       },
       "InvitationRead": {
@@ -1567,9 +1539,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "password"
-        ],
+        "required": ["password"],
         "title": "MFADisableRequest",
         "description": "Request to disable MFA."
       },
@@ -1592,9 +1562,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "disabled_at"
-        ],
+        "required": ["disabled_at"],
         "title": "MFADisableResponse",
         "description": "Response after disabling MFA."
       },
@@ -1626,11 +1594,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "secret",
-          "provisioning_uri",
-          "expires_at"
-        ],
+        "required": ["secret", "provisioning_uri", "expires_at"],
         "title": "MFASetupResponse",
         "description": "Response for MFA setup initialization."
       },
@@ -1645,9 +1609,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "code"
-        ],
+        "required": ["code"],
         "title": "MFAVerifyRequest",
         "description": "Request to verify MFA code and enable MFA."
       },
@@ -1677,10 +1639,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "backup_codes",
-          "enabled_at"
-        ],
+        "required": ["backup_codes", "enabled_at"],
         "title": "MFAVerifyResponse",
         "description": "Response after MFA verification."
       },
@@ -1734,13 +1693,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "user_id",
-          "organization_id",
-          "role",
-          "created_at"
-        ],
+        "required": ["id", "user_id", "organization_id", "role", "created_at"],
         "title": "MemberRead"
       },
       "OrganizationCreate": {
@@ -1769,9 +1722,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "name"
-        ],
+        "required": ["name"],
         "title": "OrganizationCreate"
       },
       "OrganizationRead": {
@@ -1922,10 +1873,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "items",
-          "total"
-        ],
+        "required": ["items", "total"],
         "title": "SessionListResponse",
         "description": "Paginated list of sessions."
       },
@@ -1979,12 +1927,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "device",
-          "created_at",
-          "last_active_at"
-        ],
+        "required": ["id", "device", "created_at", "last_active_at"],
         "title": "SessionRead",
         "description": "Session information response."
       },
@@ -2002,9 +1945,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "terminated_at"
-        ],
+        "required": ["terminated_at"],
         "title": "SessionRevokeResponse",
         "description": "Response after revoking a session."
       },
@@ -2023,9 +1964,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "event_name"
-        ],
+        "required": ["event_name"],
         "title": "TelemetryEvent",
         "description": "Telemetry event payload from the frontend."
       },
@@ -2072,9 +2011,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "password"
-        ],
+        "required": ["password"],
         "title": "UserDeleteRequest",
         "description": "Request body for account deletion."
       },
@@ -2092,9 +2029,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "deleted_at"
-        ],
+        "required": ["deleted_at"],
         "title": "UserDeleteResponse",
         "description": "Response after account deletion."
       },
@@ -2135,10 +2070,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "export_id",
-          "estimated_completion"
-        ],
+        "required": ["export_id", "estimated_completion"],
         "title": "UserExportResponse",
         "description": "Response after requesting data export."
       },
@@ -2202,12 +2134,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "email",
-          "created_at",
-          "updated_at"
-        ],
+        "required": ["id", "email", "created_at", "updated_at"],
         "title": "UserRead",
         "description": "Full user profile response."
       },
@@ -2256,11 +2183,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
+        "required": ["loc", "msg", "type"],
         "title": "ValidationError"
       }
     },

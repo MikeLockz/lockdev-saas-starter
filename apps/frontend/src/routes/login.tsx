@@ -1,41 +1,41 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { useAuth } from '@/hooks/useAuth'
-import { useEffect, useState } from 'react'
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useAuth } from "@/hooks/useAuth";
 
-export const Route = createFileRoute('/login')({
+export const Route = createFileRoute("/login")({
   component: Login,
-})
+});
 
 function Login() {
-  const { signInWithEmail, signInWithGoogle, signInDev, user } = useAuth()
-  const navigate = useNavigate()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const { signInWithEmail, signInWithGoogle, signInDev, user } = useAuth();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (user) {
-      navigate({ to: '/dashboard' })
+      navigate({ to: "/dashboard" });
     }
-  }, [user, navigate])
+  }, [user, navigate]);
 
   const handleEmailLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
-    setIsLoading(true)
+    e.preventDefault();
+    setError(null);
+    setIsLoading(true);
     try {
-      await signInWithEmail(email, password)
+      await signInWithEmail(email, password);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Sign-in failed')
+      setError(err instanceof Error ? err.message : "Sign-in failed");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -70,11 +70,9 @@ function Login() {
                 disabled={isLoading}
               />
             </div>
-            {error && (
-              <p className="text-sm text-red-600">{error}</p>
-            )}
+            {error && <p className="text-sm text-red-600">{error}</p>}
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? 'Signing in...' : 'Sign in with Email'}
+              {isLoading ? "Signing in..." : "Sign in with Email"}
             </Button>
           </form>
 
@@ -83,31 +81,68 @@ function Login() {
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-muted-foreground">Or continue with</span>
+              <span className="bg-white px-2 text-muted-foreground">
+                Or continue with
+              </span>
             </div>
           </div>
 
-          <Button variant="outline" className="w-full" onClick={() => signInWithGoogle()}>
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => signInWithGoogle()}
+          >
             Sign in with Google
           </Button>
 
           {import.meta.env.DEV && (
             <div className="pt-4 border-t">
-              <p className="text-xs text-muted-foreground mb-2 text-center">Dev Login (Mock - No Firebase)</p>
+              <p className="text-xs text-muted-foreground mb-2 text-center">
+                Dev Login (Mock - No Firebase)
+              </p>
               <div className="space-y-2">
-                <Button variant="ghost" size="sm" className="w-full" onClick={() => signInDev('e2e@example.com', 'E2E User')}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full"
+                  onClick={() => signInDev("e2e@example.com", "E2E User")}
+                >
                   E2E User (Super Admin)
                 </Button>
-                <Button variant="ghost" size="sm" className="w-full" onClick={() => signInDev('staff@example.com', 'Staff User')}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full"
+                  onClick={() => signInDev("staff@example.com", "Staff User")}
+                >
                   Staff User
                 </Button>
-                <Button variant="ghost" size="sm" className="w-full" onClick={() => signInDev('provider@example.com', 'Provider User')}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full"
+                  onClick={() =>
+                    signInDev("provider@example.com", "Provider User")
+                  }
+                >
                   Provider User
                 </Button>
-                <Button variant="ghost" size="sm" className="w-full" onClick={() => signInDev('patient@example.com', 'Patient User')}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full"
+                  onClick={() =>
+                    signInDev("patient@example.com", "Patient User")
+                  }
+                >
                   Patient User
                 </Button>
-                <Button variant="ghost" size="sm" className="w-full" onClick={() => signInDev('proxy@example.com', 'Proxy User')}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full"
+                  onClick={() => signInDev("proxy@example.com", "Proxy User")}
+                >
                   Proxy User (Patient Guardian)
                 </Button>
               </div>
@@ -116,6 +151,5 @@ function Login() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
-

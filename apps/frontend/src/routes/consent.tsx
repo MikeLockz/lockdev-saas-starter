@@ -1,20 +1,26 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
-import { ConsentList } from '@/components/consent/ConsentList'
-import { Header } from '@/components/layout/header'
-import { Main } from '@/components/layout/main'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Shield } from 'lucide-react'
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Shield } from "lucide-react";
+import { ConsentList } from "@/components/consent/ConsentList";
+import { Header } from "@/components/layout/header";
+import { Main } from "@/components/layout/main";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-export const Route = createFileRoute('/consent')({
+export const Route = createFileRoute("/consent")({
   component: ConsentPage,
-})
+});
 
 function ConsentPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleComplete = () => {
-    navigate({ to: '/dashboard' })
-  }
+    navigate({ to: "/dashboard" });
+  };
 
   return (
     <>
@@ -43,5 +49,5 @@ function ConsentPage() {
         </div>
       </Main>
     </>
-  )
+  );
 }

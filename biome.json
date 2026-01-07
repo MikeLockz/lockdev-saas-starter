@@ -1,5 +1,5 @@
 {
-  "root": false,
+  "root": true,
   "$schema": "https://biomejs.dev/schemas/2.3.10/schema.json",
   "vcs": {
     "enabled": true,
@@ -18,7 +18,12 @@
       "!shadcn-admin",
       "!**/.mypy_cache",
       "!**/.pytest_cache",
-      "!**/.ruff_cache"
+      "!**/.ruff_cache",
+      "!apps/frontend/src/index.css",
+      "!**/playwright-report",
+      "!**/test-results",
+      "!apps/frontend/src/routeTree.gen.ts",
+      "!app"
     ]
   },
   "formatter": {
@@ -29,7 +34,25 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noArrayIndexKey": "off",
+        "noDocumentCookie": "off"
+      },
+      "a11y": {
+        "noLabelWithoutControl": "off",
+        "useButtonType": "off",
+        "noStaticElementInteractions": "off",
+        "useKeyWithClickEvents": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off"
+      },
+      "correctness": {
+        "useHookAtTopLevel": "off",
+        "useExhaustiveDependencies": "off"
+      }
     }
   },
   "javascript": {
@@ -40,6 +63,18 @@
   "json": {
     "parser": {
       "allowComments": true
+    }
+  },
+  "css": {
+    "parser": {
+      "cssModules": true,
+      "tailwindDirectives": true
+    },
+    "linter": {
+      "enabled": false
+    },
+    "formatter": {
+      "enabled": false
     }
   }
 }

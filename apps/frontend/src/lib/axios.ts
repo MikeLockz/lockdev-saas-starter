@@ -1,6 +1,6 @@
 import axios from "axios";
-import { useOrgStore } from "@/store/org-store";
 import { auth } from "@/lib/firebase";
+import { useOrgStore } from "@/store/org-store";
 
 // Whitelist of allowed domains
 const ALLOWED_DOMAINS = [
@@ -30,7 +30,7 @@ api.interceptors.request.use(
     if (auth.currentUser && config.headers) {
       try {
         const token = await auth.currentUser.getIdToken();
-        config.headers["Authorization"] = `Bearer ${token}`;
+        config.headers.Authorization = `Bearer ${token}`;
       } catch (error) {
         console.warn("Failed to get ID token", error);
         // Continue without token, let backend handle 401
@@ -42,7 +42,7 @@ api.interceptors.request.use(
         try {
           const mockUser = JSON.parse(mockUserJson);
           if (mockUser.email) {
-            config.headers["Authorization"] = `Bearer mock_${mockUser.email}`;
+            config.headers.Authorization = `Bearer mock_${mockUser.email}`;
           }
         } catch {
           // Invalid JSON, ignore
@@ -89,9 +89,9 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       // Handle unauthorized access (e.g., redirect to login)
-      // For now, we rely on the component or router to handle 401s, 
+      // For now, we rely on the component or router to handle 401s,
       // but we could dispatch a global event here.
     }
     return Promise.reject(error);
-  }
+  },
 );

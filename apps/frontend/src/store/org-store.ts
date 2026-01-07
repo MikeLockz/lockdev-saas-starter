@@ -1,20 +1,20 @@
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 interface OrgState {
-    currentOrgId: string | null;
-    setCurrentOrgId: (id: string | null) => void;
+  currentOrgId: string | null;
+  setCurrentOrgId: (id: string | null) => void;
 }
 
 export const useOrgStore = create<OrgState>()(
-    persist(
-        (set) => ({
-            currentOrgId: null,
-            setCurrentOrgId: (id) => set({ currentOrgId: id }),
-        }),
-        {
-            name: 'org-storage',
-            storage: createJSONStorage(() => localStorage),
-        }
-    )
+  persist(
+    (set) => ({
+      currentOrgId: null,
+      setCurrentOrgId: (id) => set({ currentOrgId: id }),
+    }),
+    {
+      name: "org-storage",
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
 );

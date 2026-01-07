@@ -1,21 +1,20 @@
-import { Outlet } from '@tanstack/react-router'
-import { createFileRoute } from '@tanstack/react-router'
-import { AuthGuard } from '@/components/auth-guard'
-import { getCookie } from '@/lib/cookies'
-import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar'
-import { AppSidebar } from '@/components/layout/app-sidebar'
-import { useSessionMonitor } from '@/hooks/useSessionMonitor'
-import { SessionExpiryModal } from '@/components/SessionExpiryModal'
-import { useAuth } from '@/hooks/useAuth'
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { AuthGuard } from "@/components/auth-guard";
+import { AppSidebar } from "@/components/layout/app-sidebar";
+import { SessionExpiryModal } from "@/components/SessionExpiryModal";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { useAuth } from "@/hooks/useAuth";
+import { useSessionMonitor } from "@/hooks/useSessionMonitor";
+import { getCookie } from "@/lib/cookies";
 
-export const Route = createFileRoute('/_auth')({
+export const Route = createFileRoute("/_auth")({
   component: AuthLayout,
-})
+});
 
 function AuthLayout() {
-  const defaultOpen = getCookie('sidebar_state') !== 'false'
-  const { showWarning, timeRemaining, extendSession } = useSessionMonitor()
-  const { signOut } = useAuth()
+  const defaultOpen = getCookie("sidebar_state") !== "false";
+  const { showWarning, timeRemaining, extendSession } = useSessionMonitor();
+  const { signOut } = useAuth();
 
   // Auto-logout is handled by the hook (isIdle -> signOut)
   // We just need to show the modal when warning is true
@@ -35,5 +34,5 @@ function AuthLayout() {
         />
       </SidebarProvider>
     </AuthGuard>
-  )
+  );
 }

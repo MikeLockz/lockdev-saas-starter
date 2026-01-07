@@ -1,2 +1,2 @@
-export { FileUploader } from './FileUploader';
-export { DocumentList } from './DocumentList';
+export { DocumentList } from "./DocumentList";
+export { FileUploader } from "./FileUploader";

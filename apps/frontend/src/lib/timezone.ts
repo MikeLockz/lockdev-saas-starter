@@ -2,8 +2,9 @@
  * Timezone utilities for date/time formatting.
  * Uses date-fns-tz for timezone-aware operations.
  */
-import { formatInTimeZone, toZonedTime } from 'date-fns-tz';
-import { formatDistanceToNow } from 'date-fns';
+
+import { formatDistanceToNow } from "date-fns";
+import { formatInTimeZone, toZonedTime } from "date-fns-tz";
 
 /**
  * Format a date/time in the specified timezone.
@@ -18,11 +19,11 @@ import { formatDistanceToNow } from 'date-fns';
  * // "Jan 4, 2026, 3:45 PM EST"
  */
 export function formatDateTime(
-    date: Date | string | number,
-    formatStr: string,
-    timezone: string
+  date: Date | string | number,
+  formatStr: string,
+  timezone: string,
 ): string {
-    return formatInTimeZone(date, timezone, formatStr);
+  return formatInTimeZone(date, timezone, formatStr);
 }
 
 /**
@@ -34,38 +35,39 @@ export function formatDateTime(
  * @returns Relative time string with suffix (e.g., "in 5 minutes", "3 hours ago")
  */
 export function formatRelativeTime(
-    date: Date | string | number,
-    timezone: string
+  date: Date | string | number,
+  timezone: string,
 ): string {
-    const dateObj = typeof date === 'string' || typeof date === 'number'
-        ? new Date(date)
-        : date;
-    const zonedDate = toZonedTime(dateObj, timezone);
-    return formatDistanceToNow(zonedDate, { addSuffix: true });
+  const dateObj =
+    typeof date === "string" || typeof date === "number"
+      ? new Date(date)
+      : date;
+  const zonedDate = toZonedTime(dateObj, timezone);
+  return formatDistanceToNow(zonedDate, { addSuffix: true });
 }
 
 /**
  * Common format strings for consistency across the app.
  */
 export const DATE_FORMATS = {
-    /** Full date with time: "Jan 4, 2026, 3:45 PM" */
-    FULL: 'PPpp',
-    /** Date only: "Jan 4, 2026" */
-    DATE: 'PP',
-    /** Time only: "3:45 PM" */
-    TIME: 'p',
-    /** Short date: "1/4/2026" */
-    SHORT_DATE: 'P',
-    /** Short date with time: "1/4/2026, 3:45 PM" */
-    SHORT_DATETIME: 'Pp',
-    /** Day and time: "Mon, 3:45 PM" */
-    DAY_TIME: 'EEE, p',
-    /** Month and day: "Jan 4" */
-    MONTH_DAY: 'MMM d',
-    /** Full month, day, year: "January 4, 2026" */
-    LONG_DATE: 'MMMM d, yyyy',
-    /** ISO format: "2026-01-04" */
-    ISO_DATE: 'yyyy-MM-dd',
+  /** Full date with time: "Jan 4, 2026, 3:45 PM" */
+  FULL: "PPpp",
+  /** Date only: "Jan 4, 2026" */
+  DATE: "PP",
+  /** Time only: "3:45 PM" */
+  TIME: "p",
+  /** Short date: "1/4/2026" */
+  SHORT_DATE: "P",
+  /** Short date with time: "1/4/2026, 3:45 PM" */
+  SHORT_DATETIME: "Pp",
+  /** Day and time: "Mon, 3:45 PM" */
+  DAY_TIME: "EEE, p",
+  /** Month and day: "Jan 4" */
+  MONTH_DAY: "MMM d",
+  /** Full month, day, year: "January 4, 2026" */
+  LONG_DATE: "MMMM d, yyyy",
+  /** ISO format: "2026-01-04" */
+  ISO_DATE: "yyyy-MM-dd",
 };
 
 /**
@@ -76,43 +78,47 @@ export const DATE_FORMATS = {
  * @returns Formatted UTC offset string
  */
 export function getTimezoneOffset(
-    timezone: string,
-    date: Date = new Date()
+  timezone: string,
+  date: Date = new Date(),
 ): string {
-    try {
-        const formatted = formatInTimeZone(date, timezone, 'xxx');
-        return `UTC${formatted}`;
-    } catch {
-        return 'UTC';
-    }
+  try {
+    const formatted = formatInTimeZone(date, timezone, "xxx");
+    return `UTC${formatted}`;
+  } catch {
+    return "UTC";
+  }
 }
 
 /**
  * Timezone display names for the UI.
  */
 export const TIMEZONE_DISPLAY: Record<string, string> = {
-    'America/New_York': 'Eastern Time (ET)',
-    'America/Chicago': 'Central Time (CT)',
-    'America/Denver': 'Mountain Time (MT)',
-    'America/Phoenix': 'Arizona Time',
-    'America/Los_Angeles': 'Pacific Time (PT)',
-    'America/Anchorage': 'Alaska Time',
-    'Pacific/Honolulu': 'Hawaii Time',
-    'America/Toronto': 'Toronto (ET)',
-    'America/Vancouver': 'Vancouver (PT)',
-    'Europe/London': 'London (GMT/BST)',
-    'Europe/Paris': 'Paris (CET/CEST)',
-    'Europe/Berlin': 'Berlin (CET/CEST)',
-    'Asia/Tokyo': 'Tokyo (JST)',
-    'Asia/Shanghai': 'Shanghai (CST)',
-    'Asia/Singapore': 'Singapore (SGT)',
-    'Australia/Sydney': 'Sydney (AEST/AEDT)',
-    'UTC': 'UTC',
+  "America/New_York": "Eastern Time (ET)",
+  "America/Chicago": "Central Time (CT)",
+  "America/Denver": "Mountain Time (MT)",
+  "America/Phoenix": "Arizona Time",
+  "America/Los_Angeles": "Pacific Time (PT)",
+  "America/Anchorage": "Alaska Time",
+  "Pacific/Honolulu": "Hawaii Time",
+  "America/Toronto": "Toronto (ET)",
+  "America/Vancouver": "Vancouver (PT)",
+  "Europe/London": "London (GMT/BST)",
+  "Europe/Paris": "Paris (CET/CEST)",
+  "Europe/Berlin": "Berlin (CET/CEST)",
+  "Asia/Tokyo": "Tokyo (JST)",
+  "Asia/Shanghai": "Shanghai (CST)",
+  "Asia/Singapore": "Singapore (SGT)",
+  "Australia/Sydney": "Sydney (AEST/AEDT)",
+  UTC: "UTC",
 };
 
 /**
  * Get friendly display name for a timezone.
  */
 export function getTimezoneDisplayName(timezone: string): string {
-    return TIMEZONE_DISPLAY[timezone] || timezone.replace('_', ' ').split('/').pop() || timezone;
+  return (
+    TIMEZONE_DISPLAY[timezone] ||
+    timezone.replace("_", " ").split("/").pop() ||
+    timezone
+  );
 }

@@ -115,7 +115,7 @@ def quarantine_file(bucket: str, key: str, version_id: str | None = None) -> Non
     else:
         s3_client.delete_object(Bucket=bucket, Key=key)
 
-    print(f"File quarantined successfully")
+    print("File quarantined successfully")
 
 
 def tag_clean_file(bucket: str, key: str, version_id: str | None = None) -> None:

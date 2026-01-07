@@ -1,15 +1,15 @@
 /**
  * Timezone Context for providing timezone throughout the app.
  */
-import { createContext, useContext, type ReactNode } from 'react';
-import { useTimezone } from '@/hooks/useTimezone';
+import { createContext, type ReactNode, useContext } from "react";
+import { useTimezone } from "@/hooks/useTimezone";
 
-const DEFAULT_TIMEZONE = 'America/New_York';
+const DEFAULT_TIMEZONE = "America/New_York";
 
 const TimezoneContext = createContext<string>(DEFAULT_TIMEZONE);
 
 interface TimezoneProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 /**
@@ -17,13 +17,13 @@ interface TimezoneProviderProps {
  * Uses the useTimezone hook to fetch from the API.
  */
 export function TimezoneProvider({ children }: TimezoneProviderProps) {
-    const timezone = useTimezone();
+  const timezone = useTimezone();
 
-    return (
-        <TimezoneContext.Provider value={timezone}>
-            {children}
-        </TimezoneContext.Provider>
-    );
+  return (
+    <TimezoneContext.Provider value={timezone}>
+      {children}
+    </TimezoneContext.Provider>
+  );
 }
 
 /**
@@ -31,7 +31,7 @@ export function TimezoneProvider({ children }: TimezoneProviderProps) {
  * Must be used within a TimezoneProvider.
  */
 export function useTimezoneContext(): string {
-    return useContext(TimezoneContext);
+  return useContext(TimezoneContext);
 }
 
 /**

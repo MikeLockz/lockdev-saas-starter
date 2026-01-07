@@ -1,160 +1,175 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/axios";
 import { useOrgStore } from "@/store/org-store";
 
 // Types (since we don't have generated types for patients yet)
 export interface ContactMethod {
-    id: string;
-    type: string;
-    value: string;
-    is_primary: boolean;
-    is_safe_for_voicemail: boolean;
-    label: string | null;
-    created_at: string;
-    updated_at: string;
+  id: string;
+  type: string;
+  value: string;
+  is_primary: boolean;
+  is_safe_for_voicemail: boolean;
+  label: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Patient {
-    id: string;
-    user_id: string | null;
-    first_name: string;
-    last_name: string;
-    dob: string;
-    legal_sex: string | null;
-    medical_record_number: string | null;
-    stripe_customer_id: string | null;
-    subscription_status: string;
-    contact_methods: ContactMethod[];
-    enrolled_at: string | null;
-    created_at: string;
-    updated_at: string;
+  id: string;
+  user_id: string | null;
+  first_name: string;
+  last_name: string;
+  dob: string;
+  legal_sex: string | null;
+  medical_record_number: string | null;
+  stripe_customer_id: string | null;
+  subscription_status: string;
+  contact_methods: ContactMethod[];
+  enrolled_at: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface PatientListItem {
-    id: string;
-    first_name: string;
-    last_name: string;
-    dob: string;
-    medical_record_number: string | null;
-    enrolled_at: string | null;
-    status: string;
+  id: string;
+  first_name: string;
+  last_name: string;
+  dob: string;
+  medical_record_number: string | null;
+  enrolled_at: string | null;
+  status: string;
 }
 
 export interface PaginatedPatients {
-    items: PatientListItem[];
-    total: number;
-    limit: number;
-    offset: number;
+  items: PatientListItem[];
+  total: number;
+  limit: number;
+  offset: number;
 }
 
 export interface PatientSearchParams {
-    name?: string;
-    mrn?: string;
-    status?: string;
-    limit?: number;
-    offset?: number;
+  name?: string;
+  mrn?: string;
+  status?: string;
+  limit?: number;
+  offset?: number;
 }
 
 export interface PatientCreate {
-    first_name: string;
-    last_name: string;
-    dob: string;
-    legal_sex?: string;
-    medical_record_number?: string;
-    contact_methods?: Omit<ContactMethod, 'id' | 'created_at' | 'updated_at'>[];
+  first_name: string;
+  last_name: string;
+  dob: string;
+  legal_sex?: string;
+  medical_record_number?: string;
+  contact_methods?: Omit<ContactMethod, "id" | "created_at" | "updated_at">[];
 }
 
 export interface PatientUpdate {
-    first_name?: string;
-    last_name?: string;
-    dob?: string;
-    legal_sex?: string;
-    medical_record_number?: string;
+  first_name?: string;
+  last_name?: string;
+  dob?: string;
+  legal_sex?: string;
+  medical_record_number?: string;
 }
 
 // Hooks
 export const usePatients = (params: PatientSearchParams = {}) => {
-    const currentOrgId = useOrgStore((state) => state.currentOrgId);
+  const currentOrgId = useOrgStore((state) => state.currentOrgId);
 
-    return useQuery<PaginatedPatients>({
-        queryKey: ["patients", currentOrgId, params],
-        queryFn: async () => {
-            if (!currentOrgId) throw new Error("No organization selected");
-            const response = await api.get(`/api/v1/organizations/${currentOrgId}/patients`, {
-                params: {
-                    name: params.name,
-                    mrn: params.mrn,
-                    status: params.status,
-                    limit: params.limit || 50,
-                    offset: params.offset || 0,
-                }
-            });
-            return response.data;
+  return useQuery<PaginatedPatients>({
+    queryKey: ["patients", currentOrgId, params],
+    queryFn: async () => {
+      if (!currentOrgId) throw new Error("No organization selected");
+      const response = await api.get(
+        `/api/v1/organizations/${currentOrgId}/patients`,
+        {
+          params: {
+            name: params.name,
+            mrn: params.mrn,
+            status: params.status,
+            limit: params.limit || 50,
+            offset: params.offset || 0,
+          },
         },
-        enabled: !!currentOrgId,
-    });
+      );
+      return response.data;
+    },
+    enabled: !!currentOrgId,
+  });
 };
 
 export const usePatient = (patientId: string) => {
-    const currentOrgId = useOrgStore((state) => state.currentOrgId);
+  const currentOrgId = useOrgStore((state) => state.currentOrgId);
 
-    return useQuery<Patient>({
-        queryKey: ["patient", currentOrgId, patientId],
-        queryFn: async () => {
-            if (!currentOrgId) throw new Error("No organization selected");
-            const response = await api.get(`/api/v1/organizations/${currentOrgId}/patients/${patientId}`);
-            return response.data;
-        },
-        enabled: !!currentOrgId && !!patientId,
-    });
+  return useQuery<Patient>({
+    queryKey: ["patient", currentOrgId, patientId],
+    queryFn: async () => {
+      if (!currentOrgId) throw new Error("No organization selected");
+      const response = await api.get(
+        `/api/v1/organizations/${currentOrgId}/patients/${patientId}`,
+      );
+      return response.data;
+    },
+    enabled: !!currentOrgId && !!patientId,
+  });
 };
 
 export const useCreatePatient = () => {
-    const queryClient = useQueryClient();
-    const currentOrgId = useOrgStore((state) => state.currentOrgId);
+  const queryClient = useQueryClient();
+  const currentOrgId = useOrgStore((state) => state.currentOrgId);
 
-    return useMutation({
-        mutationFn: async (data: PatientCreate) => {
-            if (!currentOrgId) throw new Error("No organization selected");
-            const response = await api.post(`/api/v1/organizations/${currentOrgId}/patients`, data);
-            return response.data;
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["patients", currentOrgId] });
-        },
-    });
+  return useMutation({
+    mutationFn: async (data: PatientCreate) => {
+      if (!currentOrgId) throw new Error("No organization selected");
+      const response = await api.post(
+        `/api/v1/organizations/${currentOrgId}/patients`,
+        data,
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["patients", currentOrgId] });
+    },
+  });
 };
 
 export const useUpdatePatient = (patientId: string) => {
-    const queryClient = useQueryClient();
-    const currentOrgId = useOrgStore((state) => state.currentOrgId);
+  const queryClient = useQueryClient();
+  const currentOrgId = useOrgStore((state) => state.currentOrgId);
 
-    return useMutation({
-        mutationFn: async (data: PatientUpdate) => {
-            if (!currentOrgId) throw new Error("No organization selected");
-            const response = await api.patch(`/api/v1/organizations/${currentOrgId}/patients/${patientId}`, data);
-            return response.data;
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["patient", currentOrgId, patientId] });
-            queryClient.invalidateQueries({ queryKey: ["patients", currentOrgId] });
-        },
-    });
+  return useMutation({
+    mutationFn: async (data: PatientUpdate) => {
+      if (!currentOrgId) throw new Error("No organization selected");
+      const response = await api.patch(
+        `/api/v1/organizations/${currentOrgId}/patients/${patientId}`,
+        data,
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["patient", currentOrgId, patientId],
+      });
+      queryClient.invalidateQueries({ queryKey: ["patients", currentOrgId] });
+    },
+  });
 };
 
 export const useDischargePatient = () => {
-    const queryClient = useQueryClient();
-    const currentOrgId = useOrgStore((state) => state.currentOrgId);
+  const queryClient = useQueryClient();
+  const currentOrgId = useOrgStore((state) => state.currentOrgId);
 
-    return useMutation({
-        mutationFn: async (patientId: string) => {
-            if (!currentOrgId) throw new Error("No organization selected");
-            await api.delete(`/api/v1/organizations/${currentOrgId}/patients/${patientId}`);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["patients", currentOrgId] });
-        },
-    });
+  return useMutation({
+    mutationFn: async (patientId: string) => {
+      if (!currentOrgId) throw new Error("No organization selected");
+      await api.delete(
+        `/api/v1/organizations/${currentOrgId}/patients/${patientId}`,
+      );
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["patients", currentOrgId] });
+    },
+  });
 };
 
 /**
@@ -162,46 +177,50 @@ export const useDischargePatient = () => {
  * Returns undefined if the current user is not a patient.
  */
 export const useCurrentUserPatient = () => {
-    const currentOrgId = useOrgStore((state) => state.currentOrgId);
-    const { data: patients, isLoading } = usePatients({ limit: 100 });
+  const currentOrgId = useOrgStore((state) => state.currentOrgId);
+  const { data: patients, isLoading } = usePatients({ limit: 100 });
 
-    return useQuery<Patient | null>({
-        queryKey: ['current-user-patient', currentOrgId],
-        queryFn: async () => {
-            // Get current user ID
-            const userResponse = await api.get('/api/v1/users/me');
-            const userId = userResponse.data?.id;
+  return useQuery<Patient | null>({
+    queryKey: ["current-user-patient", currentOrgId],
+    queryFn: async () => {
+      // Get current user ID
+      const userResponse = await api.get("/api/v1/users/me");
+      const userId = userResponse.data?.id;
 
-            if (!userId || !patients?.items) return null;
+      if (!userId || !patients?.items) return null;
 
-            // Find patient matching current user
-            const match = patients.items.find((_p) => {
-                // Need to fetch full patient to get user_id 
-                return true; // Check below
-            });
+      // Find patient matching current user
+      const match = patients.items.find((_p) => {
+        // Need to fetch full patient to get user_id
+        return true; // Check below
+      });
 
-            if (!match) return null;
+      if (!match) return null;
 
-            // Fetch full patient details and check user_id
-            const response = await api.get(`/api/v1/organizations/${currentOrgId}/patients/${match.id}`);
-            const fullPatient = response.data as Patient;
+      // Fetch full patient details and check user_id
+      const response = await api.get(
+        `/api/v1/organizations/${currentOrgId}/patients/${match.id}`,
+      );
+      const fullPatient = response.data as Patient;
 
-            if (fullPatient.user_id === userId) {
-                return fullPatient;
-            }
+      if (fullPatient.user_id === userId) {
+        return fullPatient;
+      }
 
-            // If first match didn't work, search through all
-            for (const item of patients.items) {
-                const resp = await api.get(`/api/v1/organizations/${currentOrgId}/patients/${item.id}`);
-                const patient = resp.data as Patient;
-                if (patient.user_id === userId) {
-                    return patient;
-                }
-            }
+      // If first match didn't work, search through all
+      for (const item of patients.items) {
+        const resp = await api.get(
+          `/api/v1/organizations/${currentOrgId}/patients/${item.id}`,
+        );
+        const patient = resp.data as Patient;
+        if (patient.user_id === userId) {
+          return patient;
+        }
+      }
 
-            return null;
-        },
-        enabled: !!currentOrgId && !isLoading && !!patients?.items?.length,
-        staleTime: 5 * 60 * 1000, // 5 minutes
-    });
+      return null;
+    },
+    enabled: !!currentOrgId && !isLoading && !!patients?.items?.length,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
 };
