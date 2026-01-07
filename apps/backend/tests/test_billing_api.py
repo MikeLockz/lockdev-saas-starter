@@ -61,7 +61,7 @@ async def admin_member(db_session, test_user, test_org_with_stripe):
 
 
 @pytest.mark.asyncio
-async def test_create_checkout_session(db_session, test_org_with_stripe, admin_member, auth_headers):
+async def test_create_checkout_session(db_session, test_org_with_stripe, admin_member, test_user_token_headers):
     """Test creating a checkout session returns Stripe URL."""
     mock_session = AsyncMock()
     mock_session.session_id = "cs_test_session"
@@ -75,7 +75,7 @@ async def test_create_checkout_session(db_session, test_org_with_stripe, admin_m
             response = await client.post(
                 f"/api/v1/organizations/{test_org_with_stripe.id}/billing/checkout",
                 json={"price_id": "price_test123"},
-                headers=auth_headers,
+                headers=test_user_token_headers,
             )
 
     assert response.status_code == 200
@@ -85,7 +85,9 @@ async def test_create_checkout_session(db_session, test_org_with_stripe, admin_m
 
 
 @pytest.mark.asyncio
-async def test_create_checkout_creates_customer(db_session, test_org_without_stripe, test_user, auth_headers):
+async def test_create_checkout_creates_customer(
+    db_session, test_org_without_stripe, test_user, test_user_token_headers
+):
     """Test that checkout creates Stripe customer if none exists."""
     # Create admin membership
     member = OrganizationMember(
@@ -114,7 +116,7 @@ async def test_create_checkout_creates_customer(db_session, test_org_without_str
             response = await client.post(
                 f"/api/v1/organizations/{test_org_without_stripe.id}/billing/checkout",
                 json={"price_id": "price_test123"},
-                headers=auth_headers,
+                headers=test_user_token_headers,
             )
 
     assert response.status_code == 200
@@ -126,7 +128,7 @@ async def test_create_checkout_creates_customer(db_session, test_org_without_str
 
 
 @pytest.mark.asyncio
-async def test_get_subscription_status(db_session, test_org_with_stripe, admin_member, auth_headers):
+async def test_get_subscription_status(db_session, test_org_with_stripe, admin_member, test_user_token_headers):
     """Test getting subscription status."""
     mock_subscriptions = [
         {
@@ -145,7 +147,7 @@ async def test_get_subscription_status(db_session, test_org_with_stripe, admin_m
         async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost") as client:
             response = await client.get(
                 f"/api/v1/organizations/{test_org_with_stripe.id}/billing/subscription",
-                headers=auth_headers,
+                headers=test_user_token_headers,
             )
 
     assert response.status_code == 200
@@ -155,7 +157,7 @@ async def test_get_subscription_status(db_session, test_org_with_stripe, admin_m
 
 
 @pytest.mark.asyncio
-async def test_get_subscription_no_customer(db_session, test_org_without_stripe, test_user, auth_headers):
+async def test_get_subscription_no_customer(db_session, test_org_without_stripe, test_user, test_user_token_headers):
     """Test subscription status for org without Stripe customer."""
     # Create admin membership
     member = OrganizationMember(
@@ -169,7 +171,7 @@ async def test_get_subscription_no_customer(db_session, test_org_without_stripe,
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost") as client:
         response = await client.get(
             f"/api/v1/organizations/{test_org_without_stripe.id}/billing/subscription",
-            headers=auth_headers,
+            headers=test_user_token_headers,
         )
 
     assert response.status_code == 200
@@ -183,7 +185,7 @@ async def test_get_subscription_no_customer(db_session, test_org_without_stripe,
 
 
 @pytest.mark.asyncio
-async def test_create_portal_session(db_session, test_org_with_stripe, admin_member, auth_headers):
+async def test_create_portal_session(db_session, test_org_with_stripe, admin_member, test_user_token_headers):
     """Test creating a billing portal session."""
     mock_portal = AsyncMock()
     mock_portal.portal_url = "https://billing.stripe.com/portal/test"
@@ -195,7 +197,7 @@ async def test_create_portal_session(db_session, test_org_with_stripe, admin_mem
         async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost") as client:
             response = await client.post(
                 f"/api/v1/organizations/{test_org_with_stripe.id}/billing/portal",
-                headers=auth_headers,
+                headers=test_user_token_headers,
             )
 
     assert response.status_code == 200
@@ -204,7 +206,7 @@ async def test_create_portal_session(db_session, test_org_with_stripe, admin_mem
 
 
 @pytest.mark.asyncio
-async def test_portal_requires_stripe_customer(db_session, test_org_without_stripe, test_user, auth_headers):
+async def test_portal_requires_stripe_customer(db_session, test_org_without_stripe, test_user, test_user_token_headers):
     """Test that portal requires existing Stripe customer."""
     # Create admin membership
     member = OrganizationMember(
@@ -218,7 +220,7 @@ async def test_portal_requires_stripe_customer(db_session, test_org_without_stri
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost") as client:
         response = await client.post(
             f"/api/v1/organizations/{test_org_without_stripe.id}/billing/portal",
-            headers=auth_headers,
+            headers=test_user_token_headers,
         )
 
     assert response.status_code == 400
@@ -230,7 +232,7 @@ async def test_portal_requires_stripe_customer(db_session, test_org_without_stri
 
 
 @pytest.mark.asyncio
-async def test_billing_requires_admin_role(db_session, test_org_with_stripe, test_user, auth_headers):
+async def test_billing_requires_admin_role(db_session, test_org_with_stripe, test_user, test_user_token_headers):
     """Test that billing endpoints require ADMIN role."""
     # Create member with MEMBER role (not ADMIN)
     member = OrganizationMember(
@@ -244,7 +246,7 @@ async def test_billing_requires_admin_role(db_session, test_org_with_stripe, tes
     async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost") as client:
         response = await client.get(
             f"/api/v1/organizations/{test_org_with_stripe.id}/billing/subscription",
-            headers=auth_headers,
+            headers=test_user_token_headers,
         )
 
     assert response.status_code == 403

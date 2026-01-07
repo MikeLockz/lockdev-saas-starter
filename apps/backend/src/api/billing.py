@@ -136,7 +136,7 @@ async def get_subscription_status(
     # If no Stripe customer, return no subscription
     if not org.stripe_customer_id:
         return SubscriptionStatusResponse(
-            status=org.subscription_status or "NONE",
+            status="NONE",
             plan_id=None,
             current_period_end=None,
             cancel_at_period_end=False,

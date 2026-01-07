@@ -112,7 +112,7 @@ async def list_patients(
         select(Patient, OrganizationPatient)
         .join(OrganizationPatient, Patient.id == OrganizationPatient.patient_id)
         .where(OrganizationPatient.organization_id == org_id)
-        .where(Patient.deleted_at is None)
+        .where(Patient.deleted_at.is_(None))
     )
 
     # Apply filters
@@ -186,7 +186,7 @@ async def get_patient(
         select(Patient)
         .options(selectinload(Patient.contact_methods))
         .where(Patient.id == patient_id)
-        .where(Patient.deleted_at is None)
+        .where(Patient.deleted_at.is_(None))
     )
     result = await db.execute(stmt)
     patient = result.scalar_one_or_none()
@@ -239,7 +239,7 @@ async def update_patient(
         select(Patient)
         .options(selectinload(Patient.contact_methods))
         .where(Patient.id == patient_id)
-        .where(Patient.deleted_at is None)
+        .where(Patient.deleted_at.is_(None))
     )
     result = await db.execute(stmt)
     patient = result.scalar_one_or_none()
@@ -536,7 +536,7 @@ async def get_care_team(
         .join(User, Provider.user_id == User.id)
         .where(CareTeamAssignment.patient_id == patient_id)
         .where(CareTeamAssignment.organization_id == org_id)
-        .where(CareTeamAssignment.removed_at is None)
+        .where(CareTeamAssignment.removed_at.is_(None))
         .order_by(
             # PRIMARY first, then by assigned_at
             CareTeamAssignment.role.desc(),
@@ -595,7 +595,7 @@ async def assign_to_care_team(
         select(Provider)
         .where(Provider.id == assignment_data.provider_id)
         .where(Provider.organization_id == org_id)
-        .where(Provider.deleted_at is None)
+        .where(Provider.deleted_at.is_(None))
         .where(Provider.is_active)
     )
     provider_result = await db.execute(provider_stmt)
@@ -609,7 +609,7 @@ async def assign_to_care_team(
         select(CareTeamAssignment)
         .where(CareTeamAssignment.patient_id == patient_id)
         .where(CareTeamAssignment.provider_id == assignment_data.provider_id)
-        .where(CareTeamAssignment.removed_at is None)
+        .where(CareTeamAssignment.removed_at.is_(None))
     )
     existing_result = await db.execute(existing_stmt)
     if existing_result.scalar_one_or_none():
@@ -624,7 +624,7 @@ async def assign_to_care_team(
             .where(CareTeamAssignment.patient_id == patient_id)
             .where(CareTeamAssignment.organization_id == org_id)
             .where(CareTeamAssignment.role == "PRIMARY")
-            .where(CareTeamAssignment.removed_at is None)
+            .where(CareTeamAssignment.removed_at.is_(None))
         )
         primary_result = await db.execute(primary_stmt)
         existing_primary = primary_result.scalar_one_or_none()
@@ -692,7 +692,7 @@ async def remove_from_care_team(
         .where(CareTeamAssignment.id == assignment_id)
         .where(CareTeamAssignment.patient_id == patient_id)
         .where(CareTeamAssignment.organization_id == org_id)
-        .where(CareTeamAssignment.removed_at is None)
+        .where(CareTeamAssignment.removed_at.is_(None))
     )
     result = await db.execute(stmt)
     assignment = result.scalar_one_or_none()

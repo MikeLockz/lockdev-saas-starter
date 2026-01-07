@@ -2,11 +2,16 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as useCurrentOrgHook from "@/hooks/useCurrentOrg";
+import * as useUserProfileHook from "@/hooks/useUserProfile";
 import { OrgSwitcher } from "../OrgSwitcher";
 
-// Mock the hook
+// Mock the hooks
 vi.mock("@/hooks/useCurrentOrg", () => ({
   useCurrentOrg: vi.fn(),
+}));
+
+vi.mock("@/hooks/useUserProfile", () => ({
+  useUserProfile: vi.fn(),
 }));
 
 // Mock ResizeObserver
@@ -32,6 +37,10 @@ describe("OrgSwitcher", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    // Default mock implementation for useUserProfile
+    (useUserProfileHook.useUserProfile as any).mockReturnValue({
+      profile: { is_super_admin: false },
+    });
   });
 
   it("renders current org name", () => {

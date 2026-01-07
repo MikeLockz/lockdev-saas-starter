@@ -98,12 +98,12 @@ check:
 test:
 	@echo "Running Tests..."
 	@echo "Backend..."
-	docker compose exec api pytest
+	docker compose exec api python -m pytest
 	@echo "Frontend..."
 	cd apps/frontend && pnpm test
 
 test-backend:
-	docker compose exec api pytest
+	docker compose exec api python -m pytest
 
 test-frontend:
 	cd apps/frontend && pnpm test

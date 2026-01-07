@@ -22,12 +22,18 @@ class Organization(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
     member_count: Mapped[int] = mapped_column(Integer, default=0)
     patient_count: Mapped[int] = mapped_column(Integer, default=0)
 
-    members: Mapped[list["OrganizationMember"]] = relationship(back_populates="organization")
-    patients: Mapped[list["OrganizationPatient"]] = relationship(back_populates="organization")
-    documents: Mapped[list["Document"]] = relationship(back_populates="organization")
-    message_threads: Mapped[list["MessageThread"]] = relationship(back_populates="organization")
-    calls: Mapped[list["Call"]] = relationship(back_populates="organization")
-    tasks: Mapped[list["Task"]] = relationship(back_populates="organization")
+    members: Mapped[list["OrganizationMember"]] = relationship(
+        back_populates="organization", cascade="all, delete-orphan"
+    )
+    patients: Mapped[list["OrganizationPatient"]] = relationship(
+        back_populates="organization", cascade="all, delete-orphan"
+    )
+    documents: Mapped[list["Document"]] = relationship(back_populates="organization", cascade="all, delete-orphan")
+    message_threads: Mapped[list["MessageThread"]] = relationship(
+        back_populates="organization", cascade="all, delete-orphan"
+    )
+    calls: Mapped[list["Call"]] = relationship(back_populates="organization", cascade="all, delete-orphan")
+    tasks: Mapped[list["Task"]] = relationship(back_populates="organization", cascade="all, delete-orphan")
 
 
 class OrganizationMember(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):

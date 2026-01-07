@@ -335,8 +335,8 @@ async def get_user_timezone(
         select(Organization.timezone)
         .join(OrganizationMember)
         .where(OrganizationMember.user_id == current_user.id)
-        .where(OrganizationMember.deleted_at is None)
-        .where(Organization.deleted_at is None)
+        .where(OrganizationMember.deleted_at.is_(None))
+        .where(Organization.deleted_at.is_(None))
         .limit(1)
     )
     result = await db.execute(stmt)
@@ -393,8 +393,8 @@ async def clear_user_timezone(
         select(Organization.timezone)
         .join(OrganizationMember)
         .where(OrganizationMember.user_id == current_user.id)
-        .where(OrganizationMember.deleted_at is None)
-        .where(Organization.deleted_at is None)
+        .where(OrganizationMember.deleted_at.is_(None))
+        .where(Organization.deleted_at.is_(None))
         .limit(1)
     )
     result = await db.execute(stmt)
@@ -667,7 +667,7 @@ async def get_my_proxy_patients(current_user: User = Depends(get_current_user), 
     now = datetime.now(UTC)
 
     # Find proxy profile for current user
-    proxy_stmt = select(Proxy).where(Proxy.user_id == current_user.id).where(Proxy.deleted_at is None)
+    proxy_stmt = select(Proxy).where(Proxy.user_id == current_user.id).where(Proxy.deleted_at.is_(None))
     proxy_result = await db.execute(proxy_stmt)
     proxy = proxy_result.scalar_one_or_none()
 
@@ -679,9 +679,9 @@ async def get_my_proxy_patients(current_user: User = Depends(get_current_user), 
         select(PatientProxyAssignment, Patient)
         .join(Patient, PatientProxyAssignment.patient_id == Patient.id)
         .where(PatientProxyAssignment.proxy_id == proxy.id)
-        .where(PatientProxyAssignment.revoked_at is None)
-        .where(PatientProxyAssignment.deleted_at is None)
-        .where((PatientProxyAssignment.expires_at is None) | (PatientProxyAssignment.expires_at > now))
+        .where(PatientProxyAssignment.revoked_at.is_(None))
+        .where(PatientProxyAssignment.deleted_at.is_(None))
+        .where((PatientProxyAssignment.expires_at.is_(None)) | (PatientProxyAssignment.expires_at > now))
         .order_by(Patient.last_name, Patient.first_name)
     )
     result = await db.execute(stmt)
@@ -721,6 +721,6 @@ async def get_my_proxy_profile(current_user: User = Depends(get_current_user), d
     Get the current user's proxy profile if they are a proxy.
     Returns None if the user is not a proxy.
     """
-    stmt = select(Proxy).where(Proxy.user_id == current_user.id).where(Proxy.deleted_at is None)
+    stmt = select(Proxy).where(Proxy.user_id == current_user.id).where(Proxy.deleted_at.is_(None))
     result = await db.execute(stmt)
     return result.scalar_one_or_none()

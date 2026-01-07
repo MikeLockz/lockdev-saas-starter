@@ -11,8 +11,8 @@ from .mixins import UUIDMixin
 class AuditLog(Base, UUIDMixin):
     __tablename__ = "audit_logs"
 
-    actor_user_id: Mapped[UUID | None] = mapped_column(ForeignKey("users.id"))
-    organization_id: Mapped[UUID | None] = mapped_column(ForeignKey("organizations.id"))
+    actor_user_id: Mapped[UUID | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
+    organization_id: Mapped[UUID | None] = mapped_column(ForeignKey("organizations.id", ondelete="SET NULL"))
 
     resource_type: Mapped[str] = mapped_column(String(50), nullable=False)
     resource_id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), nullable=False)
@@ -20,7 +20,7 @@ class AuditLog(Base, UUIDMixin):
     action_type: Mapped[str] = mapped_column(String(20), nullable=False)  # READ, CREATE, UPDATE, DELETE
     ip_address: Mapped[str | None] = mapped_column(INET)
     user_agent: Mapped[str | None] = mapped_column(String)
-    impersonator_id: Mapped[UUID | None] = mapped_column(ForeignKey("users.id"))
+    impersonator_id: Mapped[UUID | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
 
     changes_json: Mapped[dict | None] = mapped_column(JSONB)
 
