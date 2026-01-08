@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Telemetry Domain Contract",
+  "description": "Auto-generated contract for Telemetry feature",
+  "definitions": {
+    "TelemetryEvent": {
+      "properties": {
+        "event_name": {
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Event Name"
+        },
+        "properties": {
+          "additionalProperties": true,
+          "type": "object",
+          "title": "Properties"
+        }
+      },
+      "type": "object",
+      "required": ["event_name"],
+      "title": "TelemetryEvent",
+      "description": "Telemetry event payload from the frontend."
+    },
+    "HTTPValidationError": {
+      "properties": {
+        "detail": {
+          "items": {
+            "$ref": "#/components/schemas/ValidationError"
+          },
+          "type": "array",
+          "title": "Detail"
+        }
+      },
+      "type": "object",
+      "title": "HTTPValidationError"
+    },
+    "ValidationError": {
+      "properties": {
+        "loc": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "type": "array",
+          "title": "Location"
+        },
+        "msg": {
+          "type": "string",
+          "title": "Message"
+        },
+        "type": {
+          "type": "string",
+          "title": "Error Type"
+        }
+      },
+      "type": "object",
+      "required": ["loc", "msg", "type"],
+      "title": "ValidationError"
+    },
+    "TelemetryResponse": {
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "title": "Success",
+          "default": true
+        },
+        "event_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Event Id"
+        }
+      },
+      "type": "object",
+      "title": "TelemetryResponse",
+      "description": "Response confirming event was logged."
+    }
+  }
+}

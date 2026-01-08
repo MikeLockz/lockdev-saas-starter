@@ -1,4 +1,4 @@
-.PHONY: install-all dev dev-stop dev-logs dev-logs-worker check test clean migrate seed seed-e2e seed-patients stop agent agent-install
+.PHONY: install-all dev dev-stop dev-logs dev-logs-worker check test test-e2e test-snapshot clean migrate seed seed-e2e seed-patients stop agent agent-install
 
 # Default ports
 FRONTEND_PORT ?= 5173
@@ -102,10 +102,18 @@ test:
 	@echo "Frontend..."
 	cd apps/frontend && pnpm test
 
+test-e2e:
+	@echo "Running E2E Tests..."
+	cd apps/frontend && pnpm test:e2e
+
 test-backend:
 	docker compose exec api python -m pytest
 
 test-frontend:
+	cd apps/frontend && pnpm test
+
+test-snapshot:
+	@echo "Running Snapshot Tests..."
 	cd apps/frontend && pnpm test
 
 clean:
@@ -139,8 +147,10 @@ help:
 	@echo "  make seed-patients - Seed 50 dummy patients"
 	@echo "  make check         - Run linters"
 	@echo "  make test          - Run all tests"
+	@echo "  make test-e2e      - Run Playwright E2E tests"
 	@echo "  make test-backend  - Run backend tests only"
 	@echo "  make test-frontend - Run frontend tests only"
+	@echo "  make test-snapshot - Run and validate snapshot tests"
 	@echo "  make agent-install - Install agent dependencies"
 	@echo "  make agent         - Run AI agent workflow"
 	@echo "  make clean         - Remove generated files"

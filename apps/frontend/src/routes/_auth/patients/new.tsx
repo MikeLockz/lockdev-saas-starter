@@ -155,7 +155,7 @@ function NewPatientPage() {
                       setValue("legal_sex", value)
                     }
                   >
-                    <SelectTrigger>
+                    <SelectTrigger id="legal_sex">
                       <SelectValue placeholder="Select..." />
                     </SelectTrigger>
                     <SelectContent>
