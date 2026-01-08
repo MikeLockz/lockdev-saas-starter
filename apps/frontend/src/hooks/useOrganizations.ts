@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import type { components } from "@/lib/api-types";
 import { api } from "@/lib/axios";
+import type { Organization } from "@/lib/models";
 import { useAuth } from "./useAuth";
 
-export type Organization = components["schemas"]["OrganizationRead"];
+export type { Organization };
 
 export interface UseOrganizationsOptions {
   forSuperAdmin?: boolean;

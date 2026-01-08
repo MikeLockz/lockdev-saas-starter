@@ -1,8 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { components } from "@/lib/api-types";
 import { api } from "@/lib/axios";
-
-type InvitationCreate = components["schemas"]["InvitationCreate"];
+import type { InvitationCreate } from "@/lib/models";
 
 export const useCreateInvitation = (orgId: string) => {
   const queryClient = useQueryClient();

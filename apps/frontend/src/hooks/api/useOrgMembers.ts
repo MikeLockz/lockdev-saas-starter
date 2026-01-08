@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import type { components } from "@/lib/api-types";
 import { api } from "@/lib/axios";
-
-type OrgMemberRead = components["schemas"]["MemberRead"];
+import type { Member } from "@/lib/models";
 
 export const useOrgMembers = (orgId: string | undefined) => {
-  return useQuery<OrgMemberRead[]>({
+  return useQuery<Member[]>({
     queryKey: ["org-members", orgId],
     queryFn: async () => {
       if (!orgId) throw new Error("Organization ID is required");
