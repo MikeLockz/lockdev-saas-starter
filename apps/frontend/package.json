@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "generate:schema": "cd ../backend && .venv/bin/python scripts/generate_schema.py > openapi.json",
     "generate:types": "openapi-typescript ../backend/openapi.json -o src/lib/api-types.d.ts && openapi-zod-client ../backend/openapi.json -o src/lib/api-schemas.ts",
-    "test": "vitest",
+    "test": "vitest --run",
     "test:e2e": "playwright test"
   },
   "dependencies": {

@@ -1,0 +1,427 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "providers Domain Contract",
+  "description": "Auto-generated contract for providers feature",
+  "definitions": {
+    "ProviderRead": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "user_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "User Id"
+        },
+        "organization_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Organization Id"
+        },
+        "npi_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Npi Number"
+        },
+        "specialty": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Specialty"
+        },
+        "license_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "License Number"
+        },
+        "license_state": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "License State"
+        },
+        "dea_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Dea Number"
+        },
+        "state_licenses": {
+          "items": {},
+          "type": "array",
+          "title": "State Licenses"
+        },
+        "is_active": {
+          "type": "boolean",
+          "title": "Is Active"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Created At"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Updated At"
+        },
+        "user_email": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "User Email"
+        },
+        "user_display_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "User Display Name"
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "user_id",
+        "organization_id",
+        "npi_number",
+        "specialty",
+        "license_number",
+        "license_state",
+        "dea_number",
+        "state_licenses",
+        "is_active",
+        "created_at",
+        "updated_at"
+      ],
+      "title": "ProviderRead",
+      "description": "Full provider profile response."
+    },
+    "ProviderCreate": {
+      "properties": {
+        "user_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "User Id",
+          "description": "User to become a provider"
+        },
+        "npi_number": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 10
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Npi Number",
+          "description": "National Provider Identifier"
+        },
+        "specialty": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 100
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Specialty"
+        },
+        "license_number": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 50
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "License Number"
+        },
+        "license_state": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 2
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "License State"
+        },
+        "dea_number": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 20
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Dea Number"
+        }
+      },
+      "type": "object",
+      "required": ["user_id"],
+      "title": "ProviderCreate",
+      "description": "Create a provider profile for a user."
+    },
+    "ProviderListItem": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "user_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "User Id"
+        },
+        "npi_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Npi Number"
+        },
+        "specialty": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Specialty"
+        },
+        "is_active": {
+          "type": "boolean",
+          "title": "Is Active"
+        },
+        "user_email": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "User Email"
+        },
+        "user_display_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "User Display Name"
+        }
+      },
+      "type": "object",
+      "required": ["id", "user_id", "npi_number", "specialty", "is_active"],
+      "title": "ProviderListItem",
+      "description": "Compact provider for list views."
+    },
+    "HTTPValidationError": {
+      "properties": {
+        "detail": {
+          "items": {
+            "$ref": "#/components/schemas/ValidationError"
+          },
+          "type": "array",
+          "title": "Detail"
+        }
+      },
+      "type": "object",
+      "title": "HTTPValidationError"
+    },
+    "ProviderUpdate": {
+      "properties": {
+        "npi_number": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 10
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Npi Number"
+        },
+        "specialty": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 100
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Specialty"
+        },
+        "license_number": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 50
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "License Number"
+        },
+        "license_state": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 2
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "License State"
+        },
+        "dea_number": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 20
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Dea Number"
+        },
+        "is_active": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Is Active"
+        }
+      },
+      "type": "object",
+      "title": "ProviderUpdate",
+      "description": "Partial update for provider profile."
+    },
+    "ValidationError": {
+      "properties": {
+        "loc": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "type": "array",
+          "title": "Location"
+        },
+        "msg": {
+          "type": "string",
+          "title": "Message"
+        },
+        "type": {
+          "type": "string",
+          "title": "Error Type"
+        }
+      },
+      "type": "object",
+      "required": ["loc", "msg", "type"],
+      "title": "ValidationError"
+    },
+    "PaginatedProviders": {
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/components/schemas/ProviderListItem"
+          },
+          "type": "array",
+          "title": "Items"
+        },
+        "total": {
+          "type": "integer",
+          "title": "Total"
+        },
+        "limit": {
+          "type": "integer",
+          "title": "Limit"
+        },
+        "offset": {
+          "type": "integer",
+          "title": "Offset"
+        }
+      },
+      "type": "object",
+      "required": ["items", "total", "limit", "offset"],
+      "title": "PaginatedProviders",
+      "description": "Paginated provider list response."
+    }
+  }
+}

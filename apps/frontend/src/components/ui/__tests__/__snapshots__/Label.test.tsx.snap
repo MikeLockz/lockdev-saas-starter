@@ -1,0 +1,32 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Label > renders default text style 1`] = `
+<DocumentFragment>
+  <label
+    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+  >
+    Email Address
+  </label>
+</DocumentFragment>
+`;
+
+exports[`Label > renders with custom className 1`] = `
+<DocumentFragment>
+  <label
+    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-red-500"
+  >
+    Required Field
+  </label>
+</DocumentFragment>
+`;
+
+exports[`Label > renders with htmlFor attribute 1`] = `
+<DocumentFragment>
+  <label
+    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+    for="email"
+  >
+    Email
+  </label>
+</DocumentFragment>
+`;

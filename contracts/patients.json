@@ -1,0 +1,769 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "patients Domain Contract",
+  "description": "Auto-generated contract for patients feature",
+  "definitions": {
+    "CareTeamAssignmentRead": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "patient_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Patient Id"
+        },
+        "provider_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Provider Id"
+        },
+        "role": {
+          "type": "string",
+          "title": "Role"
+        },
+        "assigned_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Assigned At"
+        },
+        "removed_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Removed At"
+        },
+        "provider": {
+          "$ref": "#/components/schemas/CareTeamProviderInfo"
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "patient_id",
+        "provider_id",
+        "role",
+        "assigned_at",
+        "provider"
+      ],
+      "title": "CareTeamAssignmentRead",
+      "description": "Read a care team assignment with provider details."
+    },
+    "ContactMethodRead": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "type": {
+          "type": "string",
+          "title": "Type"
+        },
+        "value": {
+          "type": "string",
+          "title": "Value"
+        },
+        "is_primary": {
+          "type": "boolean",
+          "title": "Is Primary"
+        },
+        "is_safe_for_voicemail": {
+          "type": "boolean",
+          "title": "Is Safe For Voicemail"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Label"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Created At"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Updated At"
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "type",
+        "value",
+        "is_primary",
+        "is_safe_for_voicemail",
+        "label",
+        "created_at",
+        "updated_at"
+      ],
+      "title": "ContactMethodRead",
+      "description": "Read contact method with ID."
+    },
+    "PatientListItem": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "first_name": {
+          "type": "string",
+          "title": "First Name"
+        },
+        "last_name": {
+          "type": "string",
+          "title": "Last Name"
+        },
+        "dob": {
+          "type": "string",
+          "format": "date",
+          "title": "Dob"
+        },
+        "medical_record_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Medical Record Number"
+        },
+        "enrolled_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Enrolled At"
+        },
+        "status": {
+          "type": "string",
+          "title": "Status",
+          "default": "ACTIVE"
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "first_name",
+        "last_name",
+        "dob",
+        "medical_record_number"
+      ],
+      "title": "PatientListItem",
+      "description": "Compact patient for list views."
+    },
+    "ContactMethodUpdate": {
+      "properties": {
+        "type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Type"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "is_primary": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Is Primary"
+        },
+        "is_safe_for_voicemail": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Is Safe For Voicemail"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Label"
+        }
+      },
+      "type": "object",
+      "title": "ContactMethodUpdate",
+      "description": "Partial update for contact method."
+    },
+    "HTTPValidationError": {
+      "properties": {
+        "detail": {
+          "items": {
+            "$ref": "#/components/schemas/ValidationError"
+          },
+          "type": "array",
+          "title": "Detail"
+        }
+      },
+      "type": "object",
+      "title": "HTTPValidationError"
+    },
+    "PatientRead": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "user_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "User Id"
+        },
+        "first_name": {
+          "type": "string",
+          "title": "First Name"
+        },
+        "last_name": {
+          "type": "string",
+          "title": "Last Name"
+        },
+        "dob": {
+          "type": "string",
+          "format": "date",
+          "title": "Dob"
+        },
+        "legal_sex": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Legal Sex"
+        },
+        "medical_record_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Medical Record Number"
+        },
+        "stripe_customer_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Stripe Customer Id"
+        },
+        "subscription_status": {
+          "type": "string",
+          "title": "Subscription Status"
+        },
+        "contact_methods": {
+          "items": {
+            "$ref": "#/components/schemas/ContactMethodRead"
+          },
+          "type": "array",
+          "title": "Contact Methods",
+          "default": []
+        },
+        "enrolled_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Enrolled At"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Created At"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Updated At"
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "user_id",
+        "first_name",
+        "last_name",
+        "dob",
+        "legal_sex",
+        "medical_record_number",
+        "stripe_customer_id",
+        "subscription_status",
+        "created_at",
+        "updated_at"
+      ],
+      "title": "PatientRead",
+      "description": "Full patient detail with contact methods."
+    },
+    "CareTeamMember": {
+      "properties": {
+        "assignment_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Assignment Id"
+        },
+        "provider_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Provider Id"
+        },
+        "role": {
+          "type": "string",
+          "title": "Role"
+        },
+        "assigned_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Assigned At"
+        },
+        "provider_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Provider Name"
+        },
+        "provider_specialty": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Provider Specialty"
+        },
+        "provider_npi": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Provider Npi"
+        }
+      },
+      "type": "object",
+      "required": ["assignment_id", "provider_id", "role", "assigned_at"],
+      "title": "CareTeamMember",
+      "description": "Compact care team member for list views."
+    },
+    "ContactMethodCreate": {
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "Type",
+          "description": "MOBILE, HOME, EMAIL"
+        },
+        "value": {
+          "type": "string",
+          "title": "Value",
+          "description": "The actual contact value"
+        },
+        "is_primary": {
+          "type": "boolean",
+          "title": "Is Primary",
+          "default": false
+        },
+        "is_safe_for_voicemail": {
+          "type": "boolean",
+          "title": "Is Safe For Voicemail",
+          "default": false
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Label",
+          "description": "Home, Work, Mobile"
+        }
+      },
+      "type": "object",
+      "required": ["type", "value"],
+      "title": "ContactMethodCreate",
+      "description": "Create a contact method for a patient."
+    },
+    "CareTeamAssignmentCreate": {
+      "properties": {
+        "provider_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Provider Id",
+          "description": "Provider to assign"
+        },
+        "role": {
+          "type": "string",
+          "title": "Role",
+          "description": "Role in care team: PRIMARY, SPECIALIST, or CONSULTANT",
+          "default": "SPECIALIST"
+        }
+      },
+      "type": "object",
+      "required": ["provider_id"],
+      "title": "CareTeamAssignmentCreate",
+      "description": "Create a care team assignment for a patient."
+    },
+    "ValidationError": {
+      "properties": {
+        "loc": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "type": "array",
+          "title": "Location"
+        },
+        "msg": {
+          "type": "string",
+          "title": "Message"
+        },
+        "type": {
+          "type": "string",
+          "title": "Error Type"
+        }
+      },
+      "type": "object",
+      "required": ["loc", "msg", "type"],
+      "title": "ValidationError"
+    },
+    "PatientCreate": {
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "maxLength": 100,
+          "title": "First Name"
+        },
+        "last_name": {
+          "type": "string",
+          "maxLength": 100,
+          "title": "Last Name"
+        },
+        "dob": {
+          "type": "string",
+          "format": "date",
+          "title": "Dob",
+          "description": "Date of birth"
+        },
+        "legal_sex": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 20
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Legal Sex"
+        },
+        "medical_record_number": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 100
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Medical Record Number"
+        },
+        "contact_methods": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/components/schemas/ContactMethodCreate"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Contact Methods"
+        }
+      },
+      "type": "object",
+      "required": ["first_name", "last_name", "dob"],
+      "title": "PatientCreate",
+      "description": "Create a patient. Will be enrolled in the organization."
+    },
+    "PaginatedPatients": {
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/components/schemas/PatientListItem"
+          },
+          "type": "array",
+          "title": "Items"
+        },
+        "total": {
+          "type": "integer",
+          "title": "Total"
+        },
+        "limit": {
+          "type": "integer",
+          "title": "Limit"
+        },
+        "offset": {
+          "type": "integer",
+          "title": "Offset"
+        }
+      },
+      "type": "object",
+      "required": ["items", "total", "limit", "offset"],
+      "title": "PaginatedPatients",
+      "description": "Paginated patient list response."
+    },
+    "CareTeamList": {
+      "properties": {
+        "patient_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Patient Id"
+        },
+        "members": {
+          "items": {
+            "$ref": "#/components/schemas/CareTeamMember"
+          },
+          "type": "array",
+          "title": "Members"
+        },
+        "primary_provider": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/CareTeamMember"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "type": "object",
+      "required": ["patient_id", "members"],
+      "title": "CareTeamList",
+      "description": "Full care team response with all members."
+    },
+    "PatientUpdate": {
+      "properties": {
+        "first_name": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 100
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "First Name"
+        },
+        "last_name": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 100
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Name"
+        },
+        "dob": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Dob"
+        },
+        "legal_sex": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 20
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Legal Sex"
+        },
+        "medical_record_number": {
+          "anyOf": [
+            {
+              "type": "string",
+              "maxLength": 100
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Medical Record Number"
+        }
+      },
+      "type": "object",
+      "title": "PatientUpdate",
+      "description": "Partial update for patient fields."
+    },
+    "CareTeamProviderInfo": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "user_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "User Id"
+        },
+        "npi_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Npi Number"
+        },
+        "specialty": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Specialty"
+        },
+        "user_display_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "User Display Name"
+        },
+        "user_email": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "User Email"
+        }
+      },
+      "type": "object",
+      "required": ["id", "user_id"],
+      "title": "CareTeamProviderInfo",
+      "description": "Embedded provider information for care team responses."
+    }
+  }
+}

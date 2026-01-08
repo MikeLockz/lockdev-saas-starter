@@ -1,0 +1,399 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "proxies Domain Contract",
+  "description": "Auto-generated contract for proxies feature",
+  "definitions": {
+    "ProxyPatientInfo": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "first_name": {
+          "type": "string",
+          "title": "First Name"
+        },
+        "last_name": {
+          "type": "string",
+          "title": "Last Name"
+        },
+        "dob": {
+          "type": "string",
+          "title": "Dob"
+        },
+        "medical_record_number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Medical Record Number"
+        }
+      },
+      "type": "object",
+      "required": ["id", "first_name", "last_name", "dob"],
+      "title": "ProxyPatientInfo",
+      "description": "Patient info for proxy dashboard."
+    },
+    "ProxyPermissions": {
+      "properties": {
+        "can_view_profile": {
+          "type": "boolean",
+          "title": "Can View Profile",
+          "default": true
+        },
+        "can_view_appointments": {
+          "type": "boolean",
+          "title": "Can View Appointments",
+          "default": true
+        },
+        "can_schedule_appointments": {
+          "type": "boolean",
+          "title": "Can Schedule Appointments",
+          "default": false
+        },
+        "can_view_clinical_notes": {
+          "type": "boolean",
+          "title": "Can View Clinical Notes",
+          "default": false
+        },
+        "can_view_billing": {
+          "type": "boolean",
+          "title": "Can View Billing",
+          "default": false
+        },
+        "can_message_providers": {
+          "type": "boolean",
+          "title": "Can Message Providers",
+          "default": false
+        }
+      },
+      "type": "object",
+      "title": "ProxyPermissions",
+      "description": "All proxy permission flags."
+    },
+    "ProxyPatientRead": {
+      "properties": {
+        "patient": {
+          "$ref": "#/components/schemas/ProxyPatientInfo"
+        },
+        "relationship_type": {
+          "type": "string",
+          "title": "Relationship Type"
+        },
+        "permissions": {
+          "$ref": "#/components/schemas/ProxyPermissions"
+        },
+        "granted_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Granted At"
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expires At"
+        }
+      },
+      "type": "object",
+      "required": ["patient", "relationship_type", "permissions", "granted_at"],
+      "title": "ProxyPatientRead",
+      "description": "Patient with proxy permissions for proxy dashboard."
+    },
+    "ProxyProfileRead": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "user_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "User Id"
+        },
+        "relationship_to_patient": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Relationship To Patient"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Created At"
+        }
+      },
+      "type": "object",
+      "required": ["id", "user_id", "created_at"],
+      "title": "ProxyProfileRead",
+      "description": "Proxy profile for the current user."
+    },
+    "ProxyListResponse": {
+      "properties": {
+        "patient_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Patient Id"
+        },
+        "proxies": {
+          "items": {
+            "$ref": "#/components/schemas/ProxyAssignmentRead"
+          },
+          "type": "array",
+          "title": "Proxies"
+        }
+      },
+      "type": "object",
+      "required": ["patient_id", "proxies"],
+      "title": "ProxyListResponse",
+      "description": "List of proxies for a patient."
+    },
+    "HTTPValidationError": {
+      "properties": {
+        "detail": {
+          "items": {
+            "$ref": "#/components/schemas/ValidationError"
+          },
+          "type": "array",
+          "title": "Detail"
+        }
+      },
+      "type": "object",
+      "title": "HTTPValidationError"
+    },
+    "ProxyAssignmentUpdate": {
+      "properties": {
+        "permissions": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/ProxyPermissions"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expires At"
+        }
+      },
+      "type": "object",
+      "title": "ProxyAssignmentUpdate",
+      "description": "Update proxy permissions."
+    },
+    "ProxyUserInfo": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "email": {
+          "type": "string",
+          "title": "Email"
+        },
+        "display_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Display Name"
+        }
+      },
+      "type": "object",
+      "required": ["id", "email"],
+      "title": "ProxyUserInfo",
+      "description": "Embedded user information for proxy responses."
+    },
+    "ValidationError": {
+      "properties": {
+        "loc": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "type": "array",
+          "title": "Location"
+        },
+        "msg": {
+          "type": "string",
+          "title": "Message"
+        },
+        "type": {
+          "type": "string",
+          "title": "Error Type"
+        }
+      },
+      "type": "object",
+      "required": ["loc", "msg", "type"],
+      "title": "ValidationError"
+    },
+    "ProxyAssignmentCreate": {
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "Email",
+          "description": "Email of user to grant proxy access"
+        },
+        "relationship_type": {
+          "type": "string",
+          "title": "Relationship Type",
+          "description": "Relationship: PARENT, SPOUSE, GUARDIAN, CAREGIVER, POA, OTHER"
+        },
+        "permissions": {
+          "$ref": "#/components/schemas/ProxyPermissions"
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expires At",
+          "description": "Optional expiration date"
+        }
+      },
+      "type": "object",
+      "required": ["email", "relationship_type"],
+      "title": "ProxyAssignmentCreate",
+      "description": "Create a new proxy assignment."
+    },
+    "ProxyAssignmentRead": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "proxy_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Proxy Id"
+        },
+        "patient_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Patient Id"
+        },
+        "relationship_type": {
+          "type": "string",
+          "title": "Relationship Type"
+        },
+        "can_view_profile": {
+          "type": "boolean",
+          "title": "Can View Profile"
+        },
+        "can_view_appointments": {
+          "type": "boolean",
+          "title": "Can View Appointments"
+        },
+        "can_schedule_appointments": {
+          "type": "boolean",
+          "title": "Can Schedule Appointments"
+        },
+        "can_view_clinical_notes": {
+          "type": "boolean",
+          "title": "Can View Clinical Notes"
+        },
+        "can_view_billing": {
+          "type": "boolean",
+          "title": "Can View Billing"
+        },
+        "can_message_providers": {
+          "type": "boolean",
+          "title": "Can Message Providers"
+        },
+        "granted_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Granted At"
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Expires At"
+        },
+        "revoked_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Revoked At"
+        },
+        "user": {
+          "$ref": "#/components/schemas/ProxyUserInfo"
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "proxy_id",
+        "patient_id",
+        "relationship_type",
+        "can_view_profile",
+        "can_view_appointments",
+        "can_schedule_appointments",
+        "can_view_clinical_notes",
+        "can_view_billing",
+        "can_message_providers",
+        "granted_at",
+        "user"
+      ],
+      "title": "ProxyAssignmentRead",
+      "description": "Read a proxy assignment with full details."
+    }
+  }
+}

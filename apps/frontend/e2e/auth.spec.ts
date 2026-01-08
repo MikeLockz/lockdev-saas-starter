@@ -10,5 +10,5 @@ test("allows dev login as E2E user", async ({ page }) => {
   await expect(page).toHaveURL(/\/dashboard/);
 
   // Verify welcome message
-  await expect(page.getByText("Welcome, e2e@example.com!")).toBeVisible();
+  await expect(page.getByText("Welcome back, E2E User")).toBeVisible();
 });

@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Tooltip > renders tooltip with custom delay 1`] = `
+<DocumentFragment>
+  <button
+    data-slot="tooltip-trigger"
+    data-state="closed"
+  >
+    Delayed trigger
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Tooltip > renders tooltip with side offset 1`] = `
+<DocumentFragment>
+  <button
+    data-slot="tooltip-trigger"
+    data-state="closed"
+  >
+    Trigger
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Tooltip > renders tooltip with trigger 1`] = `
+<DocumentFragment>
+  <button
+    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+    data-slot="tooltip-trigger"
+    data-state="closed"
+  >
+    Hover me
+  </button>
+</DocumentFragment>
+`;

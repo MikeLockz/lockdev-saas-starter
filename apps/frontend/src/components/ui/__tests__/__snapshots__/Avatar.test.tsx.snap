@@ -1,0 +1,43 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Avatar > renders fallback state 1`] = `
+<DocumentFragment>
+  <span
+    class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
+  >
+    <span
+      class="flex h-full w-full items-center justify-center rounded-full bg-muted"
+    >
+      JD
+    </span>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`Avatar > renders with custom className 1`] = `
+<DocumentFragment>
+  <span
+    class="relative flex shrink-0 overflow-hidden rounded-full h-16 w-16"
+  >
+    <span
+      class="flex h-full w-full items-center justify-center rounded-full bg-muted"
+    >
+      AB
+    </span>
+  </span>
+</DocumentFragment>
+`;
+
+exports[`Avatar > renders with image 1`] = `
+<DocumentFragment>
+  <span
+    class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full"
+  >
+    <span
+      class="flex h-full w-full items-center justify-center rounded-full bg-muted"
+    >
+      JD
+    </span>
+  </span>
+</DocumentFragment>
+`;
