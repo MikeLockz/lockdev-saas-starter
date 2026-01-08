@@ -99,9 +99,7 @@ function PatientDetailPage() {
             <TabsTrigger value="care-team">Care Team</TabsTrigger>
             <TabsTrigger value="appointments">Appointments</TabsTrigger>
             <TabsTrigger value="documents">Documents</TabsTrigger>
-            <TabsTrigger value="messages" disabled>
-              Messages
-            </TabsTrigger>
+            <TabsTrigger value="messages">Messages</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-4">
@@ -288,8 +286,22 @@ function PatientDetailPage() {
 
           <TabsContent value="messages">
             <Card>
-              <CardContent className="p-8 text-center text-muted-foreground">
-                Secure messaging feature coming soon.
+              <CardHeader>
+                <CardTitle>Messages</CardTitle>
+                <CardDescription>
+                  Communicate with this patient securely.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-8 text-muted-foreground">
+                  <div className="flex justify-center mb-4">
+                    <Mail className="h-12 w-12 opacity-20" />
+                  </div>
+                  <p>No messages yet.</p>
+                  <Button variant="outline" className="mt-4">
+                    Start New Conversation
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>

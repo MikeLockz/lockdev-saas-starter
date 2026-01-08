@@ -65,6 +65,44 @@ export function useAuth() {
     }
   };
 
+  const signUpWithEmail = async (email: string, password: string) => {
+    try {
+      const { createUserWithEmailAndPassword } = await import("firebase/auth");
+      return await createUserWithEmailAndPassword(auth, email, password);
+    } catch (err: unknown) {
+      const error = err as { code?: string; message?: string };
+      console.error("Sign-up failed:", error.code, error.message);
+      let errorMessage = error.message || "Sign-up failed";
+      if (error.code === "auth/email-already-in-use") {
+        errorMessage = "Email already in use.";
+      } else if (error.code === "auth/invalid-email") {
+        errorMessage = "Invalid email address.";
+      } else if (error.code === "auth/weak-password") {
+        errorMessage = "Password is too weak.";
+      }
+      throw new Error(errorMessage);
+    }
+  };
+
+  const sendPasswordReset = async (email: string) => {
+    try {
+      const { sendPasswordResetEmail } = await import("firebase/auth");
+      return await sendPasswordResetEmail(auth, email);
+    } catch (err: unknown) {
+      const error = err as { code?: string; message?: string };
+      console.error("Password reset failed:", error.code, error.message);
+      let errorMessage = error.message || "Failed to send reset email";
+      if (error.code === "auth/user-not-found") {
+        // For security, don't reveal if user exists, or maybe reveal if helpful?
+        // Standard practice is often to say "If an account exists..."
+        // But for this internal app, maybe explicit is okay.
+        // Let's stick to generic success or specific error if needed.
+        errorMessage = "No account found with this email.";
+      }
+      throw new Error(errorMessage);
+    }
+  };
+
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -104,6 +142,8 @@ export function useAuth() {
     loading: loading && !mockUser,
     error,
     signInWithEmail,
+    signUpWithEmail,
+    sendPasswordReset,
     signInWithGoogle,
     signInDev,
     signOut,
