@@ -43,6 +43,15 @@ import {
 import { formatDateTime } from "@/lib/timezone";
 import { cn } from "@/lib/utils";
 
+interface TaskFormData {
+  title: string;
+  description?: string;
+  priority: string;
+  due_date?: string;
+  assignee_id: string;
+  patient_id?: string;
+}
+
 export function TaskCreateModal({
   open,
   onOpenChange,
@@ -61,9 +70,15 @@ export function TaskCreateModal({
     setValue,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm<TaskFormData>({
+    defaultValues: {
+      priority: "MEDIUM",
+      assignee_id: "",
+    },
+  });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: TaskFormData) => {
+    if (!data.assignee_id) return; // Validation
     createTask.mutate(data, {
       onSuccess: () => {
         reset();

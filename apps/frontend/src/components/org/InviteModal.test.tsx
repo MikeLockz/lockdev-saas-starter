@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import type { ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useCreateInvitation } from "../../hooks/useCreateInvitation";
 import { useCurrentOrg } from "../../hooks/useCurrentOrg";
@@ -10,30 +11,50 @@ vi.mock("../../hooks/useCreateInvitation");
 vi.mock("../../hooks/useCurrentOrg");
 
 // Mock ResizeObserver for Radix UI
-(globalThis as any).ResizeObserver = class ResizeObserver {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-};
+// Mock ResizeObserver for Radix UI
+vi.stubGlobal(
+  "ResizeObserver",
+  class ResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  },
+);
 
 // Mock the dialog to avoid portal/state complexity in simple unit test
 // We want to verify form submission logic, not Radix behavior
+// Mock the dialog to avoid portal/state complexity in simple unit test
+// We want to verify form submission logic, not Radix behavior
 vi.mock("../ui/dialog", () => ({
-  Dialog: ({ children, open }: any) => (
+  Dialog: ({ children, open }: { children: ReactNode; open: boolean }) => (
     <div>
       {open ? <div data-testid="dialog-content">{children}</div> : children}
     </div>
   ),
-  DialogTrigger: ({ children, onClick }: any) => (
+  DialogTrigger: ({
+    children,
+    onClick,
+  }: {
+    children: ReactNode;
+    onClick: () => void;
+  }) => (
     <button onClick={onClick} data-testid="dialog-trigger">
       {children}
     </button>
   ),
-  DialogContent: ({ children }: any) => <div>{children}</div>,
-  DialogHeader: ({ children }: any) => <div>{children}</div>,
-  DialogTitle: ({ children }: any) => <div>{children}</div>,
-  DialogDescription: ({ children }: any) => <div>{children}</div>,
-  DialogFooter: ({ children }: any) => <div>{children}</div>,
+  DialogContent: ({ children }: { children: ReactNode }) => (
+    <div>{children}</div>
+  ),
+  DialogHeader: ({ children }: { children: ReactNode }) => (
+    <div>{children}</div>
+  ),
+  DialogTitle: ({ children }: { children: ReactNode }) => <div>{children}</div>,
+  DialogDescription: ({ children }: { children: ReactNode }) => (
+    <div>{children}</div>
+  ),
+  DialogFooter: ({ children }: { children: ReactNode }) => (
+    <div>{children}</div>
+  ),
 }));
 
 // We need to simulate the state change since we mocked the Dialog which usually handles it.
@@ -68,12 +89,17 @@ describe("InviteModal", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (useCreateInvitation as any).mockReturnValue({
+    vi.mocked(useCreateInvitation).mockReturnValue({
       mutate: mockCreateInvitation,
       isPending: false,
-    });
-    (useCurrentOrg as any).mockReturnValue({
-      organization: { id: "org-123", name: "Test Org" },
+    } as any); // Type assertion needed if full mock implementation is disconnected
+    vi.mocked(useCurrentOrg).mockReturnValue({
+      organization: { id: "org-123", name: "Test Org" } as any,
+      orgId: "org-123",
+      isLoading: false,
+      error: null,
+      setCurrentOrgId: vi.fn(),
+      organizations: [],
     });
 
     // Mock pointer capture for Radix

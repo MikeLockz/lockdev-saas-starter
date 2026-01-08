@@ -58,6 +58,7 @@ lockdev-saas-starter/
 - **Data Fetching**: TanStack Query
 - **Forms**: TanStack Form + Zod
 - **State**: Zustand
+- **Type Safety**: STRICTLY NO `any`. Use generated API types (`src/lib/api-types.d.ts`) or Zod schemas (`src/lib/api-schemas.ts`).
 - **UI Components**: shadcn/ui (Radix primitives)
 - **HTTP Client**: Axios
 - **Linting**: Biome
@@ -314,4 +315,5 @@ make test   # All tests
 7. **Async by Default**: All database operations should be async
 8. **Run Checks First**: Before writing new code, run `make check` to understand current state
 9. **Use Makefile Commands**: Never run `npx`, `pnpm`, `uv`, or `docker compose` directly—use `make` targets
-10. **When Unsure**: Run `make help` to see all available commands
+10. **No Explicit Any**: Strictly avoid `any` types. Use generated types, `unknown`, or `Record<string, unknown>`.
+11. **When Unsure**: Run `make help` to see all available commands

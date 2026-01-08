@@ -1,4 +1,4 @@
-.PHONY: install-all dev dev-stop dev-logs dev-logs-worker check test test-e2e test-snapshot clean migrate seed seed-e2e seed-patients stop agent agent-install
+.PHONY: install-all dev dev-stop dev-logs dev-logs-worker check test test-e2e test-snapshot type-check clean migrate seed seed-e2e seed-patients stop agent agent-install
 
 # Default ports
 FRONTEND_PORT ?= 5173
@@ -85,7 +85,7 @@ seed-patients:
 	@echo "Seeding 50 dummy patients..."
 	docker compose exec api python scripts/seed_patients.py
 
-check:
+check: type-check
 	@echo "Running Checks..."
 	@echo "Backend Ruff..."
 	cd apps/backend && uv run ruff check .
@@ -115,6 +115,13 @@ test-frontend:
 test-snapshot:
 	@echo "Running Snapshot Tests..."
 	cd apps/frontend && pnpm test
+
+type-check:
+	@echo "Running Type Check..."
+	cd apps/frontend && npx tsc --noEmit
+	@echo "Checking for explicit any types in production code..."
+	cd apps/frontend && pnpm check:any
+	@echo "✓ Type check passed"
 
 clean:
 	@echo "Cleaning up..."

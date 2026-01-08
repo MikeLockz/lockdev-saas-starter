@@ -7,9 +7,7 @@
   "paths": {
     "/api/v1/admin/impersonate/{patient_id}": {
       "post": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "Impersonate Patient",
         "operationId": "impersonate_patient_api_v1_admin_impersonate__patient_id__post",
         "security": [
@@ -62,9 +60,7 @@
     },
     "/api/v1/admin/audit-logs": {
       "get": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "List Audit Logs",
         "description": "List audit logs with optional filtering.\nRequires admin privileges.",
         "operationId": "list_audit_logs_api_v1_admin_audit_logs_get",
@@ -224,9 +220,7 @@
     },
     "/api/v1/admin/audit-logs/export": {
       "get": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "Export Audit Logs",
         "description": "Export audit logs as CSV.",
         "operationId": "export_audit_logs_api_v1_admin_audit_logs_export_get",
@@ -361,9 +355,7 @@
     },
     "/api/v1/admin/audit-logs/{log_id}": {
       "get": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "Get Audit Log",
         "description": "Get a specific audit log entry.",
         "operationId": "get_audit_log_api_v1_admin_audit_logs__log_id__get",
@@ -410,9 +402,7 @@
     },
     "/api/v1/admin/super-admin/organizations": {
       "get": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "List All Organizations",
         "description": "List all organizations across the platform.",
         "operationId": "list_all_organizations_api_v1_admin_super_admin_organizations_get",
@@ -486,9 +476,7 @@
         }
       },
       "post": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "Create Organization",
         "description": "Create a new organization (super admin only).",
         "operationId": "create_organization_api_v1_admin_super_admin_organizations_post",
@@ -533,9 +521,7 @@
     },
     "/api/v1/admin/super-admin/organizations/{org_id}": {
       "get": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "Get Organization Detail",
         "description": "Get detailed organization info.",
         "operationId": "get_organization_detail_api_v1_admin_super_admin_organizations__org_id__get",
@@ -580,9 +566,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "Update Organization",
         "description": "Update organization (suspend, activate, etc.).",
         "operationId": "update_organization_api_v1_admin_super_admin_organizations__org_id__patch",
@@ -639,9 +623,7 @@
     },
     "/api/v1/admin/super-admin/users": {
       "get": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "List All Users",
         "description": "List all users across the platform.",
         "operationId": "list_all_users_api_v1_admin_super_admin_users_get",
@@ -749,9 +731,7 @@
     },
     "/api/v1/admin/super-admin/users/{user_id}/unlock": {
       "patch": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "Unlock User",
         "description": "Unlock a locked user account.",
         "operationId": "unlock_user_api_v1_admin_super_admin_users__user_id__unlock_patch",
@@ -796,9 +776,7 @@
     },
     "/api/v1/admin/super-admin/users/{user_id}": {
       "patch": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "Update User Admin",
         "description": "Update user (toggle super admin, etc.).",
         "operationId": "update_user_admin_api_v1_admin_super_admin_users__user_id__patch",
@@ -855,9 +833,7 @@
     },
     "/api/v1/admin/super-admin/system": {
       "get": {
-        "tags": [
-          "admin"
-        ],
+        "tags": ["admin"],
         "summary": "Get System Health",
         "description": "Get system health status.",
         "operationId": "get_system_health_api_v1_admin_super_admin_system_get",
@@ -882,9 +858,7 @@
     },
     "/api/v1/consent/required": {
       "get": {
-        "tags": [
-          "consent"
-        ],
+        "tags": ["consent"],
         "summary": "Get Required Consents",
         "description": "List all active consents and status for the current user.",
         "operationId": "get_required_consents_api_v1_consent_required_get",
@@ -907,9 +881,7 @@
     },
     "/api/v1/consent": {
       "post": {
-        "tags": [
-          "consent"
-        ],
+        "tags": ["consent"],
         "summary": "Sign Consent",
         "description": "Sign a specific consent document.",
         "operationId": "sign_consent_api_v1_consent_post",
@@ -1558,9 +1530,7 @@
     },
     "/api/v1/users/me/proxy-patients": {
       "get": {
-        "tags": [
-          "proxies"
-        ],
+        "tags": ["proxies"],
         "summary": "Get My Proxy Patients",
         "description": "List patients the current user is proxy for.",
         "operationId": "get_my_proxy_patients_api_v1_users_me_proxy_patients_get",
@@ -1589,9 +1559,7 @@
     },
     "/api/v1/users/me/proxy": {
       "get": {
-        "tags": [
-          "proxies"
-        ],
+        "tags": ["proxies"],
         "summary": "Get My Proxy Profile",
         "description": "Get the current user's proxy profile if they are a proxy.\nReturns None if the user is not a proxy.",
         "operationId": "get_my_proxy_profile_api_v1_users_me_proxy_get",
@@ -1948,9 +1916,7 @@
     },
     "/api/v1/organizations/{org_id}/patients": {
       "post": {
-        "tags": [
-          "patients"
-        ],
+        "tags": ["patients"],
         "summary": "Create Patient",
         "description": "Create a new patient and enroll in the organization.",
         "operationId": "create_patient_api_v1_organizations__org_id__patients_post",
@@ -2005,9 +1971,7 @@
         }
       },
       "get": {
-        "tags": [
-          "patients"
-        ],
+        "tags": ["patients"],
         "summary": "List Patients",
         "description": "List patients enrolled in the organization with optional filters.",
         "operationId": "list_patients_api_v1_organizations__org_id__patients_get",
@@ -2131,9 +2095,7 @@
     },
     "/api/v1/organizations/{org_id}/patients/{patient_id}": {
       "get": {
-        "tags": [
-          "patients"
-        ],
+        "tags": ["patients"],
         "summary": "Get Patient",
         "description": "Get full patient details with contact methods.",
         "operationId": "get_patient_api_v1_organizations__org_id__patients__patient_id__get",
@@ -2188,9 +2150,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "patients"
-        ],
+        "tags": ["patients"],
         "summary": "Update Patient",
         "description": "Update patient fields. Requires org membership.",
         "operationId": "update_patient_api_v1_organizations__org_id__patients__patient_id__patch",
@@ -2255,9 +2215,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "patients"
-        ],
+        "tags": ["patients"],
         "summary": "Discharge Patient",
         "description": "Discharge a patient from the organization (soft delete via status change).",
         "operationId": "discharge_patient_api_v1_organizations__org_id__patients__patient_id__delete",
@@ -2307,9 +2265,7 @@
     },
     "/api/v1/organizations/{org_id}/patients/{patient_id}/contact-methods": {
       "get": {
-        "tags": [
-          "patients"
-        ],
+        "tags": ["patients"],
         "summary": "List Contact Methods",
         "description": "List all contact methods for a patient.",
         "operationId": "list_contact_methods_api_v1_organizations__org_id__patients__patient_id__contact_methods_get",
@@ -2368,9 +2324,7 @@
         }
       },
       "post": {
-        "tags": [
-          "patients"
-        ],
+        "tags": ["patients"],
         "summary": "Create Contact Method",
         "description": "Add a new contact method to a patient.\nIf is_primary=True, unsets other primaries of the same type.",
         "operationId": "create_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods_post",
@@ -2437,9 +2391,7 @@
     },
     "/api/v1/organizations/{org_id}/patients/{patient_id}/contact-methods/{contact_id}": {
       "patch": {
-        "tags": [
-          "patients"
-        ],
+        "tags": ["patients"],
         "summary": "Update Contact Method",
         "description": "Update a contact method.\nIf is_primary becomes True, unsets other primaries of the same type.",
         "operationId": "update_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods__contact_id__patch",
@@ -2514,9 +2466,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "patients"
-        ],
+        "tags": ["patients"],
         "summary": "Delete Contact Method",
         "description": "Delete a contact method.\nCannot delete the only primary contact of any type.",
         "operationId": "delete_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods__contact_id__delete",
@@ -2576,9 +2526,7 @@
     },
     "/api/v1/organizations/{org_id}/patients/{patient_id}/care-team": {
       "get": {
-        "tags": [
-          "patients"
-        ],
+        "tags": ["patients"],
         "summary": "Get Care Team",
         "description": "Get all providers assigned to a patient's care team.",
         "operationId": "get_care_team_api_v1_organizations__org_id__patients__patient_id__care_team_get",
@@ -2633,9 +2581,7 @@
         }
       },
       "post": {
-        "tags": [
-          "patients"
-        ],
+        "tags": ["patients"],
         "summary": "Assign To Care Team",
         "description": "Assign a provider to a patient's care team.\nOnly one PRIMARY provider allowed per patient.",
         "operationId": "assign_to_care_team_api_v1_organizations__org_id__patients__patient_id__care_team_post",
@@ -2702,9 +2648,7 @@
     },
     "/api/v1/organizations/{org_id}/patients/{patient_id}/care-team/{assignment_id}": {
       "delete": {
-        "tags": [
-          "patients"
-        ],
+        "tags": ["patients"],
         "summary": "Remove From Care Team",
         "description": "Remove a provider from a patient's care team (soft delete).",
         "operationId": "remove_from_care_team_api_v1_organizations__org_id__patients__patient_id__care_team__assignment_id__delete",
@@ -2764,9 +2708,7 @@
     },
     "/api/v1/organizations/{org_id}/providers": {
       "post": {
-        "tags": [
-          "providers"
-        ],
+        "tags": ["providers"],
         "summary": "Create Provider",
         "description": "Create a provider profile for a user (promotes user to provider role).\nRequires admin access.",
         "operationId": "create_provider_api_v1_organizations__org_id__providers_post",
@@ -2821,9 +2763,7 @@
         }
       },
       "get": {
-        "tags": [
-          "providers"
-        ],
+        "tags": ["providers"],
         "summary": "List Providers",
         "description": "List all providers in the organization.",
         "operationId": "list_providers_api_v1_organizations__org_id__providers_get",
@@ -2929,9 +2869,7 @@
     },
     "/api/v1/organizations/{org_id}/providers/{provider_id}": {
       "get": {
-        "tags": [
-          "providers"
-        ],
+        "tags": ["providers"],
         "summary": "Get Provider",
         "description": "Get full provider details.",
         "operationId": "get_provider_api_v1_organizations__org_id__providers__provider_id__get",
@@ -2986,9 +2924,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "providers"
-        ],
+        "tags": ["providers"],
         "summary": "Update Provider",
         "description": "Update provider fields. Requires admin access.",
         "operationId": "update_provider_api_v1_organizations__org_id__providers__provider_id__patch",
@@ -3053,9 +2989,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "providers"
-        ],
+        "tags": ["providers"],
         "summary": "Delete Provider",
         "description": "Soft delete a provider (set is_active=false and deleted_at).\nRequires admin access.",
         "operationId": "delete_provider_api_v1_organizations__org_id__providers__provider_id__delete",
@@ -3105,9 +3039,7 @@
     },
     "/api/v1/organizations/{org_id}/staff": {
       "post": {
-        "tags": [
-          "staff"
-        ],
+        "tags": ["staff"],
         "summary": "Create Staff",
         "description": "Create a staff profile for a user.\nRequires admin access.",
         "operationId": "create_staff_api_v1_organizations__org_id__staff_post",
@@ -3162,9 +3094,7 @@
         }
       },
       "get": {
-        "tags": [
-          "staff"
-        ],
+        "tags": ["staff"],
         "summary": "List Staff",
         "description": "List all staff members in the organization.",
         "operationId": "list_staff_api_v1_organizations__org_id__staff_get",
@@ -3270,9 +3200,7 @@
     },
     "/api/v1/organizations/{org_id}/staff/{staff_id}": {
       "get": {
-        "tags": [
-          "staff"
-        ],
+        "tags": ["staff"],
         "summary": "Get Staff",
         "description": "Get full staff details.",
         "operationId": "get_staff_api_v1_organizations__org_id__staff__staff_id__get",
@@ -3327,9 +3255,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "staff"
-        ],
+        "tags": ["staff"],
         "summary": "Update Staff",
         "description": "Update staff fields. Requires admin access.",
         "operationId": "update_staff_api_v1_organizations__org_id__staff__staff_id__patch",
@@ -3394,9 +3320,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "staff"
-        ],
+        "tags": ["staff"],
         "summary": "Delete Staff",
         "description": "Soft delete a staff member (set is_active=false and deleted_at).\nRequires admin access.",
         "operationId": "delete_staff_api_v1_organizations__org_id__staff__staff_id__delete",
@@ -3446,9 +3370,7 @@
     },
     "/api/v1/organizations/{org_id}/appointments": {
       "post": {
-        "tags": [
-          "appointments"
-        ],
+        "tags": ["appointments"],
         "summary": "Create Appointment",
         "description": "Create a new appointment.\nValidates that the provider is not double-booked.",
         "operationId": "create_appointment_api_v1_organizations__org_id__appointments_post",
@@ -3503,9 +3425,7 @@
         }
       },
       "get": {
-        "tags": [
-          "appointments"
-        ],
+        "tags": ["appointments"],
         "summary": "List Appointments",
         "description": "List appointments with filters.\nDefaults to today's appointments if no date filter is provided?\n(Spec says \"Default: today's appointments\" but let's implement flexible filters first)",
         "operationId": "list_appointments_api_v1_organizations__org_id__appointments_get",
@@ -3663,9 +3583,7 @@
     },
     "/api/v1/organizations/{org_id}/appointments/{appointment_id}": {
       "get": {
-        "tags": [
-          "appointments"
-        ],
+        "tags": ["appointments"],
         "summary": "Get Appointment",
         "operationId": "get_appointment_api_v1_organizations__org_id__appointments__appointment_id__get",
         "security": [
@@ -3719,9 +3637,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "appointments"
-        ],
+        "tags": ["appointments"],
         "summary": "Update Appointment",
         "operationId": "update_appointment_api_v1_organizations__org_id__appointments__appointment_id__patch",
         "security": [
@@ -3787,9 +3703,7 @@
     },
     "/api/v1/organizations/{org_id}/appointments/{appointment_id}/status": {
       "patch": {
-        "tags": [
-          "appointments"
-        ],
+        "tags": ["appointments"],
         "summary": "Update Appointment Status",
         "operationId": "update_appointment_status_api_v1_organizations__org_id__appointments__appointment_id__status_patch",
         "security": [
@@ -3855,9 +3769,7 @@
     },
     "/api/v1/organizations/{org_id}/patients/{patient_id}/documents/upload-url": {
       "post": {
-        "tags": [
-          "documents"
-        ],
+        "tags": ["documents"],
         "summary": "Create Upload Url",
         "description": "Generate presigned S3 URL for document upload.",
         "operationId": "create_upload_url_api_v1_organizations__org_id__patients__patient_id__documents_upload_url_post",
@@ -3924,9 +3836,7 @@
     },
     "/api/v1/organizations/{org_id}/patients/{patient_id}/documents/{document_id}/confirm": {
       "post": {
-        "tags": [
-          "documents"
-        ],
+        "tags": ["documents"],
         "summary": "Confirm Upload",
         "description": "Confirm document upload completion.",
         "operationId": "confirm_upload_api_v1_organizations__org_id__patients__patient_id__documents__document_id__confirm_post",
@@ -3993,9 +3903,7 @@
     },
     "/api/v1/organizations/{org_id}/patients/{patient_id}/documents": {
       "get": {
-        "tags": [
-          "documents"
-        ],
+        "tags": ["documents"],
         "summary": "List Documents",
         "description": "List documents for a patient.",
         "operationId": "list_documents_api_v1_organizations__org_id__patients__patient_id__documents_get",
@@ -4091,9 +3999,7 @@
     },
     "/api/v1/organizations/{org_id}/patients/{patient_id}/documents/{document_id}/download-url": {
       "get": {
-        "tags": [
-          "documents"
-        ],
+        "tags": ["documents"],
         "summary": "Get Download Url",
         "description": "Generate presigned S3 URL for document download.",
         "operationId": "get_download_url_api_v1_organizations__org_id__patients__patient_id__documents__document_id__download_url_get",
@@ -4160,9 +4066,7 @@
     },
     "/api/v1/organizations/{org_id}/patients/{patient_id}/documents/{document_id}": {
       "delete": {
-        "tags": [
-          "documents"
-        ],
+        "tags": ["documents"],
         "summary": "Delete Document",
         "description": "Soft delete a document.",
         "operationId": "delete_document_api_v1_organizations__org_id__patients__patient_id__documents__document_id__delete",
@@ -4307,9 +4211,7 @@
     },
     "/api/v1/organizations/{org_id}/patients/{patient_id}/proxies": {
       "get": {
-        "tags": [
-          "proxies"
-        ],
+        "tags": ["proxies"],
         "summary": "List Patient Proxies",
         "description": "List all proxies assigned to a patient.",
         "operationId": "list_patient_proxies_api_v1_organizations__org_id__patients__patient_id__proxies_get",
@@ -4364,9 +4266,7 @@
         }
       },
       "post": {
-        "tags": [
-          "proxies"
-        ],
+        "tags": ["proxies"],
         "summary": "Assign Proxy",
         "description": "Assign a proxy to a patient by email.\nIf user exists, grants immediate access.",
         "operationId": "assign_proxy_api_v1_organizations__org_id__patients__patient_id__proxies_post",
@@ -4433,9 +4333,7 @@
     },
     "/api/v1/organizations/{org_id}/patients/{patient_id}/proxies/{assignment_id}": {
       "patch": {
-        "tags": [
-          "proxies"
-        ],
+        "tags": ["proxies"],
         "summary": "Update Proxy Permissions",
         "description": "Update proxy permissions.",
         "operationId": "update_proxy_permissions_api_v1_organizations__org_id__patients__patient_id__proxies__assignment_id__patch",
@@ -4510,9 +4408,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "proxies"
-        ],
+        "tags": ["proxies"],
         "summary": "Revoke Proxy",
         "description": "Revoke proxy access (soft delete with revoked_at).",
         "operationId": "revoke_proxy_api_v1_organizations__org_id__patients__patient_id__proxies__assignment_id__delete",
@@ -4572,9 +4468,7 @@
     },
     "/api/v1/events": {
       "get": {
-        "tags": [
-          "Real-Time Events"
-        ],
+        "tags": ["Real-Time Events"],
         "summary": "Get Events",
         "description": "Server-Sent Events stream for real-time updates.\n\nThis endpoint establishes a long-lived HTTP connection for\nserver-to-client push notifications.\n\nThe client will receive events such as:\n- notification.new: New notification created\n- message.new: New message in subscribed thread\n- appointment.reminder: Upcoming appointment reminder\n- appointment.updated: Appointment rescheduled/cancelled\n- document.processed: Document finished OCR/virus scan\n- document.scan_complete: Virus scan completed\n- consent.required: New consent document available\n- call.incoming: Incoming call (Call Center)\n- call.completed: Call ended\n- heartbeat: Keep-alive (every 30 seconds)\n\nAuthentication can be provided via:\n- Authorization header: Bearer {token}\n- Query parameter: ?token={token}\n\nReturns:\n    StreamingResponse with text/event-stream content type",
         "operationId": "get_events_api_v1_events_get",
@@ -4622,9 +4516,7 @@
     },
     "/api/v1/events/organizations/{org_id}": {
       "get": {
-        "tags": [
-          "Real-Time Events"
-        ],
+        "tags": ["Real-Time Events"],
         "summary": "Get Org Events",
         "description": "Organization-scoped SSE stream for admin views.\n\nThis endpoint provides organization-level events in addition\nto standard user events. Requires ADMIN or SUPER_ADMIN role.\n\nAdditional event types:\n- member.joined: New member accepted invitation\n- member.removed: Member removed from organization\n- subscription.updated: Subscription status changed\n- license.expiring: Provider license expiring soon\n\nArgs:\n    org_id: Organization ID\n\nReturns:\n    StreamingResponse with text/event-stream content type\n\nRaises:\n    HTTPException: If user is not admin of the organization",
         "operationId": "get_org_events_api_v1_events_organizations__org_id__get",
@@ -4681,9 +4573,7 @@
     },
     "/api/v1/telemetry": {
       "post": {
-        "tags": [
-          "Telemetry"
-        ],
+        "tags": ["Telemetry"],
         "summary": "Log Telemetry Event",
         "description": "Log a behavioral analytics event.\n\nThis endpoint accepts telemetry events from the frontend and logs them\nusing structlog with `event_type=\"analytics\"` for CloudWatch filtering.\n\n**Use Cases:**\n- Page views and navigation patterns\n- Feature usage tracking\n- Button clicks and user interactions\n- Error events (client-side)\n- Performance metrics\n\n**Privacy:**\n- Do not send PII/PHI in the properties\n- User ID is automatically attached from context\n- IP address is logged for basic analytics\n\nArgs:\n    event: The telemetry event with name and properties\n\nReturns:\n    Confirmation that the event was logged",
         "operationId": "log_telemetry_event_api_v1_telemetry_post",
@@ -4723,9 +4613,7 @@
     },
     "/api/v1/telemetry/batch": {
       "post": {
-        "tags": [
-          "Telemetry"
-        ],
+        "tags": ["Telemetry"],
         "summary": "Log Telemetry Batch",
         "description": "Log multiple telemetry events in a batch.\n\nThis endpoint is optimized for sending multiple events at once,\nreducing the number of HTTP requests from the frontend.\n\n**Use Cases:**\n- Offline event buffering\n- Page unload event flushing\n- Session aggregation\n\nArgs:\n    events: List of telemetry events\n\nReturns:\n    Confirmation that all events were logged",
         "operationId": "log_telemetry_batch_api_v1_telemetry_batch_post",
@@ -4769,9 +4657,7 @@
     },
     "/api/v1/webhooks/stripe": {
       "post": {
-        "tags": [
-          "Webhooks"
-        ],
+        "tags": ["Webhooks"],
         "summary": "Handle Stripe Webhook",
         "description": "Handle incoming Stripe webhook events.\n\nThis endpoint receives events from Stripe and processes them:\n- Verifies the webhook signature for security\n- Parses the event and dispatches to appropriate handlers\n- Updates database records based on event type\n\n**Security:**\n- Signature verification using STRIPE_WEBHOOK_SECRET\n- Raw body parsing to prevent tampering\n\n**Handled Events:**\n- checkout.session.completed: Subscription activated\n- invoice.payment_succeeded: Payment confirmed\n- invoice.payment_failed: Payment failed, status updated\n- customer.subscription.updated: Subscription status changed\n- customer.subscription.deleted: Subscription canceled\n\nReturns:\n    Success response for Stripe acknowledgment",
         "operationId": "handle_stripe_webhook_api_v1_webhooks_stripe_post",
@@ -4793,9 +4679,7 @@
     },
     "/api/v1/organizations/{org_id}/billing/checkout": {
       "post": {
-        "tags": [
-          "billing"
-        ],
+        "tags": ["billing"],
         "summary": "Create Checkout",
         "description": "Create a Stripe Checkout Session for subscription.\n\nCreates a Stripe customer for the organization if one doesn't exist,\nthen creates a checkout session for the specified price.\n\n**Requires**: Organization ADMIN role.\n\nReturns:\n    Checkout session with redirect URL for Stripe payment page.",
         "operationId": "create_checkout_api_v1_organizations__org_id__billing_checkout_post",
@@ -4852,9 +4736,7 @@
     },
     "/api/v1/organizations/{org_id}/billing/subscription": {
       "get": {
-        "tags": [
-          "billing"
-        ],
+        "tags": ["billing"],
         "summary": "Get Subscription Status",
         "description": "Get current subscription status for the organization.\n\n**Requires**: Organization ADMIN role.\n\nReturns:\n    Current subscription status including plan and billing period.",
         "operationId": "get_subscription_status_api_v1_organizations__org_id__billing_subscription_get",
@@ -4901,9 +4783,7 @@
     },
     "/api/v1/organizations/{org_id}/billing/portal": {
       "post": {
-        "tags": [
-          "billing"
-        ],
+        "tags": ["billing"],
         "summary": "Create Billing Portal",
         "description": "Create a Stripe Customer Portal session.\n\nThe portal allows customers to manage their subscription,\nupdate payment methods, and view invoices.\n\n**Requires**: Organization ADMIN role.\n\nReturns:\n    Portal session with redirect URL.",
         "operationId": "create_billing_portal_api_v1_organizations__org_id__billing_portal_post",
@@ -4950,9 +4830,7 @@
     },
     "/api/v1/users/me/notifications": {
       "get": {
-        "tags": [
-          "notifications"
-        ],
+        "tags": ["notifications"],
         "summary": "List Notifications",
         "description": "List notifications for the current user.",
         "operationId": "list_notifications_api_v1_users_me_notifications_get",
@@ -5044,9 +4922,7 @@
     },
     "/api/v1/users/me/notifications/unread-count": {
       "get": {
-        "tags": [
-          "notifications"
-        ],
+        "tags": ["notifications"],
         "summary": "Get Unread Count",
         "description": "Get the number of unread notifications.",
         "operationId": "get_unread_count_api_v1_users_me_notifications_unread_count_get",
@@ -5071,9 +4947,7 @@
     },
     "/api/v1/users/me/notifications/{notification_id}/read": {
       "patch": {
-        "tags": [
-          "notifications"
-        ],
+        "tags": ["notifications"],
         "summary": "Mark As Read",
         "description": "Mark a notification as read.",
         "operationId": "mark_as_read_api_v1_users_me_notifications__notification_id__read_patch",
@@ -5120,9 +4994,7 @@
     },
     "/api/v1/users/me/notifications/{notification_id}/unread": {
       "patch": {
-        "tags": [
-          "notifications"
-        ],
+        "tags": ["notifications"],
         "summary": "Mark As Unread",
         "description": "Mark a notification as unread.",
         "operationId": "mark_as_unread_api_v1_users_me_notifications__notification_id__unread_patch",
@@ -5169,9 +5041,7 @@
     },
     "/api/v1/users/me/notifications/mark-all-read": {
       "post": {
-        "tags": [
-          "notifications"
-        ],
+        "tags": ["notifications"],
         "summary": "Mark All Read",
         "description": "Mark all notifications as read for the current user.",
         "operationId": "mark_all_read_api_v1_users_me_notifications_mark_all_read_post",
@@ -5189,9 +5059,7 @@
     },
     "/api/v1/users/me/notifications/{notification_id}": {
       "delete": {
-        "tags": [
-          "notifications"
-        ],
+        "tags": ["notifications"],
         "summary": "Delete Notification",
         "description": "Delete a notification.",
         "operationId": "delete_notification_api_v1_users_me_notifications__notification_id__delete",
@@ -5231,9 +5099,7 @@
     },
     "/api/v1/users/me/threads": {
       "get": {
-        "tags": [
-          "messaging"
-        ],
+        "tags": ["messaging"],
         "summary": "List Threads",
         "description": "List message threads for the current user.",
         "operationId": "list_threads_api_v1_users_me_threads_get",
@@ -5291,9 +5157,7 @@
         }
       },
       "post": {
-        "tags": [
-          "messaging"
-        ],
+        "tags": ["messaging"],
         "summary": "Create Thread",
         "description": "Create a new message thread.",
         "operationId": "create_thread_api_v1_users_me_threads_post",
@@ -5338,9 +5202,7 @@
     },
     "/api/v1/users/me/threads/{thread_id}": {
       "get": {
-        "tags": [
-          "messaging"
-        ],
+        "tags": ["messaging"],
         "summary": "Get Thread",
         "description": "Get thread details.",
         "operationId": "get_thread_api_v1_users_me_threads__thread_id__get",
@@ -5387,9 +5249,7 @@
     },
     "/api/v1/users/me/threads/{thread_id}/messages": {
       "post": {
-        "tags": [
-          "messaging"
-        ],
+        "tags": ["messaging"],
         "summary": "Send Message",
         "description": "Send a message to a thread.",
         "operationId": "send_message_api_v1_users_me_threads__thread_id__messages_post",
@@ -5446,9 +5306,7 @@
     },
     "/api/v1/users/me/threads/{thread_id}/read": {
       "post": {
-        "tags": [
-          "messaging"
-        ],
+        "tags": ["messaging"],
         "summary": "Mark Read",
         "description": "Mark thread as read.",
         "operationId": "mark_read_api_v1_users_me_threads__thread_id__read_post",
@@ -5488,9 +5346,7 @@
     },
     "/api/v1/organizations/{org_id}/calls/": {
       "get": {
-        "tags": [
-          "calls"
-        ],
+        "tags": ["calls"],
         "summary": "List Calls",
         "operationId": "list_calls_api_v1_organizations__org_id__calls__get",
         "security": [
@@ -5633,9 +5489,7 @@
         }
       },
       "post": {
-        "tags": [
-          "calls"
-        ],
+        "tags": ["calls"],
         "summary": "Create Call",
         "description": "Log a new call. Automatically sets status to IN_PROGRESS and started_at to now.",
         "operationId": "create_call_api_v1_organizations__org_id__calls__post",
@@ -5692,9 +5546,7 @@
     },
     "/api/v1/organizations/{org_id}/calls/{call_id}": {
       "patch": {
-        "tags": [
-          "calls"
-        ],
+        "tags": ["calls"],
         "summary": "Update Call",
         "operationId": "update_call_api_v1_organizations__org_id__calls__call_id__patch",
         "security": [
@@ -5760,9 +5612,7 @@
     },
     "/api/v1/organizations/{org_id}/tasks/": {
       "get": {
-        "tags": [
-          "tasks"
-        ],
+        "tags": ["tasks"],
         "summary": "List Org Tasks",
         "operationId": "list_org_tasks_api_v1_organizations__org_id__tasks__get",
         "security": [
@@ -5885,9 +5735,7 @@
         }
       },
       "post": {
-        "tags": [
-          "tasks"
-        ],
+        "tags": ["tasks"],
         "summary": "Create Task",
         "operationId": "create_task_api_v1_organizations__org_id__tasks__post",
         "security": [
@@ -5943,9 +5791,7 @@
     },
     "/api/v1/organizations/{org_id}/tasks/{task_id}": {
       "patch": {
-        "tags": [
-          "tasks"
-        ],
+        "tags": ["tasks"],
         "summary": "Update Task",
         "operationId": "update_task_api_v1_organizations__org_id__tasks__task_id__patch",
         "security": [
@@ -6009,9 +5855,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "tasks"
-        ],
+        "tags": ["tasks"],
         "summary": "Delete Task",
         "operationId": "delete_task_api_v1_organizations__org_id__tasks__task_id__delete",
         "security": [
@@ -6060,9 +5904,7 @@
     },
     "/api/v1/users/tasks/me/all": {
       "get": {
-        "tags": [
-          "tasks"
-        ],
+        "tags": ["tasks"],
         "summary": "List My Tasks",
         "description": "Get all tasks assigned to current user across all organizations",
         "operationId": "list_my_tasks_api_v1_users_tasks_me_all_get",
@@ -6139,9 +5981,7 @@
     },
     "/api/v1/support/tickets": {
       "get": {
-        "tags": [
-          "support"
-        ],
+        "tags": ["support"],
         "summary": "Get My Tickets",
         "description": "List user's support tickets.",
         "operationId": "get_my_tickets_api_v1_support_tickets_get",
@@ -6168,9 +6008,7 @@
         ]
       },
       "post": {
-        "tags": [
-          "support"
-        ],
+        "tags": ["support"],
         "summary": "Create Ticket",
         "description": "Create a new support ticket with an initial message.",
         "operationId": "create_ticket_api_v1_support_tickets_post",
@@ -6215,9 +6053,7 @@
     },
     "/api/v1/support/tickets/{ticket_id}": {
       "get": {
-        "tags": [
-          "support"
-        ],
+        "tags": ["support"],
         "summary": "Get Ticket",
         "description": "Get a specific ticket with messages.",
         "operationId": "get_ticket_api_v1_support_tickets__ticket_id__get",
@@ -6264,9 +6100,7 @@
     },
     "/api/v1/support/tickets/{ticket_id}/messages": {
       "post": {
-        "tags": [
-          "support"
-        ],
+        "tags": ["support"],
         "summary": "Add Message",
         "description": "Add a message to a ticket.",
         "operationId": "add_message_api_v1_support_tickets__ticket_id__messages_post",
@@ -6323,9 +6157,7 @@
     },
     "/api/v1/support/admin/tickets": {
       "get": {
-        "tags": [
-          "support"
-        ],
+        "tags": ["support"],
         "summary": "Get All Tickets",
         "description": "Admin: List all tickets with optional filtering.",
         "operationId": "get_all_tickets_api_v1_support_admin_tickets_get",
@@ -6392,9 +6224,7 @@
     },
     "/api/v1/support/admin/tickets/{ticket_id}": {
       "patch": {
-        "tags": [
-          "support"
-        ],
+        "tags": ["support"],
         "summary": "Update Ticket Status",
         "description": "Admin: Update ticket status, priority, or assignment.",
         "operationId": "update_ticket_status_api_v1_support_admin_tickets__ticket_id__patch",
@@ -6451,9 +6281,7 @@
     },
     "/api/v1/support/admin/tickets/{ticket_id}/assign": {
       "patch": {
-        "tags": [
-          "support"
-        ],
+        "tags": ["support"],
         "summary": "Assign Ticket",
         "description": "Admin: Assign ticket to a user (staff).",
         "operationId": "assign_ticket_api_v1_support_admin_tickets__ticket_id__assign_patch",
@@ -6596,11 +6424,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "scheduled_at",
-          "patient_id",
-          "provider_id"
-        ],
+        "required": ["scheduled_at", "patient_id", "provider_id"],
         "title": "AppointmentCreate"
       },
       "AppointmentRead": {
@@ -6768,9 +6592,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "status"
-        ],
+        "required": ["status"],
         "title": "AppointmentStatusUpdate"
       },
       "AppointmentUpdate": {
@@ -6860,12 +6682,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "items",
-          "total",
-          "page",
-          "page_size"
-        ],
+        "required": ["items", "total", "page", "page_size"],
         "title": "AuditLogListResponse"
       },
       "AuditLogRead": {
@@ -7033,10 +6850,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "direction",
-          "phone_number"
-        ],
+        "required": ["direction", "phone_number"],
         "title": "CallCreate"
       },
       "CallRead": {
@@ -7262,9 +7076,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "provider_id"
-        ],
+        "required": ["provider_id"],
         "title": "CareTeamAssignmentCreate",
         "description": "Create a care team assignment for a patient."
       },
@@ -7348,10 +7160,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "patient_id",
-          "members"
-        ],
+        "required": ["patient_id", "members"],
         "title": "CareTeamList",
         "description": "Full care team response with all members."
       },
@@ -7411,12 +7220,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "assignment_id",
-          "provider_id",
-          "role",
-          "assigned_at"
-        ],
+        "required": ["assignment_id", "provider_id", "role", "assigned_at"],
         "title": "CareTeamMember",
         "description": "Compact care team member for list views."
       },
@@ -7478,10 +7282,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "user_id"
-        ],
+        "required": ["id", "user_id"],
         "title": "CareTeamProviderInfo",
         "description": "Embedded provider information for care team responses."
       },
@@ -7493,9 +7294,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "price_id"
-        ],
+        "required": ["price_id"],
         "title": "CheckoutSessionRequest",
         "description": "Request to create a Stripe checkout session."
       },
@@ -7511,10 +7310,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "session_id",
-          "checkout_url"
-        ],
+        "required": ["session_id", "checkout_url"],
         "title": "CheckoutSessionResponse",
         "description": "Response from creating a checkout session."
       },
@@ -7580,9 +7376,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "document_id"
-        ],
+        "required": ["document_id"],
         "title": "ConsentSignRequest"
       },
       "ContactMethodCreate": {
@@ -7621,10 +7415,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "type",
-          "value"
-        ],
+        "required": ["type", "value"],
         "title": "ContactMethodCreate",
         "description": "Create a contact method for a patient."
       },
@@ -7759,9 +7550,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "token"
-        ],
+        "required": ["token"],
         "title": "DeviceTokenDeleteRequest",
         "description": "Request to delete a device token."
       },
@@ -7792,10 +7581,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "token",
-          "platform"
-        ],
+        "required": ["token", "platform"],
         "title": "DeviceTokenRequest",
         "description": "Request to register a device token."
       },
@@ -7829,10 +7615,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "document_id",
-          "download_url"
-        ],
+        "required": ["document_id", "download_url"],
         "title": "DocumentDownloadResponse",
         "description": "Response with presigned download URL."
       },
@@ -8049,10 +7832,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "file_name",
-          "file_size"
-        ],
+        "required": ["file_name", "file_size"],
         "title": "DocumentUploadRequest",
         "description": "Request to get a presigned upload URL."
       },
@@ -8078,12 +7858,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "document_id",
-          "upload_url",
-          "upload_fields",
-          "s3_key"
-        ],
+        "required": ["document_id", "upload_url", "upload_fields", "s3_key"],
         "title": "DocumentUploadResponse",
         "description": "Response with presigned upload URL."
       },
@@ -8108,9 +7883,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "reason"
-        ],
+        "required": ["reason"],
         "title": "ImpersonationRequest"
       },
       "InvitationCreate": {
@@ -8126,10 +7899,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "email",
-          "role"
-        ],
+        "required": ["email", "role"],
         "title": "InvitationCreate"
       },
       "InvitationRead": {
@@ -8212,9 +7982,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "password"
-        ],
+        "required": ["password"],
         "title": "MFADisableRequest",
         "description": "Request to disable MFA."
       },
@@ -8237,9 +8005,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "disabled_at"
-        ],
+        "required": ["disabled_at"],
         "title": "MFADisableResponse",
         "description": "Response after disabling MFA."
       },
@@ -8271,11 +8037,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "secret",
-          "provisioning_uri",
-          "expires_at"
-        ],
+        "required": ["secret", "provisioning_uri", "expires_at"],
         "title": "MFASetupResponse",
         "description": "Response for MFA setup initialization."
       },
@@ -8290,9 +8052,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "code"
-        ],
+        "required": ["code"],
         "title": "MFAVerifyRequest",
         "description": "Request to verify MFA code and enable MFA."
       },
@@ -8322,10 +8082,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "backup_codes",
-          "enabled_at"
-        ],
+        "required": ["backup_codes", "enabled_at"],
         "title": "MFAVerifyResponse",
         "description": "Response after MFA verification."
       },
@@ -8379,13 +8136,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "user_id",
-          "organization_id",
-          "role",
-          "created_at"
-        ],
+        "required": ["id", "user_id", "organization_id", "role", "created_at"],
         "title": "MemberRead"
       },
       "MessageCreate": {
@@ -8396,9 +8147,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "body"
-        ],
+        "required": ["body"],
         "title": "MessageCreate"
       },
       "MessageRead": {
@@ -8447,13 +8196,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "body",
-          "id",
-          "thread_id",
-          "sender_id",
-          "created_at"
-        ],
+        "required": ["body", "id", "thread_id", "sender_id", "created_at"],
         "title": "MessageRead"
       },
       "NotificationListResponse": {
@@ -8483,13 +8226,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "items",
-          "total",
-          "unread_count",
-          "page",
-          "size"
-        ],
+        "required": ["items", "total", "unread_count", "page", "size"],
         "title": "NotificationListResponse"
       },
       "NotificationRead": {
@@ -8553,13 +8290,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "type",
-          "title",
-          "is_read",
-          "created_at"
-        ],
+        "required": ["id", "type", "title", "is_read", "created_at"],
         "title": "NotificationRead"
       },
       "OrganizationAdminRead": {
@@ -8620,9 +8351,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "name"
-        ],
+        "required": ["name"],
         "title": "OrganizationCreate"
       },
       "OrganizationListResponse": {
@@ -8648,12 +8377,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "items",
-          "total",
-          "page",
-          "page_size"
-        ],
+        "required": ["items", "total", "page", "page_size"],
         "title": "OrganizationListResponse"
       },
       "OrganizationRead": {
@@ -8794,12 +8518,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "items",
-          "total",
-          "limit",
-          "offset"
-        ],
+        "required": ["items", "total", "limit", "offset"],
         "title": "PaginatedDocuments",
         "description": "Paginated list of documents."
       },
@@ -8826,12 +8545,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "items",
-          "total",
-          "limit",
-          "offset"
-        ],
+        "required": ["items", "total", "limit", "offset"],
         "title": "PaginatedPatients",
         "description": "Paginated patient list response."
       },
@@ -8858,12 +8572,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "items",
-          "total",
-          "limit",
-          "offset"
-        ],
+        "required": ["items", "total", "limit", "offset"],
         "title": "PaginatedProviders",
         "description": "Paginated provider list response."
       },
@@ -8890,12 +8599,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "items",
-          "total",
-          "limit",
-          "offset"
-        ],
+        "required": ["items", "total", "limit", "offset"],
         "title": "PaginatedStaff",
         "description": "Paginated staff list response."
       },
@@ -8936,11 +8640,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "user_id",
-          "joined_at",
-          "last_read_at"
-        ],
+        "required": ["user_id", "joined_at", "last_read_at"],
         "title": "ParticipantRead"
       },
       "PatientCreate": {
@@ -9001,11 +8701,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "first_name",
-          "last_name",
-          "dob"
-        ],
+        "required": ["first_name", "last_name", "dob"],
         "title": "PatientCreate",
         "description": "Create a patient. Will be enrolled in the organization."
       },
@@ -9261,9 +8957,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "portal_url"
-        ],
+        "required": ["portal_url"],
         "title": "PortalSessionResponse",
         "description": "Response from creating a billing portal session."
       },
@@ -9338,9 +9032,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "user_id"
-        ],
+        "required": ["user_id"],
         "title": "ProviderCreate",
         "description": "Create a provider profile for a user."
       },
@@ -9406,13 +9098,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "user_id",
-          "npi_number",
-          "specialty",
-          "is_active"
-        ],
+        "required": ["id", "user_id", "npi_number", "specialty", "is_active"],
         "title": "ProviderListItem",
         "description": "Compact provider for list views."
       },
@@ -9657,10 +9343,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "email",
-          "relationship_type"
-        ],
+        "required": ["email", "relationship_type"],
         "title": "ProxyAssignmentCreate",
         "description": "Create a new proxy assignment."
       },
@@ -9805,10 +9488,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "patient_id",
-          "proxies"
-        ],
+        "required": ["patient_id", "proxies"],
         "title": "ProxyListResponse",
         "description": "List of proxies for a patient."
       },
@@ -9844,12 +9524,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "first_name",
-          "last_name",
-          "dob"
-        ],
+        "required": ["id", "first_name", "last_name", "dob"],
         "title": "ProxyPatientInfo",
         "description": "Patient info for proxy dashboard."
       },
@@ -9960,11 +9635,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "user_id",
-          "created_at"
-        ],
+        "required": ["id", "user_id", "created_at"],
         "title": "ProxyProfileRead",
         "description": "Proxy profile for the current user."
       },
@@ -9992,10 +9663,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "email"
-        ],
+        "required": ["id", "email"],
         "title": "ProxyUserInfo",
         "description": "Embedded user information for proxy responses."
       },
@@ -10024,10 +9692,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "items",
-          "total"
-        ],
+        "required": ["items", "total"],
         "title": "SessionListResponse",
         "description": "Paginated list of sessions."
       },
@@ -10081,12 +9746,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "device",
-          "created_at",
-          "last_active_at"
-        ],
+        "required": ["id", "device", "created_at", "last_active_at"],
         "title": "SessionRead",
         "description": "Session information response."
       },
@@ -10104,9 +9764,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "terminated_at"
-        ],
+        "required": ["terminated_at"],
         "title": "SessionRevokeResponse",
         "description": "Response after revoking a session."
       },
@@ -10156,9 +9814,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "user_id"
-        ],
+        "required": ["user_id"],
         "title": "StaffCreate",
         "description": "Create a staff profile for a user."
       },
@@ -10224,13 +9880,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "user_id",
-          "job_title",
-          "department",
-          "is_active"
-        ],
+        "required": ["id", "user_id", "job_title", "department", "is_active"],
         "title": "StaffListItem",
         "description": "Compact staff for list views."
       },
@@ -10425,9 +10075,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "status"
-        ],
+        "required": ["status"],
         "title": "SubscriptionStatusResponse",
         "description": "Current subscription status for an organization."
       },
@@ -10444,9 +10092,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "body"
-        ],
+        "required": ["body"],
         "title": "SupportMessageCreate"
       },
       "SupportMessageRead": {
@@ -10512,12 +10158,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "db_status",
-          "redis_status",
-          "worker_status",
-          "metrics"
-        ],
+        "required": ["db_status", "redis_status", "worker_status", "metrics"],
         "title": "SystemHealth"
       },
       "TaskCreate": {
@@ -10573,11 +10214,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "title",
-          "priority",
-          "assignee_id"
-        ],
+        "required": ["title", "priority", "assignee_id"],
         "title": "TaskCreate"
       },
       "TaskRead": {
@@ -10806,9 +10443,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "event_name"
-        ],
+        "required": ["event_name"],
         "title": "TelemetryEvent",
         "description": "Telemetry event payload from the frontend."
       },
@@ -10984,12 +10619,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "items",
-          "total",
-          "page",
-          "size"
-        ],
+        "required": ["items", "total", "page", "size"],
         "title": "ThreadListResponse"
       },
       "ThreadRead": {
@@ -11087,12 +10717,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "subject",
-          "category",
-          "priority",
-          "initial_message"
-        ],
+        "required": ["subject", "category", "priority", "initial_message"],
         "title": "TicketCreate"
       },
       "TicketRead": {
@@ -11254,10 +10879,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "timezone",
-          "source"
-        ],
+        "required": ["timezone", "source"],
         "title": "TimezoneResponse",
         "description": "Response for timezone endpoint."
       },
@@ -11269,9 +10891,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "timezone"
-        ],
+        "required": ["timezone"],
         "title": "TimezoneUpdateRequest",
         "description": "Request to update user timezone."
       },
@@ -11283,9 +10903,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "count"
-        ],
+        "required": ["count"],
         "title": "UnreadCountResponse"
       },
       "UserAdminRead": {
@@ -11398,9 +11016,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "password"
-        ],
+        "required": ["password"],
         "title": "UserDeleteRequest",
         "description": "Request body for account deletion."
       },
@@ -11418,9 +11034,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "deleted_at"
-        ],
+        "required": ["deleted_at"],
         "title": "UserDeleteResponse",
         "description": "Response after account deletion."
       },
@@ -11461,10 +11075,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "export_id",
-          "estimated_completion"
-        ],
+        "required": ["export_id", "estimated_completion"],
         "title": "UserExportResponse",
         "description": "Response after requesting data export."
       },
@@ -11491,12 +11102,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "items",
-          "total",
-          "page",
-          "page_size"
-        ],
+        "required": ["items", "total", "page", "page_size"],
         "title": "UserListResponse"
       },
       "UserRead": {
@@ -11575,12 +11181,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "id",
-          "email",
-          "created_at",
-          "updated_at"
-        ],
+        "required": ["id", "email", "created_at", "updated_at"],
         "title": "UserRead",
         "description": "Full user profile response."
       },
@@ -11641,11 +11242,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
+        "required": ["loc", "msg", "type"],
         "title": "ValidationError"
       },
       "src__schemas__organizations__OrganizationCreate": {
@@ -11680,9 +11277,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "name"
-        ],
+        "required": ["name"],
         "title": "OrganizationCreate"
       },
       "src__schemas__organizations__OrganizationUpdate": {

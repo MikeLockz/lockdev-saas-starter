@@ -1,4 +1,4 @@
-import type { User } from "firebase/auth";
+import type { IdTokenResult, User } from "firebase/auth";
 import {
   signOut as firebaseSignOut,
   GoogleAuthProvider,
@@ -34,7 +34,7 @@ export function useAuth() {
         delete: async () => {},
         getIdToken: async () => `mock_${parsed.email}`,
         getIdTokenResult: async () =>
-          ({ token: `mock_${parsed.email}` }) as any,
+          ({ token: `mock_${parsed.email}` }) as unknown as IdTokenResult,
         reload: async () => {},
         toJSON: () => ({}),
         phoneNumber: null,

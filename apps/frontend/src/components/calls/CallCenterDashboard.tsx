@@ -45,6 +45,15 @@ import {
 import { type PatientListItem, usePatients } from "@/hooks/api/usePatients";
 import { formatDateTime } from "@/lib/timezone";
 
+interface CallFormData {
+  direction: "INBOUND" | "OUTBOUND";
+  phone_number: string;
+  patient_id?: string;
+  notes?: string;
+  outcome?: string;
+  status: "QUEUED" | "IN_PROGRESS" | "COMPLETED" | "MISSED";
+}
+
 export function CallLogForm({
   activeCall,
   onClose,
@@ -62,7 +71,7 @@ export function CallLogForm({
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm({
+  } = useForm<CallFormData>({
     defaultValues: {
       direction: activeCall?.direction || "OUTBOUND",
       phone_number: activeCall?.phone_number || "",
@@ -73,7 +82,7 @@ export function CallLogForm({
     },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: CallFormData) => {
     if (activeCall) {
       updateCall.mutate(
         {

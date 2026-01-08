@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { isNotFoundError } from "@/lib/api-error";
 import { api } from "@/lib/axios";
 
 export interface ProxyProfile {
@@ -19,9 +20,9 @@ export function useCurrentUserProxy() {
       try {
         const response = await api.get("/api/v1/users/me/proxy");
         return response.data;
-      } catch (error: any) {
+      } catch (error) {
         // 404 means no proxy profile, return null
-        if (error.response?.status === 404) {
+        if (isNotFoundError(error)) {
           return null;
         }
         throw error;
