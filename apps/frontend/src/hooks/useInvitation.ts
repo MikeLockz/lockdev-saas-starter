@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import type { components } from "@/lib/api-types";
 import { api } from "@/lib/axios";
-
-type InvitationRead = components["schemas"]["InvitationRead"];
+import type { Invitation } from "@/lib/models";
 
 export const useInvitation = (token: string) => {
-  return useQuery<InvitationRead>({
+  return useQuery<Invitation>({
     queryKey: ["invitation", token],
     queryFn: async () => {
       const response = await api.get(`/api/v1/invitations/${token}`);

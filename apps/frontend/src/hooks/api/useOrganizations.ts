@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import type { components } from "@/lib/api-types";
 import { api } from "@/lib/axios";
-
-type OrganizationRead = components["schemas"]["OrganizationRead"];
+import type { Organization } from "@/lib/models";
 
 export const useOrganizations = () => {
-  return useQuery<OrganizationRead[]>({
+  return useQuery<Organization[]>({
     queryKey: ["organizations"],
     queryFn: async () => {
       const response = await api.get("/api/v1/organizations/");

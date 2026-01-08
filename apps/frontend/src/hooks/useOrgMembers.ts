@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import type { components } from "@/lib/api-types";
 import { api } from "@/lib/axios";
+import type { Member } from "@/lib/models";
 import { useAuth } from "./useAuth";
 
-export type Member = components["schemas"]["MemberRead"];
+export type { Member };
 
 export function useOrgMembers(orgId: string | null) {
   const { user } = useAuth();

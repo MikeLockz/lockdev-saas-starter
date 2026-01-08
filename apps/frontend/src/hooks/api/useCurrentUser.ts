@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import type { components } from "@/lib/api-types";
 import { api } from "@/lib/axios";
-
-type UserRead = components["schemas"]["UserRead"];
+import type { User } from "@/lib/models";
 
 export const useCurrentUser = () => {
-  return useQuery<UserRead>({
+  return useQuery<User>({
     queryKey: ["currentUser"],
     queryFn: async () => {
       const response = await api.get("/api/v1/users/me");
