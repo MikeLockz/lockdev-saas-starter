@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { RoleGuard } from "@/components/auth/RoleGuard";
 import { ProviderForm } from "@/components/providers/ProviderForm";
 import { ProviderTable } from "@/components/providers/ProviderTable";
 import type { ProviderListItem } from "@/hooks/useProviders";
@@ -24,21 +25,23 @@ function ProvidersPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h3 className="text-lg font-medium">Providers</h3>
-        <p className="text-sm text-muted-foreground">
-          Manage healthcare providers and their credentials.
-        </p>
+    <RoleGuard allowedRoles={["admin", "super_admin"]}>
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-lg font-medium">Providers</h3>
+          <p className="text-sm text-muted-foreground">
+            Manage healthcare providers and their credentials.
+          </p>
+        </div>
+
+        <ProviderTable onCreate={handleCreate} onEdit={handleEdit} />
+
+        <ProviderForm
+          open={isFormOpen}
+          onOpenChange={setIsFormOpen}
+          provider={selectedProvider}
+        />
       </div>
-
-      <ProviderTable onCreate={handleCreate} onEdit={handleEdit} />
-
-      <ProviderForm
-        open={isFormOpen}
-        onOpenChange={setIsFormOpen}
-        provider={selectedProvider}
-      />
-    </div>
+    </RoleGuard>
   );
 }

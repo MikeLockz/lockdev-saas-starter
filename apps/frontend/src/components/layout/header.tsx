@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { NotificationBell } from "@/components/notifications/NotificationBell";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { cn } from "@/lib/utils";
@@ -37,7 +38,8 @@ export function Header({ className, fixed, children, ...props }: HeaderProps) {
       >
         <SidebarTrigger variant="outline" className="scale-125 md:scale-100" />
         <Separator orientation="vertical" className="h-6" />
-        {children}
+        <div className="flex-1 min-w-0 flex items-center">{children}</div>
+        <NotificationBell />
       </div>
     </header>
   );

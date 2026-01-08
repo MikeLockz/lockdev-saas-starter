@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { RoleGuard } from "@/components/auth/RoleGuard";
 import { Header } from "@/components/layout/header";
 import { Main } from "@/components/layout/main";
 import { TenantList } from "../../../components/super-admin/TenantList";
@@ -10,7 +11,7 @@ export const Route = createFileRoute("/_auth/super-admin/organizations")({
 
 function OrganizationsPage() {
   return (
-    <>
+    <RoleGuard allowedRoles={["super_admin"]}>
       <Header fixed>
         <div className="flex items-center justify-between w-full">
           <h1 className="text-lg font-semibold">Organizations</h1>
@@ -24,6 +25,6 @@ function OrganizationsPage() {
       <Main>
         <TenantList />
       </Main>
-    </>
+    </RoleGuard>
   );
 }
