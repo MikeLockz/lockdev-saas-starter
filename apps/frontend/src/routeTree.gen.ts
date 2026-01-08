@@ -16,6 +16,8 @@ import { Route as ConsentRouteImport } from './routes/consent'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as R403RouteImport } from './routes/403'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LegalTermsRouteImport } from './routes/legal/terms'
+import { Route as LegalPrivacyRouteImport } from './routes/legal/privacy'
 import { Route as InviteTokenRouteImport } from './routes/invite.$token'
 import { Route as AuthSettingsRouteImport } from './routes/_auth/settings'
 import { Route as AuthNotificationsRouteImport } from './routes/_auth/notifications'
@@ -28,7 +30,9 @@ import { Route as AuthMessagesIndexRouteImport } from './routes/_auth/messages/i
 import { Route as AuthHelpIndexRouteImport } from './routes/_auth/help/index'
 import { Route as AuthCallCenterIndexRouteImport } from './routes/_auth/call-center/index'
 import { Route as AuthAppointmentsIndexRouteImport } from './routes/_auth/appointments/index'
+import { Route as AuthAdminIndexRouteImport } from './routes/_auth/admin/index'
 import { Route as AuthSuperAdminUsersRouteImport } from './routes/_auth/super-admin/users'
+import { Route as AuthSuperAdminSystemRouteImport } from './routes/_auth/super-admin/system'
 import { Route as AuthSuperAdminOrganizationsRouteImport } from './routes/_auth/super-admin/organizations'
 import { Route as AuthProxyPatientsRouteImport } from './routes/_auth/proxy/patients'
 import { Route as AuthPatientsNewRouteImport } from './routes/_auth/patients/new'
@@ -74,6 +78,16 @@ const R403Route = R403RouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalTermsRoute = LegalTermsRouteImport.update({
+  id: '/legal/terms',
+  path: '/legal/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPrivacyRoute = LegalPrivacyRouteImport.update({
+  id: '/legal/privacy',
+  path: '/legal/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InviteTokenRoute = InviteTokenRouteImport.update({
@@ -136,9 +150,19 @@ const AuthAppointmentsIndexRoute = AuthAppointmentsIndexRouteImport.update({
   path: '/appointments/',
   getParentRoute: () => AuthRoute,
 } as any)
+const AuthAdminIndexRoute = AuthAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthRoute,
+} as any)
 const AuthSuperAdminUsersRoute = AuthSuperAdminUsersRouteImport.update({
   id: '/super-admin/users',
   path: '/super-admin/users',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthSuperAdminSystemRoute = AuthSuperAdminSystemRouteImport.update({
+  id: '/super-admin/system',
+  path: '/super-admin/system',
   getParentRoute: () => AuthRoute,
 } as any)
 const AuthSuperAdminOrganizationsRoute =
@@ -215,6 +239,8 @@ export interface FileRoutesByFullPath {
   '/notifications': typeof AuthNotificationsRoute
   '/settings': typeof AuthSettingsRoute
   '/invite/$token': typeof InviteTokenRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/admin/audit-logs': typeof AuthAdminAuditLogsRoute
   '/admin/billing': typeof AuthAdminBillingRoute
   '/admin/members': typeof AuthAdminMembersRoute
@@ -227,7 +253,9 @@ export interface FileRoutesByFullPath {
   '/patients/new': typeof AuthPatientsNewRoute
   '/proxy/patients': typeof AuthProxyPatientsRoute
   '/super-admin/organizations': typeof AuthSuperAdminOrganizationsRoute
+  '/super-admin/system': typeof AuthSuperAdminSystemRoute
   '/super-admin/users': typeof AuthSuperAdminUsersRoute
+  '/admin': typeof AuthAdminIndexRoute
   '/appointments': typeof AuthAppointmentsIndexRoute
   '/call-center': typeof AuthCallCenterIndexRoute
   '/help': typeof AuthHelpIndexRoute
@@ -247,6 +275,8 @@ export interface FileRoutesByTo {
   '/notifications': typeof AuthNotificationsRoute
   '/settings': typeof AuthSettingsRoute
   '/invite/$token': typeof InviteTokenRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/admin/audit-logs': typeof AuthAdminAuditLogsRoute
   '/admin/billing': typeof AuthAdminBillingRoute
   '/admin/members': typeof AuthAdminMembersRoute
@@ -259,7 +289,9 @@ export interface FileRoutesByTo {
   '/patients/new': typeof AuthPatientsNewRoute
   '/proxy/patients': typeof AuthProxyPatientsRoute
   '/super-admin/organizations': typeof AuthSuperAdminOrganizationsRoute
+  '/super-admin/system': typeof AuthSuperAdminSystemRoute
   '/super-admin/users': typeof AuthSuperAdminUsersRoute
+  '/admin': typeof AuthAdminIndexRoute
   '/appointments': typeof AuthAppointmentsIndexRoute
   '/call-center': typeof AuthCallCenterIndexRoute
   '/help': typeof AuthHelpIndexRoute
@@ -282,6 +314,8 @@ export interface FileRoutesById {
   '/_auth/notifications': typeof AuthNotificationsRoute
   '/_auth/settings': typeof AuthSettingsRoute
   '/invite/$token': typeof InviteTokenRoute
+  '/legal/privacy': typeof LegalPrivacyRoute
+  '/legal/terms': typeof LegalTermsRoute
   '/_auth/admin/audit-logs': typeof AuthAdminAuditLogsRoute
   '/_auth/admin/billing': typeof AuthAdminBillingRoute
   '/_auth/admin/members': typeof AuthAdminMembersRoute
@@ -294,7 +328,9 @@ export interface FileRoutesById {
   '/_auth/patients/new': typeof AuthPatientsNewRoute
   '/_auth/proxy/patients': typeof AuthProxyPatientsRoute
   '/_auth/super-admin/organizations': typeof AuthSuperAdminOrganizationsRoute
+  '/_auth/super-admin/system': typeof AuthSuperAdminSystemRoute
   '/_auth/super-admin/users': typeof AuthSuperAdminUsersRoute
+  '/_auth/admin/': typeof AuthAdminIndexRoute
   '/_auth/appointments/': typeof AuthAppointmentsIndexRoute
   '/_auth/call-center/': typeof AuthCallCenterIndexRoute
   '/_auth/help/': typeof AuthHelpIndexRoute
@@ -317,6 +353,8 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/settings'
     | '/invite/$token'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/admin/audit-logs'
     | '/admin/billing'
     | '/admin/members'
@@ -329,7 +367,9 @@ export interface FileRouteTypes {
     | '/patients/new'
     | '/proxy/patients'
     | '/super-admin/organizations'
+    | '/super-admin/system'
     | '/super-admin/users'
+    | '/admin'
     | '/appointments'
     | '/call-center'
     | '/help'
@@ -349,6 +389,8 @@ export interface FileRouteTypes {
     | '/notifications'
     | '/settings'
     | '/invite/$token'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/admin/audit-logs'
     | '/admin/billing'
     | '/admin/members'
@@ -361,7 +403,9 @@ export interface FileRouteTypes {
     | '/patients/new'
     | '/proxy/patients'
     | '/super-admin/organizations'
+    | '/super-admin/system'
     | '/super-admin/users'
+    | '/admin'
     | '/appointments'
     | '/call-center'
     | '/help'
@@ -383,6 +427,8 @@ export interface FileRouteTypes {
     | '/_auth/notifications'
     | '/_auth/settings'
     | '/invite/$token'
+    | '/legal/privacy'
+    | '/legal/terms'
     | '/_auth/admin/audit-logs'
     | '/_auth/admin/billing'
     | '/_auth/admin/members'
@@ -395,7 +441,9 @@ export interface FileRouteTypes {
     | '/_auth/patients/new'
     | '/_auth/proxy/patients'
     | '/_auth/super-admin/organizations'
+    | '/_auth/super-admin/system'
     | '/_auth/super-admin/users'
+    | '/_auth/admin/'
     | '/_auth/appointments/'
     | '/_auth/call-center/'
     | '/_auth/help/'
@@ -414,6 +462,8 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
   InviteTokenRoute: typeof InviteTokenRoute
+  LegalPrivacyRoute: typeof LegalPrivacyRoute
+  LegalTermsRoute: typeof LegalTermsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -465,6 +515,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/terms': {
+      id: '/legal/terms'
+      path: '/legal/terms'
+      fullPath: '/legal/terms'
+      preLoaderRoute: typeof LegalTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/privacy': {
+      id: '/legal/privacy'
+      path: '/legal/privacy'
+      fullPath: '/legal/privacy'
+      preLoaderRoute: typeof LegalPrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/invite/$token': {
@@ -551,11 +615,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAppointmentsIndexRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_auth/admin/': {
+      id: '/_auth/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthAdminIndexRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/_auth/super-admin/users': {
       id: '/_auth/super-admin/users'
       path: '/super-admin/users'
       fullPath: '/super-admin/users'
       preLoaderRoute: typeof AuthSuperAdminUsersRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/super-admin/system': {
+      id: '/_auth/super-admin/system'
+      path: '/super-admin/system'
+      fullPath: '/super-admin/system'
+      preLoaderRoute: typeof AuthSuperAdminSystemRouteImport
       parentRoute: typeof AuthRoute
     }
     '/_auth/super-admin/organizations': {
@@ -675,7 +753,9 @@ interface AuthRouteChildren {
   AuthPatientsNewRoute: typeof AuthPatientsNewRoute
   AuthProxyPatientsRoute: typeof AuthProxyPatientsRoute
   AuthSuperAdminOrganizationsRoute: typeof AuthSuperAdminOrganizationsRoute
+  AuthSuperAdminSystemRoute: typeof AuthSuperAdminSystemRoute
   AuthSuperAdminUsersRoute: typeof AuthSuperAdminUsersRoute
+  AuthAdminIndexRoute: typeof AuthAdminIndexRoute
   AuthAppointmentsIndexRoute: typeof AuthAppointmentsIndexRoute
   AuthCallCenterIndexRoute: typeof AuthCallCenterIndexRoute
   AuthHelpIndexRoute: typeof AuthHelpIndexRoute
@@ -700,7 +780,9 @@ const AuthRouteChildren: AuthRouteChildren = {
   AuthPatientsNewRoute: AuthPatientsNewRoute,
   AuthProxyPatientsRoute: AuthProxyPatientsRoute,
   AuthSuperAdminOrganizationsRoute: AuthSuperAdminOrganizationsRoute,
+  AuthSuperAdminSystemRoute: AuthSuperAdminSystemRoute,
   AuthSuperAdminUsersRoute: AuthSuperAdminUsersRoute,
+  AuthAdminIndexRoute: AuthAdminIndexRoute,
   AuthAppointmentsIndexRoute: AuthAppointmentsIndexRoute,
   AuthCallCenterIndexRoute: AuthCallCenterIndexRoute,
   AuthHelpIndexRoute: AuthHelpIndexRoute,
@@ -720,6 +802,8 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
   InviteTokenRoute: InviteTokenRoute,
+  LegalPrivacyRoute: LegalPrivacyRoute,
+  LegalTermsRoute: LegalTermsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, Plus, Trash2 } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Header } from "@/components/layout/header";
@@ -22,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { type PatientCreate, useCreatePatient } from "@/hooks/api/usePatients";
+import { useProviders } from "@/hooks/useProviders";
 
 export const Route = createFileRoute("/_auth/patients/new")({
   component: NewPatientPage,
@@ -33,11 +35,25 @@ interface PatientFormData {
   dob: string;
   legal_sex: string;
   medical_record_number: string;
+  provider_id: string;
+}
+
+interface ContactMethod {
+  id: string;
+  type: "phone" | "email";
+  value: string;
 }
 
 function NewPatientPage() {
   const navigate = useNavigate();
   const createPatientMutation = useCreatePatient();
+  const { data: providers, isLoading: isProvidersLoading } = useProviders();
+
+  const [contacts, setContacts] = useState<ContactMethod[]>([]);
+  const [newContactType, setNewContactType] = useState<"phone" | "email">(
+    "phone",
+  );
+  const [newContactValue, setNewContactValue] = useState("");
 
   const {
     register,
@@ -52,8 +68,26 @@ function NewPatientPage() {
       dob: "",
       legal_sex: "",
       medical_record_number: "",
+      provider_id: "",
     },
   });
+
+  const addContact = () => {
+    if (!newContactValue.trim()) return;
+    setContacts([
+      ...contacts,
+      {
+        id: crypto.randomUUID(),
+        type: newContactType,
+        value: newContactValue.trim(),
+      },
+    ]);
+    setNewContactValue("");
+  };
+
+  const removeContact = (id: string) => {
+    setContacts(contacts.filter((c) => c.id !== id));
+  };
 
   const onSubmit = async (data: PatientFormData) => {
     try {
@@ -63,6 +97,9 @@ function NewPatientPage() {
         dob: data.dob,
         legal_sex: data.legal_sex || undefined,
         medical_record_number: data.medical_record_number || undefined,
+        // Note: provider_id and contacts would need backend support
+        // provider_id: data.provider_id || undefined,
+        // contact_methods: contacts,
       };
 
       const patient = await createPatientMutation.mutateAsync(payload);
@@ -178,6 +215,102 @@ function NewPatientPage() {
                   className="font-mono"
                 />
               </div>
+
+              {/* Primary Provider Selector */}
+              <div className="space-y-2">
+                <Label htmlFor="provider_id">Primary Provider</Label>
+                <Select
+                  value={watch("provider_id")}
+                  onValueChange={(value: string) =>
+                    setValue("provider_id", value)
+                  }
+                  disabled={isProvidersLoading}
+                >
+                  <SelectTrigger id="provider_id">
+                    <SelectValue
+                      placeholder={
+                        isProvidersLoading ? "Loading..." : "Select provider..."
+                      }
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {providers?.items?.map((provider) => (
+                      <SelectItem key={provider.id} value={provider.id}>
+                        {`Provider ${provider.id.slice(0, 8)}`}
+                        {provider.specialty && ` - ${provider.specialty}`}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Contact Methods Card */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Contact Methods</CardTitle>
+              <CardDescription>
+                Add phone numbers and email addresses
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex gap-2">
+                <Select
+                  value={newContactType}
+                  onValueChange={(v) =>
+                    setNewContactType(v as "phone" | "email")
+                  }
+                >
+                  <SelectTrigger className="w-32">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="phone">Phone</SelectItem>
+                    <SelectItem value="email">Email</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Input
+                  type={newContactType === "email" ? "email" : "tel"}
+                  placeholder={
+                    newContactType === "phone"
+                      ? "(555) 123-4567"
+                      : "email@example.com"
+                  }
+                  value={newContactValue}
+                  onChange={(e) => setNewContactValue(e.target.value)}
+                  className="flex-1"
+                />
+                <Button type="button" variant="outline" onClick={addContact}>
+                  <Plus className="h-4 w-4" />
+                </Button>
+              </div>
+
+              {contacts.length > 0 && (
+                <div className="space-y-2">
+                  {contacts.map((contact) => (
+                    <div
+                      key={contact.id}
+                      className="flex items-center justify-between p-3 bg-muted/50 rounded-lg"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs font-medium uppercase text-muted-foreground w-12">
+                          {contact.type}
+                        </span>
+                        <span>{contact.value}</span>
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => removeContact(contact.id)}
+                      >
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
 
