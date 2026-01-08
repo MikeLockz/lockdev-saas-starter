@@ -27,8 +27,11 @@ import {
 } from "@/components/ui/select";
 import { useAssignToCareTeam } from "@/hooks/useCareTeam";
 import { useProviders } from "@/hooks/useProviders";
+import { getErrorMessage } from "@/lib/api-error";
 
-const assignSchema = z.object({
+import { CareTeamAssignmentCreate } from "@/lib/api-schemas";
+
+const assignSchema = CareTeamAssignmentCreate.extend({
   provider_id: z.string().uuid("Please select a provider"),
   role: z.enum(["PRIMARY", "SPECIALIST", "CONSULTANT"]),
 });
@@ -70,9 +73,9 @@ export function CareTeamAssignModal({
       });
       form.reset();
       onOpenChange(false);
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
-      const msg = err.response?.data?.detail || "Failed to assign provider";
+      const msg = getErrorMessage(err);
       setError(msg);
     }
   };

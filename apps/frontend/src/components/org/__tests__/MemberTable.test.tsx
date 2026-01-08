@@ -36,11 +36,13 @@ describe("MemberTable", () => {
   });
 
   it("renders loading state", () => {
-    (useCurrentOrgHook.useCurrentOrg as any).mockReturnValue({ orgId: "org1" });
-    (useOrgMembersHook.useOrgMembers as any).mockReturnValue({
+    vi.mocked(useCurrentOrgHook.useCurrentOrg).mockReturnValue({
+      orgId: "org1",
+    } as unknown as ReturnType<typeof useCurrentOrgHook.useCurrentOrg>);
+    vi.mocked(useOrgMembersHook.useOrgMembers).mockReturnValue({
       data: undefined,
       isLoading: true,
-    });
+    } as unknown as ReturnType<typeof useOrgMembersHook.useOrgMembers>);
 
     const { container } = render(<MemberTable />);
     // Checking for skeleton or text
@@ -53,11 +55,13 @@ describe("MemberTable", () => {
   });
 
   it("renders empty state", () => {
-    (useCurrentOrgHook.useCurrentOrg as any).mockReturnValue({ orgId: "org1" });
-    (useOrgMembersHook.useOrgMembers as any).mockReturnValue({
+    vi.mocked(useCurrentOrgHook.useCurrentOrg).mockReturnValue({
+      orgId: "org1",
+    } as unknown as ReturnType<typeof useCurrentOrgHook.useCurrentOrg>);
+    vi.mocked(useOrgMembersHook.useOrgMembers).mockReturnValue({
       data: [],
       isLoading: false,
-    });
+    } as unknown as ReturnType<typeof useOrgMembersHook.useOrgMembers>);
 
     render(<MemberTable />);
     expect(
@@ -66,11 +70,13 @@ describe("MemberTable", () => {
   });
 
   it("renders member list", () => {
-    (useCurrentOrgHook.useCurrentOrg as any).mockReturnValue({ orgId: "org1" });
-    (useOrgMembersHook.useOrgMembers as any).mockReturnValue({
+    vi.mocked(useCurrentOrgHook.useCurrentOrg).mockReturnValue({
+      orgId: "org1",
+    } as unknown as ReturnType<typeof useCurrentOrgHook.useCurrentOrg>);
+    vi.mocked(useOrgMembersHook.useOrgMembers).mockReturnValue({
       data: mockMembers,
       isLoading: false,
-    });
+    } as unknown as ReturnType<typeof useOrgMembersHook.useOrgMembers>);
 
     render(<MemberTable />);
 

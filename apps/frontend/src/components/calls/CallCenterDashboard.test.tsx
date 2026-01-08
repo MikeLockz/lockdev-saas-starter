@@ -40,15 +40,25 @@ describe("CallCenterDashboard", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     // Default implementation returns all calls
-    (useCalls as any).mockImplementation((filters: any) => {
-      if (filters?.status === "QUEUED") {
-        return { data: [mockCalls[1]] };
+    // Default implementation returns all calls
+    vi.mocked(useCalls).mockImplementation((filters: unknown) => {
+      const f = filters as { status?: string } | undefined;
+      if (f?.status === "QUEUED") {
+        return { data: [mockCalls[1]] } as unknown as ReturnType<
+          typeof useCalls
+        >;
       }
-      return { data: mockCalls };
+      return { data: mockCalls } as unknown as ReturnType<typeof useCalls>;
     });
-    (usePatients as any).mockReturnValue({ data: { items: [] } });
-    (useCreateCall as any).mockReturnValue({ mutate: mockCreateCall });
-    (useUpdateCall as any).mockReturnValue({ mutate: mockUpdateCall });
+    vi.mocked(usePatients).mockReturnValue({
+      data: { items: [] },
+    } as unknown as ReturnType<typeof usePatients>);
+    vi.mocked(useCreateCall).mockReturnValue({
+      mutate: mockCreateCall,
+    } as unknown as ReturnType<typeof useCreateCall>);
+    vi.mocked(useUpdateCall).mockReturnValue({
+      mutate: mockUpdateCall,
+    } as unknown as ReturnType<typeof useUpdateCall>);
   });
 
   it("renders the dashboard with call queue, active calls, and history", () => {

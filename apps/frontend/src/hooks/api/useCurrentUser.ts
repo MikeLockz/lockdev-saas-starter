@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { isUnauthorizedError } from "@/lib/api-error";
 import { api } from "@/lib/axios";
 import type { User } from "@/lib/models";
 
@@ -10,8 +11,8 @@ export const useCurrentUser = () => {
       return response.data;
     },
     // Don't retry on 401s as it usually means not logged in
-    retry: (failureCount, error: any) => {
-      if (error?.response?.status === 401) return false;
+    retry: (failureCount, error) => {
+      if (isUnauthorizedError(error)) return false;
       return failureCount < 2;
     },
   });

@@ -24,10 +24,12 @@ export const useStaff = () => {
         `/api/v1/organizations/${currentOrgId}/members`,
       );
       // Map to add 'name' helper
-      return response.data.map((m: any) => ({
-        ...m,
-        name: m.display_name || m.email,
-      })) as StaffMember[];
+      return response.data.map(
+        (m: { display_name?: string | null; email?: string }) => ({
+          ...m,
+          name: m.display_name || m.email,
+        }),
+      ) as StaffMember[];
     },
     enabled: !!currentOrgId,
   });

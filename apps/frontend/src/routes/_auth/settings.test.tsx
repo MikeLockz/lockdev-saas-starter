@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import type { ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as useAuthHook from "@/hooks/useAuth";
 import { Settings } from "./settings";
@@ -17,9 +18,13 @@ vi.mock("@/components/settings", () => ({
 }));
 
 vi.mock("@/components/ui/button", () => ({
-  Button: ({ onClick, children }: any) => (
-    <button onClick={onClick}>{children}</button>
-  ),
+  Button: ({
+    onClick,
+    children,
+  }: {
+    onClick: () => void;
+    children: ReactNode;
+  }) => <button onClick={onClick}>{children}</button>,
 }));
 
 vi.mock("@tanstack/react-router", () => ({
@@ -38,7 +43,7 @@ describe("Settings Page", () => {
     vi.spyOn(useAuthHook, "useAuth").mockReturnValue({
       user: mockUser,
       signOut: mockSignOut,
-    } as any);
+    } as unknown as ReturnType<typeof useAuthHook.useAuth>);
   });
 
   it("renders settings header and default profile tab", () => {

@@ -73,7 +73,7 @@ export function NotificationList() {
               <DropdownMenuSeparator />
               <DropdownMenuRadioGroup
                 value={filter}
-                onValueChange={(v) => setFilter(v as any)}
+                onValueChange={(v) => setFilter(v as "all" | "unread")}
               >
                 <DropdownMenuRadioItem value="all">
                   All notifications

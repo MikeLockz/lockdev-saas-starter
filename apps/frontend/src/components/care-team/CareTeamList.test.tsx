@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, within } from "@testing-library/react";
+import type { ReactNode } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { CareTeamList } from "./CareTeamList";
 
@@ -37,19 +38,41 @@ vi.mock("@/hooks/useCareTeam", () => ({
 
 // Mock AlertDialog components
 vi.mock("@/components/ui/alert-dialog", () => ({
-  AlertDialog: ({ children, open }: any) =>
+  AlertDialog: ({ children, open }: { children: ReactNode; open: boolean }) =>
     open ? <div>{children}</div> : null,
-  AlertDialogContent: ({ children }: any) => <div>{children}</div>,
-  AlertDialogHeader: ({ children }: any) => <div>{children}</div>,
-  AlertDialogFooter: ({ children }: any) => <div>{children}</div>,
-  AlertDialogTitle: ({ children }: any) => <div>{children}</div>,
-  AlertDialogDescription: ({ children }: any) => <div>{children}</div>,
-  AlertDialogAction: ({ onClick, children }: any) => (
+  AlertDialogContent: ({ children }: { children: ReactNode }) => (
+    <div>{children}</div>
+  ),
+  AlertDialogHeader: ({ children }: { children: ReactNode }) => (
+    <div>{children}</div>
+  ),
+  AlertDialogFooter: ({ children }: { children: ReactNode }) => (
+    <div>{children}</div>
+  ),
+  AlertDialogTitle: ({ children }: { children: ReactNode }) => (
+    <div>{children}</div>
+  ),
+  AlertDialogDescription: ({ children }: { children: ReactNode }) => (
+    <div>{children}</div>
+  ),
+  AlertDialogAction: ({
+    onClick,
+    children,
+  }: {
+    onClick: () => void;
+    children: ReactNode;
+  }) => (
     <button type="button" onClick={onClick}>
       {children}
     </button>
   ),
-  AlertDialogCancel: ({ onClick, children }: any) => (
+  AlertDialogCancel: ({
+    onClick,
+    children,
+  }: {
+    onClick: () => void;
+    children: ReactNode;
+  }) => (
     <button type="button" onClick={onClick}>
       {children}
     </button>

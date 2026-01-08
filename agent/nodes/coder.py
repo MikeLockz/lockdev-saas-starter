@@ -66,6 +66,10 @@ def coder_node(state):
         1. Use `import {{ Ui... }} from '@/types/{entity_name}'` for types.
         2. Do NOT use relative paths like `../types`.
         
+        CRITICAL TYPE RULES:
+        1. STRICTLY NO `any` types. Use generated interfaces.
+        2. Use `Record<string, unknown>` for loose objects.
+        
         OUTPUT ONLY THE CODE.
         """
 
@@ -86,6 +90,7 @@ def coder_node(state):
         {project_rules}
         
         INSTRUCTION: Fix the code to resolve the error. Ensure it still satisfies the contract.
+        STRICTLY NO `any` types. Use proper interfaces or `Record<string, unknown>`.
         """
 
     response = llm.invoke(

@@ -1,21 +1,12 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-
-interface UserProfile {
-  id: string;
-  email: string;
-  full_name?: string;
-  role?: string; // Legacy single role
-  roles?: string[]; // Array of roles
-  mfa_enabled?: boolean;
-  requires_consent?: boolean;
-}
+import type { User } from "@/lib/models";
 
 interface AuthState {
-  user: UserProfile | null;
+  user: User | null;
   isAuthenticated: boolean;
   isImpersonating: boolean;
-  setUser: (user: UserProfile | null) => void;
+  setUser: (user: User | null) => void;
   setImpersonating: (isImpersonating: boolean) => void;
   logout: () => void;
 }

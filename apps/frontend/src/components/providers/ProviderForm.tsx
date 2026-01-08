@@ -34,23 +34,28 @@ import {
   useCreateProvider,
   useUpdateProvider,
 } from "@/hooks/useProviders";
+import { getErrorMessage } from "@/lib/api-error";
+
+import { ProviderCreate } from "@/lib/api-schemas";
 
 // Schema
-const providerSchema = z.object({
+// Extend the generated schema with UI-specific validation messages and handling
+const providerSchema = ProviderCreate.extend({
   user_id: z.string().uuid("Please select a user"),
+  // Override nullable fields to handle empty strings from forms
   npi_number: z
     .string()
     .length(10, "NPI must be exactly 10 digits")
     .optional()
     .or(z.literal("")),
-  specialty: z.string().optional(),
-  license_number: z.string().optional(),
+  specialty: z.string().optional().or(z.literal("")),
+  license_number: z.string().optional().or(z.literal("")),
   license_state: z
     .string()
     .length(2, "State code must be 2 characters")
     .optional()
     .or(z.literal("")),
-  dea_number: z.string().optional(),
+  dea_number: z.string().optional().or(z.literal("")),
 });
 
 type FormData = z.infer<typeof providerSchema>;
@@ -130,10 +135,10 @@ export function ProviderForm({
         await createProvider.mutateAsync(payload);
       }
       onOpenChange(false);
-    } catch (err: any) {
+    } catch (err) {
       // Check for API errors (e.g. 409 NPI exists)
       console.error(err);
-      const msg = err.response?.data?.detail || "Failed to save provider";
+      const msg = getErrorMessage(err);
       setError(msg);
     }
   };

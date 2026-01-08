@@ -8,7 +8,7 @@ export interface Notification {
   type: "APPOINTMENT" | "MESSAGE" | "SYSTEM" | "BILLING";
   title: string;
   body?: string;
-  data_json?: any;
+  data_json?: Record<string, unknown>;
   is_read: boolean;
   read_at?: string;
   created_at: string;

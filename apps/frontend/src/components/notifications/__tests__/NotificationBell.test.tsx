@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import type { ReactNode } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   useMarkAllNotificationsRead,
@@ -14,15 +15,21 @@ vi.mock("@/hooks/api/useNotifications");
 
 // Mock Link
 vi.mock("@tanstack/react-router", () => ({
-  Link: ({ children, to }: any) => <a href={to}>{children}</a>,
+  Link: ({ children, to }: { children: ReactNode; to: string }) => (
+    <a href={to}>{children}</a>
+  ),
 }));
 
 // Mock ResizeObserver for Radix UI (Dropdown)
-(globalThis as any).ResizeObserver = class ResizeObserver {
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-};
+// Mock ResizeObserver for Radix UI (Dropdown)
+vi.stubGlobal(
+  "ResizeObserver",
+  class ResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  },
+);
 
 // Mock ScrollIntoView (shadcn/ui or browser dependent)
 window.HTMLElement.prototype.scrollIntoView = vi.fn();
@@ -39,11 +46,11 @@ describe("NotificationBell", () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
-    (useUnreadCount as any).mockReturnValue({
+    vi.mocked(useUnreadCount).mockReturnValue({
       data: { count: 3 },
-    });
+    } as unknown as ReturnType<typeof useUnreadCount>);
 
-    (useNotifications as any).mockReturnValue({
+    vi.mocked(useNotifications).mockReturnValue({
       data: {
         items: [
           {
@@ -56,15 +63,15 @@ describe("NotificationBell", () => {
           },
         ],
       },
-    });
+    } as unknown as ReturnType<typeof useNotifications>);
 
-    (useMarkNotificationRead as any).mockReturnValue({
+    vi.mocked(useMarkNotificationRead).mockReturnValue({
       mutate: mockMarkRead,
-    });
+    } as unknown as ReturnType<typeof useMarkNotificationRead>);
 
-    (useMarkAllNotificationsRead as any).mockReturnValue({
+    vi.mocked(useMarkAllNotificationsRead).mockReturnValue({
       mutate: mockMarkAllRead,
-    });
+    } as unknown as ReturnType<typeof useMarkAllNotificationsRead>);
   });
 
   it("renders with badge count", () => {

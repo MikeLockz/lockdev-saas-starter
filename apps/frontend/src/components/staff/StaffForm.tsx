@@ -34,13 +34,16 @@ import {
   useCreateStaff,
   useUpdateStaff,
 } from "@/hooks/useStaff";
+import { getErrorMessage } from "@/lib/api-error";
+
+import { StaffCreate } from "@/lib/api-schemas";
 
 // Schema
-const staffSchema = z.object({
+const staffSchema = StaffCreate.extend({
   user_id: z.string().uuid("Please select a user"),
-  job_title: z.string().optional(),
-  department: z.string().optional(),
-  employee_id: z.string().optional(),
+  job_title: z.string().optional().or(z.literal("")),
+  department: z.string().optional().or(z.literal("")),
+  employee_id: z.string().optional().or(z.literal("")),
 });
 
 type FormData = z.infer<typeof staffSchema>;
@@ -99,9 +102,9 @@ export function StaffForm({ open, onOpenChange, staff }: StaffFormProps) {
         await createStaff.mutateAsync(payload);
       }
       onOpenChange(false);
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
-      const msg = err.response?.data?.detail || "Failed to save staff member";
+      const msg = getErrorMessage(err);
       setError(msg);
     }
   };
