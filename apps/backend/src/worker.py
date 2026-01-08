@@ -154,7 +154,7 @@ async def send_invitation_email(ctx: dict[str, Any], email: str, token: str, org
         org_name: Organization name
     """
     job_id = ctx.get("job_id", "unknown")
-    invite_url = f"{settings.FRONTEND_URL}/invitations/{token}"
+    invite_url = f"{settings.FRONTEND_URL}/invite/{token}"
 
     logger.info(f"Sending invitation email to {email}", extra={"job_id": job_id, "invite_url": invite_url})
 
