@@ -3,6 +3,7 @@ Telemetry API
 
 This module provides endpoints for behavioral analytics and user tracking.
 Events are logged using structlog for CloudWatch ingestion.
+# TEST: post-commit hook trigger
 """
 
 import logging
