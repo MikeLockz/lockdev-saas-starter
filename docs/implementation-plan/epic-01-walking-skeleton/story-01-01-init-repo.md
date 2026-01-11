@@ -12,8 +12,9 @@
 
 **Changes Required:**
 1.  **Directories:**
-    - `backend/src`, `backend/tests`
-    - `frontend/src`
+    - `apps/backend/src`, `backend/tests`
+    - `apps/frontend/src`
+    - `contracts`
     - `.github/workflows`
     - `infra`
 2.  **Files:**
