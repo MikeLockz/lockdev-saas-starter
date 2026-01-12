@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from typing import Optional
 
 from sqlalchemy import Date, ForeignKey, String
@@ -58,7 +58,14 @@ class Patient(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
     stripe_customer_id: Mapped[str | None] = mapped_column(String(100))
     subscription_status: Mapped[str] = mapped_column(String(50), default="INCOMPLETE")
 
-    user: Mapped[Optional["User"]] = relationship(back_populates="patient_profile")
+    # Billing Manager fields (Epic 22)
+    billing_manager_id: Mapped[UUID | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
+    billing_manager_assigned_at: Mapped[datetime | None]
+    billing_manager_assigned_by: Mapped[UUID | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
+
+    user: Mapped[Optional["User"]] = relationship(back_populates="patient_profile", foreign_keys=[user_id])
+    billing_manager: Mapped[Optional["User"]] = relationship(foreign_keys=[billing_manager_id], lazy="joined")
+    billing_manager_assigner: Mapped[Optional["User"]] = relationship(foreign_keys=[billing_manager_assigned_by])
 
     # Relationships
     organizations: Mapped[list["OrganizationPatient"]] = relationship(back_populates="patient")
