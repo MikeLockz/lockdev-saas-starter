@@ -2815,11 +2815,17 @@ export interface components {
         OrganizationCreate: {
             /** Name */
             name: string;
+            /** Tax Id */
+            tax_id?: string | null;
+            /** Settings Json */
+            settings_json?: {
+                [key: string]: unknown;
+            };
             /**
-             * Subscription Status
-             * @default trial
+             * Timezone
+             * @default America/New_York
              */
-            subscription_status: string;
+            timezone: string;
         };
         /** OrganizationListResponse */
         OrganizationListResponse: {
@@ -4141,20 +4147,14 @@ export interface components {
             type: string;
         };
         /** OrganizationCreate */
-        src__schemas__organizations__OrganizationCreate: {
+        src__api__admin__OrganizationCreate: {
             /** Name */
             name: string;
-            /** Tax Id */
-            tax_id?: string | null;
-            /** Settings Json */
-            settings_json?: {
-                [key: string]: unknown;
-            };
             /**
-             * Timezone
-             * @default America/New_York
+             * Subscription Status
+             * @default trial
              */
-            timezone: string;
+            subscription_status: string;
         };
         /** OrganizationUpdate */
         src__schemas__organizations__OrganizationUpdate: {
@@ -4360,7 +4360,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["OrganizationCreate"];
+                "application/json": components["schemas"]["src__api__admin__OrganizationCreate"];
             };
         };
         responses: {
@@ -5153,7 +5153,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["src__schemas__organizations__OrganizationCreate"];
+                "application/json": components["schemas"]["OrganizationCreate"];
             };
         };
         responses: {
