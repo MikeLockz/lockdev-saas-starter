@@ -2815,17 +2815,11 @@ export interface components {
         OrganizationCreate: {
             /** Name */
             name: string;
-            /** Tax Id */
-            tax_id?: string | null;
-            /** Settings Json */
-            settings_json?: {
-                [key: string]: unknown;
-            };
             /**
-             * Timezone
-             * @default America/New_York
+             * Subscription Status
+             * @default trial
              */
-            timezone: string;
+            subscription_status: string;
         };
         /** OrganizationListResponse */
         OrganizationListResponse: {
@@ -2881,10 +2875,16 @@ export interface components {
         };
         /** OrganizationUpdate */
         OrganizationUpdate: {
-            /** Is Active */
-            is_active?: boolean | null;
-            /** Subscription Status */
-            subscription_status?: string | null;
+            /** Name */
+            name?: string | null;
+            /** Tax Id */
+            tax_id?: string | null;
+            /** Settings Json */
+            settings_json?: {
+                [key: string]: unknown;
+            } | null;
+            /** Timezone */
+            timezone?: string | null;
         };
         /**
          * PaginatedDocuments
@@ -4146,28 +4146,28 @@ export interface components {
             /** Error Type */
             type: string;
         };
+        /** OrganizationUpdate */
+        src__api__admin__OrganizationUpdate: {
+            /** Is Active */
+            is_active?: boolean | null;
+            /** Subscription Status */
+            subscription_status?: string | null;
+        };
         /** OrganizationCreate */
-        src__api__admin__OrganizationCreate: {
+        src__schemas__organizations__OrganizationCreate: {
             /** Name */
             name: string;
-            /**
-             * Subscription Status
-             * @default trial
-             */
-            subscription_status: string;
-        };
-        /** OrganizationUpdate */
-        src__schemas__organizations__OrganizationUpdate: {
-            /** Name */
-            name?: string | null;
             /** Tax Id */
             tax_id?: string | null;
             /** Settings Json */
             settings_json?: {
                 [key: string]: unknown;
-            } | null;
-            /** Timezone */
-            timezone?: string | null;
+            };
+            /**
+             * Timezone
+             * @default America/New_York
+             */
+            timezone: string;
         };
     };
     responses: never;
@@ -4360,7 +4360,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["src__api__admin__OrganizationCreate"];
+                "application/json": components["schemas"]["OrganizationCreate"];
             };
         };
         responses: {
@@ -4426,7 +4426,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["OrganizationUpdate"];
+                "application/json": components["schemas"]["src__api__admin__OrganizationUpdate"];
             };
         };
         responses: {
@@ -5153,7 +5153,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["OrganizationCreate"];
+                "application/json": components["schemas"]["src__schemas__organizations__OrganizationCreate"];
             };
         };
         responses: {
@@ -5219,7 +5219,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["src__schemas__organizations__OrganizationUpdate"];
+                "application/json": components["schemas"]["OrganizationUpdate"];
             };
         };
         responses: {
