@@ -1,20 +1,23 @@
 from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database import get_db
 from src.models.appointments import Appointment
+from src.models.assignments import PatientProxyAssignment
 from src.models.organizations import OrganizationMember
-from src.models.profiles import Patient, Provider
+from src.models.profiles import Patient, Provider, Proxy
+from src.models.users import User
 from src.schemas.appointments import (
     AppointmentCreate,
     AppointmentRead,
     AppointmentStatusUpdate,
     AppointmentUpdate,
 )
+from src.security.auth import get_current_user
 from src.security.org_access import get_current_org_member
 
 router = APIRouter()
@@ -30,16 +33,115 @@ async def _get_appointment_or_404(db: AsyncSession, appointment_id: UUID, org_id
     return appointment
 
 
+async def _verify_patient_scheduling_permission(
+    db: AsyncSession,
+    user: User,
+    member: OrganizationMember,
+    patient_id: UUID,
+) -> None:
+    """
+    Verify user has permission to schedule appointments for this patient.
+
+    Authorization rules:
+    - Provider/Staff/Admin: can schedule for any patient in org
+    - Patient: can only schedule for themselves
+    - Proxy: can only schedule for assigned patients with can_schedule_appointments=True
+    """
+    # Provider/Staff/Admin can schedule for any patient in org
+    if member.role in ("PROVIDER", "STAFF", "ADMIN"):
+        return
+
+    # Check if user is the patient themselves
+    patient_stmt = select(Patient).where(Patient.id == patient_id)
+    result = await db.execute(patient_stmt)
+    patient = result.scalar_one_or_none()
+
+    if patient and patient.user_id == user.id:
+        return  # Patient booking for self
+
+    # Check if user is an authorized proxy
+    proxy_stmt = select(Proxy).where(Proxy.user_id == user.id).where(Proxy.deleted_at.is_(None))
+    proxy_result = await db.execute(proxy_stmt)
+    proxy = proxy_result.scalar_one_or_none()
+
+    if proxy:
+        now = datetime.now(UTC)
+        assignment_stmt = (
+            select(PatientProxyAssignment)
+            .where(PatientProxyAssignment.proxy_id == proxy.id)
+            .where(PatientProxyAssignment.patient_id == patient_id)
+            .where(PatientProxyAssignment.can_schedule_appointments == True)  # noqa: E712
+            .where(PatientProxyAssignment.revoked_at.is_(None))
+            .where(PatientProxyAssignment.deleted_at.is_(None))
+            .where((PatientProxyAssignment.expires_at.is_(None)) | (PatientProxyAssignment.expires_at > now))
+        )
+        assignment_result = await db.execute(assignment_stmt)
+        if assignment_result.scalar_one_or_none():
+            return  # Authorized proxy
+
+    raise HTTPException(
+        status_code=status.HTTP_403_FORBIDDEN,
+        detail="Not authorized to schedule appointments for this patient",
+    )
+
+
+async def _get_accessible_patient_ids(
+    db: AsyncSession,
+    user: User,
+    member: OrganizationMember,
+) -> list[UUID] | None:
+    """
+    Get list of patient IDs the user can access based on their role.
+    Returns None if user can access all patients (Staff/Admin/Provider).
+    Returns list of patient IDs for Patient/Proxy roles.
+    """
+    # Staff, Admin, Provider can see all appointments
+    if member.role in ("STAFF", "ADMIN", "PROVIDER"):
+        return None
+
+    accessible_ids = []
+
+    # Check if user is a patient - they can see their own appointments
+    patient_stmt = select(Patient.id).where(Patient.user_id == user.id).where(Patient.deleted_at.is_(None))
+    patient_result = await db.execute(patient_stmt)
+    own_patient_id = patient_result.scalar_one_or_none()
+    if own_patient_id:
+        accessible_ids.append(own_patient_id)
+
+    # Check if user is a proxy - they can see assigned patients' appointments
+    proxy_stmt = select(Proxy).where(Proxy.user_id == user.id).where(Proxy.deleted_at.is_(None))
+    proxy_result = await db.execute(proxy_stmt)
+    proxy = proxy_result.scalar_one_or_none()
+
+    if proxy:
+        now = datetime.now(UTC)
+        assignment_stmt = (
+            select(PatientProxyAssignment.patient_id)
+            .where(PatientProxyAssignment.proxy_id == proxy.id)
+            .where(PatientProxyAssignment.can_view_appointments == True)  # noqa: E712
+            .where(PatientProxyAssignment.revoked_at.is_(None))
+            .where(PatientProxyAssignment.deleted_at.is_(None))
+            .where((PatientProxyAssignment.expires_at.is_(None)) | (PatientProxyAssignment.expires_at > now))
+        )
+        assignment_result = await db.execute(assignment_stmt)
+        proxy_patient_ids = assignment_result.scalars().all()
+        accessible_ids.extend(proxy_patient_ids)
+
+    return accessible_ids
+
+
 @router.post("", response_model=AppointmentRead, status_code=status.HTTP_201_CREATED)
 async def create_appointment(
     org_id: UUID,
     appointment_data: AppointmentCreate,
+    current_user: User = Depends(get_current_user),
     member: OrganizationMember = Depends(get_current_org_member),
     db: AsyncSession = Depends(get_db),
 ):
     """
     Create a new appointment.
     Validates that the provider is not double-booked.
+    Also verifies the user has permission to schedule for the specified patient.
     """
     now = datetime.now(UTC)
 
@@ -68,6 +170,9 @@ async def create_appointment(
     patient_check = await db.execute(select(Patient.id).where(Patient.id == appointment_data.patient_id))
     if not patient_check.scalar_one_or_none():
         raise HTTPException(status_code=404, detail="Patient not found")
+
+    # 1.5 Verify authorization - user must have permission to schedule for this patient
+    await _verify_patient_scheduling_permission(db, current_user, member, appointment_data.patient_id)
 
     # 2. Check for Double Booking
     # Overlap: (StartA < EndB) and (EndA > StartB)
@@ -121,15 +226,26 @@ async def list_appointments(
     date_to: datetime | None = None,
     limit: int = Query(50, ge=1, le=100),
     offset: int = Query(0, ge=0),
+    current_user: User = Depends(get_current_user),
     member: OrganizationMember = Depends(get_current_org_member),
     db: AsyncSession = Depends(get_db),
 ):
     """
     List appointments with filters.
-    Defaults to today's appointments if no date filter is provided?
-    (Spec says "Default: today's appointments" but let's implement flexible filters first)
+    Role-based access control:
+    - Staff/Admin/Provider: see all appointments
+    - Patient: see only their own appointments
+    - Proxy: see only assigned patients' appointments
     """
     stmt = select(Appointment).where(Appointment.organization_id == org_id).order_by(Appointment.scheduled_at.asc())
+
+    # Role-based PHI filtering for Patient/Proxy users
+    if member.role not in ("STAFF", "ADMIN", "PROVIDER"):
+        accessible_patient_ids = await _get_accessible_patient_ids(db, current_user, member)
+        if accessible_patient_ids is not None:
+            if len(accessible_patient_ids) == 0:
+                return []
+            stmt = stmt.where(Appointment.patient_id.in_(accessible_patient_ids))
 
     if provider_id:
         stmt = stmt.where(Appointment.provider_id == provider_id)
@@ -173,6 +289,7 @@ async def update_appointment(
     org_id: UUID,
     appointment_id: UUID,
     update_data: AppointmentUpdate,
+    request: Request,
     member: OrganizationMember = Depends(get_current_org_member),
     db: AsyncSession = Depends(get_db),
 ):
@@ -181,6 +298,14 @@ async def update_appointment(
     data = update_data.model_dump(exclude_unset=True)
     if not data:
         return appointment
+
+    # Capture original values for audit log
+    original_values = {
+        "scheduled_at": str(appointment.scheduled_at) if appointment.scheduled_at else None,
+        "duration_minutes": appointment.duration_minutes,
+        "reason": appointment.reason,
+        "notes": appointment.notes,
+    }
 
     # If rescheduling, check double booking again
     if "scheduled_at" in data or "duration_minutes" in data:
@@ -214,6 +339,25 @@ async def update_appointment(
         setattr(appointment, field, value)
 
     appointment.updated_at = datetime.now(UTC)
+
+    # HIPAA: Audit log for appointment modification
+    from src.models.audit import AuditLog
+
+    audit = AuditLog(
+        actor_user_id=member.user_id,
+        organization_id=org_id,
+        resource_type="APPOINTMENT",
+        resource_id=appointment_id,
+        action_type="UPDATE",
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+        changes_json={
+            "original": original_values,
+            "updated": {k: str(v) if hasattr(v, "isoformat") else v for k, v in data.items()},
+        },
+    )
+    db.add(audit)
+
     await db.commit()
     await db.refresh(appointment)
     return appointment
@@ -224,11 +368,13 @@ async def update_appointment_status(
     org_id: UUID,
     appointment_id: UUID,
     status_update: AppointmentStatusUpdate,
+    request: Request,
     member: OrganizationMember = Depends(get_current_org_member),
     db: AsyncSession = Depends(get_db),
 ):
     appointment = await _get_appointment_or_404(db, appointment_id, org_id)
 
+    old_status = appointment.status
     new_status = status_update.status.upper()
     valid_statuses = {"SCHEDULED", "CONFIRMED", "COMPLETED", "CANCELLED", "NO_SHOW"}
     if new_status not in valid_statuses:
@@ -253,6 +399,25 @@ async def update_appointment_status(
 
     appointment.status = new_status
     appointment.updated_at = datetime.now(UTC)
+
+    # HIPAA: Audit log for status changes (especially cancellations)
+    from src.models.audit import AuditLog
+
+    audit = AuditLog(
+        actor_user_id=member.user_id,
+        organization_id=org_id,
+        resource_type="APPOINTMENT",
+        resource_id=appointment_id,
+        action_type="UPDATE",
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+        changes_json={
+            "original_status": old_status,
+            "new_status": new_status,
+            "cancellation_reason": status_update.cancellation_reason if new_status == "CANCELLED" else None,
+        },
+    )
+    db.add(audit)
 
     await db.commit()
     await db.refresh(appointment)

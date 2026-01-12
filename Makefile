@@ -133,12 +133,12 @@ clean:
 # Agent Commands
 agent-install:
 	@echo "Setting up Agent environment..."
-	cd agent && uv venv && . .venv/bin/activate && uv pip install -r requirements.txt
+	cd agent && pip install -r requirements.txt
 	@echo "✓ Agent dependencies installed"
 
 agent:
 	@echo "Starting AI Agent..."
-	cd agent && . .venv/bin/activate && python run.py
+	cd agent && make agent
 
 # Show help
 help:

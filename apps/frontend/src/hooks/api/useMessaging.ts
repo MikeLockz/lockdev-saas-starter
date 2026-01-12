@@ -60,7 +60,7 @@ export const useThreads = (page = 1, size = 20) => {
         size: size.toString(),
       });
       const { data } = await api.get<ThreadListResponse>(
-        `/users/me/threads?${params.toString()}`,
+        `/api/v1/users/me/threads?${params.toString()}`,
       );
       return data;
     },
@@ -71,7 +71,9 @@ export const useThread = (threadId: string) => {
   return useQuery({
     queryKey: ["threads", threadId],
     queryFn: async () => {
-      const { data } = await api.get<Thread>(`/users/me/threads/${threadId}`);
+      const { data } = await api.get<Thread>(
+        `/api/v1/users/me/threads/${threadId}`,
+      );
       return data;
     },
     enabled: !!threadId,
@@ -82,7 +84,7 @@ export const useCreateThread = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (data: CreateThreadData) => {
-      const response = await api.post<Thread>("/users/me/threads", data);
+      const response = await api.post<Thread>("/api/v1/users/me/threads", data);
       return response.data;
     },
     onSuccess: () => {
@@ -102,7 +104,7 @@ export const useSendMessage = () => {
       data: SendMessageData;
     }) => {
       const response = await api.post<Message>(
-        `/users/me/threads/${threadId}/messages`,
+        `/api/v1/users/me/threads/${threadId}/messages`,
         data,
       );
       return response.data;
@@ -118,7 +120,7 @@ export const useMarkThreadRead = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (threadId: string) => {
-      await api.post(`/users/me/threads/${threadId}/read`);
+      await api.post(`/api/v1/users/me/threads/${threadId}/read`);
     },
     onSuccess: (_, threadId) => {
       queryClient.invalidateQueries({ queryKey: ["threads", threadId] });

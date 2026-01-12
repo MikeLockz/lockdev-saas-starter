@@ -69,6 +69,7 @@ async def _log_audit(
 async def list_patient_proxies(
     org_id: UUID,
     patient_id: UUID,
+    request: Request,
     member: OrganizationMember = Depends(get_current_org_member),
     db: AsyncSession = Depends(get_db),
 ):
@@ -110,6 +111,19 @@ async def list_patient_proxies(
                 user=ProxyUserInfo(id=user.id, email=user.email, display_name=user.display_name),
             )
         )
+
+    # HIPAA: Audit log for viewing proxy assignments
+    await _log_audit(
+        db=db,
+        user_id=member.user_id,
+        org_id=org_id,
+        resource_type="PROXY_ASSIGNMENT",
+        resource_id=patient_id,  # Log against patient, not individual assignments
+        action="READ",
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+    )
+    await db.commit()
 
     return ProxyListResponse(patient_id=patient_id, proxies=proxies)
 

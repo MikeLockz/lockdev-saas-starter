@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { Check, ChevronsUpDown, Loader2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -36,8 +36,10 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useCreateAppointment } from "@/hooks/api/useAppointments";
+import { useMyProxyPatients } from "@/hooks/api/useMyProxyPatients";
 import { usePatients } from "@/hooks/api/usePatients";
 import { useProviders } from "@/hooks/useProviders";
+import { useUserRole } from "@/hooks/useUserRole";
 import { cn } from "@/lib/utils";
 
 interface AppointmentCreateModalProps {
@@ -55,6 +57,14 @@ interface FormData {
   duration_minutes: number;
   appointment_type: string;
   reason: string;
+}
+
+interface PatientOption {
+  id: string;
+  firstName: string;
+  lastName: string;
+  dob: string;
+  mrn: string | null;
 }
 
 const APPOINTMENT_TYPES = [
@@ -83,12 +93,70 @@ export function AppointmentCreateModal({
   const [patientOpen, setPatientOpen] = useState(false);
   const [selectedPatientName, setSelectedPatientName] = useState("");
 
+  const { roleInfo, isLoading: isRoleLoading } = useUserRole();
   const createAppointment = useCreateAppointment();
-  const { data: patients, isLoading: patientsLoading } = usePatients({
+
+  // For staff/provider/admin: use regular patients API
+  const { data: allPatients, isLoading: patientsLoading } = usePatients({
     name: patientSearch,
     limit: 10,
   });
+
+  // For proxy users: use proxy-patients API (only authorized patients)
+  const { data: proxyPatients, isLoading: proxyPatientsLoading } =
+    useMyProxyPatients();
+
   const { data: providers } = useProviders({ isActive: true });
+
+  // Determine available patients based on role
+  const patientOptions = useMemo<PatientOption[]>(() => {
+    if (!roleInfo) return [];
+
+    // Patient role: only themselves (handled separately - no dropdown)
+    if (roleInfo.role === "patient") {
+      return [];
+    }
+
+    // Proxy role: only their authorized patients
+    if (roleInfo.role === "proxy" && proxyPatients) {
+      return proxyPatients
+        .filter((pp) => pp.permissions.can_schedule_appointments)
+        .map((pp) => ({
+          id: pp.patient.id,
+          firstName: pp.patient.first_name,
+          lastName: pp.patient.last_name,
+          dob: pp.patient.dob,
+          mrn: pp.patient.medical_record_number,
+        }));
+    }
+
+    // Staff/Provider/Admin: use regular patients list
+    if (allPatients?.items) {
+      return allPatients.items.map((p) => ({
+        id: p.id,
+        firstName: p.first_name,
+        lastName: p.last_name,
+        dob: p.dob,
+        mrn: p.medical_record_number,
+      }));
+    }
+
+    return [];
+  }, [roleInfo, proxyPatients, allPatients]);
+
+  // Determine if we should show the patient selector
+  const showPatientSelector = useMemo(() => {
+    if (!roleInfo) return false;
+    // Patients book for themselves - no selector needed
+    if (roleInfo.role === "patient") return false;
+    // Proxies need selector if they have multiple authorized patients
+    if (roleInfo.role === "proxy") return patientOptions.length > 0;
+    // Staff/Providers/Admins always see selector
+    return true;
+  }, [roleInfo, patientOptions]);
+
+  const isPatientListLoading =
+    roleInfo?.role === "proxy" ? proxyPatientsLoading : patientsLoading;
 
   const {
     register,
@@ -112,6 +180,28 @@ export function AppointmentCreateModal({
   });
 
   const watchPatientId = watch("patient_id");
+
+  // Auto-set patient_id for patient role
+  useEffect(() => {
+    if (roleInfo?.role === "patient" && roleInfo.patientId && open) {
+      setValue("patient_id", roleInfo.patientId);
+      setSelectedPatientName("You");
+    }
+  }, [roleInfo, open, setValue]);
+
+  // Auto-select single proxy patient
+  useEffect(() => {
+    if (
+      roleInfo?.role === "proxy" &&
+      patientOptions.length === 1 &&
+      open &&
+      !watchPatientId
+    ) {
+      const patient = patientOptions[0];
+      setValue("patient_id", patient.id);
+      setSelectedPatientName(`${patient.lastName}, ${patient.firstName}`);
+    }
+  }, [roleInfo, patientOptions, open, setValue, watchPatientId]);
 
   useEffect(() => {
     if (defaultPatientId && open) {
@@ -149,26 +239,53 @@ export function AppointmentCreateModal({
     }
   };
 
+  // Loading state for role determination
+  if (isRoleLoading) {
+    return (
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="sm:max-w-[500px]">
+          <div className="flex items-center justify-center py-8">
+            <Loader2 className="h-8 w-8 animate-spin" />
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Schedule Appointment</DialogTitle>
           <DialogDescription>
-            Create a new appointment for a patient.
+            {roleInfo?.role === "patient"
+              ? "Schedule an appointment for yourself."
+              : "Create a new appointment for a patient."}
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* Patient Selector */}
+          {/* Patient Selector - Role-based */}
           <div className="space-y-2">
             <Label htmlFor="patient">Patient *</Label>
-            {defaultPatientId ? (
+            {/* Patient role: show fixed "You" */}
+            {roleInfo?.role === "patient" ? (
+              <Input value="You" disabled className="bg-muted" />
+            ) : /* Has default patient ID: show read-only */
+            defaultPatientId ? (
               <Input
                 value={selectedPatientName || "Selected Patient"}
                 disabled
               />
-            ) : (
+            ) : /* Proxy with single patient: show read-only */
+            roleInfo?.role === "proxy" && patientOptions.length === 1 ? (
+              <Input
+                value={`${patientOptions[0].lastName}, ${patientOptions[0].firstName}`}
+                disabled
+                className="bg-muted"
+              />
+            ) : /* Show patient selector for staff/provider/admin or proxy with multiple */
+            showPatientSelector ? (
               <Popover open={patientOpen} onOpenChange={setPatientOpen}>
                 <PopoverTrigger asChild>
                   <Button
@@ -183,13 +300,16 @@ export function AppointmentCreateModal({
                 </PopoverTrigger>
                 <PopoverContent className="w-[400px] p-0">
                   <Command shouldFilter={false}>
-                    <CommandInput
-                      placeholder="Search patients..."
-                      value={patientSearch}
-                      onValueChange={setPatientSearch}
-                    />
+                    {/* Only show search for non-proxy roles */}
+                    {roleInfo?.role !== "proxy" && (
+                      <CommandInput
+                        placeholder="Search patients..."
+                        value={patientSearch}
+                        onValueChange={setPatientSearch}
+                      />
+                    )}
                     <CommandList>
-                      {patientsLoading ? (
+                      {isPatientListLoading ? (
                         <div className="flex items-center justify-center py-6">
                           <Loader2 className="h-4 w-4 animate-spin" />
                         </div>
@@ -197,14 +317,14 @@ export function AppointmentCreateModal({
                         <>
                           <CommandEmpty>No patients found.</CommandEmpty>
                           <CommandGroup>
-                            {patients?.items.map((patient) => (
+                            {patientOptions.map((patient) => (
                               <CommandItem
                                 key={patient.id}
                                 value={patient.id}
                                 onSelect={() => {
                                   setValue("patient_id", patient.id);
                                   setSelectedPatientName(
-                                    `${patient.last_name}, ${patient.first_name}`,
+                                    `${patient.lastName}, ${patient.firstName}`,
                                   );
                                   setPatientOpen(false);
                                 }}
@@ -219,7 +339,7 @@ export function AppointmentCreateModal({
                                 />
                                 <div>
                                   <div>
-                                    {patient.last_name}, {patient.first_name}
+                                    {patient.lastName}, {patient.firstName}
                                   </div>
                                   <div className="text-xs text-muted-foreground">
                                     DOB:{" "}
@@ -227,8 +347,7 @@ export function AppointmentCreateModal({
                                       new Date(patient.dob),
                                       "MM/dd/yyyy",
                                     )}
-                                    {patient.medical_record_number &&
-                                      ` • MRN: ${patient.medical_record_number}`}
+                                    {patient.mrn && ` • MRN: ${patient.mrn}`}
                                   </div>
                                 </div>
                               </CommandItem>
@@ -240,6 +359,9 @@ export function AppointmentCreateModal({
                   </Command>
                 </PopoverContent>
               </Popover>
+            ) : (
+              /* Fallback - should not reach here normally */
+              <Input value="No patients available" disabled />
             )}
             {errors.patient_id && (
               <p className="text-sm text-destructive">Patient is required</p>
