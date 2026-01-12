@@ -20,6 +20,7 @@ from src.schemas.patients import (
     PatientUpdate,
 )
 from src.security.auth import get_current_user
+from src.security.mfa import require_mfa
 from src.security.org_access import get_current_org_member
 
 router = APIRouter()
@@ -78,6 +79,7 @@ async def create_patient(
     org_id: UUID,
     patient_data: PatientCreate,
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -152,6 +154,7 @@ async def list_patients(
     offset: int = Query(0, ge=0),
     current_user: User = Depends(get_current_user),
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -230,6 +233,7 @@ async def get_patient(
     patient_id: UUID,
     request: Request,
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -298,6 +302,7 @@ async def update_patient(
     patient_id: UUID,
     patient_update: PatientUpdate,
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -360,6 +365,7 @@ async def discharge_patient(
     org_id: UUID,
     patient_id: UUID,
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -422,6 +428,7 @@ async def list_contact_methods(
     org_id: UUID,
     patient_id: UUID,
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -446,6 +453,7 @@ async def create_contact_method(
     patient_id: UUID,
     contact_data: ContactMethodCreate,
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -493,6 +501,7 @@ async def update_contact_method(
     contact_id: UUID,
     contact_update: ContactMethodUpdate,
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -545,6 +554,7 @@ async def delete_contact_method(
     patient_id: UUID,
     contact_id: UUID,
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -603,6 +613,7 @@ async def get_care_team(
     org_id: UUID,
     patient_id: UUID,
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -654,6 +665,7 @@ async def assign_to_care_team(
     patient_id: UUID,
     assignment_data: CareTeamAssignmentCreate,
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -759,6 +771,7 @@ async def remove_from_care_team(
     patient_id: UUID,
     assignment_id: UUID,
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """

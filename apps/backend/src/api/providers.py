@@ -17,6 +17,7 @@ from src.schemas.providers import (
     ProviderRead,
     ProviderUpdate,
 )
+from src.security.mfa import require_mfa
 from src.security.org_access import get_current_org_member, require_org_admin
 
 router = APIRouter()
@@ -27,6 +28,7 @@ async def create_provider(
     org_id: UUID,
     provider_data: ProviderCreate,
     member: OrganizationMember = Depends(require_org_admin),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -114,6 +116,7 @@ async def list_providers(
     limit: int = Query(50, ge=1, le=100),
     offset: int = Query(0, ge=0),
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -169,6 +172,7 @@ async def get_provider(
     org_id: UUID,
     provider_id: UUID,
     member: OrganizationMember = Depends(get_current_org_member),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -213,6 +217,7 @@ async def update_provider(
     provider_id: UUID,
     provider_update: ProviderUpdate,
     member: OrganizationMember = Depends(require_org_admin),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -285,6 +290,7 @@ async def delete_provider(
     org_id: UUID,
     provider_id: UUID,
     member: OrganizationMember = Depends(require_org_admin),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """

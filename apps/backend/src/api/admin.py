@@ -16,6 +16,7 @@ from src.models.organizations import OrganizationMember, OrganizationPatient
 from src.models.profiles import Patient
 from src.schemas.audit import AuditLogRead
 from src.security.auth import get_current_user
+from src.security.mfa import require_mfa
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 
@@ -36,6 +37,7 @@ async def impersonate_patient(
     req: ImpersonationRequest,
     request: Request,
     admin: User = Depends(require_admin),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     try:
@@ -95,9 +97,19 @@ async def impersonate_patient(
     db.add(audit)
     await db.commit()
 
-    # Generate Custom Token
+    # Generate Custom Token with 1-hour expiration (HIPAA compliance - P1-003)
+    from datetime import timedelta
+
     try:
-        additional_claims = {"act_as": str(pid), "impersonator_id": str(admin.id), "role": "PATIENT"}
+        # Set explicit 1-hour expiration for impersonation tokens
+        expiry_time = datetime.now(UTC) + timedelta(hours=1)
+        additional_claims = {
+            "act_as": str(pid),
+            "impersonator_id": str(admin.id),
+            "role": "PATIENT",
+            "exp": int(expiry_time.timestamp()),
+            "impersonation": True,  # Flag for monitoring/alerting
+        }
         custom_token = auth.create_custom_token(str(pid), additional_claims)
 
         if isinstance(custom_token, bytes):
@@ -132,6 +144,7 @@ async def list_audit_logs(
     page: int = Query(1, ge=1),
     page_size: int = Query(50, ge=1, le=100),
     admin: User = Depends(require_admin),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -206,6 +219,7 @@ async def export_audit_logs(
     date_from: datetime | None = Query(None),
     date_to: datetime | None = Query(None),
     admin: User = Depends(require_admin),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
@@ -291,6 +305,7 @@ async def export_audit_logs(
 async def get_audit_log(
     log_id: uuid.UUID,
     admin: User = Depends(require_admin),
+    _mfa_user: User = Depends(require_mfa),
     db: AsyncSession = Depends(get_db),
 ):
     """
