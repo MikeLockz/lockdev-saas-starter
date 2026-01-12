@@ -30,7 +30,7 @@ class BillingTransaction(Base, UUIDMixin, TimestampMixin):
     refunded_by: Mapped[UUID | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
     refund_reason: Mapped[str | None] = mapped_column(Text)
     managed_by_proxy_id: Mapped[UUID | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
-    metadata: Mapped[dict | None] = mapped_column(JSONB)
+    meta_data: Mapped[dict | None] = mapped_column("metadata", JSONB)
 
     # Relationships
     refunded_by_user: Mapped["User"] = relationship(foreign_keys=[refunded_by], lazy="joined")
@@ -72,7 +72,7 @@ class SubscriptionOverride(Base, UUIDMixin, TimestampMixin):
     discount_percent: Mapped[int | None] = mapped_column(Integer)
     revoked_at: Mapped[datetime | None]
     revoked_by: Mapped[UUID | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
-    metadata: Mapped[dict | None] = mapped_column(JSONB)
+    meta_data: Mapped[dict | None] = mapped_column("metadata", JSONB)
 
     # Relationships
     granted_by_user: Mapped["User"] = relationship(foreign_keys=[granted_by], lazy="joined")

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12pt;
+        }
+
+        .receipt {
+            max-width: 21cm;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #4F46E5;
+        }
+
+        .receipt-title {
+            font-size: 18pt;
+            margin: 10px 0;
+        }
+
+        .info-section {
+            margin: 20px 0;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .total {
+            font-size: 20pt;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 30px;
+            padding: 15px;
+            background: #f3f4f6;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 10pt;
+            color: #6b7280;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="receipt">
+        <div class="header">
+            <div class="logo">{{ company_name }}</div>
+            <div>{{ company_address }}</div>
+            <div>{{ company_phone }} | {{ company_email }}</div>
+            <h2 class="receipt-title">PAYMENT RECEIPT</h2>
+        </div>
+
+        <div class="info-section">
+            <div class="info-row">
+                <span><strong>Receipt Number:</strong></span>
+                <span>{{ receipt_number }}</span>
+            </div>
+            <div class="info-row">
+                <span><strong>Date:</strong></span>
+                <span>{{ payment_date }}</span>
+            </div>
+            <div class="info-row">
+                <span><strong>Customer:</strong></span>
+                <span>{{ patient_name }}</span>
+            </div>
+            <div class="info-row">
+                <span><strong>Email:</strong></span>
+                <span>{{ patient_email }}</span>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>Payment Details</h3>
+            <div class="info-row">
+                <span>Subscription Plan - {{ plan_name }}</span>
+                <span>${{ amount_dollars }}</span>
+            </div>
+            <div class="info-row">
+                <span>Billing Period</span>
+                <span>{{ billing_period }}</span>
+            </div>
+            <div class="info-row">
+                <span>Payment Method</span>
+                <span>{{ payment_method }}</span>
+            </div>
+            <div class="info-row">
+                <span>Transaction ID</span>
+                <span>{{ transaction_id }}</span>
+            </div>
+        </div>
+
+        <div class="total">
+            Total Paid: ${{ amount_dollars }} {{ currency }}
+        </div>
+
+        <div class="footer">
+            <p>Thank you for your payment!</p>
+            <p>This is a computer-generated receipt and does not require a signature.</p>
+            <p>For questions, contact {{ support_email }}</p>
+        </div>
+    </div>
+</body>
+
+</html>

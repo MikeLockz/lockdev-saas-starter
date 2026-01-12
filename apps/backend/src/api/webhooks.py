@@ -5,11 +5,13 @@ This module handles incoming webhooks from external services.
 """
 
 import logging
+from typing import Annotated
 
-from fastapi import APIRouter, HTTPException, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy import update
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.database import AsyncSessionLocal
+from src.database import AsyncSessionLocal, get_db
 from src.models.organizations import Organization
 from src.models.profiles import Patient
 from src.services.billing import (
@@ -24,7 +26,7 @@ router = APIRouter(prefix="/webhooks", tags=["Webhooks"])
 
 
 @router.post("/stripe")
-async def handle_stripe_webhook(request: Request) -> dict:
+async def handle_stripe_webhook(request: Request, db: Annotated[AsyncSession, Depends(get_db)]) -> dict:
     """
     Handle incoming Stripe webhook events.
 
@@ -68,7 +70,7 @@ async def handle_stripe_webhook(request: Request) -> dict:
         ) from None
 
     # Process the event
-    result = await handle_webhook_event(event)
+    result = await handle_webhook_event(event, db)
 
     # Update database based on result
     if result.customer_id and result.subscription_status:

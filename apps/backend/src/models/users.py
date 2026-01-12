@@ -30,7 +30,9 @@ class User(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
     memberships: Mapped[list["OrganizationMember"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     provider_profile: Mapped[Optional["Provider"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     staff_profile: Mapped[Optional["Staff"]] = relationship(back_populates="user", cascade="all, delete-orphan")
-    patient_profile: Mapped[Optional["Patient"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    patient_profile: Mapped[Optional["Patient"]] = relationship(
+        back_populates="user", cascade="all, delete-orphan", foreign_keys="[Patient.user_id]"
+    )
     proxy_profile: Mapped[Optional["Proxy"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     consents: Mapped[list["UserConsent"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     sessions: Mapped[list["UserSession"]] = relationship(back_populates="user", cascade="all, delete-orphan")
