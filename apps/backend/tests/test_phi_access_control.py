@@ -175,7 +175,7 @@ class TestCallLogAccessControl:
         app.dependency_overrides[get_current_user] = lambda: patient_user
 
         try:
-            res = await client.get(f"/api/v1/organizations/{test_org.id}/calls")
+            res = await client.get(f"/api/v1/organizations/{test_org.id}/calls/", follow_redirects=True)
             assert res.status_code == 403
             assert "restricted" in res.json()["detail"].lower()
         finally:
@@ -187,7 +187,7 @@ class TestCallLogAccessControl:
         app.dependency_overrides[get_current_user] = lambda: admin_user
 
         try:
-            res = await client.get(f"/api/v1/organizations/{test_org.id}/calls")
+            res = await client.get(f"/api/v1/organizations/{test_org.id}/calls/", follow_redirects=True)
             assert res.status_code == 200
         finally:
             app.dependency_overrides = {}

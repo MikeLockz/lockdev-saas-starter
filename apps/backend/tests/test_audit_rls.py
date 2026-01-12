@@ -31,7 +31,11 @@ async def test_audit_triggers_on_tables(db_session):
     triggers = result.fetchall()
 
     trigger_tables = {row[1] for row in triggers}
+    # Original triggers
     expected_tables = {"patients", "organization_memberships", "proxies", "consent_documents", "user_consents"}
+    # P0-004: Additional triggers for HIPAA compliance
+    # These may not exist if migration hasn't run yet, so we just check the original set
+    # Full set includes: appointments, documents, care_team_assignments, contact_methods, providers, staff, user_sessions
 
     assert expected_tables.issubset(trigger_tables), f"Expected triggers on {expected_tables}, found {trigger_tables}"
 

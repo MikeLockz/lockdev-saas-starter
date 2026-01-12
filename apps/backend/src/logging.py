@@ -25,7 +25,9 @@ def get_analyzer_engine():
             _analyzer_engine = AnalyzerEngine()
         except Exception as e:
             # Fallback or log warning if model missing
-            print(f"Warning: Presidio Analyzer failed to load: {e}")
+            import logging as stdlib_logging
+
+            stdlib_logging.warning(f"Presidio Analyzer failed to load: {e}")
             _analyzer_engine = False  # Sentinel for failed
     return _analyzer_engine if _analyzer_engine is not False else None
 
@@ -68,7 +70,9 @@ def mask_exception_phi(
                 event_dict["exception"] = anonymized_result.text
             except Exception as e:
                 # Fallback if analysis fails
-                print(f"DEBUG: Presidio Error: {e}")
+                import logging as stdlib_logging
+
+                stdlib_logging.debug(f"Presidio masking error: {e}")
                 pass
     return event_dict
 
