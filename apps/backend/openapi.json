@@ -502,7 +502,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/src__api__admin__OrganizationCreate"
+                "$ref": "#/components/schemas/OrganizationCreate"
               }
             }
           }
@@ -608,7 +608,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrganizationUpdate"
+                "$ref": "#/components/schemas/src__api__admin__OrganizationUpdate"
               }
             }
           }
@@ -1657,7 +1657,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrganizationCreate"
+                "$ref": "#/components/schemas/src__schemas__organizations__OrganizationCreate"
               }
             }
           },
@@ -1763,7 +1763,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/src__schemas__organizations__OrganizationUpdate"
+                "$ref": "#/components/schemas/OrganizationUpdate"
               }
             }
           }
@@ -8611,31 +8611,12 @@
         "properties": {
           "name": {
             "type": "string",
-            "maxLength": 255,
             "title": "Name"
           },
-          "tax_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 50
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Tax Id"
-          },
-          "settings_json": {
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Settings Json"
-          },
-          "timezone": {
+          "subscription_status": {
             "type": "string",
-            "maxLength": 50,
-            "title": "Timezone",
-            "default": "America/New_York"
+            "title": "Subscription Status",
+            "default": "trial"
           }
         },
         "type": "object",
@@ -8764,27 +8745,53 @@
       },
       "OrganizationUpdate": {
         "properties": {
-          "is_active": {
+          "name": {
             "anyOf": [
               {
-                "type": "boolean"
+                "type": "string",
+                "maxLength": 255
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Is Active"
+            "title": "Name"
           },
-          "subscription_status": {
+          "tax_id": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 50
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Subscription Status"
+            "title": "Tax Id"
+          },
+          "settings_json": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Settings Json"
+          },
+          "timezone": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone"
           }
         },
         "type": "object",
@@ -11667,36 +11674,39 @@
         ],
         "title": "ValidationError"
       },
-      "src__api__admin__OrganizationCreate": {
+      "src__api__admin__OrganizationUpdate": {
         "properties": {
-          "name": {
-            "type": "string",
-            "title": "Name"
-          },
-          "subscription_status": {
-            "type": "string",
-            "title": "Subscription Status",
-            "default": "trial"
-          }
-        },
-        "type": "object",
-        "required": [
-          "name"
-        ],
-        "title": "OrganizationCreate"
-      },
-      "src__schemas__organizations__OrganizationUpdate": {
-        "properties": {
-          "name": {
+          "is_active": {
             "anyOf": [
               {
-                "type": "string",
-                "maxLength": 255
+                "type": "boolean"
               },
               {
                 "type": "null"
               }
             ],
+            "title": "Is Active"
+          },
+          "subscription_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subscription Status"
+          }
+        },
+        "type": "object",
+        "title": "OrganizationUpdate"
+      },
+      "src__schemas__organizations__OrganizationCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
             "title": "Name"
           },
           "tax_id": {
@@ -11712,32 +11722,22 @@
             "title": "Tax Id"
           },
           "settings_json": {
-            "anyOf": [
-              {
-                "additionalProperties": true,
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ],
+            "additionalProperties": true,
+            "type": "object",
             "title": "Settings Json"
           },
           "timezone": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 50
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Timezone"
+            "type": "string",
+            "maxLength": 50,
+            "title": "Timezone",
+            "default": "America/New_York"
           }
         },
         "type": "object",
-        "title": "OrganizationUpdate"
+        "required": [
+          "name"
+        ],
+        "title": "OrganizationCreate"
       }
     },
     "securitySchemes": {
