@@ -2,6 +2,7 @@ from .appointments import Appointment
 from .assignments import PatientProxyAssignment
 from .audit import AuditLog
 from .base import Base
+from .billing import BillingTransaction, SubscriptionOverride
 from .care_teams import CareTeamAssignment
 from .communications import Message, MessageParticipant, MessageThread, Notification
 from .consent import ConsentDocument, UserConsent
@@ -45,4 +46,6 @@ __all__ = [
     "Task",
     "SupportTicket",
     "SupportMessage",
+    "BillingTransaction",
+    "SubscriptionOverride",
 ]
