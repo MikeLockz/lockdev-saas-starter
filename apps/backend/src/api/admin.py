@@ -12,6 +12,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.database import get_db
 from src.models import AuditLog, User
+from src.models.organizations import OrganizationMember, OrganizationPatient
+from src.models.profiles import Patient
 from src.schemas.audit import AuditLogRead
 from src.security.auth import get_current_user
 
@@ -40,6 +42,45 @@ async def impersonate_patient(
         pid = uuid.UUID(patient_id)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid patient ID format")
+
+    # SECURITY FIX: Validate that the patient exists
+    patient_result = await db.execute(select(Patient).where(Patient.id == pid))
+    patient = patient_result.scalar_one_or_none()
+    if not patient:
+        raise HTTPException(status_code=404, detail="Patient not found")
+
+    # SECURITY FIX: For non-super-admins, validate organization access
+    # Super admins can impersonate any patient; regular admins only within their org
+    if not admin.is_super_admin:
+        # Get organizations the admin belongs to
+        admin_orgs_result = await db.execute(
+            select(OrganizationMember.organization_id).where(
+                OrganizationMember.user_id == admin.id,
+                OrganizationMember.role.in_(["ADMIN", "PROVIDER", "STAFF"]),
+            )
+        )
+        admin_org_ids = {row[0] for row in admin_orgs_result.fetchall()}
+
+        if not admin_org_ids:
+            raise HTTPException(
+                status_code=403,
+                detail="You do not have organization membership to perform this action",
+            )
+
+        # Check if patient belongs to any of admin's organizations
+        patient_org_result = await db.execute(
+            select(OrganizationPatient.organization_id).where(
+                OrganizationPatient.patient_id == pid,
+                OrganizationPatient.organization_id.in_(admin_org_ids),
+            )
+        )
+        patient_org = patient_org_result.scalar_one_or_none()
+
+        if not patient_org:
+            raise HTTPException(
+                status_code=403,
+                detail="Patient is not in your organization",
+            )
 
     # Log Break Glass
     audit = AuditLog(
