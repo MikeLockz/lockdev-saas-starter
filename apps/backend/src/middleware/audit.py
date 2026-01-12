@@ -105,5 +105,7 @@ class AuditMiddleware(BaseHTTPMiddleware):
 
         except Exception as e:
             # Log error but don't block the request
-            # In production, this should use proper logging
-            print(f"Error logging audit event: {e}")
+            import structlog
+
+            logger = structlog.get_logger(__name__)
+            logger.error("audit_event_logging_failed", error=str(e))

@@ -1,22 +1,20 @@
 import { makeApi, Zodios, type ZodiosOptions } from "@zodios/core";
 import { z } from "zod";
 
-export const ImpersonationRequest = z
-  .object({ reason: z.string() })
-  .passthrough();
-export const ValidationError = z
+const ImpersonationRequest = z.object({ reason: z.string() }).passthrough();
+const ValidationError = z
   .object({
     loc: z.array(z.union([z.string(), z.number()])),
     msg: z.string(),
     type: z.string(),
   })
   .passthrough();
-export const HTTPValidationError = z
+const HTTPValidationError = z
   .object({ detail: z.array(ValidationError) })
   .partial()
   .passthrough();
-export const action_type = z.union([z.string(), z.null()]).optional();
-export const AuditLogRead = z
+const action_type = z.union([z.string(), z.null()]).optional();
+const AuditLogRead = z
   .object({
     action_type: z.string(),
     resource_type: z.string(),
@@ -33,7 +31,7 @@ export const AuditLogRead = z
     occurred_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const AuditLogListResponse = z
+const AuditLogListResponse = z
   .object({
     items: z.array(AuditLogRead),
     total: z.number().int(),
@@ -41,7 +39,7 @@ export const AuditLogListResponse = z
     page_size: z.number().int(),
   })
   .passthrough();
-export const OrganizationAdminRead = z
+const OrganizationAdminRead = z
   .object({
     id: z.string().uuid(),
     name: z.string(),
@@ -52,7 +50,7 @@ export const OrganizationAdminRead = z
     created_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const OrganizationListResponse = z
+const OrganizationListResponse = z
   .object({
     items: z.array(OrganizationAdminRead),
     total: z.number().int(),
@@ -60,21 +58,21 @@ export const OrganizationListResponse = z
     page_size: z.number().int(),
   })
   .passthrough();
-export const OrganizationCreate = z
+const OrganizationCreate = z
   .object({
     name: z.string(),
     subscription_status: z.string().optional().default("trial"),
   })
   .passthrough();
-export const OrganizationUpdate = z
+const OrganizationUpdate = z
   .object({
     is_active: z.union([z.boolean(), z.null()]),
     subscription_status: z.union([z.string(), z.null()]),
   })
   .partial()
   .passthrough();
-export const is_locked = z.union([z.boolean(), z.null()]).optional();
-export const UserAdminRead = z
+const is_locked = z.union([z.boolean(), z.null()]).optional();
+const UserAdminRead = z
   .object({
     id: z.string().uuid(),
     email: z.string(),
@@ -86,7 +84,7 @@ export const UserAdminRead = z
     created_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const UserListResponse = z
+const UserListResponse = z
   .object({
     items: z.array(UserAdminRead),
     total: z.number().int(),
@@ -94,11 +92,11 @@ export const UserListResponse = z
     page_size: z.number().int(),
   })
   .passthrough();
-export const UserAdminUpdate = z
+const UserAdminUpdate = z
   .object({ is_super_admin: z.union([z.boolean(), z.null()]) })
   .partial()
   .passthrough();
-export const SystemHealth = z
+const SystemHealth = z
   .object({
     db_status: z.string(),
     redis_status: z.string(),
@@ -106,10 +104,8 @@ export const SystemHealth = z
     metrics: z.object({}).partial().passthrough(),
   })
   .passthrough();
-export const ConsentSignRequest = z
-  .object({ document_id: z.string() })
-  .passthrough();
-export const UserRead = z
+const ConsentSignRequest = z.object({ document_id: z.string() }).passthrough();
+const UserRead = z
   .object({
     id: z.string().uuid(),
     email: z.string().email(),
@@ -125,26 +121,26 @@ export const UserRead = z
     updated_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const UserDeleteRequest = z
+const UserDeleteRequest = z
   .object({
     password: z.string().min(1),
     reason: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const UserDeleteResponse = z
+const UserDeleteResponse = z
   .object({
     success: z.boolean().optional().default(true),
     deleted_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const UserUpdate = z
+const UserUpdate = z
   .object({
     display_name: z.union([z.string(), z.null()]),
     timezone: z.union([z.string(), z.null()]),
   })
   .partial()
   .passthrough();
-export const SessionRead = z
+const SessionRead = z
   .object({
     id: z.string().uuid(),
     device: z.string(),
@@ -155,7 +151,7 @@ export const SessionRead = z
     last_active_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const SessionListResponse = z
+const SessionListResponse = z
   .object({
     items: z.array(SessionRead),
     total: z.number().int(),
@@ -163,13 +159,13 @@ export const SessionListResponse = z
     offset: z.number().int().optional().default(0),
   })
   .passthrough();
-export const SessionRevokeResponse = z
+const SessionRevokeResponse = z
   .object({
     success: z.boolean().optional().default(true),
     terminated_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const UserExportRequest = z
+const UserExportRequest = z
   .object({
     format: z
       .string()
@@ -179,34 +175,32 @@ export const UserExportRequest = z
   })
   .partial()
   .passthrough();
-export const UserExportResponse = z
+const UserExportResponse = z
   .object({
     export_id: z.string().uuid(),
     status: z.string().optional().default("PENDING"),
     estimated_completion: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const CommunicationPreferencesRead = z
+const CommunicationPreferencesRead = z
   .object({
     transactional_consent: z.boolean(),
     marketing_consent: z.boolean(),
     updated_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const CommunicationPreferencesUpdate = z
+const CommunicationPreferencesUpdate = z
   .object({
     transactional_consent: z.union([z.boolean(), z.null()]),
     marketing_consent: z.union([z.boolean(), z.null()]),
   })
   .partial()
   .passthrough();
-export const TimezoneResponse = z
+const TimezoneResponse = z
   .object({ timezone: z.string(), source: z.string() })
   .passthrough();
-export const TimezoneUpdateRequest = z
-  .object({ timezone: z.string() })
-  .passthrough();
-export const MFASetupResponse = z
+const TimezoneUpdateRequest = z.object({ timezone: z.string() }).passthrough();
+const MFASetupResponse = z
   .object({
     secret: z.string(),
     provisioning_uri: z.string(),
@@ -214,7 +208,7 @@ export const MFASetupResponse = z
     expires_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const MFAVerifyRequest = z
+const MFAVerifyRequest = z
   .object({
     code: z
       .string()
@@ -223,7 +217,7 @@ export const MFAVerifyRequest = z
       .regex(/^[0-9]{6}$/),
   })
   .passthrough();
-export const MFAVerifyResponse = z
+const MFAVerifyResponse = z
   .object({
     success: z.boolean().optional().default(true),
     mfa_enabled: z.boolean().optional().default(true),
@@ -231,31 +225,31 @@ export const MFAVerifyResponse = z
     enabled_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const MFADisableRequest = z
+const MFADisableRequest = z
   .object({ password: z.string().min(1) })
   .passthrough();
-export const MFADisableResponse = z
+const MFADisableResponse = z
   .object({
     success: z.boolean().optional().default(true),
     mfa_enabled: z.boolean().optional().default(false),
     disabled_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const DeviceTokenRequest = z
+const DeviceTokenRequest = z
   .object({
     token: z.string().min(1).max(512),
     platform: z.string().regex(/^(ios|android|web)$/),
     device_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const DeviceTokenResponse = z
+const DeviceTokenResponse = z
   .object({ success: z.boolean().default(true) })
   .partial()
   .passthrough();
-export const DeviceTokenDeleteRequest = z
+const DeviceTokenDeleteRequest = z
   .object({ token: z.string().min(1).max(512) })
   .passthrough();
-export const ProxyPatientInfo = z
+const ProxyPatientInfo = z
   .object({
     id: z.string().uuid(),
     first_name: z.string(),
@@ -264,7 +258,7 @@ export const ProxyPatientInfo = z
     medical_record_number: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const ProxyPermissions = z
+const ProxyPermissions = z
   .object({
     can_view_profile: z.boolean().default(true),
     can_view_appointments: z.boolean().default(true),
@@ -275,7 +269,7 @@ export const ProxyPermissions = z
   })
   .partial()
   .passthrough();
-export const ProxyPatientRead = z
+const ProxyPatientRead = z
   .object({
     patient: ProxyPatientInfo,
     relationship_type: z.string(),
@@ -284,7 +278,7 @@ export const ProxyPatientRead = z
     expires_at: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const ProxyProfileRead = z
+const ProxyProfileRead = z
   .object({
     id: z.string().uuid(),
     user_id: z.string().uuid(),
@@ -292,7 +286,7 @@ export const ProxyProfileRead = z
     created_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const OrganizationRead = z
+const OrganizationRead = z
   .object({
     name: z.string().max(255),
     tax_id: z.union([z.string(), z.null()]).optional(),
@@ -308,7 +302,7 @@ export const OrganizationRead = z
     updated_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const src__schemas__organizations__OrganizationCreate = z
+const src__schemas__organizations__OrganizationCreate = z
   .object({
     name: z.string().max(255),
     tax_id: z.union([z.string(), z.null()]).optional(),
@@ -316,7 +310,7 @@ export const src__schemas__organizations__OrganizationCreate = z
     timezone: z.string().max(50).optional().default("America/New_York"),
   })
   .passthrough();
-export const src__schemas__organizations__OrganizationUpdate = z
+const src__schemas__organizations__OrganizationUpdate = z
   .object({
     name: z.union([z.string(), z.null()]),
     tax_id: z.union([z.string(), z.null()]),
@@ -325,7 +319,7 @@ export const src__schemas__organizations__OrganizationUpdate = z
   })
   .partial()
   .passthrough();
-export const MemberRead = z
+const MemberRead = z
   .object({
     id: z.string().uuid(),
     user_id: z.string().uuid(),
@@ -336,10 +330,10 @@ export const MemberRead = z
     created_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const InvitationCreate = z
+const InvitationCreate = z
   .object({ email: z.string().email(), role: z.string() })
   .passthrough();
-export const InvitationRead = z
+const InvitationRead = z
   .object({
     email: z.string().email(),
     role: z.string(),
@@ -353,7 +347,7 @@ export const InvitationRead = z
     accepted_at: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const ContactMethodCreate = z
+const ContactMethodCreate = z
   .object({
     type: z.string(),
     value: z.string(),
@@ -362,7 +356,7 @@ export const ContactMethodCreate = z
     label: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const PatientCreate = z
+const PatientCreate = z
   .object({
     first_name: z.string().max(100),
     last_name: z.string().max(100),
@@ -374,7 +368,7 @@ export const PatientCreate = z
       .optional(),
   })
   .passthrough();
-export const ContactMethodRead = z
+const ContactMethodRead = z
   .object({
     id: z.string().uuid(),
     type: z.string(),
@@ -386,7 +380,7 @@ export const ContactMethodRead = z
     updated_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const PatientRead = z
+const PatientRead = z
   .object({
     id: z.string().uuid(),
     user_id: z.union([z.string(), z.null()]),
@@ -403,7 +397,7 @@ export const PatientRead = z
     updated_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const PatientListItem = z
+const PatientListItem = z
   .object({
     id: z.string().uuid(),
     first_name: z.string(),
@@ -414,7 +408,7 @@ export const PatientListItem = z
     status: z.string().optional().default("ACTIVE"),
   })
   .passthrough();
-export const PaginatedPatients = z
+const PaginatedPatients = z
   .object({
     items: z.array(PatientListItem),
     total: z.number().int(),
@@ -422,7 +416,7 @@ export const PaginatedPatients = z
     offset: z.number().int(),
   })
   .passthrough();
-export const PatientUpdate = z
+const PatientUpdate = z
   .object({
     first_name: z.union([z.string(), z.null()]),
     last_name: z.union([z.string(), z.null()]),
@@ -432,7 +426,7 @@ export const PatientUpdate = z
   })
   .partial()
   .passthrough();
-export const ContactMethodUpdate = z
+const ContactMethodUpdate = z
   .object({
     type: z.union([z.string(), z.null()]),
     value: z.union([z.string(), z.null()]),
@@ -442,7 +436,7 @@ export const ContactMethodUpdate = z
   })
   .partial()
   .passthrough();
-export const CareTeamMember = z
+const CareTeamMember = z
   .object({
     assignment_id: z.string().uuid(),
     provider_id: z.string().uuid(),
@@ -453,20 +447,20 @@ export const CareTeamMember = z
     provider_npi: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const CareTeamList = z
+const CareTeamList = z
   .object({
     patient_id: z.string().uuid(),
     members: z.array(CareTeamMember),
     primary_provider: z.union([CareTeamMember, z.null()]).optional(),
   })
   .passthrough();
-export const CareTeamAssignmentCreate = z
+const CareTeamAssignmentCreate = z
   .object({
     provider_id: z.string().uuid(),
     role: z.string().optional().default("SPECIALIST"),
   })
   .passthrough();
-export const CareTeamProviderInfo = z
+const CareTeamProviderInfo = z
   .object({
     id: z.string().uuid(),
     user_id: z.string().uuid(),
@@ -476,7 +470,7 @@ export const CareTeamProviderInfo = z
     user_email: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const CareTeamAssignmentRead = z
+const CareTeamAssignmentRead = z
   .object({
     id: z.string().uuid(),
     patient_id: z.string().uuid(),
@@ -487,7 +481,7 @@ export const CareTeamAssignmentRead = z
     provider: CareTeamProviderInfo,
   })
   .passthrough();
-export const ProviderCreate = z
+const ProviderCreate = z
   .object({
     user_id: z.string().uuid(),
     npi_number: z.union([z.string(), z.null()]).optional(),
@@ -497,7 +491,7 @@ export const ProviderCreate = z
     dea_number: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const ProviderRead = z
+const ProviderRead = z
   .object({
     id: z.string().uuid(),
     user_id: z.string().uuid(),
@@ -515,7 +509,7 @@ export const ProviderRead = z
     user_display_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const ProviderListItem = z
+const ProviderListItem = z
   .object({
     id: z.string().uuid(),
     user_id: z.string().uuid(),
@@ -526,7 +520,7 @@ export const ProviderListItem = z
     user_display_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const PaginatedProviders = z
+const PaginatedProviders = z
   .object({
     items: z.array(ProviderListItem),
     total: z.number().int(),
@@ -534,7 +528,7 @@ export const PaginatedProviders = z
     offset: z.number().int(),
   })
   .passthrough();
-export const ProviderUpdate = z
+const ProviderUpdate = z
   .object({
     npi_number: z.union([z.string(), z.null()]),
     specialty: z.union([z.string(), z.null()]),
@@ -545,7 +539,7 @@ export const ProviderUpdate = z
   })
   .partial()
   .passthrough();
-export const StaffCreate = z
+const StaffCreate = z
   .object({
     user_id: z.string().uuid(),
     job_title: z.union([z.string(), z.null()]).optional(),
@@ -553,7 +547,7 @@ export const StaffCreate = z
     employee_id: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const StaffRead = z
+const StaffRead = z
   .object({
     id: z.string().uuid(),
     user_id: z.string().uuid(),
@@ -568,7 +562,7 @@ export const StaffRead = z
     user_display_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const StaffListItem = z
+const StaffListItem = z
   .object({
     id: z.string().uuid(),
     user_id: z.string().uuid(),
@@ -579,7 +573,7 @@ export const StaffListItem = z
     user_display_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const PaginatedStaff = z
+const PaginatedStaff = z
   .object({
     items: z.array(StaffListItem),
     total: z.number().int(),
@@ -587,7 +581,7 @@ export const PaginatedStaff = z
     offset: z.number().int(),
   })
   .passthrough();
-export const StaffUpdate = z
+const StaffUpdate = z
   .object({
     job_title: z.union([z.string(), z.null()]),
     department: z.union([z.string(), z.null()]),
@@ -596,7 +590,7 @@ export const StaffUpdate = z
   })
   .partial()
   .passthrough();
-export const AppointmentCreate = z
+const AppointmentCreate = z
   .object({
     scheduled_at: z.string().datetime({ offset: true }),
     duration_minutes: z.number().int().gte(5).lte(480).optional().default(30),
@@ -607,7 +601,7 @@ export const AppointmentCreate = z
     provider_id: z.string().uuid(),
   })
   .passthrough();
-export const AppointmentRead = z
+const AppointmentRead = z
   .object({
     scheduled_at: z.string().datetime({ offset: true }),
     duration_minutes: z.number().int().gte(5).lte(480).optional().default(30),
@@ -628,7 +622,7 @@ export const AppointmentRead = z
     provider_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const AppointmentUpdate = z
+const AppointmentUpdate = z
   .object({
     scheduled_at: z.union([z.string(), z.null()]),
     duration_minutes: z.union([z.number(), z.null()]),
@@ -638,13 +632,13 @@ export const AppointmentUpdate = z
   })
   .partial()
   .passthrough();
-export const AppointmentStatusUpdate = z
+const AppointmentStatusUpdate = z
   .object({
     status: z.string(),
     cancellation_reason: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const DocumentUploadRequest = z
+const DocumentUploadRequest = z
   .object({
     file_name: z.string().min(1).max(255),
     file_type: z.string().max(100).optional().default("application/pdf"),
@@ -653,7 +647,7 @@ export const DocumentUploadRequest = z
     description: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const DocumentUploadResponse = z
+const DocumentUploadResponse = z
   .object({
     document_id: z.string().uuid(),
     upload_url: z.string(),
@@ -661,7 +655,7 @@ export const DocumentUploadResponse = z
     s3_key: z.string(),
   })
   .passthrough();
-export const DocumentRead = z
+const DocumentRead = z
   .object({
     id: z.string().uuid(),
     organization_id: z.string().uuid(),
@@ -680,7 +674,7 @@ export const DocumentRead = z
     uploaded_by_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const DocumentListItem = z
+const DocumentListItem = z
   .object({
     id: z.string().uuid(),
     file_name: z.string(),
@@ -692,7 +686,7 @@ export const DocumentListItem = z
     uploaded_by_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const PaginatedDocuments = z
+const PaginatedDocuments = z
   .object({
     items: z.array(DocumentListItem),
     total: z.number().int(),
@@ -700,21 +694,21 @@ export const PaginatedDocuments = z
     offset: z.number().int(),
   })
   .passthrough();
-export const DocumentDownloadResponse = z
+const DocumentDownloadResponse = z
   .object({
     document_id: z.string().uuid(),
     download_url: z.string(),
     expires_in: z.number().int().optional().default(3600),
   })
   .passthrough();
-export const ProxyUserInfo = z
+const ProxyUserInfo = z
   .object({
     id: z.string().uuid(),
     email: z.string(),
     display_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const ProxyAssignmentRead = z
+const ProxyAssignmentRead = z
   .object({
     id: z.string().uuid(),
     proxy_id: z.string().uuid(),
@@ -732,13 +726,13 @@ export const ProxyAssignmentRead = z
     user: ProxyUserInfo,
   })
   .passthrough();
-export const ProxyListResponse = z
+const ProxyListResponse = z
   .object({
     patient_id: z.string().uuid(),
     proxies: z.array(ProxyAssignmentRead),
   })
   .passthrough();
-export const ProxyAssignmentCreate = z
+const ProxyAssignmentCreate = z
   .object({
     email: z.string().email(),
     relationship_type: z.string(),
@@ -746,33 +740,31 @@ export const ProxyAssignmentCreate = z
     expires_at: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const ProxyAssignmentUpdate = z
+const ProxyAssignmentUpdate = z
   .object({
     permissions: z.union([ProxyPermissions, z.null()]),
     expires_at: z.union([z.string(), z.null()]),
   })
   .partial()
   .passthrough();
-export const TelemetryEvent = z
+const TelemetryEvent = z
   .object({
     event_name: z.string().min(1).max(100),
     properties: z.object({}).partial().passthrough().optional(),
   })
   .passthrough();
-export const TelemetryResponse = z
+const TelemetryResponse = z
   .object({
     success: z.boolean().default(true),
     event_id: z.union([z.string(), z.null()]),
   })
   .partial()
   .passthrough();
-export const CheckoutSessionRequest = z
-  .object({ price_id: z.string() })
-  .passthrough();
-export const CheckoutSessionResponse = z
+const CheckoutSessionRequest = z.object({ price_id: z.string() }).passthrough();
+const CheckoutSessionResponse = z
   .object({ session_id: z.string(), checkout_url: z.string() })
   .passthrough();
-export const SubscriptionStatusResponse = z
+const SubscriptionStatusResponse = z
   .object({
     status: z.string(),
     plan_id: z.union([z.string(), z.null()]).optional(),
@@ -780,10 +772,10 @@ export const SubscriptionStatusResponse = z
     cancel_at_period_end: z.boolean().optional().default(false),
   })
   .passthrough();
-export const PortalSessionResponse = z
+const PortalSessionResponse = z
   .object({ portal_url: z.string() })
   .passthrough();
-export const NotificationRead = z
+const NotificationRead = z
   .object({
     id: z.string().uuid(),
     type: z.string(),
@@ -797,7 +789,7 @@ export const NotificationRead = z
     created_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const NotificationListResponse = z
+const NotificationListResponse = z
   .object({
     items: z.array(NotificationRead),
     total: z.number().int(),
@@ -806,10 +798,8 @@ export const NotificationListResponse = z
     size: z.number().int(),
   })
   .passthrough();
-export const UnreadCountResponse = z
-  .object({ count: z.number().int() })
-  .passthrough();
-export const MessageRead = z
+const UnreadCountResponse = z.object({ count: z.number().int() }).passthrough();
+const MessageRead = z
   .object({
     body: z.string(),
     id: z.string().uuid(),
@@ -819,7 +809,7 @@ export const MessageRead = z
     sender_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const ParticipantRead = z
+const ParticipantRead = z
   .object({
     user_id: z.string().uuid(),
     joined_at: z.string().datetime({ offset: true }),
@@ -827,7 +817,7 @@ export const ParticipantRead = z
     user_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const ThreadRead = z
+const ThreadRead = z
   .object({
     subject: z.string(),
     id: z.string().uuid(),
@@ -840,7 +830,7 @@ export const ThreadRead = z
     participants: z.array(ParticipantRead).optional().default([]),
   })
   .passthrough();
-export const ThreadListResponse = z
+const ThreadListResponse = z
   .object({
     items: z.array(ThreadRead),
     total: z.number().int(),
@@ -848,7 +838,7 @@ export const ThreadListResponse = z
     size: z.number().int(),
   })
   .passthrough();
-export const ThreadCreate = z
+const ThreadCreate = z
   .object({
     subject: z.string(),
     organization_id: z.string().uuid(),
@@ -857,7 +847,7 @@ export const ThreadCreate = z
     participant_ids: z.array(z.string().uuid()),
   })
   .passthrough();
-export const ThreadDetail = z
+const ThreadDetail = z
   .object({
     subject: z.string(),
     id: z.string().uuid(),
@@ -871,8 +861,8 @@ export const ThreadDetail = z
     messages: z.array(MessageRead).optional().default([]),
   })
   .passthrough();
-export const MessageCreate = z.object({ body: z.string() }).passthrough();
-export const CallRead = z
+const MessageCreate = z.object({ body: z.string() }).passthrough();
+const CallRead = z
   .object({
     created_at: z.string().datetime({ offset: true }),
     updated_at: z.union([z.string(), z.null()]).optional(),
@@ -892,7 +882,7 @@ export const CallRead = z
     patient_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const CallCreate = z
+const CallCreate = z
   .object({
     direction: z.string(),
     phone_number: z.string(),
@@ -901,7 +891,7 @@ export const CallCreate = z
     patient_id: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const CallUpdate = z
+const CallUpdate = z
   .object({
     status: z.union([z.string(), z.null()]),
     notes: z.union([z.string(), z.null()]),
@@ -910,7 +900,7 @@ export const CallUpdate = z
   })
   .partial()
   .passthrough();
-export const TaskRead = z
+const TaskRead = z
   .object({
     created_at: z.string().datetime({ offset: true }),
     updated_at: z.union([z.string(), z.null()]).optional(),
@@ -929,7 +919,7 @@ export const TaskRead = z
     patient_name: z.union([z.string(), z.null()]).optional(),
   })
   .passthrough();
-export const TaskCreate = z
+const TaskCreate = z
   .object({
     title: z.string(),
     description: z.union([z.string(), z.null()]).optional(),
@@ -939,7 +929,7 @@ export const TaskCreate = z
     assignee_id: z.string().uuid(),
   })
   .passthrough();
-export const TaskUpdate = z
+const TaskUpdate = z
   .object({
     title: z.union([z.string(), z.null()]),
     description: z.union([z.string(), z.null()]),
@@ -950,7 +940,7 @@ export const TaskUpdate = z
   })
   .partial()
   .passthrough();
-export const SupportMessageRead = z
+const SupportMessageRead = z
   .object({
     body: z.string(),
     id: z.string().uuid(),
@@ -960,7 +950,7 @@ export const SupportMessageRead = z
     created_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-export const TicketRead = z
+const TicketRead = z
   .object({
     subject: z.string(),
     category: z.string(),
@@ -977,7 +967,7 @@ export const TicketRead = z
     messages: z.array(SupportMessageRead).optional().default([]),
   })
   .passthrough();
-export const TicketCreate = z
+const TicketCreate = z
   .object({
     subject: z.string(),
     category: z.string(),
@@ -985,13 +975,13 @@ export const TicketCreate = z
     initial_message: z.string(),
   })
   .passthrough();
-export const SupportMessageCreate = z
+const SupportMessageCreate = z
   .object({
     body: z.string(),
     is_internal: z.boolean().optional().default(false),
   })
   .passthrough();
-export const TicketUpdate = z
+const TicketUpdate = z
   .object({
     status: z.union([z.string(), z.null()]),
     priority: z.union([z.string(), z.null()]),
@@ -1115,7 +1105,7 @@ export const schemas = {
   TicketUpdate,
 };
 
-export const endpoints = makeApi([
+const endpoints = makeApi([
   {
     method: "get",
     path: "/api/v1/admin/audit-logs",
@@ -1720,7 +1710,8 @@ Raises:
     path: "/api/v1/organizations/:org_id/appointments",
     alias: "create_appointment_api_v1_organizations__org_id__appointments_post",
     description: `Create a new appointment.
-Validates that the provider is not double-booked.`,
+Validates that the provider is not double-booked.
+Also verifies the user has permission to schedule for the specified patient.`,
     requestFormat: "json",
     parameters: [
       {
@@ -1748,8 +1739,10 @@ Validates that the provider is not double-booked.`,
     path: "/api/v1/organizations/:org_id/appointments",
     alias: "list_appointments_api_v1_organizations__org_id__appointments_get",
     description: `List appointments with filters.
-Defaults to today&#x27;s appointments if no date filter is provided?
-(Spec says &quot;Default: today&#x27;s appointments&quot; but let&#x27;s implement flexible filters first)`,
+Role-based access control:
+- Staff/Admin/Provider: see all appointments
+- Patient: see only their own appointments
+- Proxy: see only assigned patients&#x27; appointments`,
     requestFormat: "json",
     parameters: [
       {
@@ -2199,7 +2192,11 @@ Returns:
     method: "get",
     path: "/api/v1/organizations/:org_id/patients",
     alias: "list_patients_api_v1_organizations__org_id__patients_get",
-    description: `List patients enrolled in the organization with optional filters.`,
+    description: `List patients enrolled in the organization with optional filters.
+Role-based access control:
+- Staff/Admin/Provider: see all patients
+- Patient: see only themselves
+- Proxy: see only assigned patients`,
     requestFormat: "json",
     parameters: [
       {

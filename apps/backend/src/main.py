@@ -41,6 +41,7 @@ from src.config import settings
 from src.database import engine, get_db
 from src.logging import configure_logging, request_id_ctx
 from src.middleware.audit import AuditMiddleware
+from src.middleware.session_timeout import SessionTimeoutMiddleware
 
 # Sentry
 if settings.SENTRY_DSN:
@@ -132,7 +133,10 @@ app.include_router(support.router, prefix=f"{settings.API_V1_STR}/support", tags
 # Therefore, we add them in REVERSE order:
 # ============================================================================
 
-# 7. Audit Middleware (innermost - closest to app)
+# 8. Session Timeout (innermost - closest to app, runs after auth sets session)
+app.add_middleware(SessionTimeoutMiddleware)
+
+# 7. Audit Middleware
 app.add_middleware(AuditMiddleware)
 
 

@@ -1,6 +1,6 @@
 from uuid import UUID
 
-from fastapi import Depends, HTTPException, Path
+from fastapi import Depends, HTTPException, Path, Request
 from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -16,6 +16,7 @@ class OrgAccess:
 
     async def __call__(
         self,
+        request: Request,
         org_id: UUID = Path(...),
         current_user: User = Depends(get_current_user),
         db: AsyncSession = Depends(get_db),
@@ -32,6 +33,7 @@ class OrgAccess:
 
             # Set RLS context for tenant
             tenant_id_ctx.set(str(org_id))
+            request.state.organization_id = str(org_id)  # For audit middleware
             if db.in_transaction():
                 await db.execute(text("SELECT set_config('app.current_tenant_id', :tid, false)"), {"tid": str(org_id)})
 
@@ -57,6 +59,7 @@ class OrgAccess:
 
         # Set RLS context for tenant
         tenant_id_ctx.set(str(org_id))
+        request.state.organization_id = str(org_id)  # For audit middleware
         if db.in_transaction():
             await db.execute(text("SELECT set_config('app.current_tenant_id', :tid, false)"), {"tid": str(org_id)})
 
