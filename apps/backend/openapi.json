@@ -502,7 +502,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrganizationCreate"
+                "$ref": "#/components/schemas/src__api__admin__OrganizationCreate"
               }
             }
           }
@@ -1657,7 +1657,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/src__schemas__organizations__OrganizationCreate"
+                "$ref": "#/components/schemas/OrganizationCreate"
               }
             }
           },
@@ -8611,12 +8611,31 @@
         "properties": {
           "name": {
             "type": "string",
+            "maxLength": 255,
             "title": "Name"
           },
-          "subscription_status": {
+          "tax_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tax Id"
+          },
+          "settings_json": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Settings Json"
+          },
+          "timezone": {
             "type": "string",
-            "title": "Subscription Status",
-            "default": "trial"
+            "maxLength": 50,
+            "title": "Timezone",
+            "default": "America/New_York"
           }
         },
         "type": "object",
@@ -11648,35 +11667,16 @@
         ],
         "title": "ValidationError"
       },
-      "src__schemas__organizations__OrganizationCreate": {
+      "src__api__admin__OrganizationCreate": {
         "properties": {
           "name": {
             "type": "string",
-            "maxLength": 255,
             "title": "Name"
           },
-          "tax_id": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 50
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Tax Id"
-          },
-          "settings_json": {
-            "additionalProperties": true,
-            "type": "object",
-            "title": "Settings Json"
-          },
-          "timezone": {
+          "subscription_status": {
             "type": "string",
-            "maxLength": 50,
-            "title": "Timezone",
-            "default": "America/New_York"
+            "title": "Subscription Status",
+            "default": "trial"
           }
         },
         "type": "object",
