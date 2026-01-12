@@ -1,0 +1,7 @@
+langchain
+langchain-core
+langchain-google-genai
+langchain-anthropic
+langgraph
+python-dotenv
+requests

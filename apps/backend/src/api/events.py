@@ -221,21 +221,27 @@ async def get_current_user_from_token(
     # For now, we'll extract basic info for development/testing
     # In production, this should validate the token signature and expiry
 
-    # Placeholder: In real implementation, decode and validate the JWT
-    # For development, we'll accept a simple format or mock user
     try:
-        # Try to decode as a simple JSON for development
-        # Production should use firebase_admin.auth.verify_id_token(token)
+        # SECURITY: mock_ tokens are handled by main auth.py verify_token
+        # dev_ tokens are NO LONGER accepted - this was a security vulnerability
+        # For local testing, use mock_{email} tokens via the standard auth flow
 
-        # Check if it's a mock token (for development)
-        if token.startswith("dev_"):
-            # Development token format: dev_{user_id}_{org_id}
-            parts = token.split("_")
-            if len(parts) >= 3:
-                return {
-                    "id": parts[1],
-                    "organization_id": parts[2] if parts[2] != "none" else None,
-                }
+        # Check if it's a mock token (for local development ONLY)
+        if token.startswith("mock_"):
+            # Only allow mock tokens in local environment
+            if settings.ENVIRONMENT != "local":
+                logger.warning(f"SECURITY: mock token rejected in {settings.ENVIRONMENT} environment")
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="Mock authentication not allowed in this environment",
+                )
+            # Mock token format: mock_{email}
+            # Lookup user by email
+            email = token[5:]  # Remove "mock_" prefix
+            return {
+                "id": email,  # Use email as ID for mock tokens
+                "organization_id": None,
+            }
 
         # For actual JWT, we'd do something like:
         # from firebase_admin import auth

@@ -1,7 +1,7 @@
 from datetime import UTC, datetime
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -19,9 +19,58 @@ from src.schemas.patients import (
     PatientRead,
     PatientUpdate,
 )
+from src.security.auth import get_current_user
 from src.security.org_access import get_current_org_member
 
 router = APIRouter()
+
+
+async def _get_accessible_patient_ids(
+    db: AsyncSession,
+    user: User,
+    member: OrganizationMember,
+    org_id: UUID,
+) -> list[UUID] | None:
+    """
+    Get list of patient IDs the user can access based on their role.
+    Returns None if user can access all patients (Staff/Admin/Provider).
+    Returns list of patient IDs for Patient/Proxy roles.
+    """
+    # Staff, Admin, Provider can see all patients
+    if member.role in ("STAFF", "ADMIN", "PROVIDER"):
+        return None
+
+    accessible_ids = []
+
+    # Check if user is a patient - they can see themselves
+    patient_stmt = select(Patient.id).where(Patient.user_id == user.id).where(Patient.deleted_at.is_(None))
+    patient_result = await db.execute(patient_stmt)
+    own_patient_id = patient_result.scalar_one_or_none()
+    if own_patient_id:
+        accessible_ids.append(own_patient_id)
+
+    # Check if user is a proxy - they can see assigned patients
+    from src.models.assignments import PatientProxyAssignment
+    from src.models.profiles import Proxy
+
+    proxy_stmt = select(Proxy).where(Proxy.user_id == user.id).where(Proxy.deleted_at.is_(None))
+    proxy_result = await db.execute(proxy_stmt)
+    proxy = proxy_result.scalar_one_or_none()
+
+    if proxy:
+        now = datetime.now(UTC)
+        assignment_stmt = (
+            select(PatientProxyAssignment.patient_id)
+            .where(PatientProxyAssignment.proxy_id == proxy.id)
+            .where(PatientProxyAssignment.revoked_at.is_(None))
+            .where(PatientProxyAssignment.deleted_at.is_(None))
+            .where((PatientProxyAssignment.expires_at.is_(None)) | (PatientProxyAssignment.expires_at > now))
+        )
+        assignment_result = await db.execute(assignment_stmt)
+        proxy_patient_ids = assignment_result.scalars().all()
+        accessible_ids.extend(proxy_patient_ids)
+
+    return accessible_ids
 
 
 @router.post("", response_model=PatientRead, status_code=status.HTTP_201_CREATED)
@@ -101,12 +150,24 @@ async def list_patients(
     status_filter: str | None = Query(None, alias="status", description="ACTIVE or DISCHARGED"),
     limit: int = Query(50, ge=1, le=100),
     offset: int = Query(0, ge=0),
+    current_user: User = Depends(get_current_user),
     member: OrganizationMember = Depends(get_current_org_member),
     db: AsyncSession = Depends(get_db),
 ):
     """
     List patients enrolled in the organization with optional filters.
+    Role-based access control:
+    - Staff/Admin/Provider: see all patients
+    - Patient: see only themselves
+    - Proxy: see only assigned patients
     """
+    # Get accessible patient IDs based on role
+    accessible_ids = await _get_accessible_patient_ids(db, current_user, member, org_id)
+
+    # If role restricts access and no accessible patients, return empty
+    if accessible_ids is not None and len(accessible_ids) == 0:
+        return PaginatedPatients(items=[], total=0, limit=limit, offset=offset)
+
     # Base query: patients enrolled in this org
     base_query = (
         select(Patient, OrganizationPatient)
@@ -114,6 +175,10 @@ async def list_patients(
         .where(OrganizationPatient.organization_id == org_id)
         .where(Patient.deleted_at.is_(None))
     )
+
+    # Apply role-based filter if restricted
+    if accessible_ids is not None:
+        base_query = base_query.where(Patient.id.in_(accessible_ids))
 
     # Apply filters
     if status_filter:
@@ -163,6 +228,7 @@ async def list_patients(
 async def get_patient(
     org_id: UUID,
     patient_id: UUID,
+    request: Request,
     member: OrganizationMember = Depends(get_current_org_member),
     db: AsyncSession = Depends(get_db),
 ):
@@ -193,6 +259,21 @@ async def get_patient(
 
     if not patient:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Patient not found")
+
+    # HIPAA: Audit log for PHI access
+    from src.models.audit import AuditLog
+
+    audit = AuditLog(
+        actor_user_id=member.user_id,
+        organization_id=org_id,
+        resource_type="PATIENT",
+        resource_id=patient_id,
+        action_type="READ",
+        ip_address=request.client.host if request.client else None,
+        user_agent=request.headers.get("user-agent"),
+    )
+    db.add(audit)
+    await db.commit()
 
     return PatientRead(
         id=patient.id,

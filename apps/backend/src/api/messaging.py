@@ -23,6 +23,88 @@ from src.services.messaging import messaging_service
 router = APIRouter()
 
 
+async def _validate_thread_participant_access(
+    db: AsyncSession,
+    patient_id: UUID,
+    participant_ids: list[UUID],
+    organization_id: UUID,
+) -> None:
+    """
+    HIPAA: Ensure all participants have legitimate access to the patient.
+    This prevents unauthorized users from being added to PHI discussions.
+    """
+    from src.models.assignments import PatientProxyAssignment
+    from src.models.care_teams import CareTeamAssignment
+    from src.models.organizations import OrganizationMember
+    from src.models.profiles import Patient, Provider, Proxy
+
+    # Get patient to check user_id
+    patient_stmt = select(Patient).where(Patient.id == patient_id)
+    patient_result = await db.execute(patient_stmt)
+    patient = patient_result.scalar_one_or_none()
+
+    if not patient:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Patient not found")
+
+    for user_id in participant_ids:
+        # Check 1: User IS the patient
+        if patient.user_id == user_id:
+            continue
+
+        # Check 2: User is org Staff/Admin/Provider (can access all patients)
+        member_stmt = (
+            select(OrganizationMember)
+            .where(OrganizationMember.organization_id == organization_id)
+            .where(OrganizationMember.user_id == user_id)
+            .where(OrganizationMember.deleted_at.is_(None))
+        )
+        member_result = await db.execute(member_stmt)
+        member = member_result.scalar_one_or_none()
+
+        if member and member.role in ("STAFF", "ADMIN", "PROVIDER"):
+            continue
+
+        # Check 3: User is authorized proxy with messaging permission
+        proxy_stmt = select(Proxy).where(Proxy.user_id == user_id).where(Proxy.deleted_at.is_(None))
+        proxy_result = await db.execute(proxy_stmt)
+        proxy = proxy_result.scalar_one_or_none()
+
+        if proxy:
+            from datetime import UTC, datetime
+
+            now = datetime.now(UTC)
+            assignment_stmt = (
+                select(PatientProxyAssignment)
+                .where(PatientProxyAssignment.proxy_id == proxy.id)
+                .where(PatientProxyAssignment.patient_id == patient_id)
+                .where(PatientProxyAssignment.can_message_providers == True)  # noqa: E712
+                .where(PatientProxyAssignment.revoked_at.is_(None))
+                .where(PatientProxyAssignment.deleted_at.is_(None))
+                .where((PatientProxyAssignment.expires_at.is_(None)) | (PatientProxyAssignment.expires_at > now))
+            )
+            assignment_result = await db.execute(assignment_stmt)
+            if assignment_result.scalar_one_or_none():
+                continue
+
+        # Check 4: User is on patient's care team
+        care_team_stmt = (
+            select(CareTeamAssignment)
+            .join(Provider, CareTeamAssignment.provider_id == Provider.id)
+            .where(Provider.user_id == user_id)
+            .where(CareTeamAssignment.patient_id == patient_id)
+            .where(CareTeamAssignment.removed_at.is_(None))
+        )
+        care_team_result = await db.execute(care_team_stmt)
+        if care_team_result.scalar_one_or_none():
+            continue
+
+        # User failed all authorization checks
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="User is not authorized to participate in discussions about this patient",
+        )
+
+
 @router.get("", response_model=ThreadListResponse)
 async def list_threads(
     page: int = Query(1, ge=1),
@@ -84,6 +166,15 @@ async def create_thread(
     db: AsyncSession = Depends(get_db),
 ):
     """Create a new message thread."""
+    # HIPAA: If thread is about a patient, validate all participants have access
+    if data.patient_id:
+        await _validate_thread_participant_access(
+            db=db,
+            patient_id=data.patient_id,
+            participant_ids=data.participant_ids,
+            organization_id=data.organization_id,
+        )
+
     thread = await messaging_service.create_thread(
         db,
         organization_id=data.organization_id,
