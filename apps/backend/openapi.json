@@ -608,7 +608,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrganizationUpdate"
+                "$ref": "#/components/schemas/src__api__admin__OrganizationUpdate"
               }
             }
           }
@@ -1763,7 +1763,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/src__schemas__organizations__OrganizationUpdate"
+                "$ref": "#/components/schemas/OrganizationUpdate"
               }
             }
           }
@@ -8027,7 +8027,7 @@
           },
           "file_size": {
             "type": "integer",
-            "maximum": 10485760.0,
+            "maximum": 52428800.0,
             "exclusiveMinimum": 0.0,
             "title": "File Size"
           },
@@ -8764,27 +8764,53 @@
       },
       "OrganizationUpdate": {
         "properties": {
-          "is_active": {
+          "name": {
             "anyOf": [
               {
-                "type": "boolean"
+                "type": "string",
+                "maxLength": 255
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Is Active"
+            "title": "Name"
           },
-          "subscription_status": {
+          "tax_id": {
             "anyOf": [
               {
-                "type": "string"
+                "type": "string",
+                "maxLength": 50
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Subscription Status"
+            "title": "Tax Id"
+          },
+          "settings_json": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Settings Json"
+          },
+          "timezone": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone"
           }
         },
         "type": "object",
@@ -11685,55 +11711,29 @@
         ],
         "title": "OrganizationCreate"
       },
-      "src__schemas__organizations__OrganizationUpdate": {
+      "src__api__admin__OrganizationUpdate": {
         "properties": {
-          "name": {
+          "is_active": {
             "anyOf": [
               {
-                "type": "string",
-                "maxLength": 255
+                "type": "boolean"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Name"
+            "title": "Is Active"
           },
-          "tax_id": {
+          "subscription_status": {
             "anyOf": [
               {
-                "type": "string",
-                "maxLength": 50
+                "type": "string"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Tax Id"
-          },
-          "settings_json": {
-            "anyOf": [
-              {
-                "additionalProperties": true,
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Settings Json"
-          },
-          "timezone": {
-            "anyOf": [
-              {
-                "type": "string",
-                "maxLength": 50
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Timezone"
+            "title": "Subscription Status"
           }
         },
         "type": "object",

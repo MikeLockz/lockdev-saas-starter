@@ -2881,10 +2881,16 @@ export interface components {
         };
         /** OrganizationUpdate */
         OrganizationUpdate: {
-            /** Is Active */
-            is_active?: boolean | null;
-            /** Subscription Status */
-            subscription_status?: string | null;
+            /** Name */
+            name?: string | null;
+            /** Tax Id */
+            tax_id?: string | null;
+            /** Settings Json */
+            settings_json?: {
+                [key: string]: unknown;
+            } | null;
+            /** Timezone */
+            timezone?: string | null;
         };
         /**
          * PaginatedDocuments
@@ -4157,17 +4163,11 @@ export interface components {
             subscription_status: string;
         };
         /** OrganizationUpdate */
-        src__schemas__organizations__OrganizationUpdate: {
-            /** Name */
-            name?: string | null;
-            /** Tax Id */
-            tax_id?: string | null;
-            /** Settings Json */
-            settings_json?: {
-                [key: string]: unknown;
-            } | null;
-            /** Timezone */
-            timezone?: string | null;
+        src__api__admin__OrganizationUpdate: {
+            /** Is Active */
+            is_active?: boolean | null;
+            /** Subscription Status */
+            subscription_status?: string | null;
         };
     };
     responses: never;
@@ -4426,7 +4426,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["OrganizationUpdate"];
+                "application/json": components["schemas"]["src__api__admin__OrganizationUpdate"];
             };
         };
         responses: {
@@ -5219,7 +5219,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["src__schemas__organizations__OrganizationUpdate"];
+                "application/json": components["schemas"]["OrganizationUpdate"];
             };
         };
         responses: {

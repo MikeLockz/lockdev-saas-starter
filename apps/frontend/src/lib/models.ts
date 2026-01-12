@@ -178,4 +178,4 @@ export type UserAdminRead = components['schemas']['UserAdminRead'];
 export type UserAdminUpdate = components['schemas']['UserAdminUpdate'];
 export type UserListResponse = components['schemas']['UserListResponse'];
 export type src__api__admin__OrganizationCreate = components['schemas']['src__api__admin__OrganizationCreate'];
-export type src__schemas__organizations__OrganizationUpdate = components['schemas']['src__schemas__organizations__OrganizationUpdate'];
+export type src__api__admin__OrganizationUpdate = components['schemas']['src__api__admin__OrganizationUpdate'];
