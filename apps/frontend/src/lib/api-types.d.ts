@@ -4,7748 +4,7755 @@
  */
 
 export interface paths {
-  "/api/v1/admin/impersonate/{patient_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** Impersonate Patient */
-    post: operations["impersonate_patient_api_v1_admin_impersonate__patient_id__post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/admin/audit-logs": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Audit Logs
-     * @description List audit logs with optional filtering.
-     *     Requires admin privileges.
-     */
-    get: operations["list_audit_logs_api_v1_admin_audit_logs_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/admin/audit-logs/export": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Export Audit Logs
-     * @description Export audit logs as CSV.
-     */
-    get: operations["export_audit_logs_api_v1_admin_audit_logs_export_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/admin/audit-logs/{log_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Audit Log
-     * @description Get a specific audit log entry.
-     */
-    get: operations["get_audit_log_api_v1_admin_audit_logs__log_id__get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/admin/super-admin/organizations": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List All Organizations
-     * @description List all organizations across the platform.
-     */
-    get: operations["list_all_organizations_api_v1_admin_super_admin_organizations_get"];
-    put?: never;
-    /**
-     * Create Organization
-     * @description Create a new organization (super admin only).
-     */
-    post: operations["create_organization_api_v1_admin_super_admin_organizations_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/admin/super-admin/organizations/{org_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Organization Detail
-     * @description Get detailed organization info.
-     */
-    get: operations["get_organization_detail_api_v1_admin_super_admin_organizations__org_id__get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * Update Organization
-     * @description Update organization (suspend, activate, etc.).
-     */
-    patch: operations["update_organization_api_v1_admin_super_admin_organizations__org_id__patch"];
-    trace?: never;
-  };
-  "/api/v1/admin/super-admin/users": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List All Users
-     * @description List all users across the platform.
-     */
-    get: operations["list_all_users_api_v1_admin_super_admin_users_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/admin/super-admin/users/{user_id}/unlock": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * Unlock User
-     * @description Unlock a locked user account.
-     */
-    patch: operations["unlock_user_api_v1_admin_super_admin_users__user_id__unlock_patch"];
-    trace?: never;
-  };
-  "/api/v1/admin/super-admin/users/{user_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * Update User Admin
-     * @description Update user (toggle super admin, etc.).
-     */
-    patch: operations["update_user_admin_api_v1_admin_super_admin_users__user_id__patch"];
-    trace?: never;
-  };
-  "/api/v1/admin/super-admin/system": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get System Health
-     * @description Get system health status.
-     */
-    get: operations["get_system_health_api_v1_admin_super_admin_system_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/consent/required": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Required Consents
-     * @description List all active consents and status for the current user.
-     */
-    get: operations["get_required_consents_api_v1_consent_required_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/consent": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Sign Consent
-     * @description Sign a specific consent document.
-     */
-    post: operations["sign_consent_api_v1_consent_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Read Users Me
-     * @description Get current user profile.
-     */
-    get: operations["read_users_me_api_v1_users_me_get"];
-    put?: never;
-    post?: never;
-    /**
-     * Delete Users Me
-     * @description Soft delete user account (HIPAA compliance - data retained).
-     *
-     *     This action cannot be undone. The account becomes inaccessible but
-     *     data is retained for legal compliance.
-     */
-    delete: operations["delete_users_me_api_v1_users_me_delete"];
-    options?: never;
-    head?: never;
-    /**
-     * Update Users Me
-     * @description Update current user's profile.
-     */
-    patch: operations["update_users_me_api_v1_users_me_patch"];
-    trace?: never;
-  };
-  "/api/v1/users/me/sessions": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Sessions
-     * @description List all active sessions for the current user.
-     */
-    get: operations["list_sessions_api_v1_users_me_sessions_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/sessions/{session_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    /**
-     * Revoke Session
-     * @description Terminate a specific session.
-     *
-     *     If session_id matches the current session, this is equivalent to logout.
-     */
-    delete: operations["revoke_session_api_v1_users_me_sessions__session_id__delete"];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/export": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Request Export
-     * @description Request a HIPAA data export.
-     *
-     *     This initiates a background job. The user receives an email with a
-     *     secure download link when the export is ready (typically 24-48 hours).
-     */
-    post: operations["request_export_api_v1_users_me_export_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/communication-preferences": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Communication Preferences
-     * @description Get user's communication opt-in status.
-     */
-    get: operations["get_communication_preferences_api_v1_users_me_communication_preferences_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * Update Communication Preferences
-     * @description Update communication preferences.
-     *
-     *     Per TCPA compliance, transactional_consent must be True for appointment
-     *     reminders and billing alerts. marketing_consent controls promotional
-     *     communications.
-     */
-    patch: operations["update_communication_preferences_api_v1_users_me_communication_preferences_patch"];
-    trace?: never;
-  };
-  "/api/v1/users/me/timezone": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get User Timezone
-     * @description Get the current user's effective timezone.
-     *
-     *     Resolution order:
-     *     1. User's personal timezone preference (if set)
-     *     2. Organization's timezone (if user has org membership)
-     *     3. Default timezone (America/New_York)
-     *
-     *     Returns timezone string and source indicator.
-     */
-    get: operations["get_user_timezone_api_v1_users_me_timezone_get"];
-    put?: never;
-    post?: never;
-    /**
-     * Clear User Timezone
-     * @description Clear the user's timezone preference to use organization default.
-     */
-    delete: operations["clear_user_timezone_api_v1_users_me_timezone_delete"];
-    options?: never;
-    head?: never;
-    /**
-     * Update User Timezone
-     * @description Update the current user's timezone preference.
-     *
-     *     Set to a valid IANA timezone identifier to override organization default.
-     */
-    patch: operations["update_user_timezone_api_v1_users_me_timezone_patch"];
-    trace?: never;
-  };
-  "/api/v1/users/me/mfa/setup": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Mfa Setup
-     * @description Initialize MFA setup.
-     *
-     *     Returns a TOTP secret and provisioning URI for authenticator apps.
-     *     The secret is stored temporarily until verified.
-     */
-    post: operations["mfa_setup_api_v1_users_me_mfa_setup_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/mfa/verify": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Mfa Verify
-     * @description Complete MFA setup by verifying a TOTP code.
-     *
-     *     Returns backup codes (shown only once - user must save them).
-     */
-    post: operations["mfa_verify_api_v1_users_me_mfa_verify_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/mfa/disable": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Mfa Disable
-     * @description Disable MFA for the account.
-     *
-     *     Requires password confirmation for security.
-     */
-    post: operations["mfa_disable_api_v1_users_me_mfa_disable_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/device-token": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Register Device Token
-     * @description Register an FCM token for push notifications.
-     *
-     *     If the token already exists for this user, updates the device info.
-     */
-    post: operations["register_device_token_api_v1_users_device_token_post"];
-    /**
-     * Remove Device Token
-     * @description Remove an FCM token (logout cleanup).
-     */
-    delete: operations["remove_device_token_api_v1_users_device_token_delete"];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/proxy-patients": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get My Proxy Patients
-     * @description List patients the current user is proxy for.
-     */
-    get: operations["get_my_proxy_patients_api_v1_users_me_proxy_patients_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/proxy": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get My Proxy Profile
-     * @description Get the current user's proxy profile if they are a proxy.
-     *     Returns None if the user is not a proxy.
-     */
-    get: operations["get_my_proxy_profile_api_v1_users_me_proxy_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Organizations
-     * @description List all organizations the current user is a member of.
-     */
-    get: operations["list_organizations_api_v1_organizations_get"];
-    put?: never;
-    /**
-     * Create Organization
-     * @description Create a new organization and make the current user an ADMIN.
-     */
-    post: operations["create_organization_api_v1_organizations_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Organization
-     * @description Get organization details. Requires membership.
-     */
-    get: operations["get_organization_api_v1_organizations__org_id__get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * Update Organization
-     * @description Update organization. Requires ADMIN role.
-     */
-    patch: operations["update_organization_api_v1_organizations__org_id__patch"];
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/members": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Members
-     * @description List members of an organization. Requires membership.
-     */
-    get: operations["list_members_api_v1_organizations__org_id__members_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/invitations": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Invitations
-     * @description List pending invitations. Requires ADMIN role.
-     */
-    get: operations["list_invitations_api_v1_organizations__org_id__invitations_get"];
-    put?: never;
-    /**
-     * Create Invitation
-     * @description Invite a user to the organization. Requires ADMIN role.
-     */
-    post: operations["create_invitation_api_v1_organizations__org_id__invitations_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Patients
-     * @description List patients enrolled in the organization with optional filters.
-     */
-    get: operations["list_patients_api_v1_organizations__org_id__patients_get"];
-    put?: never;
-    /**
-     * Create Patient
-     * @description Create a new patient and enroll in the organization.
-     */
-    post: operations["create_patient_api_v1_organizations__org_id__patients_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients/{patient_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Patient
-     * @description Get full patient details with contact methods.
-     */
-    get: operations["get_patient_api_v1_organizations__org_id__patients__patient_id__get"];
-    put?: never;
-    post?: never;
-    /**
-     * Discharge Patient
-     * @description Discharge a patient from the organization (soft delete via status change).
-     */
-    delete: operations["discharge_patient_api_v1_organizations__org_id__patients__patient_id__delete"];
-    options?: never;
-    head?: never;
-    /**
-     * Update Patient
-     * @description Update patient fields. Requires org membership.
-     */
-    patch: operations["update_patient_api_v1_organizations__org_id__patients__patient_id__patch"];
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients/{patient_id}/contact-methods": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Contact Methods
-     * @description List all contact methods for a patient.
-     */
-    get: operations["list_contact_methods_api_v1_organizations__org_id__patients__patient_id__contact_methods_get"];
-    put?: never;
-    /**
-     * Create Contact Method
-     * @description Add a new contact method to a patient.
-     *     If is_primary=True, unsets other primaries of the same type.
-     */
-    post: operations["create_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients/{patient_id}/contact-methods/{contact_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    /**
-     * Delete Contact Method
-     * @description Delete a contact method.
-     *     Cannot delete the only primary contact of any type.
-     */
-    delete: operations["delete_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods__contact_id__delete"];
-    options?: never;
-    head?: never;
-    /**
-     * Update Contact Method
-     * @description Update a contact method.
-     *     If is_primary becomes True, unsets other primaries of the same type.
-     */
-    patch: operations["update_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods__contact_id__patch"];
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients/{patient_id}/care-team": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Care Team
-     * @description Get all providers assigned to a patient's care team.
-     */
-    get: operations["get_care_team_api_v1_organizations__org_id__patients__patient_id__care_team_get"];
-    put?: never;
-    /**
-     * Assign To Care Team
-     * @description Assign a provider to a patient's care team.
-     *     Only one PRIMARY provider allowed per patient.
-     */
-    post: operations["assign_to_care_team_api_v1_organizations__org_id__patients__patient_id__care_team_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients/{patient_id}/care-team/{assignment_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    /**
-     * Remove From Care Team
-     * @description Remove a provider from a patient's care team (soft delete).
-     */
-    delete: operations["remove_from_care_team_api_v1_organizations__org_id__patients__patient_id__care_team__assignment_id__delete"];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/providers": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Providers
-     * @description List all providers in the organization.
-     */
-    get: operations["list_providers_api_v1_organizations__org_id__providers_get"];
-    put?: never;
-    /**
-     * Create Provider
-     * @description Create a provider profile for a user (promotes user to provider role).
-     *     Requires admin access.
-     */
-    post: operations["create_provider_api_v1_organizations__org_id__providers_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/providers/{provider_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Provider
-     * @description Get full provider details.
-     */
-    get: operations["get_provider_api_v1_organizations__org_id__providers__provider_id__get"];
-    put?: never;
-    post?: never;
-    /**
-     * Delete Provider
-     * @description Soft delete a provider (set is_active=false and deleted_at).
-     *     Requires admin access.
-     */
-    delete: operations["delete_provider_api_v1_organizations__org_id__providers__provider_id__delete"];
-    options?: never;
-    head?: never;
-    /**
-     * Update Provider
-     * @description Update provider fields. Requires admin access.
-     */
-    patch: operations["update_provider_api_v1_organizations__org_id__providers__provider_id__patch"];
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/staff": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Staff
-     * @description List all staff members in the organization.
-     */
-    get: operations["list_staff_api_v1_organizations__org_id__staff_get"];
-    put?: never;
-    /**
-     * Create Staff
-     * @description Create a staff profile for a user.
-     *     Requires admin access.
-     */
-    post: operations["create_staff_api_v1_organizations__org_id__staff_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/staff/{staff_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Staff
-     * @description Get full staff details.
-     */
-    get: operations["get_staff_api_v1_organizations__org_id__staff__staff_id__get"];
-    put?: never;
-    post?: never;
-    /**
-     * Delete Staff
-     * @description Soft delete a staff member (set is_active=false and deleted_at).
-     *     Requires admin access.
-     */
-    delete: operations["delete_staff_api_v1_organizations__org_id__staff__staff_id__delete"];
-    options?: never;
-    head?: never;
-    /**
-     * Update Staff
-     * @description Update staff fields. Requires admin access.
-     */
-    patch: operations["update_staff_api_v1_organizations__org_id__staff__staff_id__patch"];
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/appointments": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Appointments
-     * @description List appointments with filters.
-     *     Defaults to today's appointments if no date filter is provided?
-     *     (Spec says "Default: today's appointments" but let's implement flexible filters first)
-     */
-    get: operations["list_appointments_api_v1_organizations__org_id__appointments_get"];
-    put?: never;
-    /**
-     * Create Appointment
-     * @description Create a new appointment.
-     *     Validates that the provider is not double-booked.
-     */
-    post: operations["create_appointment_api_v1_organizations__org_id__appointments_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/appointments/{appointment_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Get Appointment */
-    get: operations["get_appointment_api_v1_organizations__org_id__appointments__appointment_id__get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /** Update Appointment */
-    patch: operations["update_appointment_api_v1_organizations__org_id__appointments__appointment_id__patch"];
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/appointments/{appointment_id}/status": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /** Update Appointment Status */
-    patch: operations["update_appointment_status_api_v1_organizations__org_id__appointments__appointment_id__status_patch"];
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients/{patient_id}/documents/upload-url": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Create Upload Url
-     * @description Generate presigned S3 URL for document upload.
-     */
-    post: operations["create_upload_url_api_v1_organizations__org_id__patients__patient_id__documents_upload_url_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients/{patient_id}/documents/{document_id}/confirm": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Confirm Upload
-     * @description Confirm document upload completion.
-     */
-    post: operations["confirm_upload_api_v1_organizations__org_id__patients__patient_id__documents__document_id__confirm_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients/{patient_id}/documents": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Documents
-     * @description List documents for a patient.
-     */
-    get: operations["list_documents_api_v1_organizations__org_id__patients__patient_id__documents_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients/{patient_id}/documents/{document_id}/download-url": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Download Url
-     * @description Generate presigned S3 URL for document download.
-     */
-    get: operations["get_download_url_api_v1_organizations__org_id__patients__patient_id__documents__document_id__download_url_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients/{patient_id}/documents/{document_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    /**
-     * Delete Document
-     * @description Soft delete a document.
-     */
-    delete: operations["delete_document_api_v1_organizations__org_id__patients__patient_id__documents__document_id__delete"];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/invitations/{token}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Invitation
-     * @description Get invitation details from token. Public endpoint.
-     */
-    get: operations["get_invitation_api_v1_invitations__token__get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/invitations/{token}/accept": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Accept Invitation
-     * @description Accept an invitation. Requires user to be logged in.
-     */
-    post: operations["accept_invitation_api_v1_invitations__token__accept_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients/{patient_id}/proxies": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Patient Proxies
-     * @description List all proxies assigned to a patient.
-     */
-    get: operations["list_patient_proxies_api_v1_organizations__org_id__patients__patient_id__proxies_get"];
-    put?: never;
-    /**
-     * Assign Proxy
-     * @description Assign a proxy to a patient by email.
-     *     If user exists, grants immediate access.
-     */
-    post: operations["assign_proxy_api_v1_organizations__org_id__patients__patient_id__proxies_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/patients/{patient_id}/proxies/{assignment_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    /**
-     * Revoke Proxy
-     * @description Revoke proxy access (soft delete with revoked_at).
-     */
-    delete: operations["revoke_proxy_api_v1_organizations__org_id__patients__patient_id__proxies__assignment_id__delete"];
-    options?: never;
-    head?: never;
-    /**
-     * Update Proxy Permissions
-     * @description Update proxy permissions.
-     */
-    patch: operations["update_proxy_permissions_api_v1_organizations__org_id__patients__patient_id__proxies__assignment_id__patch"];
-    trace?: never;
-  };
-  "/api/v1/events": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Events
-     * @description Server-Sent Events stream for real-time updates.
-     *
-     *     This endpoint establishes a long-lived HTTP connection for
-     *     server-to-client push notifications.
-     *
-     *     The client will receive events such as:
-     *     - notification.new: New notification created
-     *     - message.new: New message in subscribed thread
-     *     - appointment.reminder: Upcoming appointment reminder
-     *     - appointment.updated: Appointment rescheduled/cancelled
-     *     - document.processed: Document finished OCR/virus scan
-     *     - document.scan_complete: Virus scan completed
-     *     - consent.required: New consent document available
-     *     - call.incoming: Incoming call (Call Center)
-     *     - call.completed: Call ended
-     *     - heartbeat: Keep-alive (every 30 seconds)
-     *
-     *     Authentication can be provided via:
-     *     - Authorization header: Bearer {token}
-     *     - Query parameter: ?token={token}
-     *
-     *     Returns:
-     *         StreamingResponse with text/event-stream content type
-     */
-    get: operations["get_events_api_v1_events_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/events/organizations/{org_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Org Events
-     * @description Organization-scoped SSE stream for admin views.
-     *
-     *     This endpoint provides organization-level events in addition
-     *     to standard user events. Requires ADMIN or SUPER_ADMIN role.
-     *
-     *     Additional event types:
-     *     - member.joined: New member accepted invitation
-     *     - member.removed: Member removed from organization
-     *     - subscription.updated: Subscription status changed
-     *     - license.expiring: Provider license expiring soon
-     *
-     *     Args:
-     *         org_id: Organization ID
-     *
-     *     Returns:
-     *         StreamingResponse with text/event-stream content type
-     *
-     *     Raises:
-     *         HTTPException: If user is not admin of the organization
-     */
-    get: operations["get_org_events_api_v1_events_organizations__org_id__get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/telemetry": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Log Telemetry Event
-     * @description Log a behavioral analytics event.
-     *
-     *     This endpoint accepts telemetry events from the frontend and logs them
-     *     using structlog with `event_type="analytics"` for CloudWatch filtering.
-     *
-     *     **Use Cases:**
-     *     - Page views and navigation patterns
-     *     - Feature usage tracking
-     *     - Button clicks and user interactions
-     *     - Error events (client-side)
-     *     - Performance metrics
-     *
-     *     **Privacy:**
-     *     - Do not send PII/PHI in the properties
-     *     - User ID is automatically attached from context
-     *     - IP address is logged for basic analytics
-     *
-     *     Args:
-     *         event: The telemetry event with name and properties
-     *
-     *     Returns:
-     *         Confirmation that the event was logged
-     */
-    post: operations["log_telemetry_event_api_v1_telemetry_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/telemetry/batch": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Log Telemetry Batch
-     * @description Log multiple telemetry events in a batch.
-     *
-     *     This endpoint is optimized for sending multiple events at once,
-     *     reducing the number of HTTP requests from the frontend.
-     *
-     *     **Use Cases:**
-     *     - Offline event buffering
-     *     - Page unload event flushing
-     *     - Session aggregation
-     *
-     *     Args:
-     *         events: List of telemetry events
-     *
-     *     Returns:
-     *         Confirmation that all events were logged
-     */
-    post: operations["log_telemetry_batch_api_v1_telemetry_batch_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/webhooks/stripe": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Handle Stripe Webhook
-     * @description Handle incoming Stripe webhook events.
-     *
-     *     This endpoint receives events from Stripe and processes them:
-     *     - Verifies the webhook signature for security
-     *     - Parses the event and dispatches to appropriate handlers
-     *     - Updates database records based on event type
-     *
-     *     **Security:**
-     *     - Signature verification using STRIPE_WEBHOOK_SECRET
-     *     - Raw body parsing to prevent tampering
-     *
-     *     **Handled Events:**
-     *     - checkout.session.completed: Subscription activated
-     *     - invoice.payment_succeeded: Payment confirmed
-     *     - invoice.payment_failed: Payment failed, status updated
-     *     - customer.subscription.updated: Subscription status changed
-     *     - customer.subscription.deleted: Subscription canceled
-     *
-     *     Returns:
-     *         Success response for Stripe acknowledgment
-     */
-    post: operations["handle_stripe_webhook_api_v1_webhooks_stripe_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/billing/checkout": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Create Checkout
-     * @description Create a Stripe Checkout Session for subscription.
-     *
-     *     Creates a Stripe customer for the organization if one doesn't exist,
-     *     then creates a checkout session for the specified price.
-     *
-     *     **Requires**: Organization ADMIN role.
-     *
-     *     Returns:
-     *         Checkout session with redirect URL for Stripe payment page.
-     */
-    post: operations["create_checkout_api_v1_organizations__org_id__billing_checkout_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/billing/subscription": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Subscription Status
-     * @description Get current subscription status for the organization.
-     *
-     *     **Requires**: Organization ADMIN role.
-     *
-     *     Returns:
-     *         Current subscription status including plan and billing period.
-     */
-    get: operations["get_subscription_status_api_v1_organizations__org_id__billing_subscription_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/billing/portal": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Create Billing Portal
-     * @description Create a Stripe Customer Portal session.
-     *
-     *     The portal allows customers to manage their subscription,
-     *     update payment methods, and view invoices.
-     *
-     *     **Requires**: Organization ADMIN role.
-     *
-     *     Returns:
-     *         Portal session with redirect URL.
-     */
-    post: operations["create_billing_portal_api_v1_organizations__org_id__billing_portal_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/notifications": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Notifications
-     * @description List notifications for the current user.
-     */
-    get: operations["list_notifications_api_v1_users_me_notifications_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/notifications/unread-count": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Unread Count
-     * @description Get the number of unread notifications.
-     */
-    get: operations["get_unread_count_api_v1_users_me_notifications_unread_count_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/notifications/{notification_id}/read": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * Mark As Read
-     * @description Mark a notification as read.
-     */
-    patch: operations["mark_as_read_api_v1_users_me_notifications__notification_id__read_patch"];
-    trace?: never;
-  };
-  "/api/v1/users/me/notifications/{notification_id}/unread": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * Mark As Unread
-     * @description Mark a notification as unread.
-     */
-    patch: operations["mark_as_unread_api_v1_users_me_notifications__notification_id__unread_patch"];
-    trace?: never;
-  };
-  "/api/v1/users/me/notifications/mark-all-read": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Mark All Read
-     * @description Mark all notifications as read for the current user.
-     */
-    post: operations["mark_all_read_api_v1_users_me_notifications_mark_all_read_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/notifications/{notification_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    /**
-     * Delete Notification
-     * @description Delete a notification.
-     */
-    delete: operations["delete_notification_api_v1_users_me_notifications__notification_id__delete"];
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/threads": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List Threads
-     * @description List message threads for the current user.
-     */
-    get: operations["list_threads_api_v1_users_me_threads_get"];
-    put?: never;
-    /**
-     * Create Thread
-     * @description Create a new message thread.
-     */
-    post: operations["create_thread_api_v1_users_me_threads_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/threads/{thread_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Thread
-     * @description Get thread details.
-     */
-    get: operations["get_thread_api_v1_users_me_threads__thread_id__get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/threads/{thread_id}/messages": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Send Message
-     * @description Send a message to a thread.
-     */
-    post: operations["send_message_api_v1_users_me_threads__thread_id__messages_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/users/me/threads/{thread_id}/read": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Mark Read
-     * @description Mark thread as read.
-     */
-    post: operations["mark_read_api_v1_users_me_threads__thread_id__read_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/calls/": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** List Calls */
-    get: operations["list_calls_api_v1_organizations__org_id__calls__get"];
-    put?: never;
-    /**
-     * Create Call
-     * @description Log a new call. Automatically sets status to IN_PROGRESS and started_at to now.
-     */
-    post: operations["create_call_api_v1_organizations__org_id__calls__post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/calls/{call_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /** Update Call */
-    patch: operations["update_call_api_v1_organizations__org_id__calls__call_id__patch"];
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/tasks/": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** List Org Tasks */
-    get: operations["list_org_tasks_api_v1_organizations__org_id__tasks__get"];
-    put?: never;
-    /** Create Task */
-    post: operations["create_task_api_v1_organizations__org_id__tasks__post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/organizations/{org_id}/tasks/{task_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    /** Delete Task */
-    delete: operations["delete_task_api_v1_organizations__org_id__tasks__task_id__delete"];
-    options?: never;
-    head?: never;
-    /** Update Task */
-    patch: operations["update_task_api_v1_organizations__org_id__tasks__task_id__patch"];
-    trace?: never;
-  };
-  "/api/v1/users/tasks/me/all": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * List My Tasks
-     * @description Get all tasks assigned to current user across all organizations
-     */
-    get: operations["list_my_tasks_api_v1_users_tasks_me_all_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/support/tickets": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get My Tickets
-     * @description List user's support tickets.
-     */
-    get: operations["get_my_tickets_api_v1_support_tickets_get"];
-    put?: never;
-    /**
-     * Create Ticket
-     * @description Create a new support ticket with an initial message.
-     */
-    post: operations["create_ticket_api_v1_support_tickets_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/support/tickets/{ticket_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get Ticket
-     * @description Get a specific ticket with messages.
-     */
-    get: operations["get_ticket_api_v1_support_tickets__ticket_id__get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/support/tickets/{ticket_id}/messages": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /**
-     * Add Message
-     * @description Add a message to a ticket.
-     */
-    post: operations["add_message_api_v1_support_tickets__ticket_id__messages_post"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/support/admin/tickets": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /**
-     * Get All Tickets
-     * @description Admin: List all tickets with optional filtering.
-     */
-    get: operations["get_all_tickets_api_v1_support_admin_tickets_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/api/v1/support/admin/tickets/{ticket_id}": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * Update Ticket Status
-     * @description Admin: Update ticket status, priority, or assignment.
-     */
-    patch: operations["update_ticket_status_api_v1_support_admin_tickets__ticket_id__patch"];
-    trace?: never;
-  };
-  "/api/v1/support/admin/tickets/{ticket_id}/assign": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    /**
-     * Assign Ticket
-     * @description Admin: Assign ticket to a user (staff).
-     */
-    patch: operations["assign_ticket_api_v1_support_admin_tickets__ticket_id__assign_patch"];
-    trace?: never;
-  };
-  "/health": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Health Check */
-    get: operations["health_check_health_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  "/health/deep": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    /** Deep Health Check */
-    get: operations["deep_health_check_health_deep_get"];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
+    "/api/v1/admin/impersonate/{patient_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Impersonate Patient */
+        post: operations["impersonate_patient_api_v1_admin_impersonate__patient_id__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/audit-logs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Audit Logs
+         * @description List audit logs with optional filtering.
+         *     Requires admin privileges.
+         */
+        get: operations["list_audit_logs_api_v1_admin_audit_logs_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/audit-logs/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Export Audit Logs
+         * @description Export audit logs as CSV.
+         */
+        get: operations["export_audit_logs_api_v1_admin_audit_logs_export_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/audit-logs/{log_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Audit Log
+         * @description Get a specific audit log entry.
+         */
+        get: operations["get_audit_log_api_v1_admin_audit_logs__log_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/super-admin/organizations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List All Organizations
+         * @description List all organizations across the platform.
+         */
+        get: operations["list_all_organizations_api_v1_admin_super_admin_organizations_get"];
+        put?: never;
+        /**
+         * Create Organization
+         * @description Create a new organization (super admin only).
+         */
+        post: operations["create_organization_api_v1_admin_super_admin_organizations_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/super-admin/organizations/{org_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Organization Detail
+         * @description Get detailed organization info.
+         */
+        get: operations["get_organization_detail_api_v1_admin_super_admin_organizations__org_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Organization
+         * @description Update organization (suspend, activate, etc.).
+         */
+        patch: operations["update_organization_api_v1_admin_super_admin_organizations__org_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/admin/super-admin/users": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List All Users
+         * @description List all users across the platform.
+         */
+        get: operations["list_all_users_api_v1_admin_super_admin_users_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/super-admin/users/{user_id}/unlock": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Unlock User
+         * @description Unlock a locked user account.
+         */
+        patch: operations["unlock_user_api_v1_admin_super_admin_users__user_id__unlock_patch"];
+        trace?: never;
+    };
+    "/api/v1/admin/super-admin/users/{user_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update User Admin
+         * @description Update user (toggle super admin, etc.).
+         */
+        patch: operations["update_user_admin_api_v1_admin_super_admin_users__user_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/admin/super-admin/system": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get System Health
+         * @description Get system health status.
+         */
+        get: operations["get_system_health_api_v1_admin_super_admin_system_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/consent/required": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Required Consents
+         * @description List all active consents and status for the current user.
+         */
+        get: operations["get_required_consents_api_v1_consent_required_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/consent": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Sign Consent
+         * @description Sign a specific consent document.
+         */
+        post: operations["sign_consent_api_v1_consent_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Read Users Me
+         * @description Get current user profile.
+         */
+        get: operations["read_users_me_api_v1_users_me_get"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete Users Me
+         * @description Soft delete user account (HIPAA compliance - data retained).
+         *
+         *     This action cannot be undone. The account becomes inaccessible but
+         *     data is retained for legal compliance.
+         */
+        delete: operations["delete_users_me_api_v1_users_me_delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update Users Me
+         * @description Update current user's profile.
+         */
+        patch: operations["update_users_me_api_v1_users_me_patch"];
+        trace?: never;
+    };
+    "/api/v1/users/me/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Sessions
+         * @description List all active sessions for the current user.
+         */
+        get: operations["list_sessions_api_v1_users_me_sessions_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/sessions/{session_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Revoke Session
+         * @description Terminate a specific session.
+         *
+         *     If session_id matches the current session, this is equivalent to logout.
+         */
+        delete: operations["revoke_session_api_v1_users_me_sessions__session_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Request Export
+         * @description Request a HIPAA data export.
+         *
+         *     This initiates a background job. The user receives an email with a
+         *     secure download link when the export is ready (typically 24-48 hours).
+         */
+        post: operations["request_export_api_v1_users_me_export_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/communication-preferences": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Communication Preferences
+         * @description Get user's communication opt-in status.
+         */
+        get: operations["get_communication_preferences_api_v1_users_me_communication_preferences_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Communication Preferences
+         * @description Update communication preferences.
+         *
+         *     Per TCPA compliance, transactional_consent must be True for appointment
+         *     reminders and billing alerts. marketing_consent controls promotional
+         *     communications.
+         */
+        patch: operations["update_communication_preferences_api_v1_users_me_communication_preferences_patch"];
+        trace?: never;
+    };
+    "/api/v1/users/me/timezone": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get User Timezone
+         * @description Get the current user's effective timezone.
+         *
+         *     Resolution order:
+         *     1. User's personal timezone preference (if set)
+         *     2. Organization's timezone (if user has org membership)
+         *     3. Default timezone (America/New_York)
+         *
+         *     Returns timezone string and source indicator.
+         */
+        get: operations["get_user_timezone_api_v1_users_me_timezone_get"];
+        put?: never;
+        post?: never;
+        /**
+         * Clear User Timezone
+         * @description Clear the user's timezone preference to use organization default.
+         */
+        delete: operations["clear_user_timezone_api_v1_users_me_timezone_delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update User Timezone
+         * @description Update the current user's timezone preference.
+         *
+         *     Set to a valid IANA timezone identifier to override organization default.
+         */
+        patch: operations["update_user_timezone_api_v1_users_me_timezone_patch"];
+        trace?: never;
+    };
+    "/api/v1/users/me/mfa/setup": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Mfa Setup
+         * @description Initialize MFA setup.
+         *
+         *     Returns a TOTP secret and provisioning URI for authenticator apps.
+         *     The secret is stored temporarily until verified.
+         */
+        post: operations["mfa_setup_api_v1_users_me_mfa_setup_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/mfa/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Mfa Verify
+         * @description Complete MFA setup by verifying a TOTP code.
+         *
+         *     Returns backup codes (shown only once - user must save them).
+         */
+        post: operations["mfa_verify_api_v1_users_me_mfa_verify_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/mfa/disable": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Mfa Disable
+         * @description Disable MFA for the account.
+         *
+         *     Requires password confirmation for security.
+         */
+        post: operations["mfa_disable_api_v1_users_me_mfa_disable_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/device-token": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Register Device Token
+         * @description Register an FCM token for push notifications.
+         *
+         *     If the token already exists for this user, updates the device info.
+         */
+        post: operations["register_device_token_api_v1_users_device_token_post"];
+        /**
+         * Remove Device Token
+         * @description Remove an FCM token (logout cleanup).
+         */
+        delete: operations["remove_device_token_api_v1_users_device_token_delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/proxy-patients": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get My Proxy Patients
+         * @description List patients the current user is proxy for.
+         */
+        get: operations["get_my_proxy_patients_api_v1_users_me_proxy_patients_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/proxy": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get My Proxy Profile
+         * @description Get the current user's proxy profile if they are a proxy.
+         *     Returns None if the user is not a proxy.
+         */
+        get: operations["get_my_proxy_profile_api_v1_users_me_proxy_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Organizations
+         * @description List all organizations the current user is a member of.
+         */
+        get: operations["list_organizations_api_v1_organizations_get"];
+        put?: never;
+        /**
+         * Create Organization
+         * @description Create a new organization and make the current user an ADMIN.
+         */
+        post: operations["create_organization_api_v1_organizations_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Organization
+         * @description Get organization details. Requires membership.
+         */
+        get: operations["get_organization_api_v1_organizations__org_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Organization
+         * @description Update organization. Requires ADMIN role.
+         */
+        patch: operations["update_organization_api_v1_organizations__org_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Members
+         * @description List members of an organization. Requires membership.
+         */
+        get: operations["list_members_api_v1_organizations__org_id__members_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/invitations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Invitations
+         * @description List pending invitations. Requires ADMIN role.
+         */
+        get: operations["list_invitations_api_v1_organizations__org_id__invitations_get"];
+        put?: never;
+        /**
+         * Create Invitation
+         * @description Invite a user to the organization. Requires ADMIN role.
+         */
+        post: operations["create_invitation_api_v1_organizations__org_id__invitations_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Patients
+         * @description List patients enrolled in the organization with optional filters.
+         *     Role-based access control:
+         *     - Staff/Admin/Provider: see all patients
+         *     - Patient: see only themselves
+         *     - Proxy: see only assigned patients
+         */
+        get: operations["list_patients_api_v1_organizations__org_id__patients_get"];
+        put?: never;
+        /**
+         * Create Patient
+         * @description Create a new patient and enroll in the organization.
+         */
+        post: operations["create_patient_api_v1_organizations__org_id__patients_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients/{patient_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Patient
+         * @description Get full patient details with contact methods.
+         */
+        get: operations["get_patient_api_v1_organizations__org_id__patients__patient_id__get"];
+        put?: never;
+        post?: never;
+        /**
+         * Discharge Patient
+         * @description Discharge a patient from the organization (soft delete via status change).
+         */
+        delete: operations["discharge_patient_api_v1_organizations__org_id__patients__patient_id__delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update Patient
+         * @description Update patient fields. Requires org membership.
+         */
+        patch: operations["update_patient_api_v1_organizations__org_id__patients__patient_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients/{patient_id}/contact-methods": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Contact Methods
+         * @description List all contact methods for a patient.
+         */
+        get: operations["list_contact_methods_api_v1_organizations__org_id__patients__patient_id__contact_methods_get"];
+        put?: never;
+        /**
+         * Create Contact Method
+         * @description Add a new contact method to a patient.
+         *     If is_primary=True, unsets other primaries of the same type.
+         */
+        post: operations["create_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients/{patient_id}/contact-methods/{contact_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Contact Method
+         * @description Delete a contact method.
+         *     Cannot delete the only primary contact of any type.
+         */
+        delete: operations["delete_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods__contact_id__delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update Contact Method
+         * @description Update a contact method.
+         *     If is_primary becomes True, unsets other primaries of the same type.
+         */
+        patch: operations["update_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods__contact_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients/{patient_id}/care-team": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Care Team
+         * @description Get all providers assigned to a patient's care team.
+         */
+        get: operations["get_care_team_api_v1_organizations__org_id__patients__patient_id__care_team_get"];
+        put?: never;
+        /**
+         * Assign To Care Team
+         * @description Assign a provider to a patient's care team.
+         *     Only one PRIMARY provider allowed per patient.
+         */
+        post: operations["assign_to_care_team_api_v1_organizations__org_id__patients__patient_id__care_team_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients/{patient_id}/care-team/{assignment_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Remove From Care Team
+         * @description Remove a provider from a patient's care team (soft delete).
+         */
+        delete: operations["remove_from_care_team_api_v1_organizations__org_id__patients__patient_id__care_team__assignment_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/providers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Providers
+         * @description List all providers in the organization.
+         */
+        get: operations["list_providers_api_v1_organizations__org_id__providers_get"];
+        put?: never;
+        /**
+         * Create Provider
+         * @description Create a provider profile for a user (promotes user to provider role).
+         *     Requires admin access.
+         */
+        post: operations["create_provider_api_v1_organizations__org_id__providers_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/providers/{provider_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Provider
+         * @description Get full provider details.
+         */
+        get: operations["get_provider_api_v1_organizations__org_id__providers__provider_id__get"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete Provider
+         * @description Soft delete a provider (set is_active=false and deleted_at).
+         *     Requires admin access.
+         */
+        delete: operations["delete_provider_api_v1_organizations__org_id__providers__provider_id__delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update Provider
+         * @description Update provider fields. Requires admin access.
+         */
+        patch: operations["update_provider_api_v1_organizations__org_id__providers__provider_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/staff": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Staff
+         * @description List all staff members in the organization.
+         */
+        get: operations["list_staff_api_v1_organizations__org_id__staff_get"];
+        put?: never;
+        /**
+         * Create Staff
+         * @description Create a staff profile for a user.
+         *     Requires admin access.
+         */
+        post: operations["create_staff_api_v1_organizations__org_id__staff_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/staff/{staff_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Staff
+         * @description Get full staff details.
+         */
+        get: operations["get_staff_api_v1_organizations__org_id__staff__staff_id__get"];
+        put?: never;
+        post?: never;
+        /**
+         * Delete Staff
+         * @description Soft delete a staff member (set is_active=false and deleted_at).
+         *     Requires admin access.
+         */
+        delete: operations["delete_staff_api_v1_organizations__org_id__staff__staff_id__delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update Staff
+         * @description Update staff fields. Requires admin access.
+         */
+        patch: operations["update_staff_api_v1_organizations__org_id__staff__staff_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/appointments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Appointments
+         * @description List appointments with filters.
+         *     Role-based access control:
+         *     - Staff/Admin/Provider: see all appointments
+         *     - Patient: see only their own appointments
+         *     - Proxy: see only assigned patients' appointments
+         */
+        get: operations["list_appointments_api_v1_organizations__org_id__appointments_get"];
+        put?: never;
+        /**
+         * Create Appointment
+         * @description Create a new appointment.
+         *     Validates that the provider is not double-booked.
+         *     Also verifies the user has permission to schedule for the specified patient.
+         */
+        post: operations["create_appointment_api_v1_organizations__org_id__appointments_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/appointments/{appointment_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Appointment */
+        get: operations["get_appointment_api_v1_organizations__org_id__appointments__appointment_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update Appointment */
+        patch: operations["update_appointment_api_v1_organizations__org_id__appointments__appointment_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/appointments/{appointment_id}/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update Appointment Status */
+        patch: operations["update_appointment_status_api_v1_organizations__org_id__appointments__appointment_id__status_patch"];
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients/{patient_id}/documents/upload-url": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Upload Url
+         * @description Generate presigned S3 URL for document upload.
+         */
+        post: operations["create_upload_url_api_v1_organizations__org_id__patients__patient_id__documents_upload_url_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients/{patient_id}/documents/{document_id}/confirm": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Confirm Upload
+         * @description Confirm document upload completion.
+         */
+        post: operations["confirm_upload_api_v1_organizations__org_id__patients__patient_id__documents__document_id__confirm_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients/{patient_id}/documents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Documents
+         * @description List documents for a patient.
+         */
+        get: operations["list_documents_api_v1_organizations__org_id__patients__patient_id__documents_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients/{patient_id}/documents/{document_id}/download-url": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Download Url
+         * @description Generate presigned S3 URL for document download.
+         */
+        get: operations["get_download_url_api_v1_organizations__org_id__patients__patient_id__documents__document_id__download_url_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients/{patient_id}/documents/{document_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Document
+         * @description Soft delete a document.
+         */
+        delete: operations["delete_document_api_v1_organizations__org_id__patients__patient_id__documents__document_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/invitations/{token}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Invitation
+         * @description Get invitation details from token. Public endpoint.
+         */
+        get: operations["get_invitation_api_v1_invitations__token__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/invitations/{token}/accept": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Accept Invitation
+         * @description Accept an invitation. Requires user to be logged in.
+         */
+        post: operations["accept_invitation_api_v1_invitations__token__accept_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients/{patient_id}/proxies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Patient Proxies
+         * @description List all proxies assigned to a patient.
+         */
+        get: operations["list_patient_proxies_api_v1_organizations__org_id__patients__patient_id__proxies_get"];
+        put?: never;
+        /**
+         * Assign Proxy
+         * @description Assign a proxy to a patient by email.
+         *     If user exists, grants immediate access.
+         */
+        post: operations["assign_proxy_api_v1_organizations__org_id__patients__patient_id__proxies_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/patients/{patient_id}/proxies/{assignment_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Revoke Proxy
+         * @description Revoke proxy access (soft delete with revoked_at).
+         */
+        delete: operations["revoke_proxy_api_v1_organizations__org_id__patients__patient_id__proxies__assignment_id__delete"];
+        options?: never;
+        head?: never;
+        /**
+         * Update Proxy Permissions
+         * @description Update proxy permissions.
+         */
+        patch: operations["update_proxy_permissions_api_v1_organizations__org_id__patients__patient_id__proxies__assignment_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Events
+         * @description Server-Sent Events stream for real-time updates.
+         *
+         *     This endpoint establishes a long-lived HTTP connection for
+         *     server-to-client push notifications.
+         *
+         *     The client will receive events such as:
+         *     - notification.new: New notification created
+         *     - message.new: New message in subscribed thread
+         *     - appointment.reminder: Upcoming appointment reminder
+         *     - appointment.updated: Appointment rescheduled/cancelled
+         *     - document.processed: Document finished OCR/virus scan
+         *     - document.scan_complete: Virus scan completed
+         *     - consent.required: New consent document available
+         *     - call.incoming: Incoming call (Call Center)
+         *     - call.completed: Call ended
+         *     - heartbeat: Keep-alive (every 30 seconds)
+         *
+         *     Authentication can be provided via:
+         *     - Authorization header: Bearer {token}
+         *     - Query parameter: ?token={token}
+         *
+         *     Returns:
+         *         StreamingResponse with text/event-stream content type
+         */
+        get: operations["get_events_api_v1_events_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/events/organizations/{org_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Org Events
+         * @description Organization-scoped SSE stream for admin views.
+         *
+         *     This endpoint provides organization-level events in addition
+         *     to standard user events. Requires ADMIN or SUPER_ADMIN role.
+         *
+         *     Additional event types:
+         *     - member.joined: New member accepted invitation
+         *     - member.removed: Member removed from organization
+         *     - subscription.updated: Subscription status changed
+         *     - license.expiring: Provider license expiring soon
+         *
+         *     Args:
+         *         org_id: Organization ID
+         *
+         *     Returns:
+         *         StreamingResponse with text/event-stream content type
+         *
+         *     Raises:
+         *         HTTPException: If user is not admin of the organization
+         */
+        get: operations["get_org_events_api_v1_events_organizations__org_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/telemetry": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Log Telemetry Event
+         * @description Log a behavioral analytics event.
+         *
+         *     This endpoint accepts telemetry events from the frontend and logs them
+         *     using structlog with `event_type="analytics"` for CloudWatch filtering.
+         *
+         *     **Use Cases:**
+         *     - Page views and navigation patterns
+         *     - Feature usage tracking
+         *     - Button clicks and user interactions
+         *     - Error events (client-side)
+         *     - Performance metrics
+         *
+         *     **Privacy:**
+         *     - Do not send PII/PHI in the properties
+         *     - User ID is automatically attached from context
+         *     - IP address is logged for basic analytics
+         *
+         *     Args:
+         *         event: The telemetry event with name and properties
+         *
+         *     Returns:
+         *         Confirmation that the event was logged
+         */
+        post: operations["log_telemetry_event_api_v1_telemetry_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/telemetry/batch": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Log Telemetry Batch
+         * @description Log multiple telemetry events in a batch.
+         *
+         *     This endpoint is optimized for sending multiple events at once,
+         *     reducing the number of HTTP requests from the frontend.
+         *
+         *     **Use Cases:**
+         *     - Offline event buffering
+         *     - Page unload event flushing
+         *     - Session aggregation
+         *
+         *     Args:
+         *         events: List of telemetry events
+         *
+         *     Returns:
+         *         Confirmation that all events were logged
+         */
+        post: operations["log_telemetry_batch_api_v1_telemetry_batch_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/webhooks/stripe": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Handle Stripe Webhook
+         * @description Handle incoming Stripe webhook events.
+         *
+         *     This endpoint receives events from Stripe and processes them:
+         *     - Verifies the webhook signature for security
+         *     - Parses the event and dispatches to appropriate handlers
+         *     - Updates database records based on event type
+         *
+         *     **Security:**
+         *     - Signature verification using STRIPE_WEBHOOK_SECRET
+         *     - Raw body parsing to prevent tampering
+         *
+         *     **Handled Events:**
+         *     - checkout.session.completed: Subscription activated
+         *     - invoice.payment_succeeded: Payment confirmed
+         *     - invoice.payment_failed: Payment failed, status updated
+         *     - customer.subscription.updated: Subscription status changed
+         *     - customer.subscription.deleted: Subscription canceled
+         *
+         *     Returns:
+         *         Success response for Stripe acknowledgment
+         */
+        post: operations["handle_stripe_webhook_api_v1_webhooks_stripe_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/billing/checkout": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Checkout
+         * @description Create a Stripe Checkout Session for subscription.
+         *
+         *     Creates a Stripe customer for the organization if one doesn't exist,
+         *     then creates a checkout session for the specified price.
+         *
+         *     **Requires**: Organization ADMIN role.
+         *
+         *     Returns:
+         *         Checkout session with redirect URL for Stripe payment page.
+         */
+        post: operations["create_checkout_api_v1_organizations__org_id__billing_checkout_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/billing/subscription": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Subscription Status
+         * @description Get current subscription status for the organization.
+         *
+         *     **Requires**: Organization ADMIN role.
+         *
+         *     Returns:
+         *         Current subscription status including plan and billing period.
+         */
+        get: operations["get_subscription_status_api_v1_organizations__org_id__billing_subscription_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/billing/portal": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Create Billing Portal
+         * @description Create a Stripe Customer Portal session.
+         *
+         *     The portal allows customers to manage their subscription,
+         *     update payment methods, and view invoices.
+         *
+         *     **Requires**: Organization ADMIN role.
+         *
+         *     Returns:
+         *         Portal session with redirect URL.
+         */
+        post: operations["create_billing_portal_api_v1_organizations__org_id__billing_portal_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/notifications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Notifications
+         * @description List notifications for the current user.
+         */
+        get: operations["list_notifications_api_v1_users_me_notifications_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/notifications/unread-count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Unread Count
+         * @description Get the number of unread notifications.
+         */
+        get: operations["get_unread_count_api_v1_users_me_notifications_unread_count_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/notifications/{notification_id}/read": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Mark As Read
+         * @description Mark a notification as read.
+         */
+        patch: operations["mark_as_read_api_v1_users_me_notifications__notification_id__read_patch"];
+        trace?: never;
+    };
+    "/api/v1/users/me/notifications/{notification_id}/unread": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Mark As Unread
+         * @description Mark a notification as unread.
+         */
+        patch: operations["mark_as_unread_api_v1_users_me_notifications__notification_id__unread_patch"];
+        trace?: never;
+    };
+    "/api/v1/users/me/notifications/mark-all-read": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Mark All Read
+         * @description Mark all notifications as read for the current user.
+         */
+        post: operations["mark_all_read_api_v1_users_me_notifications_mark_all_read_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/notifications/{notification_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * Delete Notification
+         * @description Delete a notification.
+         */
+        delete: operations["delete_notification_api_v1_users_me_notifications__notification_id__delete"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/threads": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List Threads
+         * @description List message threads for the current user.
+         */
+        get: operations["list_threads_api_v1_users_me_threads_get"];
+        put?: never;
+        /**
+         * Create Thread
+         * @description Create a new message thread.
+         */
+        post: operations["create_thread_api_v1_users_me_threads_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/threads/{thread_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Thread
+         * @description Get thread details.
+         */
+        get: operations["get_thread_api_v1_users_me_threads__thread_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/threads/{thread_id}/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Send Message
+         * @description Send a message to a thread.
+         */
+        post: operations["send_message_api_v1_users_me_threads__thread_id__messages_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/users/me/threads/{thread_id}/read": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Mark Read
+         * @description Mark thread as read.
+         */
+        post: operations["mark_read_api_v1_users_me_threads__thread_id__read_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/calls/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Calls */
+        get: operations["list_calls_api_v1_organizations__org_id__calls__get"];
+        put?: never;
+        /**
+         * Create Call
+         * @description Log a new call. Automatically sets status to IN_PROGRESS and started_at to now.
+         */
+        post: operations["create_call_api_v1_organizations__org_id__calls__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/calls/{call_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update Call */
+        patch: operations["update_call_api_v1_organizations__org_id__calls__call_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/tasks/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Org Tasks */
+        get: operations["list_org_tasks_api_v1_organizations__org_id__tasks__get"];
+        put?: never;
+        /** Create Task */
+        post: operations["create_task_api_v1_organizations__org_id__tasks__post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/organizations/{org_id}/tasks/{task_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete Task */
+        delete: operations["delete_task_api_v1_organizations__org_id__tasks__task_id__delete"];
+        options?: never;
+        head?: never;
+        /** Update Task */
+        patch: operations["update_task_api_v1_organizations__org_id__tasks__task_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/users/tasks/me/all": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * List My Tasks
+         * @description Get all tasks assigned to current user across all organizations
+         */
+        get: operations["list_my_tasks_api_v1_users_tasks_me_all_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/support/tickets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get My Tickets
+         * @description List user's support tickets.
+         */
+        get: operations["get_my_tickets_api_v1_support_tickets_get"];
+        put?: never;
+        /**
+         * Create Ticket
+         * @description Create a new support ticket with an initial message.
+         */
+        post: operations["create_ticket_api_v1_support_tickets_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/support/tickets/{ticket_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get Ticket
+         * @description Get a specific ticket with messages.
+         */
+        get: operations["get_ticket_api_v1_support_tickets__ticket_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/support/tickets/{ticket_id}/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Add Message
+         * @description Add a message to a ticket.
+         */
+        post: operations["add_message_api_v1_support_tickets__ticket_id__messages_post"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/support/admin/tickets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get All Tickets
+         * @description Admin: List all tickets with optional filtering.
+         */
+        get: operations["get_all_tickets_api_v1_support_admin_tickets_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/support/admin/tickets/{ticket_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Update Ticket Status
+         * @description Admin: Update ticket status, priority, or assignment.
+         */
+        patch: operations["update_ticket_status_api_v1_support_admin_tickets__ticket_id__patch"];
+        trace?: never;
+    };
+    "/api/v1/support/admin/tickets/{ticket_id}/assign": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * Assign Ticket
+         * @description Admin: Assign ticket to a user (staff).
+         */
+        patch: operations["assign_ticket_api_v1_support_admin_tickets__ticket_id__assign_patch"];
+        trace?: never;
+    };
+    "/health": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Health Check */
+        get: operations["health_check_health_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/health/deep": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Deep Health Check */
+        get: operations["deep_health_check_health_deep_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-  schemas: {
-    /** AppointmentCreate */
-    AppointmentCreate: {
-      /**
-       * Scheduled At
-       * Format: date-time
-       */
-      scheduled_at: string;
-      /**
-       * Duration Minutes
-       * @default 30
-       */
-      duration_minutes: number;
-      /**
-       * Appointment Type
-       * @default FOLLOW_UP
-       */
-      appointment_type: string;
-      /** Reason */
-      reason?: string | null;
-      /** Notes */
-      notes?: string | null;
-      /**
-       * Patient Id
-       * Format: uuid
-       */
-      patient_id: string;
-      /**
-       * Provider Id
-       * Format: uuid
-       */
-      provider_id: string;
-    };
-    /** AppointmentRead */
-    AppointmentRead: {
-      /**
-       * Scheduled At
-       * Format: date-time
-       */
-      scheduled_at: string;
-      /**
-       * Duration Minutes
-       * @default 30
-       */
-      duration_minutes: number;
-      /**
-       * Appointment Type
-       * @default FOLLOW_UP
-       */
-      appointment_type: string;
-      /** Reason */
-      reason?: string | null;
-      /** Notes */
-      notes?: string | null;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Organization Id
-       * Format: uuid
-       */
-      organization_id: string;
-      /**
-       * Patient Id
-       * Format: uuid
-       */
-      patient_id: string;
-      /**
-       * Provider Id
-       * Format: uuid
-       */
-      provider_id: string;
-      /** Status */
-      status: string;
-      /** Cancelled At */
-      cancelled_at?: string | null;
-      /** Cancelled By */
-      cancelled_by?: string | null;
-      /** Cancellation Reason */
-      cancellation_reason?: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-      /** Patient Name */
-      patient_name?: string | null;
-      /** Provider Name */
-      provider_name?: string | null;
-    };
-    /** AppointmentStatusUpdate */
-    AppointmentStatusUpdate: {
-      /** Status */
-      status: string;
-      /** Cancellation Reason */
-      cancellation_reason?: string | null;
-    };
-    /** AppointmentUpdate */
-    AppointmentUpdate: {
-      /** Scheduled At */
-      scheduled_at?: string | null;
-      /** Duration Minutes */
-      duration_minutes?: number | null;
-      /** Appointment Type */
-      appointment_type?: string | null;
-      /** Reason */
-      reason?: string | null;
-      /** Notes */
-      notes?: string | null;
-    };
-    /** AuditLogListResponse */
-    AuditLogListResponse: {
-      /** Items */
-      items: components["schemas"]["AuditLogRead"][];
-      /** Total */
-      total: number;
-      /** Page */
-      page: number;
-      /** Page Size */
-      page_size: number;
-    };
-    /** AuditLogRead */
-    AuditLogRead: {
-      /**
-       * Action Type
-       * @description Action performed (READ, CREATE, UPDATE, DELETE, etc.)
-       */
-      action_type: string;
-      /**
-       * Resource Type
-       * @description Type of resource effected (PATIENT, USER, etc.)
-       */
-      resource_type: string;
-      /**
-       * Resource Id
-       * Format: uuid
-       */
-      resource_id: string;
-      /** Changes Json */
-      changes_json?: {
-        [key: string]: unknown;
-      } | null;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** Actor User Id */
-      actor_user_id: string | null;
-      /** Organization Id */
-      organization_id: string | null;
-      /** Ip Address */
-      ip_address: string | null;
-      /** User Agent */
-      user_agent: string | null;
-      /** Impersonator Id */
-      impersonator_id: string | null;
-      /**
-       * Occurred At
-       * Format: date-time
-       */
-      occurred_at: string;
-    };
-    /** CallCreate */
-    CallCreate: {
-      /**
-       * Direction
-       * @description INBOUND or OUTBOUND
-       */
-      direction: string;
-      /**
-       * Phone Number
-       * @description Phone number associated with the call
-       */
-      phone_number: string;
-      /** Notes */
-      notes?: string | null;
-      /** Outcome */
-      outcome?: string | null;
-      /** Patient Id */
-      patient_id?: string | null;
-    };
-    /** CallRead */
-    CallRead: {
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /** Updated At */
-      updated_at?: string | null;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Direction
-       * @description INBOUND or OUTBOUND
-       */
-      direction: string;
-      /**
-       * Phone Number
-       * @description Phone number associated with the call
-       */
-      phone_number: string;
-      /** Notes */
-      notes?: string | null;
-      /** Outcome */
-      outcome?: string | null;
-      /** Patient Id */
-      patient_id?: string | null;
-      /**
-       * Organization Id
-       * Format: uuid
-       */
-      organization_id: string;
-      /**
-       * Agent Id
-       * Format: uuid
-       */
-      agent_id: string;
-      /** Status */
-      status: string;
-      /** Started At */
-      started_at: string | null;
-      /** Ended At */
-      ended_at: string | null;
-      /** Duration Seconds */
-      duration_seconds: number | null;
-      /** Agent Name */
-      agent_name?: string | null;
-      /** Patient Name */
-      patient_name?: string | null;
-    };
-    /** CallUpdate */
-    CallUpdate: {
-      /**
-       * Status
-       * @description QUEUED, IN_PROGRESS, COMPLETED, MISSED
-       */
-      status?: string | null;
-      /** Notes */
-      notes?: string | null;
-      /** Outcome */
-      outcome?: string | null;
-      /** Ended At */
-      ended_at?: string | null;
-    };
-    /**
-     * CareTeamAssignmentCreate
-     * @description Create a care team assignment for a patient.
-     */
-    CareTeamAssignmentCreate: {
-      /**
-       * Provider Id
-       * Format: uuid
-       * @description Provider to assign
-       */
-      provider_id: string;
-      /**
-       * Role
-       * @description Role in care team: PRIMARY, SPECIALIST, or CONSULTANT
-       * @default SPECIALIST
-       */
-      role: string;
-    };
-    /**
-     * CareTeamAssignmentRead
-     * @description Read a care team assignment with provider details.
-     */
-    CareTeamAssignmentRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Patient Id
-       * Format: uuid
-       */
-      patient_id: string;
-      /**
-       * Provider Id
-       * Format: uuid
-       */
-      provider_id: string;
-      /** Role */
-      role: string;
-      /**
-       * Assigned At
-       * Format: date-time
-       */
-      assigned_at: string;
-      /** Removed At */
-      removed_at?: string | null;
-      provider: components["schemas"]["CareTeamProviderInfo"];
-    };
-    /**
-     * CareTeamList
-     * @description Full care team response with all members.
-     */
-    CareTeamList: {
-      /**
-       * Patient Id
-       * Format: uuid
-       */
-      patient_id: string;
-      /** Members */
-      members: components["schemas"]["CareTeamMember"][];
-      primary_provider?: components["schemas"]["CareTeamMember"] | null;
-    };
-    /**
-     * CareTeamMember
-     * @description Compact care team member for list views.
-     */
-    CareTeamMember: {
-      /**
-       * Assignment Id
-       * Format: uuid
-       */
-      assignment_id: string;
-      /**
-       * Provider Id
-       * Format: uuid
-       */
-      provider_id: string;
-      /** Role */
-      role: string;
-      /**
-       * Assigned At
-       * Format: date-time
-       */
-      assigned_at: string;
-      /** Provider Name */
-      provider_name?: string | null;
-      /** Provider Specialty */
-      provider_specialty?: string | null;
-      /** Provider Npi */
-      provider_npi?: string | null;
-    };
-    /**
-     * CareTeamProviderInfo
-     * @description Embedded provider information for care team responses.
-     */
-    CareTeamProviderInfo: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * User Id
-       * Format: uuid
-       */
-      user_id: string;
-      /** Npi Number */
-      npi_number?: string | null;
-      /** Specialty */
-      specialty?: string | null;
-      /** User Display Name */
-      user_display_name?: string | null;
-      /** User Email */
-      user_email?: string | null;
-    };
-    /**
-     * CheckoutSessionRequest
-     * @description Request to create a Stripe checkout session.
-     */
-    CheckoutSessionRequest: {
-      /** Price Id */
-      price_id: string;
-    };
-    /**
-     * CheckoutSessionResponse
-     * @description Response from creating a checkout session.
-     */
-    CheckoutSessionResponse: {
-      /** Session Id */
-      session_id: string;
-      /** Checkout Url */
-      checkout_url: string;
-    };
-    /**
-     * CommunicationPreferencesRead
-     * @description Communication preferences response.
-     */
-    CommunicationPreferencesRead: {
-      /** Transactional Consent */
-      transactional_consent: boolean;
-      /** Marketing Consent */
-      marketing_consent: boolean;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-    };
-    /**
-     * CommunicationPreferencesUpdate
-     * @description Update communication preferences.
-     */
-    CommunicationPreferencesUpdate: {
-      /** Transactional Consent */
-      transactional_consent?: boolean | null;
-      /** Marketing Consent */
-      marketing_consent?: boolean | null;
-    };
-    /** ConsentSignRequest */
-    ConsentSignRequest: {
-      /** Document Id */
-      document_id: string;
-    };
-    /**
-     * ContactMethodCreate
-     * @description Create a contact method for a patient.
-     */
-    ContactMethodCreate: {
-      /**
-       * Type
-       * @description MOBILE, HOME, EMAIL
-       */
-      type: string;
-      /**
-       * Value
-       * @description The actual contact value
-       */
-      value: string;
-      /**
-       * Is Primary
-       * @default false
-       */
-      is_primary: boolean;
-      /**
-       * Is Safe For Voicemail
-       * @default false
-       */
-      is_safe_for_voicemail: boolean;
-      /**
-       * Label
-       * @description Home, Work, Mobile
-       */
-      label?: string | null;
-    };
-    /**
-     * ContactMethodRead
-     * @description Read contact method with ID.
-     */
-    ContactMethodRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** Type */
-      type: string;
-      /** Value */
-      value: string;
-      /** Is Primary */
-      is_primary: boolean;
-      /** Is Safe For Voicemail */
-      is_safe_for_voicemail: boolean;
-      /** Label */
-      label: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-    };
-    /**
-     * ContactMethodUpdate
-     * @description Partial update for contact method.
-     */
-    ContactMethodUpdate: {
-      /** Type */
-      type?: string | null;
-      /** Value */
-      value?: string | null;
-      /** Is Primary */
-      is_primary?: boolean | null;
-      /** Is Safe For Voicemail */
-      is_safe_for_voicemail?: boolean | null;
-      /** Label */
-      label?: string | null;
-    };
-    /**
-     * DeviceTokenDeleteRequest
-     * @description Request to delete a device token.
-     */
-    DeviceTokenDeleteRequest: {
-      /** Token */
-      token: string;
-    };
-    /**
-     * DeviceTokenRequest
-     * @description Request to register a device token.
-     */
-    DeviceTokenRequest: {
-      /** Token */
-      token: string;
-      /** Platform */
-      platform: string;
-      /** Device Name */
-      device_name?: string | null;
-    };
-    /**
-     * DeviceTokenResponse
-     * @description Response after registering device token.
-     */
-    DeviceTokenResponse: {
-      /**
-       * Success
-       * @default true
-       */
-      success: boolean;
-    };
-    /**
-     * DocumentDownloadResponse
-     * @description Response with presigned download URL.
-     */
-    DocumentDownloadResponse: {
-      /**
-       * Document Id
-       * Format: uuid
-       */
-      document_id: string;
-      /** Download Url */
-      download_url: string;
-      /**
-       * Expires In
-       * @default 3600
-       */
-      expires_in: number;
-    };
-    /**
-     * DocumentListItem
-     * @description Lightweight document for list views.
-     */
-    DocumentListItem: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** File Name */
-      file_name: string;
-      /** File Type */
-      file_type: string;
-      /** File Size */
-      file_size: number;
-      /** Document Type */
-      document_type: string;
-      /** Status */
-      status: string;
-      /** Uploaded At */
-      uploaded_at: string | null;
-      /** Uploaded By Name */
-      uploaded_by_name?: string | null;
-    };
-    /**
-     * DocumentRead
-     * @description Full document read model.
-     */
-    DocumentRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Organization Id
-       * Format: uuid
-       */
-      organization_id: string;
-      /**
-       * Patient Id
-       * Format: uuid
-       */
-      patient_id: string;
-      /**
-       * Uploaded By User Id
-       * Format: uuid
-       */
-      uploaded_by_user_id: string;
-      /** File Name */
-      file_name: string;
-      /** File Type */
-      file_type: string;
-      /** File Size */
-      file_size: number;
-      /** S3 Key */
-      s3_key: string;
-      /** Document Type */
-      document_type: string;
-      /** Description */
-      description: string | null;
-      /** Status */
-      status: string;
-      /** Uploaded At */
-      uploaded_at: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-      /** Uploaded By Name */
-      uploaded_by_name?: string | null;
-    };
-    /**
-     * DocumentUploadRequest
-     * @description Request to get a presigned upload URL.
-     */
-    DocumentUploadRequest: {
-      /** File Name */
-      file_name: string;
-      /**
-       * File Type
-       * @default application/pdf
-       */
-      file_type: string;
-      /** File Size */
-      file_size: number;
-      /**
-       * Document Type
-       * @default OTHER
-       */
-      document_type: string;
-      /** Description */
-      description?: string | null;
-    };
-    /**
-     * DocumentUploadResponse
-     * @description Response with presigned upload URL.
-     */
-    DocumentUploadResponse: {
-      /**
-       * Document Id
-       * Format: uuid
-       */
-      document_id: string;
-      /** Upload Url */
-      upload_url: string;
-      /** Upload Fields */
-      upload_fields: {
-        [key: string]: unknown;
-      };
-      /** S3 Key */
-      s3_key: string;
-    };
-    /** HTTPValidationError */
-    HTTPValidationError: {
-      /** Detail */
-      detail?: components["schemas"]["ValidationError"][];
-    };
-    /** ImpersonationRequest */
-    ImpersonationRequest: {
-      /** Reason */
-      reason: string;
-    };
-    /** InvitationCreate */
-    InvitationCreate: {
-      /**
-       * Email
-       * Format: email
-       */
-      email: string;
-      /** Role */
-      role: string;
-    };
-    /** InvitationRead */
-    InvitationRead: {
-      /**
-       * Email
-       * Format: email
-       */
-      email: string;
-      /** Role */
-      role: string;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** Token */
-      token: string;
-      /** Status */
-      status: string;
-      /**
-       * Organization Id
-       * Format: uuid
-       */
-      organization_id: string;
-      /**
-       * Invited By User Id
-       * Format: uuid
-       */
-      invited_by_user_id: string;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Expires At
-       * Format: date-time
-       */
-      expires_at: string;
-      /** Accepted At */
-      accepted_at?: string | null;
-    };
-    /**
-     * MFADisableRequest
-     * @description Request to disable MFA.
-     */
-    MFADisableRequest: {
-      /** Password */
-      password: string;
-    };
-    /**
-     * MFADisableResponse
-     * @description Response after disabling MFA.
-     */
-    MFADisableResponse: {
-      /**
-       * Success
-       * @default true
-       */
-      success: boolean;
-      /**
-       * Mfa Enabled
-       * @default false
-       */
-      mfa_enabled: boolean;
-      /**
-       * Disabled At
-       * Format: date-time
-       */
-      disabled_at: string;
-    };
-    /**
-     * MFASetupResponse
-     * @description Response for MFA setup initialization.
-     */
-    MFASetupResponse: {
-      /** Secret */
-      secret: string;
-      /** Provisioning Uri */
-      provisioning_uri: string;
-      /** Qr Code Data Url */
-      qr_code_data_url?: string | null;
-      /**
-       * Expires At
-       * Format: date-time
-       */
-      expires_at: string;
-    };
-    /**
-     * MFAVerifyRequest
-     * @description Request to verify MFA code and enable MFA.
-     */
-    MFAVerifyRequest: {
-      /** Code */
-      code: string;
-    };
-    /**
-     * MFAVerifyResponse
-     * @description Response after MFA verification.
-     */
-    MFAVerifyResponse: {
-      /**
-       * Success
-       * @default true
-       */
-      success: boolean;
-      /**
-       * Mfa Enabled
-       * @default true
-       */
-      mfa_enabled: boolean;
-      /** Backup Codes */
-      backup_codes: string[];
-      /**
-       * Enabled At
-       * Format: date-time
-       */
-      enabled_at: string;
-    };
-    /** MemberRead */
-    MemberRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * User Id
-       * Format: uuid
-       */
-      user_id: string;
-      /**
-       * Organization Id
-       * Format: uuid
-       */
-      organization_id: string;
-      /** Email */
-      email?: string | null;
-      /** Display Name */
-      display_name?: string | null;
-      /** Role */
-      role: string;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-    };
-    /** MessageCreate */
-    MessageCreate: {
-      /** Body */
-      body: string;
-    };
-    /** MessageRead */
-    MessageRead: {
-      /** Body */
-      body: string;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Thread Id
-       * Format: uuid
-       */
-      thread_id: string;
-      /** Sender Id */
-      sender_id: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /** Sender Name */
-      sender_name?: string | null;
-    };
-    /** NotificationListResponse */
-    NotificationListResponse: {
-      /** Items */
-      items: components["schemas"]["NotificationRead"][];
-      /** Total */
-      total: number;
-      /** Unread Count */
-      unread_count: number;
-      /** Page */
-      page: number;
-      /** Size */
-      size: number;
-    };
-    /** NotificationRead */
-    NotificationRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** Type */
-      type: string;
-      /** Title */
-      title: string;
-      /** Body */
-      body?: string | null;
-      /** Data Json */
-      data_json?: {
-        [key: string]: unknown;
-      } | null;
-      /** Is Read */
-      is_read: boolean;
-      /** Read At */
-      read_at?: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-    };
-    /** OrganizationAdminRead */
-    OrganizationAdminRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** Name */
-      name: string;
-      /** Member Count */
-      member_count: number;
-      /** Patient Count */
-      patient_count: number;
-      /** Subscription Status */
-      subscription_status: string;
-      /** Is Active */
-      is_active: boolean;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-    };
-    /** OrganizationCreate */
-    OrganizationCreate: {
-      /** Name */
-      name: string;
-      /**
-       * Subscription Status
-       * @default trial
-       */
-      subscription_status: string;
-    };
-    /** OrganizationListResponse */
-    OrganizationListResponse: {
-      /** Items */
-      items: components["schemas"]["OrganizationAdminRead"][];
-      /** Total */
-      total: number;
-      /** Page */
-      page: number;
-      /** Page Size */
-      page_size: number;
-    };
-    /** OrganizationRead */
-    OrganizationRead: {
-      /** Name */
-      name: string;
-      /** Tax Id */
-      tax_id?: string | null;
-      /** Settings Json */
-      settings_json?: {
-        [key: string]: unknown;
-      };
-      /**
-       * Timezone
-       * @default America/New_York
-       */
-      timezone: string;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** Stripe Customer Id */
-      stripe_customer_id: string | null;
-      /** Subscription Status */
-      subscription_status: string;
-      /** Is Active */
-      is_active: boolean;
-      /** Member Count */
-      member_count: number;
-      /** Patient Count */
-      patient_count: number;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-    };
-    /** OrganizationUpdate */
-    OrganizationUpdate: {
-      /** Is Active */
-      is_active?: boolean | null;
-      /** Subscription Status */
-      subscription_status?: string | null;
-    };
-    /**
-     * PaginatedDocuments
-     * @description Paginated list of documents.
-     */
-    PaginatedDocuments: {
-      /** Items */
-      items: components["schemas"]["DocumentListItem"][];
-      /** Total */
-      total: number;
-      /** Limit */
-      limit: number;
-      /** Offset */
-      offset: number;
-    };
-    /**
-     * PaginatedPatients
-     * @description Paginated patient list response.
-     */
-    PaginatedPatients: {
-      /** Items */
-      items: components["schemas"]["PatientListItem"][];
-      /** Total */
-      total: number;
-      /** Limit */
-      limit: number;
-      /** Offset */
-      offset: number;
-    };
-    /**
-     * PaginatedProviders
-     * @description Paginated provider list response.
-     */
-    PaginatedProviders: {
-      /** Items */
-      items: components["schemas"]["ProviderListItem"][];
-      /** Total */
-      total: number;
-      /** Limit */
-      limit: number;
-      /** Offset */
-      offset: number;
-    };
-    /**
-     * PaginatedStaff
-     * @description Paginated staff list response.
-     */
-    PaginatedStaff: {
-      /** Items */
-      items: components["schemas"]["StaffListItem"][];
-      /** Total */
-      total: number;
-      /** Limit */
-      limit: number;
-      /** Offset */
-      offset: number;
-    };
-    /** ParticipantRead */
-    ParticipantRead: {
-      /**
-       * User Id
-       * Format: uuid
-       */
-      user_id: string;
-      /**
-       * Joined At
-       * Format: date-time
-       */
-      joined_at: string;
-      /** Last Read At */
-      last_read_at: string | null;
-      /** User Name */
-      user_name?: string | null;
-    };
-    /**
-     * PatientCreate
-     * @description Create a patient. Will be enrolled in the organization.
-     */
-    PatientCreate: {
-      /** First Name */
-      first_name: string;
-      /** Last Name */
-      last_name: string;
-      /**
-       * Dob
-       * Format: date
-       * @description Date of birth
-       */
-      dob: string;
-      /** Legal Sex */
-      legal_sex?: string | null;
-      /** Medical Record Number */
-      medical_record_number?: string | null;
-      /** Contact Methods */
-      contact_methods?: components["schemas"]["ContactMethodCreate"][] | null;
-    };
-    /**
-     * PatientListItem
-     * @description Compact patient for list views.
-     */
-    PatientListItem: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** First Name */
-      first_name: string;
-      /** Last Name */
-      last_name: string;
-      /**
-       * Dob
-       * Format: date
-       */
-      dob: string;
-      /** Medical Record Number */
-      medical_record_number: string | null;
-      /** Enrolled At */
-      enrolled_at?: string | null;
-      /**
-       * Status
-       * @default ACTIVE
-       */
-      status: string;
-    };
-    /**
-     * PatientRead
-     * @description Full patient detail with contact methods.
-     */
-    PatientRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** User Id */
-      user_id: string | null;
-      /** First Name */
-      first_name: string;
-      /** Last Name */
-      last_name: string;
-      /**
-       * Dob
-       * Format: date
-       */
-      dob: string;
-      /** Legal Sex */
-      legal_sex: string | null;
-      /** Medical Record Number */
-      medical_record_number: string | null;
-      /** Stripe Customer Id */
-      stripe_customer_id: string | null;
-      /** Subscription Status */
-      subscription_status: string;
-      /**
-       * Contact Methods
-       * @default []
-       */
-      contact_methods: components["schemas"]["ContactMethodRead"][];
-      /** Enrolled At */
-      enrolled_at?: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-    };
-    /**
-     * PatientUpdate
-     * @description Partial update for patient fields.
-     */
-    PatientUpdate: {
-      /** First Name */
-      first_name?: string | null;
-      /** Last Name */
-      last_name?: string | null;
-      /** Dob */
-      dob?: string | null;
-      /** Legal Sex */
-      legal_sex?: string | null;
-      /** Medical Record Number */
-      medical_record_number?: string | null;
-    };
-    /**
-     * PortalSessionResponse
-     * @description Response from creating a billing portal session.
-     */
-    PortalSessionResponse: {
-      /** Portal Url */
-      portal_url: string;
-    };
-    /**
-     * ProviderCreate
-     * @description Create a provider profile for a user.
-     */
-    ProviderCreate: {
-      /**
-       * User Id
-       * Format: uuid
-       * @description User to become a provider
-       */
-      user_id: string;
-      /**
-       * Npi Number
-       * @description National Provider Identifier
-       */
-      npi_number?: string | null;
-      /** Specialty */
-      specialty?: string | null;
-      /** License Number */
-      license_number?: string | null;
-      /** License State */
-      license_state?: string | null;
-      /** Dea Number */
-      dea_number?: string | null;
-    };
-    /**
-     * ProviderListItem
-     * @description Compact provider for list views.
-     */
-    ProviderListItem: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * User Id
-       * Format: uuid
-       */
-      user_id: string;
-      /** Npi Number */
-      npi_number: string | null;
-      /** Specialty */
-      specialty: string | null;
-      /** Is Active */
-      is_active: boolean;
-      /** User Email */
-      user_email?: string | null;
-      /** User Display Name */
-      user_display_name?: string | null;
-    };
-    /**
-     * ProviderRead
-     * @description Full provider profile response.
-     */
-    ProviderRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * User Id
-       * Format: uuid
-       */
-      user_id: string;
-      /**
-       * Organization Id
-       * Format: uuid
-       */
-      organization_id: string;
-      /** Npi Number */
-      npi_number: string | null;
-      /** Specialty */
-      specialty: string | null;
-      /** License Number */
-      license_number: string | null;
-      /** License State */
-      license_state: string | null;
-      /** Dea Number */
-      dea_number: string | null;
-      /** State Licenses */
-      state_licenses: unknown[];
-      /** Is Active */
-      is_active: boolean;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-      /** User Email */
-      user_email?: string | null;
-      /** User Display Name */
-      user_display_name?: string | null;
-    };
-    /**
-     * ProviderUpdate
-     * @description Partial update for provider profile.
-     */
-    ProviderUpdate: {
-      /** Npi Number */
-      npi_number?: string | null;
-      /** Specialty */
-      specialty?: string | null;
-      /** License Number */
-      license_number?: string | null;
-      /** License State */
-      license_state?: string | null;
-      /** Dea Number */
-      dea_number?: string | null;
-      /** Is Active */
-      is_active?: boolean | null;
-    };
-    /**
-     * ProxyAssignmentCreate
-     * @description Create a new proxy assignment.
-     */
-    ProxyAssignmentCreate: {
-      /**
-       * Email
-       * Format: email
-       * @description Email of user to grant proxy access
-       */
-      email: string;
-      /**
-       * Relationship Type
-       * @description Relationship: PARENT, SPOUSE, GUARDIAN, CAREGIVER, POA, OTHER
-       */
-      relationship_type: string;
-      permissions?: components["schemas"]["ProxyPermissions"];
-      /**
-       * Expires At
-       * @description Optional expiration date
-       */
-      expires_at?: string | null;
-    };
-    /**
-     * ProxyAssignmentRead
-     * @description Read a proxy assignment with full details.
-     */
-    ProxyAssignmentRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Proxy Id
-       * Format: uuid
-       */
-      proxy_id: string;
-      /**
-       * Patient Id
-       * Format: uuid
-       */
-      patient_id: string;
-      /** Relationship Type */
-      relationship_type: string;
-      /** Can View Profile */
-      can_view_profile: boolean;
-      /** Can View Appointments */
-      can_view_appointments: boolean;
-      /** Can Schedule Appointments */
-      can_schedule_appointments: boolean;
-      /** Can View Clinical Notes */
-      can_view_clinical_notes: boolean;
-      /** Can View Billing */
-      can_view_billing: boolean;
-      /** Can Message Providers */
-      can_message_providers: boolean;
-      /**
-       * Granted At
-       * Format: date-time
-       */
-      granted_at: string;
-      /** Expires At */
-      expires_at?: string | null;
-      /** Revoked At */
-      revoked_at?: string | null;
-      user: components["schemas"]["ProxyUserInfo"];
-    };
-    /**
-     * ProxyAssignmentUpdate
-     * @description Update proxy permissions.
-     */
-    ProxyAssignmentUpdate: {
-      permissions?: components["schemas"]["ProxyPermissions"] | null;
-      /** Expires At */
-      expires_at?: string | null;
-    };
-    /**
-     * ProxyListResponse
-     * @description List of proxies for a patient.
-     */
-    ProxyListResponse: {
-      /**
-       * Patient Id
-       * Format: uuid
-       */
-      patient_id: string;
-      /** Proxies */
-      proxies: components["schemas"]["ProxyAssignmentRead"][];
-    };
-    /**
-     * ProxyPatientInfo
-     * @description Patient info for proxy dashboard.
-     */
-    ProxyPatientInfo: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** First Name */
-      first_name: string;
-      /** Last Name */
-      last_name: string;
-      /** Dob */
-      dob: string;
-      /** Medical Record Number */
-      medical_record_number?: string | null;
-    };
-    /**
-     * ProxyPatientRead
-     * @description Patient with proxy permissions for proxy dashboard.
-     */
-    ProxyPatientRead: {
-      patient: components["schemas"]["ProxyPatientInfo"];
-      /** Relationship Type */
-      relationship_type: string;
-      permissions: components["schemas"]["ProxyPermissions"];
-      /**
-       * Granted At
-       * Format: date-time
-       */
-      granted_at: string;
-      /** Expires At */
-      expires_at?: string | null;
-    };
-    /**
-     * ProxyPermissions
-     * @description All proxy permission flags.
-     */
-    ProxyPermissions: {
-      /**
-       * Can View Profile
-       * @default true
-       */
-      can_view_profile: boolean;
-      /**
-       * Can View Appointments
-       * @default true
-       */
-      can_view_appointments: boolean;
-      /**
-       * Can Schedule Appointments
-       * @default false
-       */
-      can_schedule_appointments: boolean;
-      /**
-       * Can View Clinical Notes
-       * @default false
-       */
-      can_view_clinical_notes: boolean;
-      /**
-       * Can View Billing
-       * @default false
-       */
-      can_view_billing: boolean;
-      /**
-       * Can Message Providers
-       * @default false
-       */
-      can_message_providers: boolean;
-    };
-    /**
-     * ProxyProfileRead
-     * @description Proxy profile for the current user.
-     */
-    ProxyProfileRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * User Id
-       * Format: uuid
-       */
-      user_id: string;
-      /** Relationship To Patient */
-      relationship_to_patient?: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-    };
-    /**
-     * ProxyUserInfo
-     * @description Embedded user information for proxy responses.
-     */
-    ProxyUserInfo: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** Email */
-      email: string;
-      /** Display Name */
-      display_name?: string | null;
-    };
-    /**
-     * SessionListResponse
-     * @description Paginated list of sessions.
-     */
-    SessionListResponse: {
-      /** Items */
-      items: components["schemas"]["SessionRead"][];
-      /** Total */
-      total: number;
-      /**
-       * Limit
-       * @default 50
-       */
-      limit: number;
-      /**
-       * Offset
-       * @default 0
-       */
-      offset: number;
-    };
-    /**
-     * SessionRead
-     * @description Session information response.
-     */
-    SessionRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** Device */
-      device: string;
-      /** Ip Address */
-      ip_address?: string | null;
-      /** Location */
-      location?: string | null;
-      /**
-       * Is Current
-       * @default false
-       */
-      is_current: boolean;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Last Active At
-       * Format: date-time
-       */
-      last_active_at: string;
-    };
-    /**
-     * SessionRevokeResponse
-     * @description Response after revoking a session.
-     */
-    SessionRevokeResponse: {
-      /**
-       * Success
-       * @default true
-       */
-      success: boolean;
-      /**
-       * Terminated At
-       * Format: date-time
-       */
-      terminated_at: string;
-    };
-    /**
-     * StaffCreate
-     * @description Create a staff profile for a user.
-     */
-    StaffCreate: {
-      /**
-       * User Id
-       * Format: uuid
-       * @description User to become staff
-       */
-      user_id: string;
-      /** Job Title */
-      job_title?: string | null;
-      /** Department */
-      department?: string | null;
-      /** Employee Id */
-      employee_id?: string | null;
-    };
-    /**
-     * StaffListItem
-     * @description Compact staff for list views.
-     */
-    StaffListItem: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * User Id
-       * Format: uuid
-       */
-      user_id: string;
-      /** Job Title */
-      job_title: string | null;
-      /** Department */
-      department: string | null;
-      /** Is Active */
-      is_active: boolean;
-      /** User Email */
-      user_email?: string | null;
-      /** User Display Name */
-      user_display_name?: string | null;
-    };
-    /**
-     * StaffRead
-     * @description Full staff profile response.
-     */
-    StaffRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * User Id
-       * Format: uuid
-       */
-      user_id: string;
-      /**
-       * Organization Id
-       * Format: uuid
-       */
-      organization_id: string;
-      /** Job Title */
-      job_title: string | null;
-      /** Department */
-      department: string | null;
-      /** Employee Id */
-      employee_id: string | null;
-      /** Is Active */
-      is_active: boolean;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-      /** User Email */
-      user_email?: string | null;
-      /** User Display Name */
-      user_display_name?: string | null;
-    };
-    /**
-     * StaffUpdate
-     * @description Partial update for staff profile.
-     */
-    StaffUpdate: {
-      /** Job Title */
-      job_title?: string | null;
-      /** Department */
-      department?: string | null;
-      /** Employee Id */
-      employee_id?: string | null;
-      /** Is Active */
-      is_active?: boolean | null;
-    };
-    /**
-     * SubscriptionStatusResponse
-     * @description Current subscription status for an organization.
-     */
-    SubscriptionStatusResponse: {
-      /** Status */
-      status: string;
-      /** Plan Id */
-      plan_id?: string | null;
-      /** Current Period End */
-      current_period_end?: number | null;
-      /**
-       * Cancel At Period End
-       * @default false
-       */
-      cancel_at_period_end: boolean;
-    };
-    /** SupportMessageCreate */
-    SupportMessageCreate: {
-      /** Body */
-      body: string;
-      /**
-       * Is Internal
-       * @default false
-       */
-      is_internal: boolean;
-    };
-    /** SupportMessageRead */
-    SupportMessageRead: {
-      /** Body */
-      body: string;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Ticket Id
-       * Format: uuid
-       */
-      ticket_id: string;
-      /**
-       * Sender Id
-       * Format: uuid
-       */
-      sender_id: string;
-      /** Is Internal */
-      is_internal: boolean;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-    };
-    /** SystemHealth */
-    SystemHealth: {
-      /** Db Status */
-      db_status: string;
-      /** Redis Status */
-      redis_status: string;
-      /** Worker Status */
-      worker_status: string;
-      /** Metrics */
-      metrics: {
-        [key: string]: unknown;
-      };
-    };
-    /** TaskCreate */
-    TaskCreate: {
-      /** Title */
-      title: string;
-      /** Description */
-      description?: string | null;
-      /**
-       * Priority
-       * @description LOW, MEDIUM, HIGH, URGENT
-       */
-      priority: string;
-      /** Due Date */
-      due_date?: string | null;
-      /** Patient Id */
-      patient_id?: string | null;
-      /**
-       * Assignee Id
-       * Format: uuid
-       */
-      assignee_id: string;
-    };
-    /** TaskRead */
-    TaskRead: {
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /** Updated At */
-      updated_at?: string | null;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** Title */
-      title: string;
-      /** Description */
-      description?: string | null;
-      /**
-       * Priority
-       * @description LOW, MEDIUM, HIGH, URGENT
-       */
-      priority: string;
-      /** Due Date */
-      due_date?: string | null;
-      /** Patient Id */
-      patient_id?: string | null;
-      /**
-       * Assignee Id
-       * Format: uuid
-       */
-      assignee_id: string;
-      /**
-       * Organization Id
-       * Format: uuid
-       */
-      organization_id: string;
-      /**
-       * Created By Id
-       * Format: uuid
-       */
-      created_by_id: string;
-      /** Status */
-      status: string;
-      /** Completed At */
-      completed_at: string | null;
-      /** Assignee Name */
-      assignee_name?: string | null;
-      /** Patient Name */
-      patient_name?: string | null;
-    };
-    /** TaskUpdate */
-    TaskUpdate: {
-      /** Title */
-      title?: string | null;
-      /** Description */
-      description?: string | null;
-      /** Priority */
-      priority?: string | null;
-      /**
-       * Status
-       * @description TODO, IN_PROGRESS, DONE, CANCELLED
-       */
-      status?: string | null;
-      /** Due Date */
-      due_date?: string | null;
-      /** Assignee Id */
-      assignee_id?: string | null;
-    };
-    /**
-     * TelemetryEvent
-     * @description Telemetry event payload from the frontend.
-     */
-    TelemetryEvent: {
-      /** Event Name */
-      event_name: string;
-      /** Properties */
-      properties?: {
-        [key: string]: unknown;
-      };
-    };
-    /**
-     * TelemetryResponse
-     * @description Response confirming event was logged.
-     */
-    TelemetryResponse: {
-      /**
-       * Success
-       * @default true
-       */
-      success: boolean;
-      /** Event Id */
-      event_id?: string | null;
-    };
-    /** ThreadCreate */
-    ThreadCreate: {
-      /** Subject */
-      subject: string;
-      /**
-       * Organization Id
-       * Format: uuid
-       */
-      organization_id: string;
-      /** Patient Id */
-      patient_id?: string | null;
-      /** Initial Message */
-      initial_message: string;
-      /** Participant Ids */
-      participant_ids: string[];
-    };
-    /** ThreadDetail */
-    ThreadDetail: {
-      /** Subject */
-      subject: string;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Organization Id
-       * Format: uuid
-       */
-      organization_id: string;
-      /** Patient Id */
-      patient_id: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-      last_message?: components["schemas"]["MessageRead"] | null;
-      /**
-       * Unread Count
-       * @default 0
-       */
-      unread_count: number;
-      /**
-       * Participants
-       * @default []
-       */
-      participants: components["schemas"]["ParticipantRead"][];
-      /**
-       * Messages
-       * @default []
-       */
-      messages: components["schemas"]["MessageRead"][];
-    };
-    /** ThreadListResponse */
-    ThreadListResponse: {
-      /** Items */
-      items: components["schemas"]["ThreadRead"][];
-      /** Total */
-      total: number;
-      /** Page */
-      page: number;
-      /** Size */
-      size: number;
-    };
-    /** ThreadRead */
-    ThreadRead: {
-      /** Subject */
-      subject: string;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Organization Id
-       * Format: uuid
-       */
-      organization_id: string;
-      /** Patient Id */
-      patient_id: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-      last_message?: components["schemas"]["MessageRead"] | null;
-      /**
-       * Unread Count
-       * @default 0
-       */
-      unread_count: number;
-      /**
-       * Participants
-       * @default []
-       */
-      participants: components["schemas"]["ParticipantRead"][];
-    };
-    /** TicketCreate */
-    TicketCreate: {
-      /** Subject */
-      subject: string;
-      /**
-       * Category
-       * @description TECHNICAL, BILLING, ACCOUNT, OTHER
-       */
-      category: string;
-      /**
-       * Priority
-       * @description LOW, MEDIUM, HIGH
-       */
-      priority: string;
-      /** Initial Message */
-      initial_message: string;
-    };
-    /** TicketRead */
-    TicketRead: {
-      /** Subject */
-      subject: string;
-      /**
-       * Category
-       * @description TECHNICAL, BILLING, ACCOUNT, OTHER
-       */
-      category: string;
-      /**
-       * Priority
-       * @description LOW, MEDIUM, HIGH
-       */
-      priority: string;
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * User Id
-       * Format: uuid
-       */
-      user_id: string;
-      /** Organization Id */
-      organization_id: string | null;
-      /** Status */
-      status: string;
-      /** Assigned To Id */
-      assigned_to_id: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-      /** Resolved At */
-      resolved_at: string | null;
-      /**
-       * Message Count
-       * @default 0
-       */
-      message_count: number;
-      /**
-       * Messages
-       * @default []
-       */
-      messages: components["schemas"]["SupportMessageRead"][];
-    };
-    /** TicketUpdate */
-    TicketUpdate: {
-      /**
-       * Status
-       * @description OPEN, IN_PROGRESS, RESOLVED, CLOSED
-       */
-      status?: string | null;
-      /** Priority */
-      priority?: string | null;
-      /** Assigned To Id */
-      assigned_to_id?: string | null;
-    };
-    /**
-     * TimezoneResponse
-     * @description Response for timezone endpoint.
-     */
-    TimezoneResponse: {
-      /** Timezone */
-      timezone: string;
-      /** Source */
-      source: string;
-    };
-    /**
-     * TimezoneUpdateRequest
-     * @description Request to update user timezone.
-     */
-    TimezoneUpdateRequest: {
-      /** Timezone */
-      timezone: string;
-    };
-    /** UnreadCountResponse */
-    UnreadCountResponse: {
-      /** Count */
-      count: number;
-    };
-    /** UserAdminRead */
-    UserAdminRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /** Email */
-      email: string;
-      /** Display Name */
-      display_name: string | null;
-      /** Is Super Admin */
-      is_super_admin: boolean;
-      /** Locked Until */
-      locked_until: string | null;
-      /** Failed Login Attempts */
-      failed_login_attempts: number;
-      /** Last Login At */
-      last_login_at: string | null;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-    };
-    /** UserAdminUpdate */
-    UserAdminUpdate: {
-      /** Is Super Admin */
-      is_super_admin?: boolean | null;
-    };
-    /**
-     * UserDeleteRequest
-     * @description Request body for account deletion.
-     */
-    UserDeleteRequest: {
-      /** Password */
-      password: string;
-      /** Reason */
-      reason?: string | null;
-    };
-    /**
-     * UserDeleteResponse
-     * @description Response after account deletion.
-     */
-    UserDeleteResponse: {
-      /**
-       * Success
-       * @default true
-       */
-      success: boolean;
-      /**
-       * Deleted At
-       * Format: date-time
-       */
-      deleted_at: string;
-    };
-    /**
-     * UserExportRequest
-     * @description Request body for HIPAA data export.
-     */
-    UserExportRequest: {
-      /**
-       * Format
-       * @default json
-       */
-      format: string;
-      /**
-       * Include Documents
-       * @default false
-       */
-      include_documents: boolean;
-    };
-    /**
-     * UserExportResponse
-     * @description Response after requesting data export.
-     */
-    UserExportResponse: {
-      /**
-       * Export Id
-       * Format: uuid
-       */
-      export_id: string;
-      /**
-       * Status
-       * @default PENDING
-       */
-      status: string;
-      /**
-       * Estimated Completion
-       * Format: date-time
-       */
-      estimated_completion: string;
-    };
-    /** UserListResponse */
-    UserListResponse: {
-      /** Items */
-      items: components["schemas"]["UserAdminRead"][];
-      /** Total */
-      total: number;
-      /** Page */
-      page: number;
-      /** Page Size */
-      page_size: number;
-    };
-    /**
-     * UserRead
-     * @description Full user profile response.
-     */
-    UserRead: {
-      /**
-       * Id
-       * Format: uuid
-       */
-      id: string;
-      /**
-       * Email
-       * Format: email
-       */
-      email: string;
-      /** Display Name */
-      display_name?: string | null;
-      /**
-       * Is Super Admin
-       * @default false
-       */
-      is_super_admin: boolean;
-      /**
-       * Mfa Enabled
-       * @default false
-       */
-      mfa_enabled: boolean;
-      /**
-       * Requires Consent
-       * @default true
-       */
-      requires_consent: boolean;
-      /**
-       * Transactional Consent
-       * @default true
-       */
-      transactional_consent: boolean;
-      /**
-       * Marketing Consent
-       * @default false
-       */
-      marketing_consent: boolean;
-      /** Timezone */
-      timezone?: string | null;
-      /**
-       * Effective Timezone
-       * @default America/New_York
-       */
-      effective_timezone: string;
-      /**
-       * Created At
-       * Format: date-time
-       */
-      created_at: string;
-      /**
-       * Updated At
-       * Format: date-time
-       */
-      updated_at: string;
-    };
-    /**
-     * UserUpdate
-     * @description Update user profile fields.
-     */
-    UserUpdate: {
-      /** Display Name */
-      display_name?: string | null;
-      /** Timezone */
-      timezone?: string | null;
-    };
-    /** ValidationError */
-    ValidationError: {
-      /** Location */
-      loc: (string | number)[];
-      /** Message */
-      msg: string;
-      /** Error Type */
-      type: string;
-    };
-    /** OrganizationCreate */
-    src__schemas__organizations__OrganizationCreate: {
-      /** Name */
-      name: string;
-      /** Tax Id */
-      tax_id?: string | null;
-      /** Settings Json */
-      settings_json?: {
-        [key: string]: unknown;
-      };
-      /**
-       * Timezone
-       * @default America/New_York
-       */
-      timezone: string;
-    };
-    /** OrganizationUpdate */
-    src__schemas__organizations__OrganizationUpdate: {
-      /** Name */
-      name?: string | null;
-      /** Tax Id */
-      tax_id?: string | null;
-      /** Settings Json */
-      settings_json?: {
-        [key: string]: unknown;
-      } | null;
-      /** Timezone */
-      timezone?: string | null;
-    };
-  };
-  responses: never;
-  parameters: never;
-  requestBodies: never;
-  headers: never;
-  pathItems: never;
+    schemas: {
+        /** AppointmentCreate */
+        AppointmentCreate: {
+            /**
+             * Scheduled At
+             * Format: date-time
+             */
+            scheduled_at: string;
+            /**
+             * Duration Minutes
+             * @default 30
+             */
+            duration_minutes: number;
+            /**
+             * Appointment Type
+             * @default FOLLOW_UP
+             */
+            appointment_type: string;
+            /** Reason */
+            reason?: string | null;
+            /** Notes */
+            notes?: string | null;
+            /**
+             * Patient Id
+             * Format: uuid
+             */
+            patient_id: string;
+            /**
+             * Provider Id
+             * Format: uuid
+             */
+            provider_id: string;
+        };
+        /** AppointmentRead */
+        AppointmentRead: {
+            /**
+             * Scheduled At
+             * Format: date-time
+             */
+            scheduled_at: string;
+            /**
+             * Duration Minutes
+             * @default 30
+             */
+            duration_minutes: number;
+            /**
+             * Appointment Type
+             * @default FOLLOW_UP
+             */
+            appointment_type: string;
+            /** Reason */
+            reason?: string | null;
+            /** Notes */
+            notes?: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Organization Id
+             * Format: uuid
+             */
+            organization_id: string;
+            /**
+             * Patient Id
+             * Format: uuid
+             */
+            patient_id: string;
+            /**
+             * Provider Id
+             * Format: uuid
+             */
+            provider_id: string;
+            /** Status */
+            status: string;
+            /** Cancelled At */
+            cancelled_at?: string | null;
+            /** Cancelled By */
+            cancelled_by?: string | null;
+            /** Cancellation Reason */
+            cancellation_reason?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Patient Name */
+            patient_name?: string | null;
+            /** Provider Name */
+            provider_name?: string | null;
+        };
+        /** AppointmentStatusUpdate */
+        AppointmentStatusUpdate: {
+            /** Status */
+            status: string;
+            /** Cancellation Reason */
+            cancellation_reason?: string | null;
+        };
+        /** AppointmentUpdate */
+        AppointmentUpdate: {
+            /** Scheduled At */
+            scheduled_at?: string | null;
+            /** Duration Minutes */
+            duration_minutes?: number | null;
+            /** Appointment Type */
+            appointment_type?: string | null;
+            /** Reason */
+            reason?: string | null;
+            /** Notes */
+            notes?: string | null;
+        };
+        /** AuditLogListResponse */
+        AuditLogListResponse: {
+            /** Items */
+            items: components["schemas"]["AuditLogRead"][];
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+        };
+        /** AuditLogRead */
+        AuditLogRead: {
+            /**
+             * Action Type
+             * @description Action performed (READ, CREATE, UPDATE, DELETE, etc.)
+             */
+            action_type: string;
+            /**
+             * Resource Type
+             * @description Type of resource effected (PATIENT, USER, etc.)
+             */
+            resource_type: string;
+            /**
+             * Resource Id
+             * Format: uuid
+             */
+            resource_id: string;
+            /** Changes Json */
+            changes_json?: {
+                [key: string]: unknown;
+            } | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Actor User Id */
+            actor_user_id: string | null;
+            /** Organization Id */
+            organization_id: string | null;
+            /** Ip Address */
+            ip_address: string | null;
+            /** User Agent */
+            user_agent: string | null;
+            /** Impersonator Id */
+            impersonator_id: string | null;
+            /**
+             * Occurred At
+             * Format: date-time
+             */
+            occurred_at: string;
+        };
+        /** CallCreate */
+        CallCreate: {
+            /**
+             * Direction
+             * @description INBOUND or OUTBOUND
+             */
+            direction: string;
+            /**
+             * Phone Number
+             * @description Phone number associated with the call
+             */
+            phone_number: string;
+            /** Notes */
+            notes?: string | null;
+            /** Outcome */
+            outcome?: string | null;
+            /** Patient Id */
+            patient_id?: string | null;
+        };
+        /** CallRead */
+        CallRead: {
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Updated At */
+            updated_at?: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Direction
+             * @description INBOUND or OUTBOUND
+             */
+            direction: string;
+            /**
+             * Phone Number
+             * @description Phone number associated with the call
+             */
+            phone_number: string;
+            /** Notes */
+            notes?: string | null;
+            /** Outcome */
+            outcome?: string | null;
+            /** Patient Id */
+            patient_id?: string | null;
+            /**
+             * Organization Id
+             * Format: uuid
+             */
+            organization_id: string;
+            /**
+             * Agent Id
+             * Format: uuid
+             */
+            agent_id: string;
+            /** Status */
+            status: string;
+            /** Started At */
+            started_at: string | null;
+            /** Ended At */
+            ended_at: string | null;
+            /** Duration Seconds */
+            duration_seconds: number | null;
+            /** Agent Name */
+            agent_name?: string | null;
+            /** Patient Name */
+            patient_name?: string | null;
+        };
+        /** CallUpdate */
+        CallUpdate: {
+            /**
+             * Status
+             * @description QUEUED, IN_PROGRESS, COMPLETED, MISSED
+             */
+            status?: string | null;
+            /** Notes */
+            notes?: string | null;
+            /** Outcome */
+            outcome?: string | null;
+            /** Ended At */
+            ended_at?: string | null;
+        };
+        /**
+         * CareTeamAssignmentCreate
+         * @description Create a care team assignment for a patient.
+         */
+        CareTeamAssignmentCreate: {
+            /**
+             * Provider Id
+             * Format: uuid
+             * @description Provider to assign
+             */
+            provider_id: string;
+            /**
+             * Role
+             * @description Role in care team: PRIMARY, SPECIALIST, or CONSULTANT
+             * @default SPECIALIST
+             */
+            role: string;
+        };
+        /**
+         * CareTeamAssignmentRead
+         * @description Read a care team assignment with provider details.
+         */
+        CareTeamAssignmentRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Patient Id
+             * Format: uuid
+             */
+            patient_id: string;
+            /**
+             * Provider Id
+             * Format: uuid
+             */
+            provider_id: string;
+            /** Role */
+            role: string;
+            /**
+             * Assigned At
+             * Format: date-time
+             */
+            assigned_at: string;
+            /** Removed At */
+            removed_at?: string | null;
+            provider: components["schemas"]["CareTeamProviderInfo"];
+        };
+        /**
+         * CareTeamList
+         * @description Full care team response with all members.
+         */
+        CareTeamList: {
+            /**
+             * Patient Id
+             * Format: uuid
+             */
+            patient_id: string;
+            /** Members */
+            members: components["schemas"]["CareTeamMember"][];
+            primary_provider?: components["schemas"]["CareTeamMember"] | null;
+        };
+        /**
+         * CareTeamMember
+         * @description Compact care team member for list views.
+         */
+        CareTeamMember: {
+            /**
+             * Assignment Id
+             * Format: uuid
+             */
+            assignment_id: string;
+            /**
+             * Provider Id
+             * Format: uuid
+             */
+            provider_id: string;
+            /** Role */
+            role: string;
+            /**
+             * Assigned At
+             * Format: date-time
+             */
+            assigned_at: string;
+            /** Provider Name */
+            provider_name?: string | null;
+            /** Provider Specialty */
+            provider_specialty?: string | null;
+            /** Provider Npi */
+            provider_npi?: string | null;
+        };
+        /**
+         * CareTeamProviderInfo
+         * @description Embedded provider information for care team responses.
+         */
+        CareTeamProviderInfo: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * User Id
+             * Format: uuid
+             */
+            user_id: string;
+            /** Npi Number */
+            npi_number?: string | null;
+            /** Specialty */
+            specialty?: string | null;
+            /** User Display Name */
+            user_display_name?: string | null;
+            /** User Email */
+            user_email?: string | null;
+        };
+        /**
+         * CheckoutSessionRequest
+         * @description Request to create a Stripe checkout session.
+         */
+        CheckoutSessionRequest: {
+            /** Price Id */
+            price_id: string;
+        };
+        /**
+         * CheckoutSessionResponse
+         * @description Response from creating a checkout session.
+         */
+        CheckoutSessionResponse: {
+            /** Session Id */
+            session_id: string;
+            /** Checkout Url */
+            checkout_url: string;
+        };
+        /**
+         * CommunicationPreferencesRead
+         * @description Communication preferences response.
+         */
+        CommunicationPreferencesRead: {
+            /** Transactional Consent */
+            transactional_consent: boolean;
+            /** Marketing Consent */
+            marketing_consent: boolean;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /**
+         * CommunicationPreferencesUpdate
+         * @description Update communication preferences.
+         */
+        CommunicationPreferencesUpdate: {
+            /** Transactional Consent */
+            transactional_consent?: boolean | null;
+            /** Marketing Consent */
+            marketing_consent?: boolean | null;
+        };
+        /** ConsentSignRequest */
+        ConsentSignRequest: {
+            /** Document Id */
+            document_id: string;
+        };
+        /**
+         * ContactMethodCreate
+         * @description Create a contact method for a patient.
+         */
+        ContactMethodCreate: {
+            /**
+             * Type
+             * @description MOBILE, HOME, EMAIL
+             */
+            type: string;
+            /**
+             * Value
+             * @description The actual contact value
+             */
+            value: string;
+            /**
+             * Is Primary
+             * @default false
+             */
+            is_primary: boolean;
+            /**
+             * Is Safe For Voicemail
+             * @default false
+             */
+            is_safe_for_voicemail: boolean;
+            /**
+             * Label
+             * @description Home, Work, Mobile
+             */
+            label?: string | null;
+        };
+        /**
+         * ContactMethodRead
+         * @description Read contact method with ID.
+         */
+        ContactMethodRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Type */
+            type: string;
+            /** Value */
+            value: string;
+            /** Is Primary */
+            is_primary: boolean;
+            /** Is Safe For Voicemail */
+            is_safe_for_voicemail: boolean;
+            /** Label */
+            label: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /**
+         * ContactMethodUpdate
+         * @description Partial update for contact method.
+         */
+        ContactMethodUpdate: {
+            /** Type */
+            type?: string | null;
+            /** Value */
+            value?: string | null;
+            /** Is Primary */
+            is_primary?: boolean | null;
+            /** Is Safe For Voicemail */
+            is_safe_for_voicemail?: boolean | null;
+            /** Label */
+            label?: string | null;
+        };
+        /**
+         * DeviceTokenDeleteRequest
+         * @description Request to delete a device token.
+         */
+        DeviceTokenDeleteRequest: {
+            /** Token */
+            token: string;
+        };
+        /**
+         * DeviceTokenRequest
+         * @description Request to register a device token.
+         */
+        DeviceTokenRequest: {
+            /** Token */
+            token: string;
+            /** Platform */
+            platform: string;
+            /** Device Name */
+            device_name?: string | null;
+        };
+        /**
+         * DeviceTokenResponse
+         * @description Response after registering device token.
+         */
+        DeviceTokenResponse: {
+            /**
+             * Success
+             * @default true
+             */
+            success: boolean;
+        };
+        /**
+         * DocumentDownloadResponse
+         * @description Response with presigned download URL.
+         */
+        DocumentDownloadResponse: {
+            /**
+             * Document Id
+             * Format: uuid
+             */
+            document_id: string;
+            /** Download Url */
+            download_url: string;
+            /**
+             * Expires In
+             * @default 3600
+             */
+            expires_in: number;
+        };
+        /**
+         * DocumentListItem
+         * @description Lightweight document for list views.
+         */
+        DocumentListItem: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** File Name */
+            file_name: string;
+            /** File Type */
+            file_type: string;
+            /** File Size */
+            file_size: number;
+            /** Document Type */
+            document_type: string;
+            /** Status */
+            status: string;
+            /** Uploaded At */
+            uploaded_at: string | null;
+            /** Uploaded By Name */
+            uploaded_by_name?: string | null;
+        };
+        /**
+         * DocumentRead
+         * @description Full document read model.
+         */
+        DocumentRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Organization Id
+             * Format: uuid
+             */
+            organization_id: string;
+            /**
+             * Patient Id
+             * Format: uuid
+             */
+            patient_id: string;
+            /**
+             * Uploaded By User Id
+             * Format: uuid
+             */
+            uploaded_by_user_id: string;
+            /** File Name */
+            file_name: string;
+            /** File Type */
+            file_type: string;
+            /** File Size */
+            file_size: number;
+            /** S3 Key */
+            s3_key: string;
+            /** Document Type */
+            document_type: string;
+            /** Description */
+            description: string | null;
+            /** Status */
+            status: string;
+            /** Uploaded At */
+            uploaded_at: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Uploaded By Name */
+            uploaded_by_name?: string | null;
+        };
+        /**
+         * DocumentUploadRequest
+         * @description Request to get a presigned upload URL.
+         */
+        DocumentUploadRequest: {
+            /** File Name */
+            file_name: string;
+            /**
+             * File Type
+             * @default application/pdf
+             */
+            file_type: string;
+            /** File Size */
+            file_size: number;
+            /**
+             * Document Type
+             * @default OTHER
+             */
+            document_type: string;
+            /** Description */
+            description?: string | null;
+        };
+        /**
+         * DocumentUploadResponse
+         * @description Response with presigned upload URL.
+         */
+        DocumentUploadResponse: {
+            /**
+             * Document Id
+             * Format: uuid
+             */
+            document_id: string;
+            /** Upload Url */
+            upload_url: string;
+            /** Upload Fields */
+            upload_fields: {
+                [key: string]: unknown;
+            };
+            /** S3 Key */
+            s3_key: string;
+        };
+        /** HTTPValidationError */
+        HTTPValidationError: {
+            /** Detail */
+            detail?: components["schemas"]["ValidationError"][];
+        };
+        /** ImpersonationRequest */
+        ImpersonationRequest: {
+            /** Reason */
+            reason: string;
+        };
+        /** InvitationCreate */
+        InvitationCreate: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Role */
+            role: string;
+        };
+        /** InvitationRead */
+        InvitationRead: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Role */
+            role: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Token */
+            token: string;
+            /** Status */
+            status: string;
+            /**
+             * Organization Id
+             * Format: uuid
+             */
+            organization_id: string;
+            /**
+             * Invited By User Id
+             * Format: uuid
+             */
+            invited_by_user_id: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Expires At
+             * Format: date-time
+             */
+            expires_at: string;
+            /** Accepted At */
+            accepted_at?: string | null;
+        };
+        /**
+         * MFADisableRequest
+         * @description Request to disable MFA.
+         */
+        MFADisableRequest: {
+            /** Password */
+            password: string;
+        };
+        /**
+         * MFADisableResponse
+         * @description Response after disabling MFA.
+         */
+        MFADisableResponse: {
+            /**
+             * Success
+             * @default true
+             */
+            success: boolean;
+            /**
+             * Mfa Enabled
+             * @default false
+             */
+            mfa_enabled: boolean;
+            /**
+             * Disabled At
+             * Format: date-time
+             */
+            disabled_at: string;
+        };
+        /**
+         * MFASetupResponse
+         * @description Response for MFA setup initialization.
+         */
+        MFASetupResponse: {
+            /** Secret */
+            secret: string;
+            /** Provisioning Uri */
+            provisioning_uri: string;
+            /** Qr Code Data Url */
+            qr_code_data_url?: string | null;
+            /**
+             * Expires At
+             * Format: date-time
+             */
+            expires_at: string;
+        };
+        /**
+         * MFAVerifyRequest
+         * @description Request to verify MFA code and enable MFA.
+         */
+        MFAVerifyRequest: {
+            /** Code */
+            code: string;
+        };
+        /**
+         * MFAVerifyResponse
+         * @description Response after MFA verification.
+         */
+        MFAVerifyResponse: {
+            /**
+             * Success
+             * @default true
+             */
+            success: boolean;
+            /**
+             * Mfa Enabled
+             * @default true
+             */
+            mfa_enabled: boolean;
+            /** Backup Codes */
+            backup_codes: string[];
+            /**
+             * Enabled At
+             * Format: date-time
+             */
+            enabled_at: string;
+        };
+        /** MemberRead */
+        MemberRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * User Id
+             * Format: uuid
+             */
+            user_id: string;
+            /**
+             * Organization Id
+             * Format: uuid
+             */
+            organization_id: string;
+            /** Email */
+            email?: string | null;
+            /** Display Name */
+            display_name?: string | null;
+            /** Role */
+            role: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** MessageCreate */
+        MessageCreate: {
+            /** Body */
+            body: string;
+        };
+        /** MessageRead */
+        MessageRead: {
+            /** Body */
+            body: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Thread Id
+             * Format: uuid
+             */
+            thread_id: string;
+            /** Sender Id */
+            sender_id: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Sender Name */
+            sender_name?: string | null;
+        };
+        /** NotificationListResponse */
+        NotificationListResponse: {
+            /** Items */
+            items: components["schemas"]["NotificationRead"][];
+            /** Total */
+            total: number;
+            /** Unread Count */
+            unread_count: number;
+            /** Page */
+            page: number;
+            /** Size */
+            size: number;
+        };
+        /** NotificationRead */
+        NotificationRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Type */
+            type: string;
+            /** Title */
+            title: string;
+            /** Body */
+            body?: string | null;
+            /** Data Json */
+            data_json?: {
+                [key: string]: unknown;
+            } | null;
+            /** Is Read */
+            is_read: boolean;
+            /** Read At */
+            read_at?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** OrganizationAdminRead */
+        OrganizationAdminRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Name */
+            name: string;
+            /** Member Count */
+            member_count: number;
+            /** Patient Count */
+            patient_count: number;
+            /** Subscription Status */
+            subscription_status: string;
+            /** Is Active */
+            is_active: boolean;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** OrganizationCreate */
+        OrganizationCreate: {
+            /** Name */
+            name: string;
+            /**
+             * Subscription Status
+             * @default trial
+             */
+            subscription_status: string;
+        };
+        /** OrganizationListResponse */
+        OrganizationListResponse: {
+            /** Items */
+            items: components["schemas"]["OrganizationAdminRead"][];
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+        };
+        /** OrganizationRead */
+        OrganizationRead: {
+            /** Name */
+            name: string;
+            /** Tax Id */
+            tax_id?: string | null;
+            /** Settings Json */
+            settings_json?: {
+                [key: string]: unknown;
+            };
+            /**
+             * Timezone
+             * @default America/New_York
+             */
+            timezone: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Stripe Customer Id */
+            stripe_customer_id: string | null;
+            /** Subscription Status */
+            subscription_status: string;
+            /** Is Active */
+            is_active: boolean;
+            /** Member Count */
+            member_count: number;
+            /** Patient Count */
+            patient_count: number;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /** OrganizationUpdate */
+        OrganizationUpdate: {
+            /** Is Active */
+            is_active?: boolean | null;
+            /** Subscription Status */
+            subscription_status?: string | null;
+        };
+        /**
+         * PaginatedDocuments
+         * @description Paginated list of documents.
+         */
+        PaginatedDocuments: {
+            /** Items */
+            items: components["schemas"]["DocumentListItem"][];
+            /** Total */
+            total: number;
+            /** Limit */
+            limit: number;
+            /** Offset */
+            offset: number;
+        };
+        /**
+         * PaginatedPatients
+         * @description Paginated patient list response.
+         */
+        PaginatedPatients: {
+            /** Items */
+            items: components["schemas"]["PatientListItem"][];
+            /** Total */
+            total: number;
+            /** Limit */
+            limit: number;
+            /** Offset */
+            offset: number;
+        };
+        /**
+         * PaginatedProviders
+         * @description Paginated provider list response.
+         */
+        PaginatedProviders: {
+            /** Items */
+            items: components["schemas"]["ProviderListItem"][];
+            /** Total */
+            total: number;
+            /** Limit */
+            limit: number;
+            /** Offset */
+            offset: number;
+        };
+        /**
+         * PaginatedStaff
+         * @description Paginated staff list response.
+         */
+        PaginatedStaff: {
+            /** Items */
+            items: components["schemas"]["StaffListItem"][];
+            /** Total */
+            total: number;
+            /** Limit */
+            limit: number;
+            /** Offset */
+            offset: number;
+        };
+        /** ParticipantRead */
+        ParticipantRead: {
+            /**
+             * User Id
+             * Format: uuid
+             */
+            user_id: string;
+            /**
+             * Joined At
+             * Format: date-time
+             */
+            joined_at: string;
+            /** Last Read At */
+            last_read_at: string | null;
+            /** User Name */
+            user_name?: string | null;
+        };
+        /**
+         * PatientCreate
+         * @description Create a patient. Will be enrolled in the organization.
+         */
+        PatientCreate: {
+            /** First Name */
+            first_name: string;
+            /** Last Name */
+            last_name: string;
+            /**
+             * Dob
+             * Format: date
+             * @description Date of birth
+             */
+            dob: string;
+            /** Legal Sex */
+            legal_sex?: string | null;
+            /** Medical Record Number */
+            medical_record_number?: string | null;
+            /** Contact Methods */
+            contact_methods?: components["schemas"]["ContactMethodCreate"][] | null;
+        };
+        /**
+         * PatientListItem
+         * @description Compact patient for list views.
+         */
+        PatientListItem: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** First Name */
+            first_name: string;
+            /** Last Name */
+            last_name: string;
+            /**
+             * Dob
+             * Format: date
+             */
+            dob: string;
+            /** Medical Record Number */
+            medical_record_number: string | null;
+            /** Enrolled At */
+            enrolled_at?: string | null;
+            /**
+             * Status
+             * @default ACTIVE
+             */
+            status: string;
+        };
+        /**
+         * PatientRead
+         * @description Full patient detail with contact methods.
+         */
+        PatientRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** User Id */
+            user_id: string | null;
+            /** First Name */
+            first_name: string;
+            /** Last Name */
+            last_name: string;
+            /**
+             * Dob
+             * Format: date
+             */
+            dob: string;
+            /** Legal Sex */
+            legal_sex: string | null;
+            /** Medical Record Number */
+            medical_record_number: string | null;
+            /** Stripe Customer Id */
+            stripe_customer_id: string | null;
+            /** Subscription Status */
+            subscription_status: string;
+            /**
+             * Contact Methods
+             * @default []
+             */
+            contact_methods: components["schemas"]["ContactMethodRead"][];
+            /** Enrolled At */
+            enrolled_at?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /**
+         * PatientUpdate
+         * @description Partial update for patient fields.
+         */
+        PatientUpdate: {
+            /** First Name */
+            first_name?: string | null;
+            /** Last Name */
+            last_name?: string | null;
+            /** Dob */
+            dob?: string | null;
+            /** Legal Sex */
+            legal_sex?: string | null;
+            /** Medical Record Number */
+            medical_record_number?: string | null;
+        };
+        /**
+         * PortalSessionResponse
+         * @description Response from creating a billing portal session.
+         */
+        PortalSessionResponse: {
+            /** Portal Url */
+            portal_url: string;
+        };
+        /**
+         * ProviderCreate
+         * @description Create a provider profile for a user.
+         */
+        ProviderCreate: {
+            /**
+             * User Id
+             * Format: uuid
+             * @description User to become a provider
+             */
+            user_id: string;
+            /**
+             * Npi Number
+             * @description National Provider Identifier
+             */
+            npi_number?: string | null;
+            /** Specialty */
+            specialty?: string | null;
+            /** License Number */
+            license_number?: string | null;
+            /** License State */
+            license_state?: string | null;
+            /** Dea Number */
+            dea_number?: string | null;
+        };
+        /**
+         * ProviderListItem
+         * @description Compact provider for list views.
+         */
+        ProviderListItem: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * User Id
+             * Format: uuid
+             */
+            user_id: string;
+            /** Npi Number */
+            npi_number: string | null;
+            /** Specialty */
+            specialty: string | null;
+            /** Is Active */
+            is_active: boolean;
+            /** User Email */
+            user_email?: string | null;
+            /** User Display Name */
+            user_display_name?: string | null;
+        };
+        /**
+         * ProviderRead
+         * @description Full provider profile response.
+         */
+        ProviderRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * User Id
+             * Format: uuid
+             */
+            user_id: string;
+            /**
+             * Organization Id
+             * Format: uuid
+             */
+            organization_id: string;
+            /** Npi Number */
+            npi_number: string | null;
+            /** Specialty */
+            specialty: string | null;
+            /** License Number */
+            license_number: string | null;
+            /** License State */
+            license_state: string | null;
+            /** Dea Number */
+            dea_number: string | null;
+            /** State Licenses */
+            state_licenses: unknown[];
+            /** Is Active */
+            is_active: boolean;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** User Email */
+            user_email?: string | null;
+            /** User Display Name */
+            user_display_name?: string | null;
+        };
+        /**
+         * ProviderUpdate
+         * @description Partial update for provider profile.
+         */
+        ProviderUpdate: {
+            /** Npi Number */
+            npi_number?: string | null;
+            /** Specialty */
+            specialty?: string | null;
+            /** License Number */
+            license_number?: string | null;
+            /** License State */
+            license_state?: string | null;
+            /** Dea Number */
+            dea_number?: string | null;
+            /** Is Active */
+            is_active?: boolean | null;
+        };
+        /**
+         * ProxyAssignmentCreate
+         * @description Create a new proxy assignment.
+         */
+        ProxyAssignmentCreate: {
+            /**
+             * Email
+             * Format: email
+             * @description Email of user to grant proxy access
+             */
+            email: string;
+            /**
+             * Relationship Type
+             * @description Relationship: PARENT, SPOUSE, GUARDIAN, CAREGIVER, POA, OTHER
+             */
+            relationship_type: string;
+            permissions?: components["schemas"]["ProxyPermissions"];
+            /**
+             * Expires At
+             * @description Optional expiration date
+             */
+            expires_at?: string | null;
+        };
+        /**
+         * ProxyAssignmentRead
+         * @description Read a proxy assignment with full details.
+         */
+        ProxyAssignmentRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Proxy Id
+             * Format: uuid
+             */
+            proxy_id: string;
+            /**
+             * Patient Id
+             * Format: uuid
+             */
+            patient_id: string;
+            /** Relationship Type */
+            relationship_type: string;
+            /** Can View Profile */
+            can_view_profile: boolean;
+            /** Can View Appointments */
+            can_view_appointments: boolean;
+            /** Can Schedule Appointments */
+            can_schedule_appointments: boolean;
+            /** Can View Clinical Notes */
+            can_view_clinical_notes: boolean;
+            /** Can View Billing */
+            can_view_billing: boolean;
+            /** Can Message Providers */
+            can_message_providers: boolean;
+            /**
+             * Granted At
+             * Format: date-time
+             */
+            granted_at: string;
+            /** Expires At */
+            expires_at?: string | null;
+            /** Revoked At */
+            revoked_at?: string | null;
+            user: components["schemas"]["ProxyUserInfo"];
+        };
+        /**
+         * ProxyAssignmentUpdate
+         * @description Update proxy permissions.
+         */
+        ProxyAssignmentUpdate: {
+            permissions?: components["schemas"]["ProxyPermissions"] | null;
+            /** Expires At */
+            expires_at?: string | null;
+        };
+        /**
+         * ProxyListResponse
+         * @description List of proxies for a patient.
+         */
+        ProxyListResponse: {
+            /**
+             * Patient Id
+             * Format: uuid
+             */
+            patient_id: string;
+            /** Proxies */
+            proxies: components["schemas"]["ProxyAssignmentRead"][];
+        };
+        /**
+         * ProxyPatientInfo
+         * @description Patient info for proxy dashboard.
+         */
+        ProxyPatientInfo: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** First Name */
+            first_name: string;
+            /** Last Name */
+            last_name: string;
+            /** Dob */
+            dob: string;
+            /** Medical Record Number */
+            medical_record_number?: string | null;
+        };
+        /**
+         * ProxyPatientRead
+         * @description Patient with proxy permissions for proxy dashboard.
+         */
+        ProxyPatientRead: {
+            patient: components["schemas"]["ProxyPatientInfo"];
+            /** Relationship Type */
+            relationship_type: string;
+            permissions: components["schemas"]["ProxyPermissions"];
+            /**
+             * Granted At
+             * Format: date-time
+             */
+            granted_at: string;
+            /** Expires At */
+            expires_at?: string | null;
+        };
+        /**
+         * ProxyPermissions
+         * @description All proxy permission flags.
+         */
+        ProxyPermissions: {
+            /**
+             * Can View Profile
+             * @default true
+             */
+            can_view_profile: boolean;
+            /**
+             * Can View Appointments
+             * @default true
+             */
+            can_view_appointments: boolean;
+            /**
+             * Can Schedule Appointments
+             * @default false
+             */
+            can_schedule_appointments: boolean;
+            /**
+             * Can View Clinical Notes
+             * @default false
+             */
+            can_view_clinical_notes: boolean;
+            /**
+             * Can View Billing
+             * @default false
+             */
+            can_view_billing: boolean;
+            /**
+             * Can Message Providers
+             * @default false
+             */
+            can_message_providers: boolean;
+        };
+        /**
+         * ProxyProfileRead
+         * @description Proxy profile for the current user.
+         */
+        ProxyProfileRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * User Id
+             * Format: uuid
+             */
+            user_id: string;
+            /** Relationship To Patient */
+            relationship_to_patient?: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /**
+         * ProxyUserInfo
+         * @description Embedded user information for proxy responses.
+         */
+        ProxyUserInfo: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Email */
+            email: string;
+            /** Display Name */
+            display_name?: string | null;
+        };
+        /**
+         * SessionListResponse
+         * @description Paginated list of sessions.
+         */
+        SessionListResponse: {
+            /** Items */
+            items: components["schemas"]["SessionRead"][];
+            /** Total */
+            total: number;
+            /**
+             * Limit
+             * @default 50
+             */
+            limit: number;
+            /**
+             * Offset
+             * @default 0
+             */
+            offset: number;
+        };
+        /**
+         * SessionRead
+         * @description Session information response.
+         */
+        SessionRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Device */
+            device: string;
+            /** Ip Address */
+            ip_address?: string | null;
+            /** Location */
+            location?: string | null;
+            /**
+             * Is Current
+             * @default false
+             */
+            is_current: boolean;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Last Active At
+             * Format: date-time
+             */
+            last_active_at: string;
+        };
+        /**
+         * SessionRevokeResponse
+         * @description Response after revoking a session.
+         */
+        SessionRevokeResponse: {
+            /**
+             * Success
+             * @default true
+             */
+            success: boolean;
+            /**
+             * Terminated At
+             * Format: date-time
+             */
+            terminated_at: string;
+        };
+        /**
+         * StaffCreate
+         * @description Create a staff profile for a user.
+         */
+        StaffCreate: {
+            /**
+             * User Id
+             * Format: uuid
+             * @description User to become staff
+             */
+            user_id: string;
+            /** Job Title */
+            job_title?: string | null;
+            /** Department */
+            department?: string | null;
+            /** Employee Id */
+            employee_id?: string | null;
+        };
+        /**
+         * StaffListItem
+         * @description Compact staff for list views.
+         */
+        StaffListItem: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * User Id
+             * Format: uuid
+             */
+            user_id: string;
+            /** Job Title */
+            job_title: string | null;
+            /** Department */
+            department: string | null;
+            /** Is Active */
+            is_active: boolean;
+            /** User Email */
+            user_email?: string | null;
+            /** User Display Name */
+            user_display_name?: string | null;
+        };
+        /**
+         * StaffRead
+         * @description Full staff profile response.
+         */
+        StaffRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * User Id
+             * Format: uuid
+             */
+            user_id: string;
+            /**
+             * Organization Id
+             * Format: uuid
+             */
+            organization_id: string;
+            /** Job Title */
+            job_title: string | null;
+            /** Department */
+            department: string | null;
+            /** Employee Id */
+            employee_id: string | null;
+            /** Is Active */
+            is_active: boolean;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** User Email */
+            user_email?: string | null;
+            /** User Display Name */
+            user_display_name?: string | null;
+        };
+        /**
+         * StaffUpdate
+         * @description Partial update for staff profile.
+         */
+        StaffUpdate: {
+            /** Job Title */
+            job_title?: string | null;
+            /** Department */
+            department?: string | null;
+            /** Employee Id */
+            employee_id?: string | null;
+            /** Is Active */
+            is_active?: boolean | null;
+        };
+        /**
+         * SubscriptionStatusResponse
+         * @description Current subscription status for an organization.
+         */
+        SubscriptionStatusResponse: {
+            /** Status */
+            status: string;
+            /** Plan Id */
+            plan_id?: string | null;
+            /** Current Period End */
+            current_period_end?: number | null;
+            /**
+             * Cancel At Period End
+             * @default false
+             */
+            cancel_at_period_end: boolean;
+        };
+        /** SupportMessageCreate */
+        SupportMessageCreate: {
+            /** Body */
+            body: string;
+            /**
+             * Is Internal
+             * @default false
+             */
+            is_internal: boolean;
+        };
+        /** SupportMessageRead */
+        SupportMessageRead: {
+            /** Body */
+            body: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Ticket Id
+             * Format: uuid
+             */
+            ticket_id: string;
+            /**
+             * Sender Id
+             * Format: uuid
+             */
+            sender_id: string;
+            /** Is Internal */
+            is_internal: boolean;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** SystemHealth */
+        SystemHealth: {
+            /** Db Status */
+            db_status: string;
+            /** Redis Status */
+            redis_status: string;
+            /** Worker Status */
+            worker_status: string;
+            /** Metrics */
+            metrics: {
+                [key: string]: unknown;
+            };
+        };
+        /** TaskCreate */
+        TaskCreate: {
+            /** Title */
+            title: string;
+            /** Description */
+            description?: string | null;
+            /**
+             * Priority
+             * @description LOW, MEDIUM, HIGH, URGENT
+             */
+            priority: string;
+            /** Due Date */
+            due_date?: string | null;
+            /** Patient Id */
+            patient_id?: string | null;
+            /**
+             * Assignee Id
+             * Format: uuid
+             */
+            assignee_id: string;
+        };
+        /** TaskRead */
+        TaskRead: {
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Updated At */
+            updated_at?: string | null;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Title */
+            title: string;
+            /** Description */
+            description?: string | null;
+            /**
+             * Priority
+             * @description LOW, MEDIUM, HIGH, URGENT
+             */
+            priority: string;
+            /** Due Date */
+            due_date?: string | null;
+            /** Patient Id */
+            patient_id?: string | null;
+            /**
+             * Assignee Id
+             * Format: uuid
+             */
+            assignee_id: string;
+            /**
+             * Organization Id
+             * Format: uuid
+             */
+            organization_id: string;
+            /**
+             * Created By Id
+             * Format: uuid
+             */
+            created_by_id: string;
+            /** Status */
+            status: string;
+            /** Completed At */
+            completed_at: string | null;
+            /** Assignee Name */
+            assignee_name?: string | null;
+            /** Patient Name */
+            patient_name?: string | null;
+        };
+        /** TaskUpdate */
+        TaskUpdate: {
+            /** Title */
+            title?: string | null;
+            /** Description */
+            description?: string | null;
+            /** Priority */
+            priority?: string | null;
+            /**
+             * Status
+             * @description TODO, IN_PROGRESS, DONE, CANCELLED
+             */
+            status?: string | null;
+            /** Due Date */
+            due_date?: string | null;
+            /** Assignee Id */
+            assignee_id?: string | null;
+        };
+        /**
+         * TelemetryEvent
+         * @description Telemetry event payload from the frontend.
+         */
+        TelemetryEvent: {
+            /** Event Name */
+            event_name: string;
+            /** Properties */
+            properties?: {
+                [key: string]: unknown;
+            };
+        };
+        /**
+         * TelemetryResponse
+         * @description Response confirming event was logged.
+         */
+        TelemetryResponse: {
+            /**
+             * Success
+             * @default true
+             */
+            success: boolean;
+            /** Event Id */
+            event_id?: string | null;
+        };
+        /** ThreadCreate */
+        ThreadCreate: {
+            /** Subject */
+            subject: string;
+            /**
+             * Organization Id
+             * Format: uuid
+             */
+            organization_id: string;
+            /** Patient Id */
+            patient_id?: string | null;
+            /** Initial Message */
+            initial_message: string;
+            /** Participant Ids */
+            participant_ids: string[];
+        };
+        /** ThreadDetail */
+        ThreadDetail: {
+            /** Subject */
+            subject: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Organization Id
+             * Format: uuid
+             */
+            organization_id: string;
+            /** Patient Id */
+            patient_id: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            last_message?: components["schemas"]["MessageRead"] | null;
+            /**
+             * Unread Count
+             * @default 0
+             */
+            unread_count: number;
+            /**
+             * Participants
+             * @default []
+             */
+            participants: components["schemas"]["ParticipantRead"][];
+            /**
+             * Messages
+             * @default []
+             */
+            messages: components["schemas"]["MessageRead"][];
+        };
+        /** ThreadListResponse */
+        ThreadListResponse: {
+            /** Items */
+            items: components["schemas"]["ThreadRead"][];
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Size */
+            size: number;
+        };
+        /** ThreadRead */
+        ThreadRead: {
+            /** Subject */
+            subject: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Organization Id
+             * Format: uuid
+             */
+            organization_id: string;
+            /** Patient Id */
+            patient_id: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            last_message?: components["schemas"]["MessageRead"] | null;
+            /**
+             * Unread Count
+             * @default 0
+             */
+            unread_count: number;
+            /**
+             * Participants
+             * @default []
+             */
+            participants: components["schemas"]["ParticipantRead"][];
+        };
+        /** TicketCreate */
+        TicketCreate: {
+            /** Subject */
+            subject: string;
+            /**
+             * Category
+             * @description TECHNICAL, BILLING, ACCOUNT, OTHER
+             */
+            category: string;
+            /**
+             * Priority
+             * @description LOW, MEDIUM, HIGH
+             */
+            priority: string;
+            /** Initial Message */
+            initial_message: string;
+        };
+        /** TicketRead */
+        TicketRead: {
+            /** Subject */
+            subject: string;
+            /**
+             * Category
+             * @description TECHNICAL, BILLING, ACCOUNT, OTHER
+             */
+            category: string;
+            /**
+             * Priority
+             * @description LOW, MEDIUM, HIGH
+             */
+            priority: string;
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * User Id
+             * Format: uuid
+             */
+            user_id: string;
+            /** Organization Id */
+            organization_id: string | null;
+            /** Status */
+            status: string;
+            /** Assigned To Id */
+            assigned_to_id: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+            /** Resolved At */
+            resolved_at: string | null;
+            /**
+             * Message Count
+             * @default 0
+             */
+            message_count: number;
+            /**
+             * Messages
+             * @default []
+             */
+            messages: components["schemas"]["SupportMessageRead"][];
+        };
+        /** TicketUpdate */
+        TicketUpdate: {
+            /**
+             * Status
+             * @description OPEN, IN_PROGRESS, RESOLVED, CLOSED
+             */
+            status?: string | null;
+            /** Priority */
+            priority?: string | null;
+            /** Assigned To Id */
+            assigned_to_id?: string | null;
+        };
+        /**
+         * TimezoneResponse
+         * @description Response for timezone endpoint.
+         */
+        TimezoneResponse: {
+            /** Timezone */
+            timezone: string;
+            /** Source */
+            source: string;
+        };
+        /**
+         * TimezoneUpdateRequest
+         * @description Request to update user timezone.
+         */
+        TimezoneUpdateRequest: {
+            /** Timezone */
+            timezone: string;
+        };
+        /** UnreadCountResponse */
+        UnreadCountResponse: {
+            /** Count */
+            count: number;
+        };
+        /** UserAdminRead */
+        UserAdminRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /** Email */
+            email: string;
+            /** Display Name */
+            display_name: string | null;
+            /** Is Super Admin */
+            is_super_admin: boolean;
+            /** Locked Until */
+            locked_until: string | null;
+            /** Failed Login Attempts */
+            failed_login_attempts: number;
+            /** Last Login At */
+            last_login_at: string | null;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** UserAdminUpdate */
+        UserAdminUpdate: {
+            /** Is Super Admin */
+            is_super_admin?: boolean | null;
+        };
+        /**
+         * UserDeleteRequest
+         * @description Request body for account deletion.
+         */
+        UserDeleteRequest: {
+            /** Password */
+            password: string;
+            /** Reason */
+            reason?: string | null;
+        };
+        /**
+         * UserDeleteResponse
+         * @description Response after account deletion.
+         */
+        UserDeleteResponse: {
+            /**
+             * Success
+             * @default true
+             */
+            success: boolean;
+            /**
+             * Deleted At
+             * Format: date-time
+             */
+            deleted_at: string;
+        };
+        /**
+         * UserExportRequest
+         * @description Request body for HIPAA data export.
+         */
+        UserExportRequest: {
+            /**
+             * Format
+             * @default json
+             */
+            format: string;
+            /**
+             * Include Documents
+             * @default false
+             */
+            include_documents: boolean;
+        };
+        /**
+         * UserExportResponse
+         * @description Response after requesting data export.
+         */
+        UserExportResponse: {
+            /**
+             * Export Id
+             * Format: uuid
+             */
+            export_id: string;
+            /**
+             * Status
+             * @default PENDING
+             */
+            status: string;
+            /**
+             * Estimated Completion
+             * Format: date-time
+             */
+            estimated_completion: string;
+        };
+        /** UserListResponse */
+        UserListResponse: {
+            /** Items */
+            items: components["schemas"]["UserAdminRead"][];
+            /** Total */
+            total: number;
+            /** Page */
+            page: number;
+            /** Page Size */
+            page_size: number;
+        };
+        /**
+         * UserRead
+         * @description Full user profile response.
+         */
+        UserRead: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Display Name */
+            display_name?: string | null;
+            /**
+             * Is Super Admin
+             * @default false
+             */
+            is_super_admin: boolean;
+            /**
+             * Mfa Enabled
+             * @default false
+             */
+            mfa_enabled: boolean;
+            /**
+             * Requires Consent
+             * @default true
+             */
+            requires_consent: boolean;
+            /**
+             * Transactional Consent
+             * @default true
+             */
+            transactional_consent: boolean;
+            /**
+             * Marketing Consent
+             * @default false
+             */
+            marketing_consent: boolean;
+            /** Timezone */
+            timezone?: string | null;
+            /**
+             * Effective Timezone
+             * @default America/New_York
+             */
+            effective_timezone: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /**
+             * Updated At
+             * Format: date-time
+             */
+            updated_at: string;
+        };
+        /**
+         * UserUpdate
+         * @description Update user profile fields.
+         */
+        UserUpdate: {
+            /** Display Name */
+            display_name?: string | null;
+            /** Timezone */
+            timezone?: string | null;
+        };
+        /** ValidationError */
+        ValidationError: {
+            /** Location */
+            loc: (string | number)[];
+            /** Message */
+            msg: string;
+            /** Error Type */
+            type: string;
+        };
+        /** OrganizationCreate */
+        src__schemas__organizations__OrganizationCreate: {
+            /** Name */
+            name: string;
+            /** Tax Id */
+            tax_id?: string | null;
+            /** Settings Json */
+            settings_json?: {
+                [key: string]: unknown;
+            };
+            /**
+             * Timezone
+             * @default America/New_York
+             */
+            timezone: string;
+        };
+        /** OrganizationUpdate */
+        src__schemas__organizations__OrganizationUpdate: {
+            /** Name */
+            name?: string | null;
+            /** Tax Id */
+            tax_id?: string | null;
+            /** Settings Json */
+            settings_json?: {
+                [key: string]: unknown;
+            } | null;
+            /** Timezone */
+            timezone?: string | null;
+        };
+    };
+    responses: never;
+    parameters: never;
+    requestBodies: never;
+    headers: never;
+    pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-  impersonate_patient_api_v1_admin_impersonate__patient_id__post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        patient_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["ImpersonationRequest"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_audit_logs_api_v1_admin_audit_logs_get: {
-    parameters: {
-      query?: {
-        action_type?: string | null;
-        resource_type?: string | null;
-        resource_id?: string | null;
-        actor_user_id?: string | null;
-        date_from?: string | null;
-        date_to?: string | null;
-        page?: number;
-        page_size?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["AuditLogListResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  export_audit_logs_api_v1_admin_audit_logs_export_get: {
-    parameters: {
-      query?: {
-        action_type?: string | null;
-        resource_type?: string | null;
-        resource_id?: string | null;
-        actor_user_id?: string | null;
-        date_from?: string | null;
-        date_to?: string | null;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_audit_log_api_v1_admin_audit_logs__log_id__get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        log_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["AuditLogRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_all_organizations_api_v1_admin_super_admin_organizations_get: {
-    parameters: {
-      query?: {
-        search?: string | null;
-        page?: number;
-        page_size?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["OrganizationListResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  create_organization_api_v1_admin_super_admin_organizations_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["OrganizationCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["OrganizationAdminRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_organization_detail_api_v1_admin_super_admin_organizations__org_id__get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["OrganizationAdminRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_organization_api_v1_admin_super_admin_organizations__org_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["OrganizationUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["OrganizationAdminRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_all_users_api_v1_admin_super_admin_users_get: {
-    parameters: {
-      query?: {
-        search?: string | null;
-        is_locked?: boolean | null;
-        is_super_admin?: boolean | null;
-        page?: number;
-        page_size?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["UserListResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  unlock_user_api_v1_admin_super_admin_users__user_id__unlock_patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        user_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_user_admin_api_v1_admin_super_admin_users__user_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        user_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["UserAdminUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["UserAdminRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_system_health_api_v1_admin_super_admin_system_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["SystemHealth"];
-        };
-      };
-    };
-  };
-  get_required_consents_api_v1_consent_required_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": unknown;
-        };
-      };
-    };
-  };
-  sign_consent_api_v1_consent_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["ConsentSignRequest"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  read_users_me_api_v1_users_me_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["UserRead"];
-        };
-      };
-    };
-  };
-  delete_users_me_api_v1_users_me_delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["UserDeleteRequest"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["UserDeleteResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_users_me_api_v1_users_me_patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["UserUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["UserRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_sessions_api_v1_users_me_sessions_get: {
-    parameters: {
-      query?: {
-        limit?: number;
-        offset?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["SessionListResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  revoke_session_api_v1_users_me_sessions__session_id__delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        session_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["SessionRevokeResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  request_export_api_v1_users_me_export_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["UserExportRequest"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      202: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["UserExportResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_communication_preferences_api_v1_users_me_communication_preferences_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["CommunicationPreferencesRead"];
-        };
-      };
-    };
-  };
-  update_communication_preferences_api_v1_users_me_communication_preferences_patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["CommunicationPreferencesUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["CommunicationPreferencesRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_user_timezone_api_v1_users_me_timezone_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TimezoneResponse"];
-        };
-      };
-    };
-  };
-  clear_user_timezone_api_v1_users_me_timezone_delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TimezoneResponse"];
-        };
-      };
-    };
-  };
-  update_user_timezone_api_v1_users_me_timezone_patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["TimezoneUpdateRequest"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TimezoneResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  mfa_setup_api_v1_users_me_mfa_setup_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["MFASetupResponse"];
-        };
-      };
-    };
-  };
-  mfa_verify_api_v1_users_me_mfa_verify_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["MFAVerifyRequest"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["MFAVerifyResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  mfa_disable_api_v1_users_me_mfa_disable_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["MFADisableRequest"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["MFADisableResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  register_device_token_api_v1_users_device_token_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["DeviceTokenRequest"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["DeviceTokenResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  remove_device_token_api_v1_users_device_token_delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["DeviceTokenDeleteRequest"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["DeviceTokenResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_my_proxy_patients_api_v1_users_me_proxy_patients_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ProxyPatientRead"][];
-        };
-      };
-    };
-  };
-  get_my_proxy_profile_api_v1_users_me_proxy_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ProxyProfileRead"] | null;
-        };
-      };
-    };
-  };
-  list_organizations_api_v1_organizations_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["OrganizationRead"][];
-        };
-      };
-    };
-  };
-  create_organization_api_v1_organizations_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["src__schemas__organizations__OrganizationCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["OrganizationRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_organization_api_v1_organizations__org_id__get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["OrganizationRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_organization_api_v1_organizations__org_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["src__schemas__organizations__OrganizationUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["OrganizationRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_members_api_v1_organizations__org_id__members_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["MemberRead"][];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_invitations_api_v1_organizations__org_id__invitations_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["InvitationRead"][];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  create_invitation_api_v1_organizations__org_id__invitations_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["InvitationCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["InvitationRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_patients_api_v1_organizations__org_id__patients_get: {
-    parameters: {
-      query?: {
-        /** @description Fuzzy search by name */
-        name?: string | null;
-        /** @description Search by MRN */
-        mrn?: string | null;
-        /** @description ACTIVE or DISCHARGED */
-        status?: string | null;
-        limit?: number;
-        offset?: number;
-      };
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["PaginatedPatients"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  create_patient_api_v1_organizations__org_id__patients_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["PatientCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["PatientRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_patient_api_v1_organizations__org_id__patients__patient_id__get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["PatientRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  discharge_patient_api_v1_organizations__org_id__patients__patient_id__delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_patient_api_v1_organizations__org_id__patients__patient_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["PatientUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["PatientRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_contact_methods_api_v1_organizations__org_id__patients__patient_id__contact_methods_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ContactMethodRead"][];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  create_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["ContactMethodCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ContactMethodRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  delete_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods__contact_id__delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-        contact_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods__contact_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-        contact_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["ContactMethodUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ContactMethodRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_care_team_api_v1_organizations__org_id__patients__patient_id__care_team_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["CareTeamList"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  assign_to_care_team_api_v1_organizations__org_id__patients__patient_id__care_team_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["CareTeamAssignmentCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["CareTeamAssignmentRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  remove_from_care_team_api_v1_organizations__org_id__patients__patient_id__care_team__assignment_id__delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-        assignment_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_providers_api_v1_organizations__org_id__providers_get: {
-    parameters: {
-      query?: {
-        /** @description Filter by specialty */
-        specialty?: string | null;
-        /** @description Filter by active status */
-        is_active?: boolean | null;
-        limit?: number;
-        offset?: number;
-      };
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["PaginatedProviders"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  create_provider_api_v1_organizations__org_id__providers_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["ProviderCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ProviderRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_provider_api_v1_organizations__org_id__providers__provider_id__get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        provider_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ProviderRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  delete_provider_api_v1_organizations__org_id__providers__provider_id__delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        provider_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_provider_api_v1_organizations__org_id__providers__provider_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        provider_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["ProviderUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ProviderRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_staff_api_v1_organizations__org_id__staff_get: {
-    parameters: {
-      query?: {
-        /** @description Filter by department */
-        department?: string | null;
-        /** @description Filter by active status */
-        is_active?: boolean | null;
-        limit?: number;
-        offset?: number;
-      };
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["PaginatedStaff"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  create_staff_api_v1_organizations__org_id__staff_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["StaffCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["StaffRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_staff_api_v1_organizations__org_id__staff__staff_id__get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        staff_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["StaffRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  delete_staff_api_v1_organizations__org_id__staff__staff_id__delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        staff_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_staff_api_v1_organizations__org_id__staff__staff_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        staff_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["StaffUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["StaffRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_appointments_api_v1_organizations__org_id__appointments_get: {
-    parameters: {
-      query?: {
-        provider_id?: string | null;
-        patient_id?: string | null;
-        status?: string | null;
-        date_from?: string | null;
-        date_to?: string | null;
-        limit?: number;
-        offset?: number;
-      };
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["AppointmentRead"][];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  create_appointment_api_v1_organizations__org_id__appointments_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["AppointmentCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["AppointmentRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_appointment_api_v1_organizations__org_id__appointments__appointment_id__get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        appointment_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["AppointmentRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_appointment_api_v1_organizations__org_id__appointments__appointment_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        appointment_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["AppointmentUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["AppointmentRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_appointment_status_api_v1_organizations__org_id__appointments__appointment_id__status_patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        appointment_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["AppointmentStatusUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["AppointmentRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  create_upload_url_api_v1_organizations__org_id__patients__patient_id__documents_upload_url_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["DocumentUploadRequest"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["DocumentUploadResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  confirm_upload_api_v1_organizations__org_id__patients__patient_id__documents__document_id__confirm_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-        document_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["DocumentRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_documents_api_v1_organizations__org_id__patients__patient_id__documents_get: {
-    parameters: {
-      query?: {
-        document_type?: string | null;
-        limit?: number;
-        offset?: number;
-      };
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["PaginatedDocuments"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_download_url_api_v1_organizations__org_id__patients__patient_id__documents__document_id__download_url_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-        document_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["DocumentDownloadResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  delete_document_api_v1_organizations__org_id__patients__patient_id__documents__document_id__delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-        document_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_invitation_api_v1_invitations__token__get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        token: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["InvitationRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  accept_invitation_api_v1_invitations__token__accept_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        token: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["InvitationRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_patient_proxies_api_v1_organizations__org_id__patients__patient_id__proxies_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ProxyListResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  assign_proxy_api_v1_organizations__org_id__patients__patient_id__proxies_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["ProxyAssignmentCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ProxyAssignmentRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  revoke_proxy_api_v1_organizations__org_id__patients__patient_id__proxies__assignment_id__delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-        assignment_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_proxy_permissions_api_v1_organizations__org_id__patients__patient_id__proxies__assignment_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        patient_id: string;
-        assignment_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["ProxyAssignmentUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ProxyAssignmentRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_events_api_v1_events_get: {
-    parameters: {
-      query?: {
-        /** @description JWT token for authentication */
-        token?: string | null;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_org_events_api_v1_events_organizations__org_id__get: {
-    parameters: {
-      query?: {
-        /** @description JWT token for authentication */
-        token?: string | null;
-      };
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": unknown;
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  log_telemetry_event_api_v1_telemetry_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["TelemetryEvent"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TelemetryResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  log_telemetry_batch_api_v1_telemetry_batch_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["TelemetryEvent"][];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TelemetryResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  handle_stripe_webhook_api_v1_webhooks_stripe_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": {
-            [key: string]: unknown;
-          };
-        };
-      };
-    };
-  };
-  create_checkout_api_v1_organizations__org_id__billing_checkout_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["CheckoutSessionRequest"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["CheckoutSessionResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_subscription_status_api_v1_organizations__org_id__billing_subscription_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["SubscriptionStatusResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  create_billing_portal_api_v1_organizations__org_id__billing_portal_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["PortalSessionResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_notifications_api_v1_users_me_notifications_get: {
-    parameters: {
-      query?: {
-        page?: number;
-        size?: number;
-        is_read?: boolean | null;
-        type?: string | null;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["NotificationListResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_unread_count_api_v1_users_me_notifications_unread_count_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["UnreadCountResponse"];
-        };
-      };
-    };
-  };
-  mark_as_read_api_v1_users_me_notifications__notification_id__read_patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        notification_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["NotificationRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  mark_as_unread_api_v1_users_me_notifications__notification_id__unread_patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        notification_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["NotificationRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  mark_all_read_api_v1_users_me_notifications_mark_all_read_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
-  delete_notification_api_v1_users_me_notifications__notification_id__delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        notification_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_threads_api_v1_users_me_threads_get: {
-    parameters: {
-      query?: {
-        page?: number;
-        size?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ThreadListResponse"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  create_thread_api_v1_users_me_threads_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["ThreadCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ThreadRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_thread_api_v1_users_me_threads__thread_id__get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        thread_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["ThreadDetail"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  send_message_api_v1_users_me_threads__thread_id__messages_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        thread_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["MessageCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["MessageRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  mark_read_api_v1_users_me_threads__thread_id__read_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        thread_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_calls_api_v1_organizations__org_id__calls__get: {
-    parameters: {
-      query?: {
-        /** @description Filter by status */
-        status?: string | null;
-        /** @description Filter by agent */
-        agent_id?: string | null;
-        /** @description Filter by start date from */
-        date_from?: string | null;
-        /** @description Filter by start date to */
-        date_to?: string | null;
-        skip?: number;
-        limit?: number;
-      };
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["CallRead"][];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  create_call_api_v1_organizations__org_id__calls__post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["CallCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["CallRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_call_api_v1_organizations__org_id__calls__call_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        call_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["CallUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["CallRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_org_tasks_api_v1_organizations__org_id__tasks__get: {
-    parameters: {
-      query?: {
-        /** @description Filter by status */
-        status?: string | null;
-        /** @description Filter by assignee */
-        assignee_id?: string | null;
-        /** @description Filter by priority */
-        priority?: string | null;
-        skip?: number;
-        limit?: number;
-      };
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TaskRead"][];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  create_task_api_v1_organizations__org_id__tasks__post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["TaskCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TaskRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  delete_task_api_v1_organizations__org_id__tasks__task_id__delete: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        task_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_task_api_v1_organizations__org_id__tasks__task_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        org_id: string;
-        task_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["TaskUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TaskRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  list_my_tasks_api_v1_users_tasks_me_all_get: {
-    parameters: {
-      query?: {
-        status?: string | null;
-        skip?: number;
-        limit?: number;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TaskRead"][];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_my_tickets_api_v1_support_tickets_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TicketRead"][];
-        };
-      };
-    };
-  };
-  create_ticket_api_v1_support_tickets_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["TicketCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TicketRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_ticket_api_v1_support_tickets__ticket_id__get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ticket_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TicketRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  add_message_api_v1_support_tickets__ticket_id__messages_post: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ticket_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["SupportMessageCreate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["SupportMessageRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  get_all_tickets_api_v1_support_admin_tickets_get: {
-    parameters: {
-      query?: {
-        status?: string | null;
-        assigned_to_me?: boolean;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TicketRead"][];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  update_ticket_status_api_v1_support_admin_tickets__ticket_id__patch: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        ticket_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["TicketUpdate"];
-      };
-    };
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TicketRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  assign_ticket_api_v1_support_admin_tickets__ticket_id__assign_patch: {
-    parameters: {
-      query: {
-        assignee_id: string;
-      };
-      header?: never;
-      path: {
-        ticket_id: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["TicketRead"];
-        };
-      };
-      /** @description Validation Error */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["HTTPValidationError"];
-        };
-      };
-    };
-  };
-  health_check_health_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": unknown;
-        };
-      };
-    };
-  };
-  deep_health_check_health_deep_get: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description Successful Response */
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": unknown;
-        };
-      };
-    };
-  };
+    impersonate_patient_api_v1_admin_impersonate__patient_id__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                patient_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ImpersonationRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_audit_logs_api_v1_admin_audit_logs_get: {
+        parameters: {
+            query?: {
+                action_type?: string | null;
+                resource_type?: string | null;
+                resource_id?: string | null;
+                actor_user_id?: string | null;
+                date_from?: string | null;
+                date_to?: string | null;
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuditLogListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    export_audit_logs_api_v1_admin_audit_logs_export_get: {
+        parameters: {
+            query?: {
+                action_type?: string | null;
+                resource_type?: string | null;
+                resource_id?: string | null;
+                actor_user_id?: string | null;
+                date_from?: string | null;
+                date_to?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_audit_log_api_v1_admin_audit_logs__log_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                log_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuditLogRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_all_organizations_api_v1_admin_super_admin_organizations_get: {
+        parameters: {
+            query?: {
+                search?: string | null;
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_organization_api_v1_admin_super_admin_organizations_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OrganizationCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationAdminRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_organization_detail_api_v1_admin_super_admin_organizations__org_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationAdminRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_organization_api_v1_admin_super_admin_organizations__org_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["OrganizationUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationAdminRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_all_users_api_v1_admin_super_admin_users_get: {
+        parameters: {
+            query?: {
+                search?: string | null;
+                is_locked?: boolean | null;
+                is_super_admin?: boolean | null;
+                page?: number;
+                page_size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    unlock_user_api_v1_admin_super_admin_users__user_id__unlock_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                user_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_user_admin_api_v1_admin_super_admin_users__user_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                user_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserAdminUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserAdminRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_system_health_api_v1_admin_super_admin_system_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SystemHealth"];
+                };
+            };
+        };
+    };
+    get_required_consents_api_v1_consent_required_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
+    sign_consent_api_v1_consent_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ConsentSignRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    read_users_me_api_v1_users_me_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserRead"];
+                };
+            };
+        };
+    };
+    delete_users_me_api_v1_users_me_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserDeleteRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserDeleteResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_users_me_api_v1_users_me_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_sessions_api_v1_users_me_sessions_get: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    revoke_session_api_v1_users_me_sessions__session_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                session_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SessionRevokeResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    request_export_api_v1_users_me_export_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserExportRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            202: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserExportResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_communication_preferences_api_v1_users_me_communication_preferences_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CommunicationPreferencesRead"];
+                };
+            };
+        };
+    };
+    update_communication_preferences_api_v1_users_me_communication_preferences_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CommunicationPreferencesUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CommunicationPreferencesRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_user_timezone_api_v1_users_me_timezone_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TimezoneResponse"];
+                };
+            };
+        };
+    };
+    clear_user_timezone_api_v1_users_me_timezone_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TimezoneResponse"];
+                };
+            };
+        };
+    };
+    update_user_timezone_api_v1_users_me_timezone_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TimezoneUpdateRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TimezoneResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    mfa_setup_api_v1_users_me_mfa_setup_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MFASetupResponse"];
+                };
+            };
+        };
+    };
+    mfa_verify_api_v1_users_me_mfa_verify_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MFAVerifyRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MFAVerifyResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    mfa_disable_api_v1_users_me_mfa_disable_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MFADisableRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MFADisableResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    register_device_token_api_v1_users_device_token_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DeviceTokenRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeviceTokenResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    remove_device_token_api_v1_users_device_token_delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DeviceTokenDeleteRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DeviceTokenResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_my_proxy_patients_api_v1_users_me_proxy_patients_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProxyPatientRead"][];
+                };
+            };
+        };
+    };
+    get_my_proxy_profile_api_v1_users_me_proxy_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProxyProfileRead"] | null;
+                };
+            };
+        };
+    };
+    list_organizations_api_v1_organizations_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationRead"][];
+                };
+            };
+        };
+    };
+    create_organization_api_v1_organizations_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["src__schemas__organizations__OrganizationCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_organization_api_v1_organizations__org_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_organization_api_v1_organizations__org_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["src__schemas__organizations__OrganizationUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OrganizationRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_members_api_v1_organizations__org_id__members_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MemberRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_invitations_api_v1_organizations__org_id__invitations_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InvitationRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_invitation_api_v1_organizations__org_id__invitations_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["InvitationCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InvitationRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_patients_api_v1_organizations__org_id__patients_get: {
+        parameters: {
+            query?: {
+                /** @description Fuzzy search by name */
+                name?: string | null;
+                /** @description Search by MRN */
+                mrn?: string | null;
+                /** @description ACTIVE or DISCHARGED */
+                status?: string | null;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedPatients"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_patient_api_v1_organizations__org_id__patients_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PatientCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PatientRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_patient_api_v1_organizations__org_id__patients__patient_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PatientRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    discharge_patient_api_v1_organizations__org_id__patients__patient_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_patient_api_v1_organizations__org_id__patients__patient_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PatientUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PatientRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_contact_methods_api_v1_organizations__org_id__patients__patient_id__contact_methods_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContactMethodRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContactMethodCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContactMethodRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods__contact_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+                contact_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_contact_method_api_v1_organizations__org_id__patients__patient_id__contact_methods__contact_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+                contact_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContactMethodUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContactMethodRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_care_team_api_v1_organizations__org_id__patients__patient_id__care_team_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CareTeamList"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    assign_to_care_team_api_v1_organizations__org_id__patients__patient_id__care_team_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CareTeamAssignmentCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CareTeamAssignmentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    remove_from_care_team_api_v1_organizations__org_id__patients__patient_id__care_team__assignment_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+                assignment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_providers_api_v1_organizations__org_id__providers_get: {
+        parameters: {
+            query?: {
+                /** @description Filter by specialty */
+                specialty?: string | null;
+                /** @description Filter by active status */
+                is_active?: boolean | null;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedProviders"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_provider_api_v1_organizations__org_id__providers_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProviderCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProviderRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_provider_api_v1_organizations__org_id__providers__provider_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                provider_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProviderRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_provider_api_v1_organizations__org_id__providers__provider_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                provider_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_provider_api_v1_organizations__org_id__providers__provider_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                provider_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProviderUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProviderRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_staff_api_v1_organizations__org_id__staff_get: {
+        parameters: {
+            query?: {
+                /** @description Filter by department */
+                department?: string | null;
+                /** @description Filter by active status */
+                is_active?: boolean | null;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedStaff"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_staff_api_v1_organizations__org_id__staff_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StaffCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StaffRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_staff_api_v1_organizations__org_id__staff__staff_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                staff_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StaffRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_staff_api_v1_organizations__org_id__staff__staff_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                staff_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_staff_api_v1_organizations__org_id__staff__staff_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                staff_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StaffUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StaffRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_appointments_api_v1_organizations__org_id__appointments_get: {
+        parameters: {
+            query?: {
+                provider_id?: string | null;
+                patient_id?: string | null;
+                status?: string | null;
+                date_from?: string | null;
+                date_to?: string | null;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AppointmentRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_appointment_api_v1_organizations__org_id__appointments_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AppointmentCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AppointmentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_appointment_api_v1_organizations__org_id__appointments__appointment_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                appointment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AppointmentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_appointment_api_v1_organizations__org_id__appointments__appointment_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                appointment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AppointmentUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AppointmentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_appointment_status_api_v1_organizations__org_id__appointments__appointment_id__status_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                appointment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AppointmentStatusUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AppointmentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_upload_url_api_v1_organizations__org_id__patients__patient_id__documents_upload_url_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DocumentUploadRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DocumentUploadResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    confirm_upload_api_v1_organizations__org_id__patients__patient_id__documents__document_id__confirm_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DocumentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_documents_api_v1_organizations__org_id__patients__patient_id__documents_get: {
+        parameters: {
+            query?: {
+                document_type?: string | null;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PaginatedDocuments"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_download_url_api_v1_organizations__org_id__patients__patient_id__documents__document_id__download_url_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["DocumentDownloadResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_document_api_v1_organizations__org_id__patients__patient_id__documents__document_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+                document_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_invitation_api_v1_invitations__token__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                token: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InvitationRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    accept_invitation_api_v1_invitations__token__accept_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                token: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["InvitationRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_patient_proxies_api_v1_organizations__org_id__patients__patient_id__proxies_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProxyListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    assign_proxy_api_v1_organizations__org_id__patients__patient_id__proxies_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProxyAssignmentCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProxyAssignmentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    revoke_proxy_api_v1_organizations__org_id__patients__patient_id__proxies__assignment_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+                assignment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_proxy_permissions_api_v1_organizations__org_id__patients__patient_id__proxies__assignment_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                patient_id: string;
+                assignment_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProxyAssignmentUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProxyAssignmentRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_events_api_v1_events_get: {
+        parameters: {
+            query?: {
+                /** @description JWT token for authentication */
+                token?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_org_events_api_v1_events_organizations__org_id__get: {
+        parameters: {
+            query?: {
+                /** @description JWT token for authentication */
+                token?: string | null;
+            };
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    log_telemetry_event_api_v1_telemetry_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TelemetryEvent"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TelemetryResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    log_telemetry_batch_api_v1_telemetry_batch_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TelemetryEvent"][];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TelemetryResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    handle_stripe_webhook_api_v1_webhooks_stripe_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: unknown;
+                    };
+                };
+            };
+        };
+    };
+    create_checkout_api_v1_organizations__org_id__billing_checkout_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CheckoutSessionRequest"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CheckoutSessionResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_subscription_status_api_v1_organizations__org_id__billing_subscription_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SubscriptionStatusResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_billing_portal_api_v1_organizations__org_id__billing_portal_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PortalSessionResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_notifications_api_v1_users_me_notifications_get: {
+        parameters: {
+            query?: {
+                page?: number;
+                size?: number;
+                is_read?: boolean | null;
+                type?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotificationListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_unread_count_api_v1_users_me_notifications_unread_count_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UnreadCountResponse"];
+                };
+            };
+        };
+    };
+    mark_as_read_api_v1_users_me_notifications__notification_id__read_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                notification_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotificationRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    mark_as_unread_api_v1_users_me_notifications__notification_id__unread_patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                notification_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NotificationRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    mark_all_read_api_v1_users_me_notifications_mark_all_read_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    delete_notification_api_v1_users_me_notifications__notification_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                notification_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_threads_api_v1_users_me_threads_get: {
+        parameters: {
+            query?: {
+                page?: number;
+                size?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ThreadListResponse"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_thread_api_v1_users_me_threads_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ThreadCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ThreadRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_thread_api_v1_users_me_threads__thread_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                thread_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ThreadDetail"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    send_message_api_v1_users_me_threads__thread_id__messages_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                thread_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["MessageCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MessageRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    mark_read_api_v1_users_me_threads__thread_id__read_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                thread_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_calls_api_v1_organizations__org_id__calls__get: {
+        parameters: {
+            query?: {
+                /** @description Filter by status */
+                status?: string | null;
+                /** @description Filter by agent */
+                agent_id?: string | null;
+                /** @description Filter by start date from */
+                date_from?: string | null;
+                /** @description Filter by start date to */
+                date_to?: string | null;
+                skip?: number;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CallRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_call_api_v1_organizations__org_id__calls__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CallCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CallRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_call_api_v1_organizations__org_id__calls__call_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                call_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CallUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CallRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_org_tasks_api_v1_organizations__org_id__tasks__get: {
+        parameters: {
+            query?: {
+                /** @description Filter by status */
+                status?: string | null;
+                /** @description Filter by assignee */
+                assignee_id?: string | null;
+                /** @description Filter by priority */
+                priority?: string | null;
+                skip?: number;
+                limit?: number;
+            };
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TaskRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    create_task_api_v1_organizations__org_id__tasks__post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TaskCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TaskRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    delete_task_api_v1_organizations__org_id__tasks__task_id__delete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                task_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_task_api_v1_organizations__org_id__tasks__task_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                org_id: string;
+                task_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TaskUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TaskRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_my_tasks_api_v1_users_tasks_me_all_get: {
+        parameters: {
+            query?: {
+                status?: string | null;
+                skip?: number;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TaskRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_my_tickets_api_v1_support_tickets_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TicketRead"][];
+                };
+            };
+        };
+    };
+    create_ticket_api_v1_support_tickets_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TicketCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TicketRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_ticket_api_v1_support_tickets__ticket_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ticket_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TicketRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    add_message_api_v1_support_tickets__ticket_id__messages_post: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ticket_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SupportMessageCreate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SupportMessageRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    get_all_tickets_api_v1_support_admin_tickets_get: {
+        parameters: {
+            query?: {
+                status?: string | null;
+                assigned_to_me?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TicketRead"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    update_ticket_status_api_v1_support_admin_tickets__ticket_id__patch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                ticket_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TicketUpdate"];
+            };
+        };
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TicketRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    assign_ticket_api_v1_support_admin_tickets__ticket_id__assign_patch: {
+        parameters: {
+            query: {
+                assignee_id: string;
+            };
+            header?: never;
+            path: {
+                ticket_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TicketRead"];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    health_check_health_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
+    deep_health_check_health_deep_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
 }
