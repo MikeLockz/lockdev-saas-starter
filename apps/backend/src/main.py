@@ -41,6 +41,7 @@ from src.config import settings
 from src.database import engine, get_db
 from src.logging import configure_logging, request_id_ctx
 from src.middleware.audit import AuditMiddleware
+from src.middleware.mfa import MFAEnforcementMiddleware
 from src.middleware.session_timeout import SessionTimeoutMiddleware
 
 # Sentry
@@ -133,7 +134,10 @@ app.include_router(support.router, prefix=f"{settings.API_V1_STR}/support", tags
 # Therefore, we add them in REVERSE order:
 # ============================================================================
 
-# 8. Session Timeout (innermost - closest to app, runs after auth sets session)
+# 9. MFA Enforcement (innermost - runs after auth sets request.state.user)
+app.add_middleware(MFAEnforcementMiddleware)
+
+# 8. Session Timeout (runs after auth sets session)
 app.add_middleware(SessionTimeoutMiddleware)
 
 # 7. Audit Middleware
