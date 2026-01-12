@@ -150,8 +150,10 @@ async def create_appointment(
     # but explicit checks give better errors)
 
     # Check Provider
-    provider_stmt = select(Provider).where(
-        Provider.id == appointment_data.provider_id, Provider.organization_id == org_id
+    provider_stmt = (
+        select(Provider)
+        .where(Provider.id == appointment_data.provider_id, Provider.organization_id == org_id)
+        .with_for_update()
     )
     provider_result = await db.execute(provider_stmt)
     if not provider_result.scalar_one_or_none():
