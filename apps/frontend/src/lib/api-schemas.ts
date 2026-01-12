@@ -58,13 +58,13 @@ const OrganizationListResponse = z
     page_size: z.number().int(),
   })
   .passthrough();
-const OrganizationCreate = z
+const src__api__admin__OrganizationCreate = z
   .object({
     name: z.string(),
     subscription_status: z.string().optional().default("trial"),
   })
   .passthrough();
-const OrganizationUpdate = z
+const src__api__admin__OrganizationUpdate = z
   .object({
     is_active: z.union([z.boolean(), z.null()]),
     subscription_status: z.union([z.string(), z.null()]),
@@ -302,7 +302,7 @@ const OrganizationRead = z
     updated_at: z.string().datetime({ offset: true }),
   })
   .passthrough();
-const src__schemas__organizations__OrganizationCreate = z
+const OrganizationCreate = z
   .object({
     name: z.string().max(255),
     tax_id: z.union([z.string(), z.null()]).optional(),
@@ -310,7 +310,7 @@ const src__schemas__organizations__OrganizationCreate = z
     timezone: z.string().max(50).optional().default("America/New_York"),
   })
   .passthrough();
-const src__schemas__organizations__OrganizationUpdate = z
+const OrganizationUpdate = z
   .object({
     name: z.union([z.string(), z.null()]),
     tax_id: z.union([z.string(), z.null()]),
@@ -642,7 +642,7 @@ const DocumentUploadRequest = z
   .object({
     file_name: z.string().min(1).max(255),
     file_type: z.string().max(100).optional().default("application/pdf"),
-    file_size: z.number().int().gt(0).lte(10485760),
+    file_size: z.number().int().gt(0).lte(52428800),
     document_type: z.string().optional().default("OTHER"),
     description: z.union([z.string(), z.null()]).optional(),
   })
@@ -999,8 +999,8 @@ export const schemas = {
   AuditLogListResponse,
   OrganizationAdminRead,
   OrganizationListResponse,
-  OrganizationCreate,
-  OrganizationUpdate,
+  src__api__admin__OrganizationCreate,
+  src__api__admin__OrganizationUpdate,
   is_locked,
   UserAdminRead,
   UserListResponse,
@@ -1033,8 +1033,8 @@ export const schemas = {
   ProxyPatientRead,
   ProxyProfileRead,
   OrganizationRead,
-  src__schemas__organizations__OrganizationCreate,
-  src__schemas__organizations__OrganizationUpdate,
+  OrganizationCreate,
+  OrganizationUpdate,
   MemberRead,
   InvitationCreate,
   InvitationRead,
@@ -1301,7 +1301,7 @@ Requires admin privileges.`,
       {
         name: "body",
         type: "Body",
-        schema: OrganizationCreate,
+        schema: src__api__admin__OrganizationCreate,
       },
     ],
     response: OrganizationAdminRead,
@@ -1347,7 +1347,7 @@ Requires admin privileges.`,
       {
         name: "body",
         type: "Body",
-        schema: OrganizationUpdate,
+        schema: src__api__admin__OrganizationUpdate,
       },
       {
         name: "org_id",
@@ -1644,7 +1644,7 @@ Raises:
       {
         name: "body",
         type: "Body",
-        schema: src__schemas__organizations__OrganizationCreate,
+        schema: OrganizationCreate,
       },
     ],
     response: OrganizationRead,
@@ -1688,7 +1688,7 @@ Raises:
       {
         name: "body",
         type: "Body",
-        schema: src__schemas__organizations__OrganizationUpdate,
+        schema: OrganizationUpdate,
       },
       {
         name: "org_id",

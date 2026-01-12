@@ -34,6 +34,16 @@ class Settings(BaseSettings):
     STRIPE_SUCCESS_URL: str = "http://localhost:5173/billing/success"
     STRIPE_CANCEL_URL: str = "http://localhost:5173/billing/cancel"
 
+    # Billing & Email
+    ENABLE_BILLING_EMAILS: bool = True
+    BILLING_EMAIL_FROM: str = "billing@example.com"
+    RECEIPTS_DIR: str = "./storage/receipts"
+    COMPANY_NAME: str = "Your Company"
+    COMPANY_ADDRESS: str = "123 Main St, City, State 12345"
+    COMPANY_PHONE: str = "(555) 123-4567"
+    COMPANY_EMAIL: str = "info@example.com"
+    SUPPORT_EMAIL: str = "support@example.com"
+
     # Parse Redis URL for ARQ worker
     @property
     def REDIS_HOST(self) -> str:

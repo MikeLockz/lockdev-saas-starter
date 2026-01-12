@@ -29,6 +29,9 @@
 | **Epic 17: Call Center & Tasks** | [x] Done | Builder | `epic-17-call-center-tasks/` |
 | **Epic 18: Support & Compliance** | [x] Done | Builder | `epic-18-support-compliance/` |
 | **Epic 19: Super Admin** | [x] Done | Builder | `epic-19-super-admin/` |
+| **Epic 20: Timezone Support** | [x] Done | Builder | `epic-20-timezone-support/` |
+| **Epic 21: User Org Association** | [x] Done | Builder | `epic-21-user-org-association/` |
+| **Epic 22: Complete Billing** | [ ] Pending | Builder | `epic-22-complete-billing/` |
 
 ## Execution Strategy
 1.  Execute Epics sequentially (1 -> 19).

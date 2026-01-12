@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: #4F46E5; color: white; padding: 20px; text-align: center; }
+        .content { background: #f9fafb; padding: 30px; }
+        .receipt-box { background: white; border: 1px solid #e5e7eb; padding: 20px; margin: 20px 0; }
+        .amount { font-size: 32px; font-weight: bold; color: #4F46E5; }
+        .details { margin: 20px 0; }
+        .details-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e5e7eb; }
+        .button { background: #4F46E5; color: white; padding: 12px 30px; text-decoration: none; display: inline-block; margin: 20px 0; border-radius: 6px; }
+        .footer { text-align: center; color: #6b7280; font-size: 12px; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Payment Successful</h1>
+        </div>
+        <div class="content">
+            <p>Hi {{ recipient_name }},</p>
+
+            {% if is_proxy_managed %}
+            <p style="background: #EEF2FF; padding: 15px; border-radius: 6px; margin: 20px 0;">
+                This is a billing notification for <strong>{{ actual_patient_name }}</strong>'s subscription,
+                which you manage as their billing manager.
+            </p>
+            {% endif %}
+
+            <p>Thank you for your payment. {% if is_proxy_managed %}The{% else %}Your{% endif %} subscription is now active.</p>
+
+            <div class="receipt-box">
+                <div class="amount">${{ amount_dollars }}</div>
+                <p style="color: #6b7280; margin: 5px 0;">Payment received</p>
+
+                <div class="details">
+                    <div class="details-row">
+                        <span>Receipt Number</span>
+                        <strong>{{ receipt_number }}</strong>
+                    </div>
+                    <div class="details-row">
+                        <span>Date</span>
+                        <strong>{{ payment_date }}</strong>
+                    </div>
+                    <div class="details-row">
+                        <span>Payment Method</span>
+                        <strong>{{ payment_method }}</strong>
+                    </div>
+                    <div class="details-row">
+                        <span>Subscription Plan</span>
+                        <strong>{{ plan_name }}</strong>
+                    </div>
+                    <div class="details-row">
+                        <span>Billing Period</span>
+                        <strong>{{ billing_period }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <p>A PDF receipt is attached to this email for your records.</p>
+
+            <a href="{{ receipt_url }}" class="button">View Receipt Online</a>
+
+            <p>If you have any questions about your subscription, please contact our support team.</p>
+        </div>
+        <div class="footer">
+            <p>{{ company_name }}<br>
+            This email was sent to {{ patient_email }}</p>
+        </div>
+    </div>
+</body>
+</html>

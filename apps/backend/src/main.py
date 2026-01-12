@@ -28,8 +28,10 @@ from src.api import (
     notifications,
     organizations,
     patients,
+    patients_billing,
     providers,
     proxies,
+    proxy_billing,
     staff,
     support,
     tasks,
@@ -113,6 +115,8 @@ app.include_router(calls.router, prefix=f"{settings.API_V1_STR}/organizations/{{
 app.include_router(tasks.router, prefix=f"{settings.API_V1_STR}/organizations/{{org_id}}/tasks", tags=["tasks"])
 app.include_router(tasks.user_tasks_router, prefix=f"{settings.API_V1_STR}/users/tasks", tags=["tasks"])
 app.include_router(support.router, prefix=f"{settings.API_V1_STR}/support", tags=["support"])
+app.include_router(patients_billing.router, prefix=f"{settings.API_V1_STR}/patients", tags=["patient-billing"])
+app.include_router(proxy_billing.router, prefix=f"{settings.API_V1_STR}/proxy", tags=["proxy-billing"])
 
 
 # ============================================================================

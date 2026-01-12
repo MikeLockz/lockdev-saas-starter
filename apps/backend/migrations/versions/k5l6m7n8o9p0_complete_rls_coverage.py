@@ -127,50 +127,6 @@ def upgrade() -> None:
     END $$;
     """)
 
-    # Consent Documents: Via patient relationship
-    op.execute("""
-    DO $$
-    BEGIN
-        IF EXISTS (
-            SELECT 1 FROM information_schema.tables
-            WHERE table_schema = 'public' AND table_name = 'consent_documents'
-        ) THEN
-            DROP POLICY IF EXISTS consent_document_isolation ON consent_documents;
-
-            CREATE POLICY consent_document_isolation ON consent_documents
-            USING (
-                patient_id IN (
-                    SELECT patient_id
-                    FROM organization_patients
-                    WHERE organization_id = current_setting('app.current_tenant_id', true)::UUID
-                )
-            );
-        END IF;
-    END $$;
-    """)
-
-    # User Consents: Via patient relationship
-    op.execute("""
-    DO $$
-    BEGIN
-        IF EXISTS (
-            SELECT 1 FROM information_schema.tables
-            WHERE table_schema = 'public' AND table_name = 'user_consents'
-        ) THEN
-            DROP POLICY IF EXISTS user_consent_isolation ON user_consents;
-
-            CREATE POLICY user_consent_isolation ON user_consents
-            USING (
-                patient_id IN (
-                    SELECT patient_id
-                    FROM organization_patients
-                    WHERE organization_id = current_setting('app.current_tenant_id', true)::UUID
-                )
-            );
-        END IF;
-    END $$;
-    """)
-
     # Providers: Scoped by organization_id
     op.execute("""
     DO $$
