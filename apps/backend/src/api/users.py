@@ -18,10 +18,12 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 from user_agents import parse as parse_user_agent
 
 from src.database import get_db
-from src.models import User, UserSession
+from src.models import Patient, User, UserSession
+from src.schemas.patients import PatientRead
 from src.schemas.users import (
     CommunicationPreferencesRead,
     CommunicationPreferencesUpdate,
@@ -724,3 +726,23 @@ async def get_my_proxy_profile(current_user: User = Depends(get_current_user), d
     stmt = select(Proxy).where(Proxy.user_id == current_user.id).where(Proxy.deleted_at.is_(None))
     result = await db.execute(stmt)
     return result.scalar_one_or_none()
+
+
+@router.get("/me/patient", response_model=PatientRead | None, tags=["patients"])
+async def get_my_patient_profile(current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)):
+    """
+    Get the current user's patient profile if they are a patient.
+    Returns None if the user is not a patient.
+    """
+    # Import locally to avoid circular imports? No, schema import is fine.
+    # Note: imports for Patient and PatientRead must be added at top.
+    
+    stmt = (
+        select(Patient)
+        .options(selectinload(Patient.contact_methods))
+        .where(Patient.user_id == current_user.id)
+        .where(Patient.deleted_at.is_(None))
+    )
+    result = await db.execute(stmt)
+    return result.scalar_one_or_none()
+

@@ -35,8 +35,10 @@ import { Route as AuthSuperAdminUsersRouteImport } from './routes/_auth/super-ad
 import { Route as AuthSuperAdminSystemRouteImport } from './routes/_auth/super-admin/system'
 import { Route as AuthSuperAdminOrganizationsRouteImport } from './routes/_auth/super-admin/organizations'
 import { Route as AuthProxyPatientsRouteImport } from './routes/_auth/proxy/patients'
+import { Route as AuthProxyManagedPatientsBillingRouteImport } from './routes/_auth/proxy/managed-patients-billing'
 import { Route as AuthPatientsNewRouteImport } from './routes/_auth/patients/new'
 import { Route as AuthPatientsPatientIdRouteImport } from './routes/_auth/patients/$patientId'
+import { Route as AuthPatientBillingRouteImport } from './routes/_auth/patient/billing'
 import { Route as AuthMessagesThreadIdRouteImport } from './routes/_auth/messages/$threadId'
 import { Route as AuthHelpTicketsRouteImport } from './routes/_auth/help/tickets'
 import { Route as AuthHelpContactRouteImport } from './routes/_auth/help/contact'
@@ -45,6 +47,7 @@ import { Route as AuthAdminProvidersRouteImport } from './routes/_auth/admin/pro
 import { Route as AuthAdminMembersRouteImport } from './routes/_auth/admin/members'
 import { Route as AuthAdminBillingRouteImport } from './routes/_auth/admin/billing'
 import { Route as AuthAdminAuditLogsRouteImport } from './routes/_auth/admin/audit-logs'
+import { Route as AuthProxyManagedPatientsManagedPatientIdBillingRouteImport } from './routes/_auth/proxy/managed-patients/$managedPatientId/billing'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -176,6 +179,12 @@ const AuthProxyPatientsRoute = AuthProxyPatientsRouteImport.update({
   path: '/proxy/patients',
   getParentRoute: () => AuthRoute,
 } as any)
+const AuthProxyManagedPatientsBillingRoute =
+  AuthProxyManagedPatientsBillingRouteImport.update({
+    id: '/proxy/managed-patients-billing',
+    path: '/proxy/managed-patients-billing',
+    getParentRoute: () => AuthRoute,
+  } as any)
 const AuthPatientsNewRoute = AuthPatientsNewRouteImport.update({
   id: '/patients/new',
   path: '/patients/new',
@@ -184,6 +193,11 @@ const AuthPatientsNewRoute = AuthPatientsNewRouteImport.update({
 const AuthPatientsPatientIdRoute = AuthPatientsPatientIdRouteImport.update({
   id: '/patients/$patientId',
   path: '/patients/$patientId',
+  getParentRoute: () => AuthRoute,
+} as any)
+const AuthPatientBillingRoute = AuthPatientBillingRouteImport.update({
+  id: '/patient/billing',
+  path: '/patient/billing',
   getParentRoute: () => AuthRoute,
 } as any)
 const AuthMessagesThreadIdRoute = AuthMessagesThreadIdRouteImport.update({
@@ -226,6 +240,12 @@ const AuthAdminAuditLogsRoute = AuthAdminAuditLogsRouteImport.update({
   path: '/admin/audit-logs',
   getParentRoute: () => AuthRoute,
 } as any)
+const AuthProxyManagedPatientsManagedPatientIdBillingRoute =
+  AuthProxyManagedPatientsManagedPatientIdBillingRouteImport.update({
+    id: '/proxy/managed-patients/$managedPatientId/billing',
+    path: '/proxy/managed-patients/$managedPatientId/billing',
+    getParentRoute: () => AuthRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -249,8 +269,10 @@ export interface FileRoutesByFullPath {
   '/help/contact': typeof AuthHelpContactRoute
   '/help/tickets': typeof AuthHelpTicketsRoute
   '/messages/$threadId': typeof AuthMessagesThreadIdRoute
+  '/patient/billing': typeof AuthPatientBillingRoute
   '/patients/$patientId': typeof AuthPatientsPatientIdRoute
   '/patients/new': typeof AuthPatientsNewRoute
+  '/proxy/managed-patients-billing': typeof AuthProxyManagedPatientsBillingRoute
   '/proxy/patients': typeof AuthProxyPatientsRoute
   '/super-admin/organizations': typeof AuthSuperAdminOrganizationsRoute
   '/super-admin/system': typeof AuthSuperAdminSystemRoute
@@ -263,6 +285,7 @@ export interface FileRoutesByFullPath {
   '/patients': typeof AuthPatientsIndexRoute
   '/super-admin': typeof AuthSuperAdminIndexRoute
   '/tasks': typeof AuthTasksIndexRoute
+  '/proxy/managed-patients/$managedPatientId/billing': typeof AuthProxyManagedPatientsManagedPatientIdBillingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -285,8 +308,10 @@ export interface FileRoutesByTo {
   '/help/contact': typeof AuthHelpContactRoute
   '/help/tickets': typeof AuthHelpTicketsRoute
   '/messages/$threadId': typeof AuthMessagesThreadIdRoute
+  '/patient/billing': typeof AuthPatientBillingRoute
   '/patients/$patientId': typeof AuthPatientsPatientIdRoute
   '/patients/new': typeof AuthPatientsNewRoute
+  '/proxy/managed-patients-billing': typeof AuthProxyManagedPatientsBillingRoute
   '/proxy/patients': typeof AuthProxyPatientsRoute
   '/super-admin/organizations': typeof AuthSuperAdminOrganizationsRoute
   '/super-admin/system': typeof AuthSuperAdminSystemRoute
@@ -299,6 +324,7 @@ export interface FileRoutesByTo {
   '/patients': typeof AuthPatientsIndexRoute
   '/super-admin': typeof AuthSuperAdminIndexRoute
   '/tasks': typeof AuthTasksIndexRoute
+  '/proxy/managed-patients/$managedPatientId/billing': typeof AuthProxyManagedPatientsManagedPatientIdBillingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -324,8 +350,10 @@ export interface FileRoutesById {
   '/_auth/help/contact': typeof AuthHelpContactRoute
   '/_auth/help/tickets': typeof AuthHelpTicketsRoute
   '/_auth/messages/$threadId': typeof AuthMessagesThreadIdRoute
+  '/_auth/patient/billing': typeof AuthPatientBillingRoute
   '/_auth/patients/$patientId': typeof AuthPatientsPatientIdRoute
   '/_auth/patients/new': typeof AuthPatientsNewRoute
+  '/_auth/proxy/managed-patients-billing': typeof AuthProxyManagedPatientsBillingRoute
   '/_auth/proxy/patients': typeof AuthProxyPatientsRoute
   '/_auth/super-admin/organizations': typeof AuthSuperAdminOrganizationsRoute
   '/_auth/super-admin/system': typeof AuthSuperAdminSystemRoute
@@ -338,6 +366,7 @@ export interface FileRoutesById {
   '/_auth/patients/': typeof AuthPatientsIndexRoute
   '/_auth/super-admin/': typeof AuthSuperAdminIndexRoute
   '/_auth/tasks/': typeof AuthTasksIndexRoute
+  '/_auth/proxy/managed-patients/$managedPatientId/billing': typeof AuthProxyManagedPatientsManagedPatientIdBillingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -363,8 +392,10 @@ export interface FileRouteTypes {
     | '/help/contact'
     | '/help/tickets'
     | '/messages/$threadId'
+    | '/patient/billing'
     | '/patients/$patientId'
     | '/patients/new'
+    | '/proxy/managed-patients-billing'
     | '/proxy/patients'
     | '/super-admin/organizations'
     | '/super-admin/system'
@@ -377,6 +408,7 @@ export interface FileRouteTypes {
     | '/patients'
     | '/super-admin'
     | '/tasks'
+    | '/proxy/managed-patients/$managedPatientId/billing'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -399,8 +431,10 @@ export interface FileRouteTypes {
     | '/help/contact'
     | '/help/tickets'
     | '/messages/$threadId'
+    | '/patient/billing'
     | '/patients/$patientId'
     | '/patients/new'
+    | '/proxy/managed-patients-billing'
     | '/proxy/patients'
     | '/super-admin/organizations'
     | '/super-admin/system'
@@ -413,6 +447,7 @@ export interface FileRouteTypes {
     | '/patients'
     | '/super-admin'
     | '/tasks'
+    | '/proxy/managed-patients/$managedPatientId/billing'
   id:
     | '__root__'
     | '/'
@@ -437,8 +472,10 @@ export interface FileRouteTypes {
     | '/_auth/help/contact'
     | '/_auth/help/tickets'
     | '/_auth/messages/$threadId'
+    | '/_auth/patient/billing'
     | '/_auth/patients/$patientId'
     | '/_auth/patients/new'
+    | '/_auth/proxy/managed-patients-billing'
     | '/_auth/proxy/patients'
     | '/_auth/super-admin/organizations'
     | '/_auth/super-admin/system'
@@ -451,6 +488,7 @@ export interface FileRouteTypes {
     | '/_auth/patients/'
     | '/_auth/super-admin/'
     | '/_auth/tasks/'
+    | '/_auth/proxy/managed-patients/$managedPatientId/billing'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -650,6 +688,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthProxyPatientsRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_auth/proxy/managed-patients-billing': {
+      id: '/_auth/proxy/managed-patients-billing'
+      path: '/proxy/managed-patients-billing'
+      fullPath: '/proxy/managed-patients-billing'
+      preLoaderRoute: typeof AuthProxyManagedPatientsBillingRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/_auth/patients/new': {
       id: '/_auth/patients/new'
       path: '/patients/new'
@@ -662,6 +707,13 @@ declare module '@tanstack/react-router' {
       path: '/patients/$patientId'
       fullPath: '/patients/$patientId'
       preLoaderRoute: typeof AuthPatientsPatientIdRouteImport
+      parentRoute: typeof AuthRoute
+    }
+    '/_auth/patient/billing': {
+      id: '/_auth/patient/billing'
+      path: '/patient/billing'
+      fullPath: '/patient/billing'
+      preLoaderRoute: typeof AuthPatientBillingRouteImport
       parentRoute: typeof AuthRoute
     }
     '/_auth/messages/$threadId': {
@@ -720,6 +772,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAdminAuditLogsRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_auth/proxy/managed-patients/$managedPatientId/billing': {
+      id: '/_auth/proxy/managed-patients/$managedPatientId/billing'
+      path: '/proxy/managed-patients/$managedPatientId/billing'
+      fullPath: '/proxy/managed-patients/$managedPatientId/billing'
+      preLoaderRoute: typeof AuthProxyManagedPatientsManagedPatientIdBillingRouteImport
+      parentRoute: typeof AuthRoute
+    }
   }
 }
 
@@ -749,8 +808,10 @@ interface AuthRouteChildren {
   AuthAdminStaffRoute: typeof AuthAdminStaffRoute
   AuthHelpContactRoute: typeof AuthHelpContactRoute
   AuthHelpTicketsRoute: typeof AuthHelpTicketsRoute
+  AuthPatientBillingRoute: typeof AuthPatientBillingRoute
   AuthPatientsPatientIdRoute: typeof AuthPatientsPatientIdRoute
   AuthPatientsNewRoute: typeof AuthPatientsNewRoute
+  AuthProxyManagedPatientsBillingRoute: typeof AuthProxyManagedPatientsBillingRoute
   AuthProxyPatientsRoute: typeof AuthProxyPatientsRoute
   AuthSuperAdminOrganizationsRoute: typeof AuthSuperAdminOrganizationsRoute
   AuthSuperAdminSystemRoute: typeof AuthSuperAdminSystemRoute
@@ -762,6 +823,7 @@ interface AuthRouteChildren {
   AuthPatientsIndexRoute: typeof AuthPatientsIndexRoute
   AuthSuperAdminIndexRoute: typeof AuthSuperAdminIndexRoute
   AuthTasksIndexRoute: typeof AuthTasksIndexRoute
+  AuthProxyManagedPatientsManagedPatientIdBillingRoute: typeof AuthProxyManagedPatientsManagedPatientIdBillingRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
@@ -776,8 +838,10 @@ const AuthRouteChildren: AuthRouteChildren = {
   AuthAdminStaffRoute: AuthAdminStaffRoute,
   AuthHelpContactRoute: AuthHelpContactRoute,
   AuthHelpTicketsRoute: AuthHelpTicketsRoute,
+  AuthPatientBillingRoute: AuthPatientBillingRoute,
   AuthPatientsPatientIdRoute: AuthPatientsPatientIdRoute,
   AuthPatientsNewRoute: AuthPatientsNewRoute,
+  AuthProxyManagedPatientsBillingRoute: AuthProxyManagedPatientsBillingRoute,
   AuthProxyPatientsRoute: AuthProxyPatientsRoute,
   AuthSuperAdminOrganizationsRoute: AuthSuperAdminOrganizationsRoute,
   AuthSuperAdminSystemRoute: AuthSuperAdminSystemRoute,
@@ -789,6 +853,8 @@ const AuthRouteChildren: AuthRouteChildren = {
   AuthPatientsIndexRoute: AuthPatientsIndexRoute,
   AuthSuperAdminIndexRoute: AuthSuperAdminIndexRoute,
   AuthTasksIndexRoute: AuthTasksIndexRoute,
+  AuthProxyManagedPatientsManagedPatientIdBillingRoute:
+    AuthProxyManagedPatientsManagedPatientIdBillingRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)

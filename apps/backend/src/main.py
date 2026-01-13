@@ -17,6 +17,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.admin import setup_admin
 from src.api import (
     admin,
+    admin_billing,
     appointments,
     billing,
     calls,
@@ -117,6 +118,8 @@ app.include_router(tasks.user_tasks_router, prefix=f"{settings.API_V1_STR}/users
 app.include_router(support.router, prefix=f"{settings.API_V1_STR}/support", tags=["support"])
 app.include_router(patients_billing.router, prefix=f"{settings.API_V1_STR}/patients", tags=["patient-billing"])
 app.include_router(proxy_billing.router, prefix=f"{settings.API_V1_STR}/proxy", tags=["proxy-billing"])
+app.include_router(admin_billing.router, prefix=f"{settings.API_V1_STR}/admin", tags=["admin-billing"])
+app.include_router(admin_billing.patient_billing_router, prefix=f"{settings.API_V1_STR}/admin", tags=["admin-billing"])
 
 
 # ============================================================================

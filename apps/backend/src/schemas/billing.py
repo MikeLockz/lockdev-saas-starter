@@ -146,3 +146,92 @@ class BillingManagerListResponse(BaseModel):
 
     relationships: list[BillingManagerResponse]
     total: int
+
+
+# ============================================================================
+# ADMIN BILLING SCHEMAS (Story 22.4)
+# ============================================================================
+
+
+class SubscriptionListFilter(BaseModel):
+    """Filter parameters for listing subscriptions."""
+
+    status: str | None = Field(default=None, description="Subscription status filter")
+    owner_type: str | None = Field(default=None, pattern="^(PATIENT|ORGANIZATION)$")
+    search: str | None = Field(default=None, description="Search by name or email")
+    date_from: datetime | None = None
+    date_to: datetime | None = None
+
+
+class SubscriptionListItem(BaseModel):
+    """Subscription details for admin list view."""
+
+    owner_id: UUID
+    owner_type: str
+    owner_name: str
+    owner_email: str | None
+    stripe_customer_id: str | None
+    subscription_status: str | None
+    plan_id: str | None = None
+    current_period_end: datetime | None = None
+    mrr_cents: int = 0
+    created_at: datetime
+    cancelled_at: datetime | None = None
+    billing_manager_id: UUID | None = None
+    billing_manager_name: str | None = None
+
+
+class SubscriptionListResponse(BaseModel):
+    """Paginated subscription list response."""
+
+    subscriptions: list[SubscriptionListItem]
+    total: int
+    page: int
+    page_size: int
+    total_mrr_cents: int = 0
+
+
+class BillingAnalytics(BaseModel):
+    """Billing analytics summary."""
+
+    total_active_subscriptions: int
+    total_mrr_cents: int
+    new_subscriptions_this_month: int
+    cancelled_subscriptions_this_month: int
+    churn_rate: float
+    average_revenue_per_user_cents: int
+    failed_payments_this_month: int
+    total_revenue_this_month_cents: int
+
+
+class ManualCancelRequest(BaseModel):
+    """Admin request to manually cancel a subscription."""
+
+    reason: str = Field(min_length=5, description="Reason for cancellation")
+    cancel_immediately: bool = Field(
+        default=False,
+        description="If True, cancel immediately; if False, cancel at period end",
+    )
+    refund_remaining: bool = Field(
+        default=False,
+        description="If True, refund remaining pro-rated amount",
+    )
+
+
+class CancelSubscriptionResponse(BaseModel):
+    """Response after cancelling a subscription."""
+
+    success: bool
+    cancelled_at: datetime | None = None
+    cancels_at_period_end: bool = False
+    message: str
+
+
+class RefundResponse(BaseModel):
+    """Response after processing a refund."""
+
+    success: bool
+    refund_id: str
+    amount_refunded_cents: int
+    message: str
+
