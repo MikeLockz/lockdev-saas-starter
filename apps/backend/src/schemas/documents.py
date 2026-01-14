@@ -6,7 +6,6 @@ from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-
 # Allowed MIME types for document uploads (HIPAA compliance - P1-007)
 ALLOWED_FILE_TYPES = {
     "application/pdf",
@@ -60,8 +59,7 @@ class DocumentUploadRequest(BaseModel):
         ext = Path(v).suffix.lower()
         if ext not in ALLOWED_EXTENSIONS:
             raise ValueError(
-                f"File extension '{ext}' not allowed. "
-                f"Allowed extensions: {', '.join(sorted(ALLOWED_EXTENSIONS))}"
+                f"File extension '{ext}' not allowed. Allowed extensions: {', '.join(sorted(ALLOWED_EXTENSIONS))}"
             )
 
         return v

@@ -27,6 +27,7 @@ async def test_user(db_session):
         email=unique_email,
         password_hash="hash",
         display_name="Care Team Admin",
+        mfa_enabled=True,
     )
     db_session.add(user)
     await db_session.commit()
@@ -42,6 +43,7 @@ async def provider_user(db_session):
         email=unique_email,
         password_hash="hash",
         display_name="Dr. Test Provider",
+        mfa_enabled=True,
     )
     db_session.add(user)
     await db_session.commit()
@@ -57,6 +59,7 @@ async def second_provider_user(db_session):
         email=unique_email,
         password_hash="hash",
         display_name="Dr. Second Provider",
+        mfa_enabled=True,
     )
     db_session.add(user)
     await db_session.commit()

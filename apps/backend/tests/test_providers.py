@@ -25,6 +25,7 @@ async def test_user(db_session):
         email=unique_email,
         password_hash="hash",
         display_name="Provider Test User",
+        mfa_enabled=True,
     )
     db_session.add(user)
     await db_session.commit()
@@ -40,6 +41,7 @@ async def provider_user(db_session):
         email=unique_email,
         password_hash="hash",
         display_name="Dr. John Smith",
+        mfa_enabled=True,
     )
     db_session.add(user)
     await db_session.commit()
@@ -132,6 +134,7 @@ class TestProviderAPI:
             email=f"second-provider-{uuid4().hex[:8]}@example.com",
             password_hash="hash",
             display_name="Dr. Jane Doe",
+            mfa_enabled=True,
         )
         db_session.add(second_user)
         await db_session.commit()
