@@ -6,7 +6,8 @@
 
 resource "aws_cloudwatch_log_group" "api" {
   name              = "/lockdev/${var.environment}/api"
-  retention_in_days = 30 # Adjust based on compliance needs
+  retention_in_days = 365
+  kms_key_id        = aws_kms_key.main.arn
 
   tags = {
     Environment = var.environment
@@ -17,7 +18,8 @@ resource "aws_cloudwatch_log_group" "api" {
 
 resource "aws_cloudwatch_log_group" "worker" {
   name              = "/lockdev/${var.environment}/worker"
-  retention_in_days = 30
+  retention_in_days = 365
+  kms_key_id        = aws_kms_key.main.arn
 
   tags = {
     Environment = var.environment
@@ -59,6 +61,7 @@ resource "aws_iam_policy" "log_drain" {
 
 # IAM User for Aptible log drain configuration
 resource "aws_iam_user" "log_drain" {
+  # checkov:skip=CKV_AWS_273:IAM user required for Aptible log drain integration
   name = "lockdev-${var.environment}-log-drain"
 
   tags = {
@@ -69,6 +72,7 @@ resource "aws_iam_user" "log_drain" {
 }
 
 resource "aws_iam_user_policy_attachment" "log_drain" {
+  # checkov:skip=CKV_AWS_40:Policy attachment to user required for Aptible log drain integration
   user       = aws_iam_user.log_drain.name
   policy_arn = aws_iam_policy.log_drain.arn
 }

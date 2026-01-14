@@ -1,5 +1,7 @@
 # Route53 Hosted Zone
 resource "aws_route53_zone" "main" {
+  # checkov:skip=CKV2_AWS_38:DNSSEC signing not enabled for starter kit - requires additional configuration
+  # checkov:skip=CKV2_AWS_39:DNS query logging not enabled for starter kit - can be expensive
   count = var.enable_route53 ? 1 : 0
   name  = var.domain_name
 

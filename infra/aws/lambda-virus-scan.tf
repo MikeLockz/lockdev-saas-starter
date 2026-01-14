@@ -1,5 +1,10 @@
 # Quarantine bucket for infected files
 resource "aws_s3_bucket" "quarantine" {
+  # checkov:skip=CKV_AWS_144:Cross-region replication not required for starter kit
+  # checkov:skip=CKV2_AWS_61:Lifecycle configuration not required for quarantine bucket
+  # checkov:skip=CKV2_AWS_62:Event notifications not required for quarantine bucket
+  # checkov:skip=CKV_AWS_145:Using KMS encryption via server_side_encryption_configuration
+  # checkov:skip=CKV_AWS_18:Logging enabled via separate aws_s3_bucket_logging resource
   bucket = "${var.project_name}-quarantine-${var.environment}"
 
   tags = {
@@ -24,7 +29,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "quarantine" {
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
+      sse_algorithm     = "aws:kms"
+      kms_master_key_id = aws_kms_key.main.arn
     }
     bucket_key_enabled = true
   }
@@ -46,6 +52,12 @@ resource "aws_s3_bucket_logging" "quarantine" {
 
   target_bucket = aws_s3_bucket.access_logs.id
   target_prefix = "quarantine-logs/"
+}
+
+# DLQ for Virus Scanner Lambda
+resource "aws_sqs_queue" "virus_scanner_dlq" {
+  name              = "${var.project_name}-virus-scanner-dlq-${var.environment}"
+  kms_master_key_id = aws_kms_key.main.id
 }
 
 # IAM role for Lambda virus scanner
@@ -70,9 +82,9 @@ resource "aws_iam_role" "virus_scanner" {
   }
 }
 
-# IAM policy for Lambda to access S3 buckets
-resource "aws_iam_role_policy" "virus_scanner_s3" {
-  name = "s3-access"
+# IAM policy for Lambda to access S3 buckets and DLQ/KMS
+resource "aws_iam_role_policy" "virus_scanner_permissions" {
+  name = "virus-scanner-permissions"
   role = aws_iam_role.virus_scanner.id
 
   policy = jsonencode({
@@ -103,6 +115,21 @@ resource "aws_iam_role_policy" "virus_scanner_s3" {
           "s3:DeleteObjectVersion"
         ]
         Resource = "${aws_s3_bucket.documents.arn}/*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "sqs:SendMessage"
+        ]
+        Resource = aws_sqs_queue.virus_scanner_dlq.arn
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "kms:Decrypt",
+          "kms:GenerateDataKey"
+        ]
+        Resource = aws_kms_key.main.arn
       }
     ]
   })
@@ -116,6 +143,8 @@ resource "aws_iam_role_policy_attachment" "virus_scanner_basic" {
 
 # Lambda function for virus scanning
 resource "aws_lambda_function" "virus_scanner" {
+  # checkov:skip=CKV_AWS_117:Lambda does not require VPC access
+  # checkov:skip=CKV_AWS_272:Code signing not configured for starter kit
   filename      = "${path.module}/lambda-virus-scan.zip"
   function_name = "${var.project_name}-virus-scanner-${var.environment}"
   role          = aws_iam_role.virus_scanner.arn
@@ -152,6 +181,13 @@ resource "aws_lambda_function" "virus_scanner" {
   tracing_config {
     mode = "Active"
   }
+  
+  kms_key_arn = aws_kms_key.main.arn
+  reserved_concurrent_executions = 100
+  
+  dead_letter_config {
+    target_arn = aws_sqs_queue.virus_scanner_dlq.arn
+  }
 
   lifecycle {
     ignore_changes = [
@@ -164,7 +200,8 @@ resource "aws_lambda_function" "virus_scanner" {
 # CloudWatch Log Group for Lambda
 resource "aws_cloudwatch_log_group" "virus_scanner" {
   name              = "/aws/lambda/${aws_lambda_function.virus_scanner.function_name}"
-  retention_in_days = 30
+  retention_in_days = 365
+  kms_key_id        = aws_kms_key.main.arn
 
   tags = {
     Name = "Virus Scanner Logs"

@@ -14,6 +14,11 @@ terraform {
 
 # S3 bucket for state storage
 resource "aws_s3_bucket" "terraform_state" {
+  # checkov:skip=CKV_AWS_144:Cross-region replication not required for starter kit
+  # checkov:skip=CKV2_AWS_61:Lifecycle configuration not required for terraform state bucket
+  # checkov:skip=CKV2_AWS_62:Event notifications not required for terraform state bucket
+  # checkov:skip=CKV_AWS_145:Using KMS encryption via server_side_encryption_configuration
+  # checkov:skip=CKV_AWS_18:Logging enabled via separate aws_s3_bucket_logging resource
   bucket = var.state_bucket_name
 
   # Prevent accidental deletion
@@ -42,7 +47,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state" 
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
+      sse_algorithm     = "aws:kms"
+      kms_master_key_id = aws_kms_key.main.arn
     }
   }
 }
@@ -67,6 +73,7 @@ resource "aws_s3_bucket_public_access_block" "terraform_state" {
 
 # DynamoDB table for state locking
 resource "aws_dynamodb_table" "terraform_lock" {
+  # checkov:skip=CKV_AWS_119:Using KMS CMK via server_side_encryption block
   name         = var.state_dynamodb_table
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "LockID"
@@ -78,7 +85,8 @@ resource "aws_dynamodb_table" "terraform_lock" {
 
   # Enable server-side encryption
   server_side_encryption {
-    enabled = true
+    enabled     = true
+    kms_key_arn = aws_kms_key.main.arn
   }
 
   # Enable point-in-time recovery
