@@ -51,3 +51,5 @@ env/
 apps/backend/secrets/
 shadcn-admin/
 infra/aws/.terraform/
+.pnpm-store/
+shadcn-admin/
