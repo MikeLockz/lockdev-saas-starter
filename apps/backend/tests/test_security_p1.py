@@ -19,7 +19,11 @@ async def setup_org(db_session):
 
     # Create Super Admin
     admin_user = User(
-        email=f"super_admin_{unique}@example.com", password_hash="hash", display_name="Super Admin", is_super_admin=True
+        email=f"super_admin_{unique}@example.com",
+        password_hash="hash",
+        display_name="Super Admin",
+        is_super_admin=True,
+        mfa_enabled=True,
     )
     db_session.add(admin_user)
 
@@ -56,7 +60,12 @@ async def setup_org(db_session):
     # But for creating appointments, we need a user in the org.
     # Let's verify who is creating the appointment.
     # Race condition test usually impersonates a scheduler (Staff/Admin/Provider).
-    staff_user = User(email=f"staff_{unique}@example.com", password_hash="hash", display_name="Staff Scheduler")
+    staff_user = User(
+        email=f"staff_{unique}@example.com",
+        password_hash="hash",
+        display_name="Staff Scheduler",
+        mfa_enabled=True,
+    )
     db_session.add(staff_user)
     await db_session.flush()
 

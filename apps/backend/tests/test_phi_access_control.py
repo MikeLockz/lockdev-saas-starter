@@ -37,6 +37,7 @@ async def admin_user(db_session, test_org):
         email=f"admin-{uuid4().hex[:8]}@example.com",
         password_hash="hash",
         display_name="Admin User",
+        mfa_enabled=True,
     )
     db_session.add(user)
     await db_session.flush()

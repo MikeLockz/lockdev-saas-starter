@@ -8,174 +8,200 @@
  * Run: pnpm generate:models
  */
 
-import type { components } from './api-types';
+import type { components } from "./api-types";
 
 // =============================================================================
 // User & Authentication
 // =============================================================================
 
-export type User = components['schemas']['UserRead'];
-export type UserUpdate = components['schemas']['UserUpdate'];
-export type UserDeleteRequest = components['schemas']['UserDeleteRequest'];
-export type UserDeleteResponse = components['schemas']['UserDeleteResponse'];
-export type UserExportRequest = components['schemas']['UserExportRequest'];
-export type UserExportResponse = components['schemas']['UserExportResponse'];
+export type User = components["schemas"]["UserRead"];
+export type UserUpdate = components["schemas"]["UserUpdate"];
+export type UserDeleteRequest = components["schemas"]["UserDeleteRequest"];
+export type UserDeleteResponse = components["schemas"]["UserDeleteResponse"];
+export type UserExportRequest = components["schemas"]["UserExportRequest"];
+export type UserExportResponse = components["schemas"]["UserExportResponse"];
 
 // =============================================================================
 // Sessions
 // =============================================================================
 
-export type Session = components['schemas']['SessionRead'];
-export type SessionList = components['schemas']['SessionListResponse'];
-export type SessionRevokeResponse = components['schemas']['SessionRevokeResponse'];
+export type Session = components["schemas"]["SessionRead"];
+export type SessionList = components["schemas"]["SessionListResponse"];
+export type SessionRevokeResponse =
+  components["schemas"]["SessionRevokeResponse"];
 
 // =============================================================================
 // MFA (Multi-Factor Authentication)
 // =============================================================================
 
-export type MFASetupResponse = components['schemas']['MFASetupResponse'];
-export type MFAVerifyRequest = components['schemas']['MFAVerifyRequest'];
-export type MFAVerifyResponse = components['schemas']['MFAVerifyResponse'];
-export type MFADisableRequest = components['schemas']['MFADisableRequest'];
-export type MFADisableResponse = components['schemas']['MFADisableResponse'];
+export type MFASetupResponse = components["schemas"]["MFASetupResponse"];
+export type MFAVerifyRequest = components["schemas"]["MFAVerifyRequest"];
+export type MFAVerifyResponse = components["schemas"]["MFAVerifyResponse"];
+export type MFADisableRequest = components["schemas"]["MFADisableRequest"];
+export type MFADisableResponse = components["schemas"]["MFADisableResponse"];
 
 // =============================================================================
 // Organizations
 // =============================================================================
 
-export type Organization = components['schemas']['OrganizationRead'];
-export type OrganizationCreate = components['schemas']['OrganizationCreate'];
-export type OrganizationUpdate = components['schemas']['OrganizationUpdate'];
-export type Member = components['schemas']['MemberRead'];
+export type Organization = components["schemas"]["OrganizationRead"];
+export type OrganizationCreate = components["schemas"]["OrganizationCreate"];
+export type OrganizationUpdate = components["schemas"]["OrganizationUpdate"];
+export type Member = components["schemas"]["MemberRead"];
 
 // =============================================================================
 // Invitations
 // =============================================================================
 
-export type Invitation = components['schemas']['InvitationRead'];
-export type InvitationCreate = components['schemas']['InvitationCreate'];
+export type Invitation = components["schemas"]["InvitationRead"];
+export type InvitationCreate = components["schemas"]["InvitationCreate"];
 
 // =============================================================================
 // Communication Preferences
 // =============================================================================
 
-export type CommunicationPreferences = components['schemas']['CommunicationPreferencesRead'];
-export type CommunicationPreferencesUpdate = components['schemas']['CommunicationPreferencesUpdate'];
+export type CommunicationPreferences =
+  components["schemas"]["CommunicationPreferencesRead"];
+export type CommunicationPreferencesUpdate =
+  components["schemas"]["CommunicationPreferencesUpdate"];
 
 // =============================================================================
 // Device Tokens (Push Notifications)
 // =============================================================================
 
-export type DeviceTokenRequest = components['schemas']['DeviceTokenRequest'];
-export type DeviceTokenDeleteRequest = components['schemas']['DeviceTokenDeleteRequest'];
-export type DeviceTokenResponse = components['schemas']['DeviceTokenResponse'];
+export type DeviceTokenRequest = components["schemas"]["DeviceTokenRequest"];
+export type DeviceTokenDeleteRequest =
+  components["schemas"]["DeviceTokenDeleteRequest"];
+export type DeviceTokenResponse = components["schemas"]["DeviceTokenResponse"];
 
 // =============================================================================
 // Consent
 // =============================================================================
 
-export type ConsentSignRequest = components['schemas']['ConsentSignRequest'];
+export type ConsentSignRequest = components["schemas"]["ConsentSignRequest"];
 
 // =============================================================================
 // Telemetry / Analytics
 // =============================================================================
 
-export type TelemetryEvent = components['schemas']['TelemetryEvent'];
-export type TelemetryResponse = components['schemas']['TelemetryResponse'];
+export type TelemetryEvent = components["schemas"]["TelemetryEvent"];
+export type TelemetryResponse = components["schemas"]["TelemetryResponse"];
 
 // =============================================================================
 // Admin
 // =============================================================================
 
-export type ImpersonationRequest = components['schemas']['ImpersonationRequest'];
+export type ImpersonationRequest =
+  components["schemas"]["ImpersonationRequest"];
 
 // =============================================================================
 // Errors
 // =============================================================================
 
-export type HTTPValidationError = components['schemas']['HTTPValidationError'];
-export type ValidationError = components['schemas']['ValidationError'];
+export type HTTPValidationError = components["schemas"]["HTTPValidationError"];
+export type ValidationError = components["schemas"]["ValidationError"];
 
 // =============================================================================
 // Other
 // =============================================================================
 
-export type AppointmentCreate = components['schemas']['AppointmentCreate'];
-export type AppointmentRead = components['schemas']['AppointmentRead'];
-export type AppointmentStatusUpdate = components['schemas']['AppointmentStatusUpdate'];
-export type AppointmentUpdate = components['schemas']['AppointmentUpdate'];
-export type AuditLogListResponse = components['schemas']['AuditLogListResponse'];
-export type AuditLogRead = components['schemas']['AuditLogRead'];
-export type CallCreate = components['schemas']['CallCreate'];
-export type CallRead = components['schemas']['CallRead'];
-export type CallUpdate = components['schemas']['CallUpdate'];
-export type CareTeamAssignmentCreate = components['schemas']['CareTeamAssignmentCreate'];
-export type CareTeamAssignmentRead = components['schemas']['CareTeamAssignmentRead'];
-export type CareTeamList = components['schemas']['CareTeamList'];
-export type CareTeamMember = components['schemas']['CareTeamMember'];
-export type CareTeamProviderInfo = components['schemas']['CareTeamProviderInfo'];
-export type CheckoutSessionRequest = components['schemas']['CheckoutSessionRequest'];
-export type CheckoutSessionResponse = components['schemas']['CheckoutSessionResponse'];
-export type ContactMethodCreate = components['schemas']['ContactMethodCreate'];
-export type ContactMethodRead = components['schemas']['ContactMethodRead'];
-export type ContactMethodUpdate = components['schemas']['ContactMethodUpdate'];
-export type DocumentDownloadResponse = components['schemas']['DocumentDownloadResponse'];
-export type DocumentListItem = components['schemas']['DocumentListItem'];
-export type DocumentRead = components['schemas']['DocumentRead'];
-export type DocumentUploadRequest = components['schemas']['DocumentUploadRequest'];
-export type DocumentUploadResponse = components['schemas']['DocumentUploadResponse'];
-export type MessageCreate = components['schemas']['MessageCreate'];
-export type MessageRead = components['schemas']['MessageRead'];
-export type NotificationListResponse = components['schemas']['NotificationListResponse'];
-export type NotificationRead = components['schemas']['NotificationRead'];
-export type OrganizationAdminRead = components['schemas']['OrganizationAdminRead'];
-export type OrganizationListResponse = components['schemas']['OrganizationListResponse'];
-export type PaginatedDocuments = components['schemas']['PaginatedDocuments'];
-export type PaginatedPatients = components['schemas']['PaginatedPatients'];
-export type PaginatedProviders = components['schemas']['PaginatedProviders'];
-export type PaginatedStaff = components['schemas']['PaginatedStaff'];
-export type ParticipantRead = components['schemas']['ParticipantRead'];
-export type PatientCreate = components['schemas']['PatientCreate'];
-export type PatientListItem = components['schemas']['PatientListItem'];
-export type PatientRead = components['schemas']['PatientRead'];
-export type PatientUpdate = components['schemas']['PatientUpdate'];
-export type PortalSessionResponse = components['schemas']['PortalSessionResponse'];
-export type ProviderCreate = components['schemas']['ProviderCreate'];
-export type ProviderListItem = components['schemas']['ProviderListItem'];
-export type ProviderRead = components['schemas']['ProviderRead'];
-export type ProviderUpdate = components['schemas']['ProviderUpdate'];
-export type ProxyAssignmentCreate = components['schemas']['ProxyAssignmentCreate'];
-export type ProxyAssignmentRead = components['schemas']['ProxyAssignmentRead'];
-export type ProxyAssignmentUpdate = components['schemas']['ProxyAssignmentUpdate'];
-export type ProxyListResponse = components['schemas']['ProxyListResponse'];
-export type ProxyPatientInfo = components['schemas']['ProxyPatientInfo'];
-export type ProxyPatientRead = components['schemas']['ProxyPatientRead'];
-export type ProxyPermissions = components['schemas']['ProxyPermissions'];
-export type ProxyProfileRead = components['schemas']['ProxyProfileRead'];
-export type ProxyUserInfo = components['schemas']['ProxyUserInfo'];
-export type StaffCreate = components['schemas']['StaffCreate'];
-export type StaffListItem = components['schemas']['StaffListItem'];
-export type StaffRead = components['schemas']['StaffRead'];
-export type StaffUpdate = components['schemas']['StaffUpdate'];
-export type SubscriptionStatusResponse = components['schemas']['SubscriptionStatusResponse'];
-export type SupportMessageCreate = components['schemas']['SupportMessageCreate'];
-export type SupportMessageRead = components['schemas']['SupportMessageRead'];
-export type SystemHealth = components['schemas']['SystemHealth'];
-export type TaskCreate = components['schemas']['TaskCreate'];
-export type TaskRead = components['schemas']['TaskRead'];
-export type TaskUpdate = components['schemas']['TaskUpdate'];
-export type ThreadCreate = components['schemas']['ThreadCreate'];
-export type ThreadDetail = components['schemas']['ThreadDetail'];
-export type ThreadListResponse = components['schemas']['ThreadListResponse'];
-export type ThreadRead = components['schemas']['ThreadRead'];
-export type TicketCreate = components['schemas']['TicketCreate'];
-export type TicketRead = components['schemas']['TicketRead'];
-export type TicketUpdate = components['schemas']['TicketUpdate'];
-export type TimezoneResponse = components['schemas']['TimezoneResponse'];
-export type TimezoneUpdateRequest = components['schemas']['TimezoneUpdateRequest'];
-export type UnreadCountResponse = components['schemas']['UnreadCountResponse'];
-export type UserAdminRead = components['schemas']['UserAdminRead'];
-export type UserAdminUpdate = components['schemas']['UserAdminUpdate'];
-export type UserListResponse = components['schemas']['UserListResponse'];
-export type src__api__admin__OrganizationCreate = components['schemas']['src__api__admin__OrganizationCreate'];
-export type src__api__admin__OrganizationUpdate = components['schemas']['src__api__admin__OrganizationUpdate'];
+export type AppointmentCreate = components["schemas"]["AppointmentCreate"];
+export type AppointmentRead = components["schemas"]["AppointmentRead"];
+export type AppointmentStatusUpdate =
+  components["schemas"]["AppointmentStatusUpdate"];
+export type AppointmentUpdate = components["schemas"]["AppointmentUpdate"];
+export type AuditLogListResponse =
+  components["schemas"]["AuditLogListResponse"];
+export type AuditLogRead = components["schemas"]["AuditLogRead"];
+export type CallCreate = components["schemas"]["CallCreate"];
+export type CallRead = components["schemas"]["CallRead"];
+export type CallUpdate = components["schemas"]["CallUpdate"];
+export type CareTeamAssignmentCreate =
+  components["schemas"]["CareTeamAssignmentCreate"];
+export type CareTeamAssignmentRead =
+  components["schemas"]["CareTeamAssignmentRead"];
+export type CareTeamList = components["schemas"]["CareTeamList"];
+export type CareTeamMember = components["schemas"]["CareTeamMember"];
+export type CareTeamProviderInfo =
+  components["schemas"]["CareTeamProviderInfo"];
+export type CheckoutSessionRequest =
+  components["schemas"]["CheckoutSessionRequest"];
+export type CheckoutSessionResponse =
+  components["schemas"]["CheckoutSessionResponse"];
+export type ContactMethodCreate = components["schemas"]["ContactMethodCreate"];
+export type ContactMethodRead = components["schemas"]["ContactMethodRead"];
+export type ContactMethodUpdate = components["schemas"]["ContactMethodUpdate"];
+export type DocumentDownloadResponse =
+  components["schemas"]["DocumentDownloadResponse"];
+export type DocumentListItem = components["schemas"]["DocumentListItem"];
+export type DocumentRead = components["schemas"]["DocumentRead"];
+export type DocumentUploadRequest =
+  components["schemas"]["DocumentUploadRequest"];
+export type DocumentUploadResponse =
+  components["schemas"]["DocumentUploadResponse"];
+export type MessageCreate = components["schemas"]["MessageCreate"];
+export type MessageRead = components["schemas"]["MessageRead"];
+export type NotificationListResponse =
+  components["schemas"]["NotificationListResponse"];
+export type NotificationRead = components["schemas"]["NotificationRead"];
+export type OrganizationAdminRead =
+  components["schemas"]["OrganizationAdminRead"];
+export type OrganizationListResponse =
+  components["schemas"]["OrganizationListResponse"];
+export type PaginatedDocuments = components["schemas"]["PaginatedDocuments"];
+export type PaginatedPatients = components["schemas"]["PaginatedPatients"];
+export type PaginatedProviders = components["schemas"]["PaginatedProviders"];
+export type PaginatedStaff = components["schemas"]["PaginatedStaff"];
+export type ParticipantRead = components["schemas"]["ParticipantRead"];
+export type PatientCreate = components["schemas"]["PatientCreate"];
+export type PatientListItem = components["schemas"]["PatientListItem"];
+export type PatientRead = components["schemas"]["PatientRead"];
+export type PatientUpdate = components["schemas"]["PatientUpdate"];
+export type PortalSessionResponse =
+  components["schemas"]["PortalSessionResponse"];
+export type ProviderCreate = components["schemas"]["ProviderCreate"];
+export type ProviderListItem = components["schemas"]["ProviderListItem"];
+export type ProviderRead = components["schemas"]["ProviderRead"];
+export type ProviderUpdate = components["schemas"]["ProviderUpdate"];
+export type ProxyAssignmentCreate =
+  components["schemas"]["ProxyAssignmentCreate"];
+export type ProxyAssignmentRead = components["schemas"]["ProxyAssignmentRead"];
+export type ProxyAssignmentUpdate =
+  components["schemas"]["ProxyAssignmentUpdate"];
+export type ProxyListResponse = components["schemas"]["ProxyListResponse"];
+export type ProxyPatientInfo = components["schemas"]["ProxyPatientInfo"];
+export type ProxyPatientRead = components["schemas"]["ProxyPatientRead"];
+export type ProxyPermissions = components["schemas"]["ProxyPermissions"];
+export type ProxyProfileRead = components["schemas"]["ProxyProfileRead"];
+export type ProxyUserInfo = components["schemas"]["ProxyUserInfo"];
+export type StaffCreate = components["schemas"]["StaffCreate"];
+export type StaffListItem = components["schemas"]["StaffListItem"];
+export type StaffRead = components["schemas"]["StaffRead"];
+export type StaffUpdate = components["schemas"]["StaffUpdate"];
+export type SubscriptionStatusResponse =
+  components["schemas"]["SubscriptionStatusResponse"];
+export type SupportMessageCreate =
+  components["schemas"]["SupportMessageCreate"];
+export type SupportMessageRead = components["schemas"]["SupportMessageRead"];
+export type SystemHealth = components["schemas"]["SystemHealth"];
+export type TaskCreate = components["schemas"]["TaskCreate"];
+export type TaskRead = components["schemas"]["TaskRead"];
+export type TaskUpdate = components["schemas"]["TaskUpdate"];
+export type ThreadCreate = components["schemas"]["ThreadCreate"];
+export type ThreadDetail = components["schemas"]["ThreadDetail"];
+export type ThreadListResponse = components["schemas"]["ThreadListResponse"];
+export type ThreadRead = components["schemas"]["ThreadRead"];
+export type TicketCreate = components["schemas"]["TicketCreate"];
+export type TicketRead = components["schemas"]["TicketRead"];
+export type TicketUpdate = components["schemas"]["TicketUpdate"];
+export type TimezoneResponse = components["schemas"]["TimezoneResponse"];
+export type TimezoneUpdateRequest =
+  components["schemas"]["TimezoneUpdateRequest"];
+export type UnreadCountResponse = components["schemas"]["UnreadCountResponse"];
+export type UserAdminRead = components["schemas"]["UserAdminRead"];
+export type UserAdminUpdate = components["schemas"]["UserAdminUpdate"];
+export type UserListResponse = components["schemas"]["UserListResponse"];
+export type src__api__admin__OrganizationCreate =
+  components["schemas"]["src__api__admin__OrganizationCreate"];
+export type src__api__admin__OrganizationUpdate =
+  components["schemas"]["src__api__admin__OrganizationUpdate"];
