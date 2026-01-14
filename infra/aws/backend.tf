@@ -47,6 +47,14 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state" 
   }
 }
 
+# Enable logging for state bucket
+resource "aws_s3_bucket_logging" "terraform_state" {
+  bucket = aws_s3_bucket.terraform_state.id
+
+  target_bucket = aws_s3_bucket.access_logs.id
+  target_prefix = "tf-state-logs/"
+}
+
 # Block public access
 resource "aws_s3_bucket_public_access_block" "terraform_state" {
   bucket = aws_s3_bucket.terraform_state.id
@@ -66,6 +74,16 @@ resource "aws_dynamodb_table" "terraform_lock" {
   attribute {
     name = "LockID"
     type = "S"
+  }
+
+  # Enable server-side encryption
+  server_side_encryption {
+    enabled = true
+  }
+
+  # Enable point-in-time recovery
+  point_in_time_recovery {
+    enabled = true
   }
 
   # Prevent accidental deletion

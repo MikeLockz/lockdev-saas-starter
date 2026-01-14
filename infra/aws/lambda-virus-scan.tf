@@ -40,6 +40,14 @@ resource "aws_s3_bucket_public_access_block" "quarantine" {
   restrict_public_buckets = true
 }
 
+# Enable logging for quarantine bucket
+resource "aws_s3_bucket_logging" "quarantine" {
+  bucket = aws_s3_bucket.quarantine.id
+
+  target_bucket = aws_s3_bucket.access_logs.id
+  target_prefix = "quarantine-logs/"
+}
+
 # IAM role for Lambda virus scanner
 resource "aws_iam_role" "virus_scanner" {
   name = "${var.project_name}-virus-scanner-${var.environment}"
@@ -140,6 +148,10 @@ resource "aws_lambda_function" "virus_scanner" {
   # Placeholder for the actual Lambda code
   # The lambda-virus-scan.zip should be created separately
   source_code_hash = fileexists("${path.module}/lambda-virus-scan.zip") ? filebase64sha256("${path.module}/lambda-virus-scan.zip") : null
+
+  tracing_config {
+    mode = "Active"
+  }
 
   lifecycle {
     ignore_changes = [
