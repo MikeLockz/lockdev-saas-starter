@@ -1,5 +1,8 @@
 # S3 bucket for document storage
 resource "aws_s3_bucket" "documents" {
+  # checkov:skip=CKV_AWS_144:Cross-region replication not required for starter kit
+  # checkov:skip=CKV_AWS_18:Logging enabled via separate aws_s3_bucket_logging resource
+  # checkov:skip=CKV2_AWS_62:Event notifications configured separately via aws_s3_bucket_notification
   bucket = "${var.project_name}-documents-${var.environment}"
 
   tags = {
@@ -24,7 +27,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "documents" {
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
+      sse_algorithm     = "aws:kms"
+      kms_master_key_id = aws_kms_key.main.arn
     }
     bucket_key_enabled = true
   }
@@ -87,6 +91,11 @@ resource "aws_s3_bucket_lifecycle_configuration" "documents" {
 
 # Access logging bucket
 resource "aws_s3_bucket" "access_logs" {
+  # checkov:skip=CKV_AWS_144:Cross-region replication not required for starter kit
+  # checkov:skip=CKV2_AWS_61:Lifecycle configuration not required for access logs bucket
+  # checkov:skip=CKV2_AWS_62:Event notifications not required for access logs bucket
+  # checkov:skip=CKV_AWS_145:Using KMS encryption, but not required for access logs
+  # checkov:skip=CKV_AWS_18:Self-logging bucket - would create circular dependency
   bucket = "${var.project_name}-access-logs-${var.environment}"
 
   tags = {
@@ -110,7 +119,8 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "access_logs" {
 
   rule {
     apply_server_side_encryption_by_default {
-      sse_algorithm = "AES256"
+      sse_algorithm     = "aws:kms"
+      kms_master_key_id = aws_kms_key.main.arn
     }
     bucket_key_enabled = true
   }

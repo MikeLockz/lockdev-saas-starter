@@ -2,6 +2,7 @@
 
 # GCP Service Account Credentials (for Firebase/Vertex AI)
 resource "aws_secretsmanager_secret" "gcp_credentials" {
+  # checkov:skip=CKV2_AWS_57:Automatic rotation not applicable for GCP service account credentials
   name        = "${var.project_name}/${var.environment}/gcp-credentials"
   description = "GCP service account credentials for Firebase and Vertex AI"
   kms_key_id  = aws_kms_key.main.id
@@ -35,6 +36,7 @@ resource "aws_secretsmanager_secret_version" "gcp_credentials" {
 
 # SES SMTP Credentials
 resource "aws_secretsmanager_secret" "ses_smtp" {
+  # checkov:skip=CKV2_AWS_57:Automatic rotation not applicable for SES SMTP credentials
   name        = "${var.project_name}/${var.environment}/ses-smtp"
   description = "SES SMTP credentials for sending transactional emails"
   kms_key_id  = aws_kms_key.main.id
@@ -55,6 +57,7 @@ resource "aws_secretsmanager_secret_version" "ses_smtp" {
 
 # Database Connection String (if needed for external access)
 resource "aws_secretsmanager_secret" "database_url" {
+  # checkov:skip=CKV2_AWS_57:Automatic rotation not applicable for database connection string
   name        = "${var.project_name}/${var.environment}/database-url"
   description = "PostgreSQL database connection string"
   kms_key_id  = aws_kms_key.main.id
@@ -79,6 +82,7 @@ resource "aws_secretsmanager_secret_version" "database_url" {
 
 # Stripe API Keys
 resource "aws_secretsmanager_secret" "stripe" {
+  # checkov:skip=CKV2_AWS_57:Automatic rotation not applicable for Stripe API keys
   name        = "${var.project_name}/${var.environment}/stripe"
   description = "Stripe API keys for payment processing"
   kms_key_id  = aws_kms_key.main.id
@@ -104,6 +108,7 @@ resource "aws_secretsmanager_secret_version" "stripe" {
 
 # Sentry DSN
 resource "aws_secretsmanager_secret" "sentry" {
+  # checkov:skip=CKV2_AWS_57:Automatic rotation not applicable for Sentry DSN
   name        = "${var.project_name}/${var.environment}/sentry"
   description = "Sentry DSN for error tracking"
   kms_key_id  = aws_kms_key.main.id

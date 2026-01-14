@@ -26,7 +26,8 @@ resource "aws_ses_configuration_set" "main" {
 
 # SNS topic for bounce notifications
 resource "aws_sns_topic" "ses_bounces" {
-  name = "${var.project_name}-ses-bounces-${var.environment}"
+  name              = "${var.project_name}-ses-bounces-${var.environment}"
+  kms_master_key_id = aws_kms_key.main.id
 
   tags = {
     Name        = "SES Bounce Notifications"
@@ -36,7 +37,8 @@ resource "aws_sns_topic" "ses_bounces" {
 
 # SNS topic for complaint notifications
 resource "aws_sns_topic" "ses_complaints" {
-  name = "${var.project_name}-ses-complaints-${var.environment}"
+  name              = "${var.project_name}-ses-complaints-${var.environment}"
+  kms_master_key_id = aws_kms_key.main.id
 
   tags = {
     Name        = "SES Complaint Notifications"
@@ -70,6 +72,7 @@ resource "aws_ses_event_destination" "complaints" {
 
 # IAM user for SMTP credentials
 resource "aws_iam_user" "ses_smtp" {
+  # checkov:skip=CKV_AWS_273:IAM user required for SES SMTP authentication
   name = "${var.project_name}-ses-smtp-${var.environment}"
 
   tags = {
@@ -80,6 +83,9 @@ resource "aws_iam_user" "ses_smtp" {
 
 # IAM policy for sending emails
 resource "aws_iam_user_policy" "ses_smtp" {
+  # checkov:skip=CKV_AWS_40:Policy attachment to user required for SES SMTP authentication
+  # checkov:skip=CKV_AWS_290:Write access to SES required for sending emails
+  # checkov:skip=CKV_AWS_355:Resource wildcard required for SES SendEmail actions
   name = "ses-send-email"
   user = aws_iam_user.ses_smtp.name
 
