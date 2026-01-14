@@ -4,6 +4,7 @@
 resource "aws_secretsmanager_secret" "gcp_credentials" {
   name        = "${var.project_name}/${var.environment}/gcp-credentials"
   description = "GCP service account credentials for Firebase and Vertex AI"
+  kms_key_id  = aws_kms_key.main.id
 
   tags = {
     Name        = "GCP Credentials"
@@ -36,6 +37,7 @@ resource "aws_secretsmanager_secret_version" "gcp_credentials" {
 resource "aws_secretsmanager_secret" "ses_smtp" {
   name        = "${var.project_name}/${var.environment}/ses-smtp"
   description = "SES SMTP credentials for sending transactional emails"
+  kms_key_id  = aws_kms_key.main.id
 
   tags = {
     Name        = "SES SMTP Credentials"
@@ -55,6 +57,7 @@ resource "aws_secretsmanager_secret_version" "ses_smtp" {
 resource "aws_secretsmanager_secret" "database_url" {
   name        = "${var.project_name}/${var.environment}/database-url"
   description = "PostgreSQL database connection string"
+  kms_key_id  = aws_kms_key.main.id
 
   tags = {
     Name        = "Database URL"
@@ -78,6 +81,7 @@ resource "aws_secretsmanager_secret_version" "database_url" {
 resource "aws_secretsmanager_secret" "stripe" {
   name        = "${var.project_name}/${var.environment}/stripe"
   description = "Stripe API keys for payment processing"
+  kms_key_id  = aws_kms_key.main.id
 
   tags = {
     Name        = "Stripe API Keys"
@@ -102,6 +106,7 @@ resource "aws_secretsmanager_secret_version" "stripe" {
 resource "aws_secretsmanager_secret" "sentry" {
   name        = "${var.project_name}/${var.environment}/sentry"
   description = "Sentry DSN for error tracking"
+  kms_key_id  = aws_kms_key.main.id
 
   tags = {
     Name        = "Sentry DSN"

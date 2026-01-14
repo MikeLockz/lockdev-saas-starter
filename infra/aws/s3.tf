@@ -95,12 +95,33 @@ resource "aws_s3_bucket" "access_logs" {
   }
 }
 
-# Enable access logging on documents bucket
-resource "aws_s3_bucket_logging" "documents" {
-  bucket = aws_s3_bucket.documents.id
+# Enable versioning for access logs (Security requirement)
+resource "aws_s3_bucket_versioning" "access_logs" {
+  bucket = aws_s3_bucket.access_logs.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+# Server-side encryption for access logs (Security requirement)
+resource "aws_s3_bucket_server_side_encryption_configuration" "access_logs" {
+  bucket = aws_s3_bucket.access_logs.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+    bucket_key_enabled = true
+  }
+}
+
+# Enable access logging on access logs bucket (Self-logging)
+resource "aws_s3_bucket_logging" "access_logs" {
+  bucket = aws_s3_bucket.access_logs.id
 
   target_bucket = aws_s3_bucket.access_logs.id
-  target_prefix = "documents/"
+  target_prefix = "access-logs-logs/"
 }
 
 # Block public access on logs bucket
