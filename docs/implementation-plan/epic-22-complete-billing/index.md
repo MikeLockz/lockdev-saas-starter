@@ -19,18 +19,18 @@
 | Email & Receipts | `story-22-02-email-receipts.md` | ✅ Complete |
 | Patient Frontend | `story-22-03-patient-billing-ui.md` | ✅ Complete |
 | Admin Billing API | `story-22-04-admin-billing-api.md` | ✅ Complete |
-| Admin Frontend | `story-22-05-admin-billing-ui.md` | ⏳ Pending |
-| Logging & Monitoring | `story-22-06-logging-monitoring.md` | ⏳ Pending |
-| Testing & Docs | `story-22-07-testing-docs.md` | ⏳ Pending |
+| Admin Frontend | `story-22-05-admin-billing-ui.md` | ✅ Complete |
+| Logging & Monitoring | `story-22-06-logging-monitoring.md` | ✅ Complete |
+| Testing & Docs | `story-22-07-testing-docs.md` | ✅ Complete |
 
 ## Execution Order
 1.  [x] `story-22-01-patient-billing-api.md`
 2.  [x] `story-22-02-email-receipts.md`
 3.  [x] `story-22-03-patient-billing-ui.md`
 4.  [x] `story-22-04-admin-billing-api.md`
-5.  [ ] `story-22-05-admin-billing-ui.md`
-6.  [ ] `story-22-06-logging-monitoring.md`
-7.  [ ] `story-22-07-testing-docs.md`
+5.  [x] `story-22-05-admin-billing-ui.md`
+6.  [x] `story-22-06-logging-monitoring.md`
+7.  [x] `story-22-07-testing-docs.md`
 
 ## Epic Verification
 **Completion Criteria:**

@@ -11,7 +11,7 @@ import pytest
 from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.models.billing import BillingTransaction, SubscriptionOverride
+from src.models.billing import BillingTransaction
 from src.models.profiles import Patient
 from src.models.users import User
 
@@ -184,10 +184,7 @@ async def test_list_subscriptions_with_data(
     assert data["total"] >= 1
 
     # Find our patient
-    found = any(
-        str(sub["owner_id"]) == str(patient_with_subscription.id)
-        for sub in data["subscriptions"]
-    )
+    found = any(str(sub["owner_id"]) == str(patient_with_subscription.id) for sub in data["subscriptions"])
     assert found
 
 

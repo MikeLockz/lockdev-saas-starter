@@ -234,4 +234,3 @@ class RefundResponse(BaseModel):
     refund_id: str
     amount_refunded_cents: int
     message: str
-

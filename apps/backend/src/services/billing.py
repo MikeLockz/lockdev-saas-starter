@@ -939,8 +939,7 @@ async def get_all_subscriptions(
 
         if search:
             patient_query = patient_query.where(
-                (Patient.first_name.ilike(f"%{search}%"))
-                | (Patient.last_name.ilike(f"%{search}%"))
+                (Patient.first_name.ilike(f"%{search}%")) | (Patient.last_name.ilike(f"%{search}%"))
             )
 
         result = await db.execute(patient_query)
@@ -961,21 +960,23 @@ async def get_all_subscriptions(
                 if user:
                     patient_email = user.email
 
-            subscriptions.append({
-                "owner_id": patient.id,
-                "owner_type": "PATIENT",
-                "owner_name": f"{patient.first_name} {patient.last_name}",
-                "owner_email": patient_email,
-                "stripe_customer_id": patient.stripe_customer_id,
-                "subscription_status": patient.subscription_status,
-                "plan_id": None,
-                "current_period_end": None,
-                "mrr_cents": 0,
-                "created_at": patient.created_at,
-                "cancelled_at": None,
-                "billing_manager_id": patient.billing_manager_id,
-                "billing_manager_name": billing_manager_name,
-            })
+            subscriptions.append(
+                {
+                    "owner_id": patient.id,
+                    "owner_type": "PATIENT",
+                    "owner_name": f"{patient.first_name} {patient.last_name}",
+                    "owner_email": patient_email,
+                    "stripe_customer_id": patient.stripe_customer_id,
+                    "subscription_status": patient.subscription_status,
+                    "plan_id": None,
+                    "current_period_end": None,
+                    "mrr_cents": 0,
+                    "created_at": patient.created_at,
+                    "cancelled_at": None,
+                    "billing_manager_id": patient.billing_manager_id,
+                    "billing_manager_name": billing_manager_name,
+                }
+            )
 
     # Get organization subscriptions
     if owner_type is None or owner_type == "ORGANIZATION":
@@ -991,21 +992,23 @@ async def get_all_subscriptions(
         orgs = result.scalars().all()
 
         for org in orgs:
-            subscriptions.append({
-                "owner_id": org.id,
-                "owner_type": "ORGANIZATION",
-                "owner_name": org.name,
-                "owner_email": None,
-                "stripe_customer_id": org.stripe_customer_id,
-                "subscription_status": org.subscription_status,
-                "plan_id": None,
-                "current_period_end": None,
-                "mrr_cents": 0,
-                "created_at": org.created_at,
-                "cancelled_at": None,
-                "billing_manager_id": None,
-                "billing_manager_name": None,
-            })
+            subscriptions.append(
+                {
+                    "owner_id": org.id,
+                    "owner_type": "ORGANIZATION",
+                    "owner_name": org.name,
+                    "owner_email": None,
+                    "stripe_customer_id": org.stripe_customer_id,
+                    "subscription_status": org.subscription_status,
+                    "plan_id": None,
+                    "current_period_end": None,
+                    "mrr_cents": 0,
+                    "created_at": org.created_at,
+                    "cancelled_at": None,
+                    "billing_manager_id": None,
+                    "billing_manager_name": None,
+                }
+            )
 
     # Sort by created_at desc
     subscriptions.sort(key=lambda x: x["created_at"] or datetime.min, reverse=True)
@@ -1030,7 +1033,6 @@ async def calculate_billing_analytics(db: AsyncSession) -> dict[str, Any]:
     Returns:
         Dict with billing analytics metrics
     """
-    from datetime import timedelta
 
     from sqlalchemy import func
 
@@ -1038,61 +1040,76 @@ async def calculate_billing_analytics(db: AsyncSession) -> dict[str, Any]:
     month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
 
     # Count active patient subscriptions
-    patient_active_count = await db.scalar(
-        select(func.count())
-        .select_from(Patient)
-        .where(Patient.subscription_status.in_(["ACTIVE", "TRIALING"]))
-    ) or 0
+    patient_active_count = (
+        await db.scalar(
+            select(func.count()).select_from(Patient).where(Patient.subscription_status.in_(["ACTIVE", "TRIALING"]))
+        )
+        or 0
+    )
 
     # Count active org subscriptions
-    org_active_count = await db.scalar(
-        select(func.count())
-        .select_from(Organization)
-        .where(Organization.subscription_status.in_(["ACTIVE", "TRIALING"]))
-    ) or 0
+    org_active_count = (
+        await db.scalar(
+            select(func.count())
+            .select_from(Organization)
+            .where(Organization.subscription_status.in_(["ACTIVE", "TRIALING"]))
+        )
+        or 0
+    )
 
     total_active = patient_active_count + org_active_count
 
     # Count new subscriptions this month (patients that became ACTIVE this month)
     # This is approximate - ideally track subscription_activated_at
-    new_this_month = await db.scalar(
-        select(func.count())
-        .select_from(BillingTransaction)
-        .where(
-            BillingTransaction.status == "SUCCEEDED",
-            BillingTransaction.created_at >= month_start,
-            BillingTransaction.description.ilike("%subscription%"),
+    new_this_month = (
+        await db.scalar(
+            select(func.count())
+            .select_from(BillingTransaction)
+            .where(
+                BillingTransaction.status == "SUCCEEDED",
+                BillingTransaction.created_at >= month_start,
+                BillingTransaction.description.ilike("%subscription%"),
+            )
         )
-    ) or 0
+        or 0
+    )
 
     # Count failed payments this month
-    failed_this_month = await db.scalar(
-        select(func.count())
-        .select_from(BillingTransaction)
-        .where(
-            BillingTransaction.status == "FAILED",
-            BillingTransaction.created_at >= month_start,
+    failed_this_month = (
+        await db.scalar(
+            select(func.count())
+            .select_from(BillingTransaction)
+            .where(
+                BillingTransaction.status == "FAILED",
+                BillingTransaction.created_at >= month_start,
+            )
         )
-    ) or 0
+        or 0
+    )
 
     # Total revenue this month
-    revenue_this_month = await db.scalar(
-        select(func.sum(BillingTransaction.amount_cents))
-        .where(
-            BillingTransaction.status == "SUCCEEDED",
-            BillingTransaction.created_at >= month_start,
+    revenue_this_month = (
+        await db.scalar(
+            select(func.sum(BillingTransaction.amount_cents)).where(
+                BillingTransaction.status == "SUCCEEDED",
+                BillingTransaction.created_at >= month_start,
+            )
         )
-    ) or 0
+        or 0
+    )
 
     # Cancelled subscriptions this month (count refunds as proxy)
-    cancelled_this_month = await db.scalar(
-        select(func.count())
-        .select_from(BillingTransaction)
-        .where(
-            BillingTransaction.status == "REFUNDED",
-            BillingTransaction.refunded_at >= month_start,
+    cancelled_this_month = (
+        await db.scalar(
+            select(func.count())
+            .select_from(BillingTransaction)
+            .where(
+                BillingTransaction.status == "REFUNDED",
+                BillingTransaction.refunded_at >= month_start,
+            )
         )
-    ) or 0
+        or 0
+    )
 
     # Calculate churn rate
     churn_rate = 0.0
@@ -1114,4 +1131,3 @@ async def calculate_billing_analytics(db: AsyncSession) -> dict[str, Any]:
         "failed_payments_this_month": failed_this_month,
         "total_revenue_this_month_cents": revenue_this_month,
     }
-
