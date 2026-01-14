@@ -45,6 +45,7 @@ import { Route as AuthHelpContactRouteImport } from './routes/_auth/help/contact
 import { Route as AuthAdminStaffRouteImport } from './routes/_auth/admin/staff'
 import { Route as AuthAdminProvidersRouteImport } from './routes/_auth/admin/providers'
 import { Route as AuthAdminMembersRouteImport } from './routes/_auth/admin/members'
+import { Route as AuthAdminBillingManagementRouteImport } from './routes/_auth/admin/billing-management'
 import { Route as AuthAdminBillingRouteImport } from './routes/_auth/admin/billing'
 import { Route as AuthAdminAuditLogsRouteImport } from './routes/_auth/admin/audit-logs'
 import { Route as AuthProxyManagedPatientsManagedPatientIdBillingRouteImport } from './routes/_auth/proxy/managed-patients/$managedPatientId/billing'
@@ -230,6 +231,12 @@ const AuthAdminMembersRoute = AuthAdminMembersRouteImport.update({
   path: '/admin/members',
   getParentRoute: () => AuthRoute,
 } as any)
+const AuthAdminBillingManagementRoute =
+  AuthAdminBillingManagementRouteImport.update({
+    id: '/admin/billing-management',
+    path: '/admin/billing-management',
+    getParentRoute: () => AuthRoute,
+  } as any)
 const AuthAdminBillingRoute = AuthAdminBillingRouteImport.update({
   id: '/admin/billing',
   path: '/admin/billing',
@@ -263,6 +270,7 @@ export interface FileRoutesByFullPath {
   '/legal/terms': typeof LegalTermsRoute
   '/admin/audit-logs': typeof AuthAdminAuditLogsRoute
   '/admin/billing': typeof AuthAdminBillingRoute
+  '/admin/billing-management': typeof AuthAdminBillingManagementRoute
   '/admin/members': typeof AuthAdminMembersRoute
   '/admin/providers': typeof AuthAdminProvidersRoute
   '/admin/staff': typeof AuthAdminStaffRoute
@@ -302,6 +310,7 @@ export interface FileRoutesByTo {
   '/legal/terms': typeof LegalTermsRoute
   '/admin/audit-logs': typeof AuthAdminAuditLogsRoute
   '/admin/billing': typeof AuthAdminBillingRoute
+  '/admin/billing-management': typeof AuthAdminBillingManagementRoute
   '/admin/members': typeof AuthAdminMembersRoute
   '/admin/providers': typeof AuthAdminProvidersRoute
   '/admin/staff': typeof AuthAdminStaffRoute
@@ -344,6 +353,7 @@ export interface FileRoutesById {
   '/legal/terms': typeof LegalTermsRoute
   '/_auth/admin/audit-logs': typeof AuthAdminAuditLogsRoute
   '/_auth/admin/billing': typeof AuthAdminBillingRoute
+  '/_auth/admin/billing-management': typeof AuthAdminBillingManagementRoute
   '/_auth/admin/members': typeof AuthAdminMembersRoute
   '/_auth/admin/providers': typeof AuthAdminProvidersRoute
   '/_auth/admin/staff': typeof AuthAdminStaffRoute
@@ -386,6 +396,7 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/admin/audit-logs'
     | '/admin/billing'
+    | '/admin/billing-management'
     | '/admin/members'
     | '/admin/providers'
     | '/admin/staff'
@@ -425,6 +436,7 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/admin/audit-logs'
     | '/admin/billing'
+    | '/admin/billing-management'
     | '/admin/members'
     | '/admin/providers'
     | '/admin/staff'
@@ -466,6 +478,7 @@ export interface FileRouteTypes {
     | '/legal/terms'
     | '/_auth/admin/audit-logs'
     | '/_auth/admin/billing'
+    | '/_auth/admin/billing-management'
     | '/_auth/admin/members'
     | '/_auth/admin/providers'
     | '/_auth/admin/staff'
@@ -758,6 +771,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAdminMembersRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_auth/admin/billing-management': {
+      id: '/_auth/admin/billing-management'
+      path: '/admin/billing-management'
+      fullPath: '/admin/billing-management'
+      preLoaderRoute: typeof AuthAdminBillingManagementRouteImport
+      parentRoute: typeof AuthRoute
+    }
     '/_auth/admin/billing': {
       id: '/_auth/admin/billing'
       path: '/admin/billing'
@@ -803,6 +823,7 @@ interface AuthRouteChildren {
   AuthSettingsRoute: typeof AuthSettingsRoute
   AuthAdminAuditLogsRoute: typeof AuthAdminAuditLogsRoute
   AuthAdminBillingRoute: typeof AuthAdminBillingRoute
+  AuthAdminBillingManagementRoute: typeof AuthAdminBillingManagementRoute
   AuthAdminMembersRoute: typeof AuthAdminMembersRoute
   AuthAdminProvidersRoute: typeof AuthAdminProvidersRoute
   AuthAdminStaffRoute: typeof AuthAdminStaffRoute
@@ -833,6 +854,7 @@ const AuthRouteChildren: AuthRouteChildren = {
   AuthSettingsRoute: AuthSettingsRoute,
   AuthAdminAuditLogsRoute: AuthAdminAuditLogsRoute,
   AuthAdminBillingRoute: AuthAdminBillingRoute,
+  AuthAdminBillingManagementRoute: AuthAdminBillingManagementRoute,
   AuthAdminMembersRoute: AuthAdminMembersRoute,
   AuthAdminProvidersRoute: AuthAdminProvidersRoute,
   AuthAdminStaffRoute: AuthAdminStaffRoute,

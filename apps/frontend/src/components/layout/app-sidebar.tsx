@@ -3,6 +3,7 @@ import {
   Building2,
   Calendar,
   ClipboardList,
+  CreditCard,
   FileText,
   Heart,
   HelpCircle,
@@ -144,6 +145,12 @@ const superAdminNavItems: NavItem[] = [
     title: "Organizations",
     url: "/super-admin/organizations",
     icon: Building2,
+    roles: ["super_admin"],
+  },
+  {
+    title: "Billing Management",
+    url: "/admin/billing-management",
+    icon: CreditCard,
     roles: ["super_admin"],
   },
 ];

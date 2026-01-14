@@ -50,3 +50,4 @@ env/
 .hg/
 apps/backend/secrets/
 shadcn-admin/
+infra/aws/.terraform/

@@ -657,7 +657,7 @@ async def remove_device_token(
 
 
 from src.models.assignments import PatientProxyAssignment
-from src.models.profiles import Patient, Proxy
+from src.models.profiles import Proxy
 from src.schemas.proxies import ProxyPatientInfo, ProxyPatientRead, ProxyPermissions, ProxyProfileRead
 
 
@@ -736,7 +736,7 @@ async def get_my_patient_profile(current_user: User = Depends(get_current_user),
     """
     # Import locally to avoid circular imports? No, schema import is fine.
     # Note: imports for Patient and PatientRead must be added at top.
-    
+
     stmt = (
         select(Patient)
         .options(selectinload(Patient.contact_methods))
@@ -745,4 +745,3 @@ async def get_my_patient_profile(current_user: User = Depends(get_current_user),
     )
     result = await db.execute(stmt)
     return result.scalar_one_or_none()
-

@@ -7,7 +7,6 @@ Story 22.4 - Epic 22: Complete Billing & Subscription Management
 
 import logging
 from datetime import datetime
-from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
@@ -335,13 +334,6 @@ async def list_billing_managers(
     for patient in patients:
         manager = await db.get(User, patient.billing_manager_id)
         if manager:
-            # Get patient email
-            patient_email = None
-            if patient.user_id:
-                patient_user = await db.get(User, patient.user_id)
-                if patient_user:
-                    patient_email = patient_user.email
-
             relationships.append(
                 BillingManagerResponse(
                     patient_id=patient.id,

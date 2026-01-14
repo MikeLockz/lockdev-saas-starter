@@ -44,6 +44,10 @@ class Settings(BaseSettings):
     COMPANY_EMAIL: str = "info@example.com"
     SUPPORT_EMAIL: str = "support@example.com"
 
+    # Billing Alerts (Story 22.6)
+    BILLING_ALERT_EMAILS: str = ""  # Comma-separated admin emails for billing alerts
+    ENABLE_BILLING_ALERTS: bool = True
+
     # Parse Redis URL for ARQ worker
     @property
     def REDIS_HOST(self) -> str:
