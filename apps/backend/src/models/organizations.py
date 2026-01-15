@@ -95,3 +95,83 @@ class OrganizationPatient(Base):
 
     organization: Mapped["Organization"] = relationship(back_populates="patients")
     patient: Mapped["Patient"] = relationship(back_populates="organizations")
+
+
+# =============================================================================
+# Counter Maintenance Event Listeners
+# =============================================================================
+# These SQLAlchemy event listeners automatically maintain the denormalized
+# member_count and patient_count fields on Organization model.
+# See: docs/implementation-plan/epic-08-organizations/story-08-05-counter-maintenance.md
+
+
+from sqlalchemy import event
+
+
+@event.listens_for(OrganizationMember, "after_insert")
+def increment_member_count(mapper, connection, target):
+    """Increment member_count when a new member is added."""
+    connection.execute(
+        Organization.__table__.update()
+        .where(Organization.id == target.organization_id)
+        .values(member_count=Organization.member_count + 1)
+    )
+
+
+@event.listens_for(OrganizationMember, "after_delete")
+def decrement_member_count(mapper, connection, target):
+    """Decrement member_count when a member is hard-deleted."""
+    connection.execute(
+        Organization.__table__.update()
+        .where(Organization.id == target.organization_id)
+        .values(member_count=Organization.member_count - 1)
+    )
+
+
+@event.listens_for(OrganizationMember, "after_update")
+def handle_member_soft_delete(mapper, connection, target):
+    """Handle soft-delete: decrement when deleted_at is set, increment when cleared."""
+    from sqlalchemy import inspect
+
+    state = inspect(target)
+    deleted_at_history = state.attrs.deleted_at.history
+
+    # Check if deleted_at changed
+    if deleted_at_history.has_changes():
+        old_value = deleted_at_history.deleted[0] if deleted_at_history.deleted else None
+        new_value = deleted_at_history.added[0] if deleted_at_history.added else None
+
+        if old_value is None and new_value is not None:
+            # Soft delete: decrement count
+            connection.execute(
+                Organization.__table__.update()
+                .where(Organization.id == target.organization_id)
+                .values(member_count=Organization.member_count - 1)
+            )
+        elif old_value is not None and new_value is None:
+            # Restore from soft delete: increment count
+            connection.execute(
+                Organization.__table__.update()
+                .where(Organization.id == target.organization_id)
+                .values(member_count=Organization.member_count + 1)
+            )
+
+
+@event.listens_for(OrganizationPatient, "after_insert")
+def increment_patient_count(mapper, connection, target):
+    """Increment patient_count when a patient is enrolled."""
+    connection.execute(
+        Organization.__table__.update()
+        .where(Organization.id == target.organization_id)
+        .values(patient_count=Organization.patient_count + 1)
+    )
+
+
+@event.listens_for(OrganizationPatient, "after_delete")
+def decrement_patient_count(mapper, connection, target):
+    """Decrement patient_count when a patient enrollment is deleted."""
+    connection.execute(
+        Organization.__table__.update()
+        .where(Organization.id == target.organization_id)
+        .values(patient_count=Organization.patient_count - 1)
+    )

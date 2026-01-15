@@ -127,3 +127,36 @@ async def test_update_org(authenticated_client):
     response = await authenticated_client.patch(f"/api/v1/organizations/{org_id}", json={"name": "New Name"})
     assert response.status_code == 200, f"Response: {response.text}"
     assert response.json()["name"] == "New Name"
+
+
+# =============================================================================
+# Counter Maintenance Tests
+# =============================================================================
+
+
+@pytest.mark.asyncio
+async def test_member_count_starts_at_one_after_create(authenticated_client, test_user, db_session):
+    """Verify that creating an org sets member_count to 1 (for the creator)."""
+    response = await authenticated_client.post("/api/v1/organizations", json={"name": "Counter Test Org"})
+    assert response.status_code == 200, f"Response: {response.text}"
+
+    org = response.json()
+    assert org["member_count"] == 1, "Organization should have member_count=1 after creation"
+
+
+@pytest.mark.asyncio
+async def test_member_count_on_member_list(authenticated_client, db_session):
+    """Verify member_count matches actual member list length."""
+    # Create org
+    response = await authenticated_client.post("/api/v1/organizations", json={"name": "Member Count Test"})
+    assert response.status_code == 200
+    org = response.json()
+    org_id = org["id"]
+
+    # Get members
+    response = await authenticated_client.get(f"/api/v1/organizations/{org_id}/members")
+    assert response.status_code == 200
+    members = response.json()
+
+    # Verify count matches
+    assert len(members) == org["member_count"], "member_count should match actual member list length"
