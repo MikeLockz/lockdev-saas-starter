@@ -9,6 +9,25 @@ from .mixins import SoftDeleteMixin, TimestampMixin, UUIDMixin
 
 
 class User(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
+    """
+    Core user identity and authentication model.
+
+    Consent Architecture:
+        This model uses a DUAL CONSENT approach:
+
+        1. Communication Preferences (TCPA/CAN-SPAM compliance):
+           - transactional_consent: Allows appointment reminders, billing alerts
+           - marketing_consent: Allows promotional emails and newsletters
+
+        2. Legal Document Signatures (HIPAA compliance):
+           - See the `consents` relationship -> UserConsent model
+           - Tracks versioned signatures of TOS, HIPAA Authorization, Privacy Policy
+           - Includes IP address and user agent for legal proof
+
+        The `requires_consent` flag indicates whether the user needs to sign
+        outstanding consent documents before accessing the application.
+    """
+
     __tablename__ = "users"
 
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
@@ -17,8 +36,13 @@ class User(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
     is_super_admin: Mapped[bool] = mapped_column(Boolean, default=False)
     mfa_enabled: Mapped[bool] = mapped_column(Boolean, default=False)
     mfa_secret: Mapped[str | None] = mapped_column(String(64), nullable=True)  # TOTP secret
-    transactional_consent: Mapped[bool] = mapped_column(Boolean, default=True)
-    marketing_consent: Mapped[bool] = mapped_column(Boolean, default=False)
+
+    # TCPA/CAN-SPAM Communication Preferences
+    # These control what types of emails/SMS the user can receive
+    transactional_consent: Mapped[bool] = mapped_column(Boolean, default=True)  # Appt reminders, billing
+    marketing_consent: Mapped[bool] = mapped_column(Boolean, default=False)  # Promotional emails
+
+    # Flag to force user to sign consent documents (checked by verify_latest_consents dependency)
     requires_consent: Mapped[bool] = mapped_column(Boolean, default=True)
 
     last_login_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
