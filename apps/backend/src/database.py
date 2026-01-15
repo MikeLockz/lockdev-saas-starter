@@ -45,8 +45,7 @@ def receive_checkin(dbapi_connection, connection_record):
         return
     cursor = dbapi_connection.cursor()
     try:
-        cursor.execute("ROLLBACK")
-        cursor.execute("RESET ALL")
+        cursor.execute("DISCARD ALL")
     except Exception:
         # In case connection is dead
         pass
