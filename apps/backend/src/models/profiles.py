@@ -10,7 +10,7 @@ This module defines role-specific profiles that extend the base User model:
 from datetime import date, datetime
 from typing import Optional
 
-from sqlalchemy import Date, ForeignKey, String
+from sqlalchemy import Date, ForeignKey, Index, String
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -46,8 +46,17 @@ class Provider(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
     organization: Mapped["Organization"] = relationship()
     care_team_assignments: Mapped[list["CareTeamAssignment"]] = relationship(back_populates="provider")
 
-    # Unique NPI per organization constraint via index
-    __table_args__ = ({"comment": "Provider profiles with NPI validation"},)
+    # Unique NPI per organization constraint via partial index
+    __table_args__ = (
+        Index(
+            "ix_providers_org_npi_unique",
+            "organization_id",
+            "npi_number",
+            unique=True,
+            postgresql_where="npi_number IS NOT NULL",
+        ),
+        {"comment": "Provider profiles with NPI validation"},
+    )
 
 
 class Staff(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
