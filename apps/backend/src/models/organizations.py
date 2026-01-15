@@ -1,3 +1,10 @@
+"""
+Multi-Tenant Organization Models.
+
+This module defines the core multi-tenancy structure for healthcare organizations,
+including membership management and patient enrollment.
+"""
+
 from datetime import datetime
 
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, String, UniqueConstraint, func
@@ -9,6 +16,17 @@ from .mixins import SoftDeleteMixin, TimestampMixin, UUIDMixin
 
 
 class Organization(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
+    """
+    A healthcare organization (clinic, practice, hospital).
+
+    Organizations are the primary tenant boundary for data isolation.
+    Each organization has:
+        - Subscription/billing via Stripe
+        - Member users (Providers, Staff, Admins)
+        - Enrolled patients
+        - Configurable settings (timezone, preferences)
+    """
+
     __tablename__ = "organizations"
 
     name: Mapped[str] = mapped_column(String(255), nullable=False)
@@ -37,6 +55,15 @@ class Organization(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
 
 
 class OrganizationMember(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
+    """
+    Links a User to an Organization with a specific role.
+
+    Roles determine access permissions:
+        - ADMIN: Full organization management
+        - PROVIDER: Clinical access
+        - STAFF: Administrative access
+    """
+
     __tablename__ = "organization_memberships"
 
     organization_id: Mapped[UUID] = mapped_column(ForeignKey("organizations.id"), nullable=False)
@@ -50,6 +77,13 @@ class OrganizationMember(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
 
 
 class OrganizationPatient(Base):
+    """
+    Links a Patient to an Organization (enrollment).
+
+    Tracks patient enrollment status and discharge dates.
+    A patient can be enrolled in multiple organizations.
+    """
+
     __tablename__ = "organization_patients"
 
     organization_id: Mapped[UUID] = mapped_column(ForeignKey("organizations.id"), primary_key=True)

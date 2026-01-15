@@ -1,3 +1,10 @@
+"""
+Operations Models for Call Center and Task Management.
+
+This module provides models for tracking phone calls and internal tasks
+within healthcare organizations.
+"""
+
 from datetime import date, datetime
 from uuid import UUID
 
@@ -9,6 +16,17 @@ from .mixins import TimestampMixin, UUIDMixin
 
 
 class Call(Base, UUIDMixin, TimestampMixin):
+    """
+    Tracks phone calls for patient communication and support.
+
+    Records both inbound and outbound calls with:
+        - Direction (INBOUND, OUTBOUND)
+        - Status (QUEUED, IN_PROGRESS, COMPLETED, MISSED)
+        - Duration and timing
+        - Outcome tracking for follow-up workflows
+        - Agent assignment for accountability
+    """
+
     __tablename__ = "calls"
 
     organization_id: Mapped[UUID] = mapped_column(ForeignKey("organizations.id"), nullable=False, index=True)
@@ -35,6 +53,17 @@ class Call(Base, UUIDMixin, TimestampMixin):
 
 
 class Task(Base, UUIDMixin, TimestampMixin):
+    """
+    An internal task or to-do item for staff/providers.
+
+    Tasks support:
+        - Priority levels (LOW, MEDIUM, HIGH, URGENT)
+        - Status tracking (TODO, IN_PROGRESS, DONE, CANCELLED)
+        - Due date management
+        - Patient association (optional)
+        - Assignment and accountability
+    """
+
     __tablename__ = "tasks"
 
     organization_id: Mapped[UUID] = mapped_column(ForeignKey("organizations.id"), nullable=False, index=True)

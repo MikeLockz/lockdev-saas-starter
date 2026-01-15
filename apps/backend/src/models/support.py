@@ -1,3 +1,10 @@
+"""
+Support Ticket System.
+
+This module provides a help desk ticketing system for user support requests,
+with categorization, priority levels, and internal messaging.
+"""
+
 from datetime import datetime
 from uuid import UUID
 
@@ -9,6 +16,17 @@ from .mixins import TimestampMixin, UUIDMixin
 
 
 class SupportTicket(Base, UUIDMixin, TimestampMixin):
+    """
+    A user support request/ticket.
+
+    Tickets track:
+        - Category (TECHNICAL, BILLING, ACCOUNT, OTHER)
+        - Priority (LOW, MEDIUM, HIGH)
+        - Status (OPEN, IN_PROGRESS, RESOLVED, CLOSED)
+        - Assignment to support staff
+        - Resolution tracking
+    """
+
     __tablename__ = "support_tickets"
 
     user_id: Mapped[UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
@@ -38,6 +56,14 @@ class SupportTicket(Base, UUIDMixin, TimestampMixin):
 
 
 class SupportMessage(Base, UUIDMixin):
+    """
+    A message within a support ticket thread.
+
+    Messages can be:
+        - Public (visible to the user)
+        - Internal (staff-only notes, hidden from user)
+    """
+
     __tablename__ = "support_messages"
 
     ticket_id: Mapped[UUID] = mapped_column(

@@ -1,3 +1,12 @@
+"""User Profile Models for Healthcare Roles.
+
+This module defines role-specific profiles that extend the base User model:
+- Provider: Licensed healthcare professionals (doctors, nurses)
+- Staff: Administrative and support personnel
+- Patient: Individuals receiving care
+- Proxy: Users managing care for patients (parents, caregivers)
+"""
+
 from datetime import date, datetime
 from typing import Optional
 
@@ -10,6 +19,16 @@ from .mixins import SoftDeleteMixin, TimestampMixin, UUIDMixin
 
 
 class Provider(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
+    """
+    A licensed healthcare provider (doctor, nurse, therapist, etc.).
+
+    Stores professional credentials including:
+        - NPI (National Provider Identifier)
+        - DEA number for prescribing
+        - State medical license information
+        - Specialty designation
+    """
+
     __tablename__ = "providers"
 
     user_id: Mapped[UUID] = mapped_column(ForeignKey("users.id"), nullable=False)
@@ -32,6 +51,15 @@ class Provider(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
 
 
 class Staff(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
+    """
+    Administrative or support staff member.
+
+    Staff do not have clinical credentials but may have access to:
+        - Patient scheduling
+        - Billing operations
+        - Administrative functions
+    """
+
     __tablename__ = "staff"
 
     user_id: Mapped[UUID] = mapped_column(ForeignKey("users.id"), nullable=False)
@@ -47,6 +75,18 @@ class Staff(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
 
 
 class Patient(Base, UUIDMixin, TimestampMixin, SoftDeleteMixin):
+    """
+    A patient receiving healthcare services.
+
+    Contains PHI (Protected Health Information) including:
+        - Demographics (name, DOB, legal sex)
+        - Medical record number
+        - Billing/subscription status
+        - Billing manager assignment for proxy billing
+
+    NOTE: user_id may be NULL if the patient portal is not activated.
+    """
+
     __tablename__ = "patients"
 
     user_id: Mapped[UUID | None] = mapped_column(ForeignKey("users.id"))

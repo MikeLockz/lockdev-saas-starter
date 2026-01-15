@@ -1,3 +1,10 @@
+"""
+Organization Invitation System.
+
+This module handles secure invitations for users to join organizations
+with role-based access control.
+"""
+
 from datetime import datetime
 from uuid import UUID
 
@@ -10,6 +17,17 @@ from .mixins import UUIDMixin
 
 
 class Invitation(Base, UUIDMixin):
+    """
+    Tracks pending invitations for users to join an organization.
+
+    Invitations contain:
+        - A unique, secure token for accepting the invitation
+        - The target email address
+        - The role to be assigned upon acceptance
+        - Expiration tracking for security
+        - Status tracking (PENDING, ACCEPTED, EXPIRED, CANCELLED)
+    """
+
     __tablename__ = "invitations"
 
     organization_id: Mapped[UUID] = mapped_column(ForeignKey("organizations.id"), nullable=False, index=True)

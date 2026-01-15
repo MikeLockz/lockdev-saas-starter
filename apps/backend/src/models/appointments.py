@@ -1,3 +1,10 @@
+"""
+Appointment Scheduling Models.
+
+This module handles patient appointment management including scheduling,
+cancellation tracking, and status management.
+"""
+
 from datetime import datetime
 from uuid import UUID
 
