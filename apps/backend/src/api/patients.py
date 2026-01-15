@@ -1,8 +1,10 @@
 from datetime import UTC, datetime
 from uuid import UUID
 
+import structlog
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from sqlalchemy import func, or_, select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
@@ -24,6 +26,7 @@ from src.security.mfa import require_mfa
 from src.security.org_access import get_current_org_member
 
 router = APIRouter()
+logger = structlog.get_logger(__name__)
 
 
 async def _get_accessible_patient_ids(
@@ -739,7 +742,57 @@ async def assign_to_care_team(
         updated_at=now,
     )
     db.add(assignment)
-    await db.commit()
+
+    try:
+        await db.commit()
+    except IntegrityError as e:
+        await db.rollback()
+
+        # Check if it's the PRIMARY provider constraint violation
+        if "uq_care_team_primary" in str(e.orig):
+            logger.warning(
+                "primary_provider_constraint_violation",
+                patient_id=str(patient_id),
+                provider_id=str(assignment_data.provider_id),
+                organization_id=str(org_id),
+                role=role,
+                user_id=str(member.user_id),
+            )
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="Patient already has a PRIMARY provider. Another request may have just assigned one. Please refresh and try again.",
+            )
+
+        # Check if it's the duplicate patient-provider constraint
+        if "uq_care_team_patient_provider" in str(e.orig):
+            logger.warning(
+                "duplicate_care_team_assignment",
+                patient_id=str(patient_id),
+                provider_id=str(assignment_data.provider_id),
+                organization_id=str(org_id),
+                role=role,
+                user_id=str(member.user_id),
+            )
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="This provider is already assigned to this patient's care team.",
+            )
+
+        # Unknown integrity error - log and re-raise with generic message
+        logger.error(
+            "care_team_assignment_integrity_error",
+            patient_id=str(patient_id),
+            provider_id=str(assignment_data.provider_id),
+            organization_id=str(org_id),
+            role=role,
+            error=str(e),
+            user_id=str(member.user_id),
+        )
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to assign provider to care team due to a database constraint.",
+        )
+
     await db.refresh(assignment)
 
     # Get user for response

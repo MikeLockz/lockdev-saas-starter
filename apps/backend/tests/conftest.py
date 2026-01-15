@@ -30,6 +30,7 @@ async def db_session(test_engine):
     async_session = async_sessionmaker(test_engine, expire_on_commit=False)
     async with async_session() as session:
         yield session
+        # Rollback any uncommitted changes for test isolation
         await session.rollback()
 
 
@@ -85,11 +86,112 @@ async def test_user(db_session):
 
     yield user
 
-    await db_session.delete(user)
-    await db_session.commit()
+    # Cleanup handled by session rollback in db_session fixture
 
 
 @pytest.fixture
 async def test_user_token_headers(test_user):
     # In local env, auth.py accepts "mock_{email}" as a valid token
     return {"Authorization": f"Bearer mock_{test_user.email}"}
+
+
+@pytest.fixture
+async def test_organization(db_session):
+    """Create a test organization."""
+    import uuid
+
+    from src.models.organizations import Organization
+
+    org = Organization(
+        id=uuid.uuid4(),
+        name="Test Organization",
+        timezone="America/New_York",
+    )
+    db_session.add(org)
+    await db_session.commit()
+    await db_session.refresh(org)
+    yield org
+
+
+@pytest.fixture
+async def test_patient(db_session, test_organization):
+    """Create a test patient."""
+    import uuid
+    from datetime import date
+
+    from src.models.organizations import OrganizationPatient
+    from src.models.profiles import Patient
+
+    patient = Patient(
+        id=uuid.uuid4(),
+        first_name="Test",
+        last_name="Patient",
+        dob=date(1990, 1, 1),
+        legal_sex="F",
+    )
+    db_session.add(patient)
+    await db_session.commit()
+    await db_session.refresh(patient)
+
+    # Link patient to organization
+    org_patient = OrganizationPatient(
+        organization_id=test_organization.id,
+        patient_id=patient.id,
+        status="ACTIVE",
+    )
+    db_session.add(org_patient)
+    await db_session.commit()
+
+    yield patient
+
+
+@pytest.fixture
+async def test_provider(db_session, test_organization, test_user):
+    """Create a test provider."""
+    import uuid
+
+    from src.models.profiles import Provider
+
+    provider = Provider(
+        id=uuid.uuid4(),
+        user_id=test_user.id,
+        organization_id=test_organization.id,
+        npi_number="1234567890",
+        specialty="General Practice",
+    )
+    db_session.add(provider)
+    await db_session.commit()
+    await db_session.refresh(provider)
+    yield provider
+
+
+@pytest.fixture
+async def test_provider_2(db_session, test_organization):
+    """Create a second test provider."""
+    import uuid
+
+    from src.models import User
+    from src.models.profiles import Provider
+
+    # Create a second user for the second provider
+    email = f"test_provider2_{uuid.uuid4()}@example.com"
+    user2 = User(
+        email=email,
+        password_hash="dummy_hash",
+        display_name="Test Provider 2",
+    )
+    db_session.add(user2)
+    await db_session.commit()
+    await db_session.refresh(user2)
+
+    provider2 = Provider(
+        id=uuid.uuid4(),
+        user_id=user2.id,
+        organization_id=test_organization.id,
+        npi_number="0987654321",
+        specialty="Cardiology",
+    )
+    db_session.add(provider2)
+    await db_session.commit()
+    await db_session.refresh(provider2)
+    yield provider2

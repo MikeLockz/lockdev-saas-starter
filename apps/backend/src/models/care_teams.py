@@ -13,6 +13,9 @@ class CareTeamAssignment(Base, UUIDMixin, TimestampMixin):
     Links Providers to Patients as part of their care team.
     Each patient can have multiple providers with different roles.
     Only one provider can be PRIMARY at a time per patient.
+
+    Note: The one-PRIMARY-per-patient constraint is enforced at the database level
+    via unique partial index 'uq_care_team_primary' (migration n8o9p0q1r2s3).
     """
 
     __tablename__ = "care_team_assignments"
