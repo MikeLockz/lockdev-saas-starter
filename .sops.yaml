@@ -1,0 +1,6 @@
+creation_rules:
+  - path_regex: \.env$
+    # key_groups:
+    #   - age:
+    #       - "age1..."
+

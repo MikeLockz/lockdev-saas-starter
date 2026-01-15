@@ -1,0 +1,70 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Card > renders card with content only 1`] = `
+<DocumentFragment>
+  <div
+    class="rounded-lg border bg-card text-card-foreground shadow-sm"
+  >
+    <div
+      class="p-6 pt-0"
+    >
+      Content without header
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Card > renders card with header only 1`] = `
+<DocumentFragment>
+  <div
+    class="rounded-lg border bg-card text-card-foreground shadow-sm"
+  >
+    <div
+      class="flex flex-col space-y-1.5 p-6"
+    >
+      <div
+        class="text-2xl font-semibold leading-none tracking-tight"
+      >
+        Simple Card
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Card > renders complete card structure 1`] = `
+<DocumentFragment>
+  <div
+    class="rounded-lg border bg-card text-card-foreground shadow-sm"
+  >
+    <div
+      class="flex flex-col space-y-1.5 p-6"
+    >
+      <div
+        class="text-2xl font-semibold leading-none tracking-tight"
+      >
+        Card Title
+      </div>
+      <div
+        class="text-sm text-muted-foreground"
+      >
+        Card Description
+      </div>
+    </div>
+    <div
+      class="p-6 pt-0"
+    >
+      <p>
+        Card content goes here
+      </p>
+    </div>
+    <div
+      class="flex items-center p-6 pt-0"
+    >
+      <p>
+        Card footer
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

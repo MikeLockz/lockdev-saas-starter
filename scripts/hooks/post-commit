@@ -1,0 +1,68 @@
+#!/bin/sh
+#
+# Post-commit hook: Regenerate frontend types when backend API routes change
+#
+# INSTALLATION:
+#   cp scripts/hooks/post-commit .git/hooks/post-commit
+#   chmod +x .git/hooks/post-commit
+#
+# This runs AFTER a commit is made. If the commit touched backend route files,
+# it regenerates api-types.d.ts and models.ts, then creates an auto-commit.
+#
+
+# Files/patterns that indicate API changes
+API_PATTERNS="apps/backend/src/api apps/backend/src/schemas"
+
+# Check if the last commit touched any API-related files
+CHANGED_FILES=$(git diff-tree --no-commit-id --name-only -r HEAD)
+
+API_CHANGED=false
+for pattern in $API_PATTERNS; do
+  if echo "$CHANGED_FILES" | grep -q "$pattern"; then
+    API_CHANGED=true
+    break
+  fi
+done
+
+if [ "$API_CHANGED" = true ]; then
+  echo "🔄 Backend API changed, regenerating frontend types..."
+  
+  # Navigate to frontend and regenerate
+  cd apps/frontend || exit 0
+  
+  # Generate OpenAPI spec from backend
+  if pnpm generate:schema 2>/dev/null; then
+    echo "  ✓ OpenAPI schema generated"
+  else
+    echo "  ⚠ Could not generate schema (backend may not be set up)"
+    exit 0
+  fi
+  
+  # Generate TypeScript types
+  if pnpm generate:types 2>/dev/null; then
+    echo "  ✓ TypeScript types generated"
+  else
+    echo "  ⚠ Could not generate types"
+    exit 0
+  fi
+  
+  # Generate models barrel file
+  if pnpm generate:models 2>/dev/null; then
+    echo "  ✓ Models barrel file generated"
+  else
+    echo "  ⚠ Could not generate models"
+    exit 0
+  fi
+  
+  cd ../..
+  
+  # Check if there are changes to commit
+  if git diff --quiet apps/frontend/src/lib/api-types.d.ts apps/frontend/src/lib/models.ts 2>/dev/null; then
+    echo "  ℹ No type changes detected"
+  else
+    echo "  📝 Auto-committing type changes..."
+    git add apps/frontend/src/lib/api-types.d.ts apps/frontend/src/lib/models.ts apps/backend/openapi.json
+    git commit --no-verify -m "chore: regenerate frontend types from API changes"
+    echo "  ✓ Type changes committed"
+  fi
+fi

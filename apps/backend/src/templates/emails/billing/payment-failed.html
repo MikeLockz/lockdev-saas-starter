@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: #DC2626;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content {
+            background: #f9fafb;
+            padding: 30px;
+        }
+
+        .alert {
+            background: #FEF2F2;
+            border-left: 4px solid #DC2626;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .button {
+            background: #DC2626;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #6b7280;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Payment Failed</h1>
+        </div>
+        <div class="content">
+            <p>Hi {{ recipient_name }},</p>
+
+            {% if is_proxy_managed %}
+            <p style="background: #EEF2FF; padding: 15px; border-radius: 6px; margin: 20px 0;">
+                This is a billing notification for <strong>{{ actual_patient_name }}</strong>'s subscription.
+            </p>
+            {% endif %}
+
+            <div class="alert">
+                <strong>Action Required:</strong> {% if is_proxy_managed %}A{% else %}Your{% endif %} recent payment of
+                ${{ amount_dollars }} could not be processed.
+            </div>
+
+            <p><strong>Reason:</strong> {{ failure_reason }}</p>
+            <p><strong>Attempt:</strong> {{ attempt_count }} of 3</p>
+
+            <p>To avoid service interruption, please update your payment method:</p>
+
+            <a href="{{ update_payment_url }}" class="button">Update Payment Method</a>
+
+            <p>We will automatically retry the payment in {{ retry_days }} days. If all attempts fail, your subscription
+                will be cancelled.</p>
+
+            <p>If you believe this is an error or need assistance, please contact our support team immediately.</p>
+        </div>
+        <div class="footer">
+            <p>{{ company_name }}<br>
+                This email was sent to {{ patient_email }}</p>
+        </div>
+    </div>
+</body>
+
+</html>

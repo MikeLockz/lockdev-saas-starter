@@ -1,0 +1,337 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "appointments Domain Contract",
+  "description": "Auto-generated contract for appointments feature",
+  "definitions": {
+    "AppointmentRead": {
+      "properties": {
+        "scheduled_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Scheduled At"
+        },
+        "duration_minutes": {
+          "type": "integer",
+          "maximum": 480.0,
+          "minimum": 5.0,
+          "title": "Duration Minutes",
+          "default": 30
+        },
+        "appointment_type": {
+          "type": "string",
+          "title": "Appointment Type",
+          "default": "FOLLOW_UP"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Notes"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "organization_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Organization Id"
+        },
+        "patient_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Patient Id"
+        },
+        "provider_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Provider Id"
+        },
+        "status": {
+          "type": "string",
+          "title": "Status"
+        },
+        "cancelled_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cancelled At"
+        },
+        "cancelled_by": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cancelled By"
+        },
+        "cancellation_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cancellation Reason"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Created At"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Updated At"
+        },
+        "patient_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Patient Name"
+        },
+        "provider_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Provider Name"
+        }
+      },
+      "type": "object",
+      "required": [
+        "scheduled_at",
+        "id",
+        "organization_id",
+        "patient_id",
+        "provider_id",
+        "status",
+        "created_at",
+        "updated_at"
+      ],
+      "title": "AppointmentRead"
+    },
+    "AppointmentCreate": {
+      "properties": {
+        "scheduled_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Scheduled At"
+        },
+        "duration_minutes": {
+          "type": "integer",
+          "maximum": 480.0,
+          "minimum": 5.0,
+          "title": "Duration Minutes",
+          "default": 30
+        },
+        "appointment_type": {
+          "type": "string",
+          "title": "Appointment Type",
+          "default": "FOLLOW_UP"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Notes"
+        },
+        "patient_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Patient Id"
+        },
+        "provider_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Provider Id"
+        }
+      },
+      "type": "object",
+      "required": ["scheduled_at", "patient_id", "provider_id"],
+      "title": "AppointmentCreate"
+    },
+    "AppointmentStatusUpdate": {
+      "properties": {
+        "status": {
+          "type": "string",
+          "title": "Status"
+        },
+        "cancellation_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Cancellation Reason"
+        }
+      },
+      "type": "object",
+      "required": ["status"],
+      "title": "AppointmentStatusUpdate"
+    },
+    "HTTPValidationError": {
+      "properties": {
+        "detail": {
+          "items": {
+            "$ref": "#/components/schemas/ValidationError"
+          },
+          "type": "array",
+          "title": "Detail"
+        }
+      },
+      "type": "object",
+      "title": "HTTPValidationError"
+    },
+    "AppointmentUpdate": {
+      "properties": {
+        "scheduled_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Scheduled At"
+        },
+        "duration_minutes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "maximum": 480.0,
+              "minimum": 5.0
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Duration Minutes"
+        },
+        "appointment_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Appointment Type"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reason"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Notes"
+        }
+      },
+      "type": "object",
+      "title": "AppointmentUpdate"
+    },
+    "ValidationError": {
+      "properties": {
+        "loc": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "type": "array",
+          "title": "Location"
+        },
+        "msg": {
+          "type": "string",
+          "title": "Message"
+        },
+        "type": {
+          "type": "string",
+          "title": "Error Type"
+        }
+      },
+      "type": "object",
+      "required": ["loc", "msg", "type"],
+      "title": "ValidationError"
+    }
+  }
+}

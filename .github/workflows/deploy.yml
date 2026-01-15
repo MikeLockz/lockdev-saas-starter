@@ -1,0 +1,90 @@
+name: Deploy to Aptible
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+  workflow_dispatch:
+
+env:
+  APTIBLE_ENVIRONMENT: ${{ secrets.APTIBLE_ENVIRONMENT }}
+  APTIBLE_APP: ${{ secrets.APTIBLE_APP }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git push
+      
+      - name: Install sops
+        run: |
+          wget https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64
+          sudo mv sops-v3.8.1.linux.amd64 /usr/local/bin/sops
+          sudo chmod +x /usr/local/bin/sops
+      
+      - name: Decrypt secrets
+        env:
+          SOPS_AGE_KEY: ${{ secrets.SOPS_AGE_KEY }}
+        run: |
+          # Decrypt .env.enc to .env
+          if [ -f .env.enc ]; then
+            sops -d .env.enc > .env
+            echo "✅ Secrets decrypted successfully"
+          else
+            echo "⚠️  No .env.enc file found, skipping decryption"
+          fi
+      
+      - name: Install Aptible CLI
+        run: |
+          wget -O aptible-package https://omnibus-aptible-toolbelt.s3.amazonaws.com/aptible/omnibus-aptible-toolbelt/master/206/pkg/aptible-toolbelt_0.16.5%2B20200508143656~ubuntu.16.04-1_amd64.deb
+          sudo dpkg -i aptible-package
+          aptible version
+      
+      - name: Login to Aptible
+        env:
+          APTIBLE_USERNAME: ${{ secrets.APTIBLE_USERNAME }}
+          APTIBLE_PASSWORD: ${{ secrets.APTIBLE_PASSWORD }}
+        run: |
+          aptible login --email="$APTIBLE_USERNAME" --password="$APTIBLE_PASSWORD"
+      
+      - name: Sync environment config
+        run: |
+          # Parse .env file and sync to Aptible
+          if [ -f .env ]; then
+            # Remove comments and empty lines, format as KEY=VALUE
+            ENV_VARS=$(cat .env | grep -v '^#' | grep -v '^$' | xargs)
+            
+            if [ -n "$ENV_VARS" ]; then
+              aptible config:set --app "$APTIBLE_APP" $ENV_VARS
+              echo "✅ Config synced to Aptible"
+            else
+              echo "⚠️  No environment variables to sync"
+            fi
+          else
+            echo "⚠️  No .env file found, skipping config sync"
+          fi
+      
+      - name: Deploy to Aptible
+        run: |
+          # Add Aptible git remote
+          git remote add aptible "https://git@beta.aptible.com/$APTIBLE_ENVIRONMENT/$APTIBLE_APP.git" || true
+          
+          # Configure git for deployment
+          git config user.email "ci@lockdev.com"
+          git config user.name "GitHub Actions"
+          
+          # Push to Aptible (triggers build and release)
+          git push aptible HEAD:master --force
+          
+          echo "✅ Deployment triggered successfully"
+      
+      - name: Verify deployment
+        run: |
+          echo "🚀 Deployment complete!"
+          echo "Check status: aptible apps:scale --app $APTIBLE_APP"
+          echo "View logs: aptible logs --app $APTIBLE_APP"

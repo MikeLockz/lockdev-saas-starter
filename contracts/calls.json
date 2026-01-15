@@ -1,0 +1,307 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "calls Domain Contract",
+  "description": "Auto-generated contract for calls feature",
+  "definitions": {
+    "CallCreate": {
+      "properties": {
+        "direction": {
+          "type": "string",
+          "title": "Direction",
+          "description": "INBOUND or OUTBOUND"
+        },
+        "phone_number": {
+          "type": "string",
+          "title": "Phone Number",
+          "description": "Phone number associated with the call"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Notes"
+        },
+        "outcome": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Outcome"
+        },
+        "patient_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Patient Id"
+        }
+      },
+      "type": "object",
+      "required": ["direction", "phone_number"],
+      "title": "CallCreate"
+    },
+    "CallUpdate": {
+      "properties": {
+        "status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Status",
+          "description": "QUEUED, IN_PROGRESS, COMPLETED, MISSED"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Notes"
+        },
+        "outcome": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Outcome"
+        },
+        "ended_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ended At"
+        }
+      },
+      "type": "object",
+      "title": "CallUpdate"
+    },
+    "ValidationError": {
+      "properties": {
+        "loc": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "type": "array",
+          "title": "Location"
+        },
+        "msg": {
+          "type": "string",
+          "title": "Message"
+        },
+        "type": {
+          "type": "string",
+          "title": "Error Type"
+        }
+      },
+      "type": "object",
+      "required": ["loc", "msg", "type"],
+      "title": "ValidationError"
+    },
+    "CallRead": {
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Created At"
+        },
+        "updated_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Updated At"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "direction": {
+          "type": "string",
+          "title": "Direction",
+          "description": "INBOUND or OUTBOUND"
+        },
+        "phone_number": {
+          "type": "string",
+          "title": "Phone Number",
+          "description": "Phone number associated with the call"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Notes"
+        },
+        "outcome": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Outcome"
+        },
+        "patient_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Patient Id"
+        },
+        "organization_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Organization Id"
+        },
+        "agent_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Agent Id"
+        },
+        "status": {
+          "type": "string",
+          "title": "Status"
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Started At"
+        },
+        "ended_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Ended At"
+        },
+        "duration_seconds": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Duration Seconds"
+        },
+        "agent_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Agent Name"
+        },
+        "patient_name": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Patient Name"
+        }
+      },
+      "type": "object",
+      "required": [
+        "created_at",
+        "id",
+        "direction",
+        "phone_number",
+        "organization_id",
+        "agent_id",
+        "status",
+        "started_at",
+        "ended_at",
+        "duration_seconds"
+      ],
+      "title": "CallRead"
+    },
+    "HTTPValidationError": {
+      "properties": {
+        "detail": {
+          "items": {
+            "$ref": "#/components/schemas/ValidationError"
+          },
+          "type": "array",
+          "title": "Detail"
+        }
+      },
+      "type": "object",
+      "title": "HTTPValidationError"
+    }
+  }
+}

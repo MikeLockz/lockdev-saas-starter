@@ -1,0 +1,27 @@
+# Example Terraform Variables
+# Copy this file to terraform.tfvars and fill in your actual values
+# NEVER commit terraform.tfvars to version control
+
+# AWS Configuration
+aws_region = "us-west-2"
+
+# Environment (dev, staging, or production)
+environment = "dev"
+
+# Project name (used for resource naming)
+project_name = "lockdev-saas"
+
+# Domain name for SES and Route53
+# This should be a domain you own and can verify
+domain_name = "example.com"
+
+# S3 bucket for Terraform state
+# This bucket will be created by the initial terraform apply
+# After creation, uncomment the backend block in backend.tf and run terraform init -migrate-state
+state_bucket_name = "lockdev-saas-terraform-state"
+
+# DynamoDB table for state locking
+state_dynamodb_table = "terraform-state-lock"
+
+# Set to false if Route53 hosted zone already exists
+enable_route53 = true

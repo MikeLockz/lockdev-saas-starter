@@ -1,0 +1,50 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Auth Store > has correct initial state 1`] = `
+{
+  "isAuthenticated": false,
+  "isImpersonating": false,
+  "user": null,
+}
+`;
+
+exports[`Auth Store > state after login with user profile 1`] = `
+{
+  "isAuthenticated": true,
+  "isImpersonating": false,
+  "user": {
+    "email": "test@example.com",
+    "full_name": "Test User",
+    "id": "user-123",
+    "mfa_enabled": false,
+    "requires_consent": false,
+    "role": "patient",
+    "roles": [
+      "patient",
+    ],
+  },
+}
+`;
+
+exports[`Auth Store > state after logout 1`] = `
+{
+  "isAuthenticated": false,
+  "isImpersonating": false,
+  "user": null,
+}
+`;
+
+exports[`Auth Store > state while impersonating 1`] = `
+{
+  "isAuthenticated": true,
+  "isImpersonating": true,
+  "user": {
+    "email": "admin@example.com",
+    "full_name": "Admin User",
+    "id": "admin-123",
+    "roles": [
+      "super_admin",
+    ],
+  },
+}
+`;

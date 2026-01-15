@@ -1,0 +1,98 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.12.0, asyncio-1.3.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=session, asyncio_default_test_loop_scope=session
+collected 1 item
+
+tests/api/test_proxy_billing.py DEBUG: COMMIT SUCCESS
+DEBUG: DB Billing Manager: 019bb2f9-4405-a169-c84e-b81a909ad480
+DEBUG: Expected Manager: 019bb2f9-4405-a169-c84e-b81a909ad480
+2026-01-12 16:10:39,039 INFO sqlalchemy.engine.Engine select pg_catalog.version()
+2026-01-12 16:10:39,039 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-01-12 16:10:39,040 INFO sqlalchemy.engine.Engine select current_schema()
+2026-01-12 16:10:39,040 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-01-12 16:10:39,040 INFO sqlalchemy.engine.Engine show standard_conforming_strings
+2026-01-12 16:10:39,040 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-01-12 16:10:39,041 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-01-12 16:10:39,041 INFO sqlalchemy.engine.Engine SELECT users.email, users.password_hash, users.display_name, users.is_super_admin, users.mfa_enabled, users.mfa_secret, users.transactional_consent, users.marketing_consent, users.requires_consent, users.last_login_at, users.failed_login_attempts, users.locked_until, users.timezone, users.id, users.created_at, users.updated_at, users.deleted_at 
+FROM users 
+WHERE users.email = $1::VARCHAR -- request_id=0f762eec-fdbd-43be-bca6-f31f08944dc3
+2026-01-12 16:10:39,041 INFO sqlalchemy.engine.Engine [generated in 0.00013s] ('test_user_a7968f09-d2a2-4957-8a18-36c227a79c32@example.com',)
+2026-01-12 16:10:39,042 INFO sqlalchemy.engine.Engine SELECT set_config('app.current_user_id', $1, false) -- request_id=0f762eec-fdbd-43be-bca6-f31f08944dc3
+2026-01-12 16:10:39,043 INFO sqlalchemy.engine.Engine [generated in 0.00011s] ('019bb2f9-4405-a169-c84e-b81a909ad480',)
+2026-01-12 16:10:39,044 INFO sqlalchemy.engine.Engine SELECT user_sessions.user_id, user_sessions.device_info, user_sessions.firebase_uid, user_sessions.ip_address, user_sessions.user_agent, user_sessions.is_revoked, user_sessions.created_at, user_sessions.last_active_at, user_sessions.expires_at, user_sessions.id 
+FROM user_sessions 
+WHERE user_sessions.user_id = $1::UUID AND user_sessions.firebase_uid = $2::VARCHAR AND user_sessions.is_revoked = false -- request_id=0f762eec-fdbd-43be-bca6-f31f08944dc3
+2026-01-12 16:10:39,044 INFO sqlalchemy.engine.Engine [generated in 0.00012s] (UUID('019bb2f9-4405-a169-c84e-b81a909ad480'), 'mock_uid')
+2026-01-12 16:10:39,045 INFO sqlalchemy.engine.Engine INSERT INTO user_sessions (user_id, device_info, firebase_uid, ip_address, user_agent, is_revoked, created_at, last_active_at, expires_at, id) VALUES ($1::UUID, $2::JSONB, $3::VARCHAR, $4::VARCHAR, $5::VARCHAR, $6::BOOLEAN, $7::TIMESTAMP WITH TIME ZONE, $8::TIMESTAMP WITH TIME ZONE, $9::TIMESTAMP WITH TIME ZONE, $10::UUID) -- request_id=0f762eec-fdbd-43be-bca6-f31f08944dc3
+2026-01-12 16:10:39,045 INFO sqlalchemy.engine.Engine [generated in 0.00017s] (UUID('019bb2f9-4405-a169-c84e-b81a909ad480'), '{"user_agent": "python-httpx/0.28.1", "ip_address": "127.0.0.1"}', 'mock_uid', '127.0.0.1', 'python-httpx/0.28.1', False, datetime.datetime(2026, 1, 12, 16, 10, 39, 44603, tzinfo=datetime.timezone.utc), datetime.datetime(2026, 1, 12, 16, 10, 39, 44603, tzinfo=datetime.timezone.utc), None, UUID('019bb2f9-4445-d8f7-eb88-1ccb6d42e4e1'))
+2026-01-12 16:10:39,046 INFO sqlalchemy.engine.Engine COMMIT
+2026-01-12 16:10:39,049 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-01-12 16:10:39,049 INFO sqlalchemy.engine.Engine SELECT set_config('app.current_user_id', $1, false) -- request_id=0f762eec-fdbd-43be-bca6-f31f08944dc3
+2026-01-12 16:10:39,050 INFO sqlalchemy.engine.Engine [cached since 0.007106s ago] ('019bb2f9-4405-a169-c84e-b81a909ad480',)
+2026-01-12 16:10:39,050 INFO sqlalchemy.engine.Engine SELECT user_sessions.user_id, user_sessions.device_info, user_sessions.firebase_uid, user_sessions.ip_address, user_sessions.user_agent, user_sessions.is_revoked, user_sessions.created_at, user_sessions.last_active_at, user_sessions.expires_at, user_sessions.id 
+FROM user_sessions 
+WHERE user_sessions.id = $1::UUID -- request_id=0f762eec-fdbd-43be-bca6-f31f08944dc3
+2026-01-12 16:10:39,050 INFO sqlalchemy.engine.Engine [generated in 0.00013s] (UUID('019bb2f9-4445-d8f7-eb88-1ccb6d42e4e1'),)
+2026-01-12 16:10:39,052 INFO sqlalchemy.engine.Engine SELECT patients.user_id, patients.first_name, patients.last_name, patients.dob, patients.medical_record_number, patients.legal_sex, patients.stripe_customer_id, patients.subscription_status, patients.billing_manager_id, patients.billing_manager_assigned_at, patients.billing_manager_assigned_by, patients.id, patients.created_at, patients.updated_at, patients.deleted_at, users_1.email, users_1.password_hash, users_1.display_name, users_1.is_super_admin, users_1.mfa_enabled, users_1.mfa_secret, users_1.transactional_consent, users_1.marketing_consent, users_1.requires_consent, users_1.last_login_at, users_1.failed_login_attempts, users_1.locked_until, users_1.timezone, users_1.id AS id_1, users_1.created_at AS created_at_1, users_1.updated_at AS updated_at_1, users_1.deleted_at AS deleted_at_1 
+FROM patients LEFT OUTER JOIN users AS users_1 ON users_1.id = patients.billing_manager_id 
+WHERE patients.billing_manager_id = $1::UUID -- request_id=0f762eec-fdbd-43be-bca6-f31f08944dc3
+2026-01-12 16:10:39,052 INFO sqlalchemy.engine.Engine [generated in 0.00013s] (UUID('019bb2f9-4405-a169-c84e-b81a909ad480'),)
+2026-01-12 16:10:39,054 INFO sqlalchemy.engine.Engine SELECT patient_proxy_assignments.proxy_id, patient_proxy_assignments.patient_id, patient_proxy_assignments.relationship_type, patient_proxy_assignments.can_view_profile, patient_proxy_assignments.can_view_appointments, patient_proxy_assignments.can_schedule_appointments, patient_proxy_assignments.can_view_clinical_notes, patient_proxy_assignments.can_view_billing, patient_proxy_assignments.can_message_providers, patient_proxy_assignments.granted_at, patient_proxy_assignments.expires_at, patient_proxy_assignments.revoked_at, patient_proxy_assignments.id, patient_proxy_assignments.created_at, patient_proxy_assignments.updated_at, patient_proxy_assignments.deleted_at 
+FROM patient_proxy_assignments JOIN proxies ON patient_proxy_assignments.proxy_id = proxies.id 
+WHERE patient_proxy_assignments.patient_id = $1::UUID AND proxies.user_id = $2::UUID AND patient_proxy_assignments.revoked_at IS NULL AND patient_proxy_assignments.deleted_at IS NULL -- request_id=0f762eec-fdbd-43be-bca6-f31f08944dc3
+2026-01-12 16:10:39,054 INFO sqlalchemy.engine.Engine [generated in 0.00014s] (UUID('019bb2f9-441e-fcab-fe29-a24f461618f8'), UUID('019bb2f9-4405-a169-c84e-b81a909ad480'))
+2026-01-12 16:10:39,055 INFO sqlalchemy.engine.Engine ROLLBACK
+2026-01-12 16:10:39,068 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-01-12 16:10:39,068 INFO sqlalchemy.engine.Engine SELECT user_sessions.user_id AS user_sessions_user_id, user_sessions.device_info AS user_sessions_device_info, user_sessions.firebase_uid AS user_sessions_firebase_uid, user_sessions.ip_address AS user_sessions_ip_address, user_sessions.user_agent AS user_sessions_user_agent, user_sessions.is_revoked AS user_sessions_is_revoked, user_sessions.created_at AS user_sessions_created_at, user_sessions.last_active_at AS user_sessions_last_active_at, user_sessions.expires_at AS user_sessions_expires_at, user_sessions.id AS user_sessions_id 
+FROM user_sessions 
+WHERE user_sessions.id = $1::UUID -- request_id=0f762eec-fdbd-43be-bca6-f31f08944dc3
+2026-01-12 16:10:39,068 INFO sqlalchemy.engine.Engine [generated in 0.00014s] (UUID('019bb2f9-4445-d8f7-eb88-1ccb6d42e4e1'),)
+2026-01-12 16:10:39,069 INFO sqlalchemy.engine.Engine ROLLBACK
+DEBUG: Response status: 200
+DEBUG: Response data: [{"patient_id":"019bb2f9-441e-fcab-fe29-a24f461618f8","patient_name":"Test Patient","subscription":{"status":"NONE"}}]
+DEBUG: Target Patient ID: 019bb2f9-441e-fcab-fe29-a24f461618f8
+DEBUG: TEST FINISHED SUCCESS
+.
+
+=============================== warnings summary ===============================
+tests/api/test_proxy_billing.py::test_list_managed_patient_subscriptions[asyncio]
+  /app/src/schemas/audit.py:15: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class AuditLogRead(AuditLogBase):
+
+tests/api/test_proxy_billing.py::test_list_managed_patient_subscriptions[asyncio]
+  /app/src/api/admin.py:333: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class OrganizationAdminRead(BaseModel):
+
+tests/api/test_proxy_billing.py::test_list_managed_patient_subscriptions[asyncio]
+  /app/src/api/admin.py:353: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class UserAdminRead(BaseModel):
+
+tests/api/test_proxy_billing.py::test_list_managed_patient_subscriptions[asyncio]
+  /app/src/schemas/billing.py:57: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class TransactionResponse(BaseModel):
+
+tests/api/test_proxy_billing.py::test_list_managed_patient_subscriptions[asyncio]
+  /app/src/schemas/billing.py:83: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class SubscriptionOverrideResponse(BaseModel):
+
+tests/api/test_proxy_billing.py::test_list_managed_patient_subscriptions[asyncio]
+  /app/src/schemas/organizations.py:26: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class OrganizationRead(OrganizationBase):
+
+tests/api/test_proxy_billing.py::test_list_managed_patient_subscriptions[asyncio]
+  /app/src/schemas/organizations.py:40: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class MemberRead(BaseModel):
+
+tests/api/test_proxy_billing.py::test_list_managed_patient_subscriptions[asyncio]
+  /app/src/schemas/support.py:15: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class SupportMessageRead(SupportMessageBase):
+
+tests/api/test_proxy_billing.py::test_list_managed_patient_subscriptions[asyncio]
+  /app/src/schemas/support.py:42: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class TicketRead(TicketBase):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 1 passed, 9 warnings in 1.26s =========================

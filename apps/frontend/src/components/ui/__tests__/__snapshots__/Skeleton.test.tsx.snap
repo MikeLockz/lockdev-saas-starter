@@ -1,0 +1,39 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Skeleton > renders card skeleton 1`] = `
+<DocumentFragment>
+  <div
+    class="flex flex-col space-y-3"
+  >
+    <div
+      class="animate-pulse bg-muted h-[125px] w-[250px] rounded-xl"
+    />
+    <div
+      class="space-y-2"
+    >
+      <div
+        class="animate-pulse rounded-md bg-muted h-4 w-[250px]"
+      />
+      <div
+        class="animate-pulse rounded-md bg-muted h-4 w-[200px]"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Skeleton > renders circle shape 1`] = `
+<DocumentFragment>
+  <div
+    class="animate-pulse bg-muted h-12 w-12 rounded-full"
+  />
+</DocumentFragment>
+`;
+
+exports[`Skeleton > renders default shape 1`] = `
+<DocumentFragment>
+  <div
+    class="animate-pulse rounded-md bg-muted h-4 w-[250px]"
+  />
+</DocumentFragment>
+`;

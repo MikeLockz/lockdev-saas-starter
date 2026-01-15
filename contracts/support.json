@@ -1,0 +1,279 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "support Domain Contract",
+  "description": "Auto-generated contract for support feature",
+  "definitions": {
+    "TicketRead": {
+      "properties": {
+        "subject": {
+          "type": "string",
+          "title": "Subject"
+        },
+        "category": {
+          "type": "string",
+          "title": "Category",
+          "description": "TECHNICAL, BILLING, ACCOUNT, OTHER"
+        },
+        "priority": {
+          "type": "string",
+          "title": "Priority",
+          "description": "LOW, MEDIUM, HIGH"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "user_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "User Id"
+        },
+        "organization_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Organization Id"
+        },
+        "status": {
+          "type": "string",
+          "title": "Status"
+        },
+        "assigned_to_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Assigned To Id"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Created At"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Updated At"
+        },
+        "resolved_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Resolved At"
+        },
+        "message_count": {
+          "type": "integer",
+          "title": "Message Count",
+          "default": 0
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/components/schemas/SupportMessageRead"
+          },
+          "type": "array",
+          "title": "Messages",
+          "default": []
+        }
+      },
+      "type": "object",
+      "required": [
+        "subject",
+        "category",
+        "priority",
+        "id",
+        "user_id",
+        "organization_id",
+        "status",
+        "assigned_to_id",
+        "created_at",
+        "updated_at",
+        "resolved_at"
+      ],
+      "title": "TicketRead"
+    },
+    "TicketCreate": {
+      "properties": {
+        "subject": {
+          "type": "string",
+          "title": "Subject"
+        },
+        "category": {
+          "type": "string",
+          "title": "Category",
+          "description": "TECHNICAL, BILLING, ACCOUNT, OTHER"
+        },
+        "priority": {
+          "type": "string",
+          "title": "Priority",
+          "description": "LOW, MEDIUM, HIGH"
+        },
+        "initial_message": {
+          "type": "string",
+          "title": "Initial Message"
+        }
+      },
+      "type": "object",
+      "required": ["subject", "category", "priority", "initial_message"],
+      "title": "TicketCreate"
+    },
+    "HTTPValidationError": {
+      "properties": {
+        "detail": {
+          "items": {
+            "$ref": "#/components/schemas/ValidationError"
+          },
+          "type": "array",
+          "title": "Detail"
+        }
+      },
+      "type": "object",
+      "title": "HTTPValidationError"
+    },
+    "SupportMessageRead": {
+      "properties": {
+        "body": {
+          "type": "string",
+          "title": "Body"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id"
+        },
+        "ticket_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Ticket Id"
+        },
+        "sender_id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Sender Id"
+        },
+        "is_internal": {
+          "type": "boolean",
+          "title": "Is Internal"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Created At"
+        }
+      },
+      "type": "object",
+      "required": [
+        "body",
+        "id",
+        "ticket_id",
+        "sender_id",
+        "is_internal",
+        "created_at"
+      ],
+      "title": "SupportMessageRead"
+    },
+    "ValidationError": {
+      "properties": {
+        "loc": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ]
+          },
+          "type": "array",
+          "title": "Location"
+        },
+        "msg": {
+          "type": "string",
+          "title": "Message"
+        },
+        "type": {
+          "type": "string",
+          "title": "Error Type"
+        }
+      },
+      "type": "object",
+      "required": ["loc", "msg", "type"],
+      "title": "ValidationError"
+    },
+    "TicketUpdate": {
+      "properties": {
+        "status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Status",
+          "description": "OPEN, IN_PROGRESS, RESOLVED, CLOSED"
+        },
+        "priority": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Priority"
+        },
+        "assigned_to_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Assigned To Id"
+        }
+      },
+      "type": "object",
+      "title": "TicketUpdate"
+    },
+    "SupportMessageCreate": {
+      "properties": {
+        "body": {
+          "type": "string",
+          "title": "Body"
+        },
+        "is_internal": {
+          "type": "boolean",
+          "title": "Is Internal",
+          "default": false
+        }
+      },
+      "type": "object",
+      "required": ["body"],
+      "title": "SupportMessageCreate"
+    }
+  }
+}

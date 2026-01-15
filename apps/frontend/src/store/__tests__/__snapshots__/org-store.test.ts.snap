@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Org Store > has correct initial state 1`] = `
+{
+  "currentOrgId": null,
+}
+`;
+
+exports[`Org Store > state after clearing organization 1`] = `
+{
+  "currentOrgId": null,
+}
+`;
+
+exports[`Org Store > state after selecting an organization 1`] = `
+{
+  "currentOrgId": "org-123-abc",
+}
+`;

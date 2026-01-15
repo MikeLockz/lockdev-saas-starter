@@ -1,0 +1,186 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Table > renders complete table structure 1`] = `
+<DocumentFragment>
+  <div
+    class="relative w-full overflow-auto"
+  >
+    <table
+      class="w-full caption-bottom text-sm"
+    >
+      <caption
+        class="mt-4 text-sm text-muted-foreground"
+      >
+        A list of your recent invoices.
+      </caption>
+      <thead
+        class="[&_tr]:border-b"
+      >
+        <tr
+          class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+        >
+          <th
+            class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+          >
+            Invoice
+          </th>
+          <th
+            class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+          >
+            Status
+          </th>
+          <th
+            class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+          >
+            Amount
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="[&_tr:last-child]:border-0"
+      >
+        <tr
+          class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+        >
+          <td
+            class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+          >
+            INV001
+          </td>
+          <td
+            class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+          >
+            Paid
+          </td>
+          <td
+            class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+          >
+            $250.00
+          </td>
+        </tr>
+        <tr
+          class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+        >
+          <td
+            class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+          >
+            INV002
+          </td>
+          <td
+            class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+          >
+            Pending
+          </td>
+          <td
+            class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+          >
+            $150.00
+          </td>
+        </tr>
+      </tbody>
+      <tfoot
+        class="border-t bg-muted/50 font-medium [&>tr]:last:border-b-0"
+      >
+        <tr
+          class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+        >
+          <td
+            class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+            colspan="2"
+          >
+            Total
+          </td>
+          <td
+            class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+          >
+            $400.00
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Table > renders empty table 1`] = `
+<DocumentFragment>
+  <div
+    class="relative w-full overflow-auto"
+  >
+    <table
+      class="w-full caption-bottom text-sm"
+    >
+      <thead
+        class="[&_tr]:border-b"
+      >
+        <tr
+          class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+        >
+          <th
+            class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+          >
+            Column A
+          </th>
+          <th
+            class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+          >
+            Column B
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="[&_tr:last-child]:border-0"
+      />
+    </table>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Table > renders table without footer 1`] = `
+<DocumentFragment>
+  <div
+    class="relative w-full overflow-auto"
+  >
+    <table
+      class="w-full caption-bottom text-sm"
+    >
+      <thead
+        class="[&_tr]:border-b"
+      >
+        <tr
+          class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+        >
+          <th
+            class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+          >
+            Name
+          </th>
+          <th
+            class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0"
+          >
+            Email
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="[&_tr:last-child]:border-0"
+      >
+        <tr
+          class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+        >
+          <td
+            class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+          >
+            John Doe
+          </td>
+          <td
+            class="p-4 align-middle [&:has([role=checkbox])]:pr-0"
+          >
+            john@example.com
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</DocumentFragment>
+`;
