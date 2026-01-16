@@ -10,27 +10,27 @@
 ## Progress Log
 | Epic | Status | Owner | Directory |
 | :--- | :--- | :--- | :--- |
-| **Epic 1: Walking Skeleton** | [x] Done | Builder | `epic-01-walking-skeleton/` |
-| **Epic 2: Backend Core** | [x] Done | Builder | `epic-02-backend-core/` |
-| **Epic 3: Frontend Foundations** | [x] Done | Builder | `epic-03-frontend-foundations/` |
-| **Epic 4: Shared Polish** | [x] Done | Builder | `epic-04-shared-polish/` |
-| **Epic 5: Service Integrations** | [x] Done | Builder | `epic-05-service-integrations/` |
-| **Epic 6: Architecture Docs** | [x] Done | Builder | `epic-06-architecture-docs/` |
-| **Epic 7: User Identity** | [x] Done | Builder | `epic-07-user-identity/` |
-| **Epic 8: Organizations** | [x] Done | Builder | `epic-08-organizations/` |
-| **Epic 9: Dashboard Wiring** | [x] Done | Builder | `epic-09-dashboard-wiring/` |
-| **Epic 10: Patient Management** | [x] Done | Builder | `epic-10-patient-management/` |
-| **Epic 11: Providers & Care Teams** | [x] Done | Builder | `epic-11-providers-care-teams/` |
-| **Epic 12: Appointments** | [x] Done | Builder | `epic-12-appointments/` |
-| **Epic 13: Document Management** | [x] Done | Builder | `epic-13-document-management/` |
-| **Epic 14: Proxies** | [x] Done | Builder | `epic-14-proxies/` |
-| **Epic 15: Billing** | [x] Done | Builder | `epic-15-billing/` |
-| **Epic 16: Notifications & Messaging** | [x] Done | Builder | `epic-16-notifications-messaging/` |
-| **Epic 17: Call Center & Tasks** | [x] Done | Builder | `epic-17-call-center-tasks/` |
-| **Epic 18: Support & Compliance** | [x] Done | Builder | `epic-18-support-compliance/` |
-| **Epic 19: Super Admin** | [x] Done | Builder | `epic-19-super-admin/` |
-| **Epic 20: Timezone Support** | [x] Done | Builder | `epic-20-timezone-support/` |
-| **Epic 21: User Org Association** | [x] Done | Builder | `epic-21-user-org-association/` |
+| **Epic 1: Walking Skeleton** | [ ] Pending | Builder | `epic-01-walking-skeleton/` |
+| **Epic 2: Backend Core** | [ ] Pending | Builder | `epic-02-backend-core/` |
+| **Epic 3: Frontend Foundations** | [ ] Pending | Builder | `epic-03-frontend-foundations/` |
+| **Epic 4: Shared Polish** | [ ] Pending | Builder | `epic-04-shared-polish/` |
+| **Epic 5: Service Integrations** | [ ] Pending | Builder | `epic-05-service-integrations/` |
+| **Epic 6: Architecture Docs** | [ ] Pending | Builder | `epic-06-architecture-docs/` |
+| **Epic 7: User Identity** | [ ] Pending | Builder | `epic-07-user-identity/` |
+| **Epic 8: Organizations** | [ ] Pending | Builder | `epic-08-organizations/` |
+| **Epic 9: Dashboard Wiring** | [ ] Pending | Builder | `epic-09-dashboard-wiring/` |
+| **Epic 10: Patient Management** | [ ] Pending | Builder | `epic-10-patient-management/` |
+| **Epic 11: Providers & Care Teams** | [ ] Pending | Builder | `epic-11-providers-care-teams/` |
+| **Epic 12: Appointments** | [ ] Pending | Builder | `epic-12-appointments/` |
+| **Epic 13: Document Management** | [ ] Pending | Builder | `epic-13-document-management/` |
+| **Epic 14: Proxies** | [ ] Pending | Builder | `epic-14-proxies/` |
+| **Epic 15: Billing** | [ ] Pending | Builder | `epic-15-billing/` |
+| **Epic 16: Notifications & Messaging** | [ ] Pending | Builder | `epic-16-notifications-messaging/` |
+| **Epic 17: Call Center & Tasks** | [ ] Pending | Builder | `epic-17-call-center-tasks/` |
+| **Epic 18: Support & Compliance** | [ ] Pending | Builder | `epic-18-support-compliance/` |
+| **Epic 19: Super Admin** | [ ] Pending | Builder | `epic-19-super-admin/` |
+| **Epic 20: Timezone Support** | [ ] Pending | Builder | `epic-20-timezone-support/` |
+| **Epic 21: User Org Association** | [ ] Pending | Builder | `epic-21-user-org-association/` |
 | **Epic 22: Complete Billing** | [ ] Pending | Builder | `epic-22-complete-billing/` |
 
 ## Execution Strategy

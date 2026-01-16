@@ -2,46 +2,44 @@
 
 # Configuration
 AGENT_CMD="gemini"
-# If you haven't installed it globally, use: AGENT_CMD="npx @google/gemini-cli"
-
 LOG_DIR="logs"
 STOP_SIGNAL="<promise>COMPLETE</promise>"
 
 # Create logs directory
 mkdir -p "$LOG_DIR"
 
-echo "Starting Ralph Loop for Gemini (YOLO Mode)..."
-echo "Press Ctrl+C to stop manually."
+echo "Starting Ralph Loop..."
+echo "Context: GEMINI.md + AGENCY.md"
 
 while :; do
   TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
   LOG_FILE="$LOG_DIR/run_$TIMESTAMP.log"
   
-  echo "------------------------------------------------"
-  echo "Iteration starting: $TIMESTAMP"
-  echo "Logging to: $LOG_FILE"
+  echo "Iteration: $TIMESTAMP"
 
-  # INSTRUCTION:
-  # 1. --yolo : Auto-approves all tool calls (file writes, shell commands).
-  # 2. --prompt "..." : Passes the prompt as an argument.
-  # 3. < /dev/null : Ensures stdin is closed so it doesn't wait for user input.
-  $AGENT_CMD --yolo --prompt "Read PROMPT.md and execute the next step in agent/TODO.md. If finished, output $STOP_SIGNAL" < /dev/null > "$LOG_FILE" 2>&1
+  # --- THE MAGIC ---
+  # We concatenate the Constitution (GEMINI.md) AND the Logic (AGENCY.md)
+  # This creates one powerful prompt for the agent.
+  FULL_PROMPT="$(cat GEMINI.md) $(cat AGENCY.md)"
 
-  # Check for the completion signal
+  $AGENT_CMD --yolo --prompt "$FULL_PROMPT" < /dev/null > "$LOG_FILE" 2>&1
+
+  # Check for completion
   if grep -q "$STOP_SIGNAL" "$LOG_FILE"; then
-    echo "✅ Ralph has finished the job!"
+    echo "✅ Ralph has finished!"
     break
   fi
 
   # Git Checkpoint
   if [[ -n $(git status -s) ]]; then
+    # We let the agent write the commit message usually, but for safety in the loop,
+    # we can either auto-commit or let the agent do it in the next turn.
+    # Ideally, Ralph should have used 'git commit' internally because you told it to be "Atomic".
+    # But as a fallback:
     git add .
-    git commit -m "Ralph iteration: $TIMESTAMP"
-    echo "💾 Checkpoint saved to git."
-  else
-    echo "no changes this iteration."
+    git commit -m "Ralph Wiggum: Iteration $TIMESTAMP"
+    echo "💾 Fallback checkpoint saved."
   fi
 
-  echo "Cooling down for 5 seconds..."
   sleep 5
 done
