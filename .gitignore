@@ -25,6 +25,7 @@ coverage/
 .nuxt/
 .output/
 .cache/
+.vite/
 
 # Environment
 .env
@@ -32,7 +33,7 @@ coverage/
 .env.*.local
 *.env
 
-# Python (if applicable)
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -40,6 +41,20 @@ venv/
 .venv/
 env/
 .env/
+.uv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# OpenTofu / Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+!example.tfvars
+# .terraform.lock.hcl is committed
 
 # Miscellaneous
 .git/

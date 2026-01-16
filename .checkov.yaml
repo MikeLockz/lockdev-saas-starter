@@ -1,0 +1,9 @@
+directory:
+  - infra
+skip-check:
+  # - CKV_AWS_1 
+quiet: true
+framework:
+  - terraform
+  - dockerfile
+  - secrets
