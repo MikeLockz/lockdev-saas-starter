@@ -130,6 +130,17 @@ CREATE TABLE care_team_assignments (
     assigned_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+-- CRITICAL CONSTRAINT: Enforce "One Primary Provider" business rule
+-- Only ONE provider can be marked as primary per patient per organization
+-- Implemented via partial unique index (only applies where is_primary_provider=TRUE)
+-- See migration: 20260114_add_unique_primary_provider_constraint.py
+CREATE UNIQUE INDEX idx_unique_primary_provider_per_patient
+ON care_team_assignments (organization_id, patient_id)
+WHERE is_primary_provider = TRUE;
+
+COMMENT ON INDEX idx_unique_primary_provider_per_patient IS
+'Enforces business rule: Only ONE provider can be primary per patient per organization. Partial index only applies where is_primary_provider=TRUE.';
+
 -- ==========================================
 -- 5. COMPLIANCE & AUDITING (HIPAA)
 -- ==========================================
