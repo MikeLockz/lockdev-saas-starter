@@ -55,8 +55,11 @@ async def get_current_user(
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
-    # Set contextvar for RLS
+    import structlog
+
+    # Set contextvar for RLS and bind to structlog
     current_user_id.set(user.id)
+    structlog.contextvars.bind_contextvars(user_id=user.id)
 
     return user
 
@@ -103,11 +106,11 @@ async def require_hipaa_consent(
         )
 
     # Check if user has consented to THIS doc
-    stmt = select(UserConsent).where(
+    consent_stmt = select(UserConsent).where(
         UserConsent.user_id == user.id, UserConsent.document_id == latest_doc.id
     )
-    result = await db.execute(stmt)
-    consent = result.scalar_one_or_none()
+    consent_result = await db.execute(consent_stmt)
+    consent = consent_result.scalar_one_or_none()
 
     if not consent:
         raise HTTPException(

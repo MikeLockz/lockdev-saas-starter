@@ -1,4 +1,5 @@
 import logging
+import time
 from collections.abc import AsyncGenerator
 
 from sqlalchemy import event
@@ -54,16 +55,31 @@ def receive_begin(_conn):
     """
 
 
+SLOW_QUERY_THRESHOLD = 0.5
+
+
 @event.listens_for(engine.sync_engine, "before_cursor_execute", retval=True)
-def add_request_id_comment(
-    _conn, _cursor, statement, parameters, _context, _executemany
+def before_cursor_execute(
+    _conn, _cursor, statement, parameters, context, _executemany
 ):
+    context._query_start_time = time.perf_counter()
     from app.core.middleware import request_id_var
 
     rid = request_id_var.get()
     if rid:
         statement = f"/* rid: {rid} */ {statement}"
     return statement, parameters
+
+
+@event.listens_for(engine.sync_engine, "after_cursor_execute")
+def after_cursor_execute(_conn, _cursor, statement, _parameters, context, _executemany):
+    total = time.perf_counter() - context._query_start_time
+    if total > SLOW_QUERY_THRESHOLD:
+        logger.warning(
+            "slow_query",
+            duration=f"{total:.4f}s",
+            statement=statement,
+        )
 
 
 AsyncSessionLocal = async_sessionmaker(

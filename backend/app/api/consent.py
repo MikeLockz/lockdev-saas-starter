@@ -72,11 +72,11 @@ async def verify_latest_consents(
 
         if latest_doc:
             # Check if user has signed this specific document
-            stmt = select(UserConsent).where(
+            consent_stmt = select(UserConsent).where(
                 UserConsent.user_id == current_user.id,
                 UserConsent.document_id == latest_doc.id,
             )
-            consent_result = await db.execute(stmt)
+            consent_result = await db.execute(consent_stmt)
             if not consent_result.scalar_one_or_none():
                 raise HTTPException(
                     status_code=status.HTTP_403_FORBIDDEN,

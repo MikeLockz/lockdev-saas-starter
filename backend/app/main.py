@@ -6,7 +6,8 @@ from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from secure import Secure
+from secure import ContentSecurityPolicy, Secure
+from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
@@ -32,8 +33,10 @@ from app.core.limiter import limiter
 from app.core.logging import configure_logging
 from app.core.middleware import (
     ContextMiddleware,
+    IdempotencyMiddleware,
     ReadAuditMiddleware,
     RequestIDMiddleware,
+    RequestLoggingMiddleware,
 )
 
 logger = structlog.get_logger()
@@ -54,6 +57,8 @@ if settings.SENTRY_DSN:
         dsn=settings.SENTRY_DSN,
         environment=settings.ENVIRONMENT,
         traces_sample_rate=1.0,
+        send_default_pii=False,
+        integrations=[SqlalchemyIntegration()],
     )
 
 
@@ -72,7 +77,22 @@ app.add_middleware(SlowAPIMiddleware)
 
 
 # Security Headers
-secure_headers = Secure.with_default_headers()
+csp = (
+    ContentSecurityPolicy()
+    .default_src("'self'")
+    .script_src("'self'", "'unsafe-inline'", "https://apis.google.com")
+    .style_src("'self'", "'unsafe-inline'", "https://fonts.googleapis.com")
+    .font_src("'self'", "https://fonts.gstatic.com")
+    .img_src("'self'", "data:", "https://*.stripe.com")
+    .connect_src(
+        "'self'",
+        "https://identitytoolkit.googleapis.com",
+        "https://securetoken.googleapis.com",
+        "https://api.stripe.com",
+    )
+    .frame_src("'self'", "https://*.stripe.com")
+)
+secure_headers = Secure(csp=csp)
 
 
 @app.middleware("http")
@@ -93,7 +113,9 @@ app.add_middleware(
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=settings.ALLOWED_HOSTS)
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(RequestIDMiddleware)
+app.add_middleware(RequestLoggingMiddleware)
 app.add_middleware(ContextMiddleware)
+app.add_middleware(IdempotencyMiddleware)
 app.add_middleware(ReadAuditMiddleware)
 
 if settings.SESSION_SECRET == "changeme":  # noqa: S105

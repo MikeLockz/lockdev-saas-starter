@@ -30,7 +30,12 @@ lint: ## Run linters
 	@echo "Running linters..."
 	pre-commit run --all-files
 
-check: lint test ## Run all checks (lint + test)
+typecheck: ## Run type checking
+	@echo "Running type checking..."
+	cd backend && uv run mypy app
+	cd frontend && pnpm tsc -b
+
+check: lint typecheck test ## Run all checks (lint + typecheck + test)
 
 clean: ## Clean up build artifacts
 	@echo "Cleaning up..."

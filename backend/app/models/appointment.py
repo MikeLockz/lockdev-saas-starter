@@ -4,10 +4,10 @@ from sqlalchemy import DateTime, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.models_base import Base
-from app.models.base import TimestampMixin, pk_ulid
+from app.models.base import SoftDeleteMixin, TimestampMixin, pk_ulid
 
 
-class Appointment(Base, TimestampMixin):
+class Appointment(Base, TimestampMixin, SoftDeleteMixin):
     __tablename__ = "appointments"
 
     id: Mapped[pk_ulid]

@@ -20,7 +20,8 @@ class AIService:
 
         try:
             response = await self.model.generate_content_async(
-                f"Please provide a concise summary of the following text:\n\n{text}"
+                f"Please provide a concise summary of the following text:\n\n{text}",
+                request_options={"timeout": 30},
             )
             return response.text
         except Exception as e:

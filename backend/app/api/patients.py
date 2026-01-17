@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import or_, select
+from sqlalchemy import or_, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from app.core.db import get_db
 from app.core.org_access import get_current_org_member
@@ -13,7 +14,12 @@ from app.schemas.patients import PatientCreate, PatientRead, PatientUpdate
 router = APIRouter()
 
 
-@router.post("/{org_id}/patients", response_model=PatientRead)
+@router.post(
+    "/{org_id}/patients",
+    response_model=PatientRead,
+    summary="Create Patient",
+    description="Registers a new patient within the specified organization.",
+)
 async def create_patient(
     org_id: str,
     req: PatientCreate,
@@ -38,7 +44,12 @@ async def create_patient(
     return patient
 
 
-@router.get("/{org_id}/patients", response_model=list[PatientRead])
+@router.get(
+    "/{org_id}/patients",
+    response_model=list[PatientRead],
+    summary="List Patients",
+    description="Retrieves a paginated list of patients in the organization.",
+)
 async def list_patients(
     org_id: str,
     search: str | None = None,
@@ -50,7 +61,11 @@ async def list_patients(
     """
     List patients in the organization with optional search and pagination.
     """
-    stmt = select(Patient).where(Patient.organization_id == org_id)
+    stmt = (
+        select(Patient)
+        .where(Patient.organization_id == org_id)
+        .options(selectinload(Patient.contact_methods))
+    )
 
     if search:
         stmt = stmt.where(
@@ -76,8 +91,15 @@ async def get_patient(
     """
     Get details of a specific patient.
     """
-    patient = await db.get(Patient, patient_id)
-    if not patient or patient.organization_id != org_id:
+    stmt = (
+        select(Patient)
+        .where(Patient.id == patient_id, Patient.organization_id == org_id)
+        .options(selectinload(Patient.contact_methods))
+    )
+    result = await db.execute(stmt)
+    patient = result.scalar_one_or_none()
+
+    if not patient:
         raise HTTPException(status_code=404, detail="Patient not found")
     return patient
 
@@ -93,8 +115,15 @@ async def update_patient(
     """
     Update patient details.
     """
-    patient = await db.get(Patient, patient_id)
-    if not patient or patient.organization_id != org_id:
+    stmt = (
+        select(Patient)
+        .where(Patient.id == patient_id, Patient.organization_id == org_id)
+        .options(selectinload(Patient.contact_methods))
+    )
+    result = await db.execute(stmt)
+    patient = result.scalar_one_or_none()
+
+    if not patient:
         raise HTTPException(status_code=404, detail="Patient not found")
 
     update_data = req.model_dump(exclude_unset=True)
@@ -145,26 +174,28 @@ async def create_contact_method(
     if not patient or patient.organization_id != org_id:
         raise HTTPException(status_code=404, detail="Patient not found")
 
-    if req.is_primary:
-        # Unset other primaries of same type
-        stmt = (
-            ContactMethod.__table__.update()
-            .where(
-                ContactMethod.patient_id == patient_id, ContactMethod.type == req.type
+    async with db.begin():
+        if req.is_primary:
+            # Unset other primaries of same type
+            stmt = (
+                update(ContactMethod)
+                .where(
+                    ContactMethod.patient_id == patient_id,
+                    ContactMethod.type == req.type,
+                )
+                .values(is_primary=False)
             )
-            .values(is_primary=False)
-        )
-        await db.execute(stmt)
+            await db.execute(stmt)
 
-    contact = ContactMethod(
-        patient_id=patient_id,
-        type=req.type,
-        value=req.value,
-        label=req.label,
-        is_primary=req.is_primary,
-        is_safe_for_voicemail=req.is_safe_for_voicemail,
-    )
-    db.add(contact)
-    await db.commit()
+        contact = ContactMethod(
+            patient_id=patient_id,
+            type=req.type,
+            value=req.value,
+            label=req.label,
+            is_primary=req.is_primary,
+            is_safe_for_voicemail=req.is_safe_for_voicemail,
+        )
+        db.add(contact)
+
     await db.refresh(contact)
     return contact

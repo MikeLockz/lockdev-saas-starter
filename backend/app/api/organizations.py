@@ -21,7 +21,10 @@ router = APIRouter()
 
 @router.get("", response_model=list[OrganizationRead])
 async def list_organizations(
-    current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)
+    limit: int = 100,
+    offset: int = 0,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ):
     """
     List all organizations the user belongs to.
@@ -30,6 +33,8 @@ async def list_organizations(
         select(Organization)
         .join(OrganizationMember)
         .where(OrganizationMember.user_id == current_user.id)
+        .limit(limit)
+        .offset(offset)
     )
     result = await db.execute(stmt)
     return result.scalars().all()
@@ -90,14 +95,19 @@ async def update_organization(
 @router.get("/{org_id}/members", response_model=list[MemberRead])
 async def list_members(
     org_id: str,
+    limit: int = 100,
+    offset: int = 0,
     _member: OrganizationMember = Depends(get_current_org_member),
     db: AsyncSession = Depends(get_db),
 ):
     """
     List all members of an organization.
     """
-    stmt = select(OrganizationMember).where(
-        OrganizationMember.organization_id == org_id
+    stmt = (
+        select(OrganizationMember)
+        .where(OrganizationMember.organization_id == org_id)
+        .limit(limit)
+        .offset(offset)
     )
     result = await db.execute(stmt)
     return result.scalars().all()
@@ -133,14 +143,19 @@ async def create_invitation(
 @router.get("/{org_id}/invitations", response_model=list[InvitationRead])
 async def list_invitations(
     org_id: str,
+    limit: int = 100,
+    offset: int = 0,
     _member: OrganizationMember = Depends(get_current_org_member),
     db: AsyncSession = Depends(get_db),
 ):
     """
     List all pending invitations for an organization.
     """
-    stmt = select(Invitation).where(
-        Invitation.organization_id == org_id, Invitation.status == "pending"
+    stmt = (
+        select(Invitation)
+        .where(Invitation.organization_id == org_id, Invitation.status == "pending")
+        .limit(limit)
+        .offset(offset)
     )
     result = await db.execute(stmt)
     return result.scalars().all()
