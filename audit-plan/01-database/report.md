@@ -2,7 +2,7 @@
 
 **Audit Date:** 2026-01-16
 **Status:** ❌ FAIL
-**Summary:** ✅ 4 PASS | ⚠️ 2 WARN | ❌ 4 FAIL
+**Summary:** ✅ 5 PASS | ⚠️ 2 WARN | ❌ 3 FAIL
 
 ---
 
@@ -40,10 +40,11 @@
 
 ### [DB-004] Connection Pool Cleanup
 **Severity:** 🔴 P0
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `backend/app/core/db.py:22` — `receive_checkin` event listener is empty. It must execute `DISCARD ALL` to prevent session variable leakage between requests.
 **Remediation:** Implement `DISCARD ALL` in the `receive_checkin` listener.
+**Fixed:** Implemented `DISCARD ALL` in `receive_reset` listener in `backend/app/core/db.py`. Disabled statement cache to ensure compatibility with `asyncpg`. Verified by `backend/tests/core/test_db_cleanup.py`.
 
 ---
 
