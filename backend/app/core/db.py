@@ -19,7 +19,14 @@ engine = create_async_engine(
     echo=False,  # Set to True for debugging SQL
     future=True,
     # DB-004: Disable statement cache to allow DISCARD ALL working with asyncpg
-    connect_args={"statement_cache_size": 0},
+    # DB-010: Set query timeouts
+    connect_args={
+        "statement_cache_size": 0,
+        "server_settings": {
+            "statement_timeout": "30s",
+            "lock_timeout": "10s",
+        },
+    },
 )
 
 
