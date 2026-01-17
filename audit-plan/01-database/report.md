@@ -2,7 +2,7 @@
 
 **Audit Date:** 2026-01-16
 **Status:** ❌ FAIL
-**Summary:** ✅ 5 PASS | ⚠️ 2 WARN | ❌ 3 FAIL
+**Summary:** ✅ 6 PASS | ⚠️ 2 WARN | ❌ 2 FAIL
 
 ---
 
@@ -97,7 +97,8 @@
 
 ### [DB-010] Query Timeouts
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `backend/app/core/db.py` — No statement or lock timeouts configured.
 **Remediation:** Add `connect_args={"server_settings": {"statement_timeout": "30s", "lock_timeout": "10s"}}` to `create_async_engine`.
+**Fixed:** Configured query timeouts in `backend/app/core/db.py` and verified with `backend/tests/core/test_db_timeouts.py`.
