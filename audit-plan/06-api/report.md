@@ -2,17 +2,18 @@
 
 **Audit Date:** 2026-01-16
 **Status:** ❌ FAIL
-**Summary:** ✅ 4 PASS | ⚠️ 2 WARN | ❌ 6 FAIL
+**Summary:** ✅ 5 PASS | ⚠️ 2 WARN | ❌ 5 FAIL
 
 ---
 
 ### [API-001] Auth on All Endpoints
 **Severity:** 🔴 P0
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `backend/app/api/events.py:8` — `stream_events` (SSE) endpoint does not require authentication.
 - `backend/app/api/webhooks.py:10` — `stripe_webhook` only checks Stripe signature (correct for webhooks) but other internal endpoints in this file may lack protection if added.
 **Remediation:** Add `Depends(get_current_user)` to the SSE endpoint and ensure all data-accessing routes are protected.
+**Fixed:** Verified that `backend/app/api/events.py` requires authentication and added test coverage in `backend/tests/api/test_events.py`.
 
 ---
 
