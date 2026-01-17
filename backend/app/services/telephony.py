@@ -37,11 +37,18 @@ class TelephonyService:
         # Real AWS call would go here
         return True
 
-    async def initiate_outbound_call(self, to: str, flow_id: str):
+    async def initiate_outbound_call(
+        self, to: str, flow_id: str, safe_for_voicemail: bool = False
+    ):
         """
         Initiates an outbound call using Amazon Connect.
         """
         masked_to = f"{to[:3]}***{to[-4:]}" if len(to) > 7 else "***"
+
+        if not safe_for_voicemail:
+            logger.warning("CALL_BLOCKED_UNSAFE", to=masked_to)
+            return False
+
         logger.info("CALL_INITIATE_REQUEST", to=masked_to)
 
         if not self.available:
