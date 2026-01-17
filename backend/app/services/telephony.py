@@ -2,6 +2,7 @@ import boto3
 import structlog
 
 from app.core.config import settings
+from app.models.user import User
 
 logger = structlog.get_logger()
 
@@ -17,11 +18,16 @@ class TelephonyService:
             self.connect = None
             self.available = False
 
-    async def send_sms(self, to: str, body: str):
+    async def send_sms(self, to: str, body: str, user: User | None = None):
         """
         Sends an SMS using AWS Pinpoint.
         """
         masked_to = f"{to[:3]}***{to[-4:]}" if len(to) > 7 else "***"
+
+        if user and not user.communication_consent_sms:
+            logger.warning("SMS_CONSENT_MISSING", user_id=user.id, to=masked_to)
+            return False
+
         logger.info("SMS_SEND_REQUEST", to=masked_to)
 
         if not self.available:

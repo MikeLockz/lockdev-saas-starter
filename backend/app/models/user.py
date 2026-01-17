@@ -20,6 +20,9 @@ class User(Base, TimestampMixin):
     mfa_backup_codes: Mapped[dict | None] = mapped_column(JSON)
     timezone: Mapped[str | None] = mapped_column(String(50))
 
+    # Consent
+    communication_consent_sms: Mapped[bool] = mapped_column(Boolean, default=False)
+
     # Profiles
     provider_profile: Mapped["Provider"] = relationship(
         back_populates="user", uselist=False, primaryjoin="User.id == Provider.user_id"

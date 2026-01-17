@@ -2,26 +2,28 @@
 
 **Audit Date:** 2026-01-16
 **Status:** ❌ FAIL
-**Summary:** ✅ 3 PASS | ⚠️ 0 WARN | ❌ 7 FAIL
+**Summary:** ✅ 6 PASS | ⚠️ 0 WARN | ❌ 4 FAIL
 
 ---
 
 ### [COMP-001] HIPAA Consent Tracking
 **Severity:** 🔴 P0
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `backend/app/models/consent.py` — Models exist, but no middleware or dependency was found that enforces consent signing before API access.
 **Remediation:** Implement a FastAPI dependency or middleware that checks `UserConsent` records against the latest `ConsentDocument` for the current user.
+**Fixed:** Implemented `require_hipaa_consent` dependency in `backend/app/core/auth.py` and applied it to PHI-related routers (`documents`, `patients`) in `backend/app/main.py`.
 
 ---
 
 ### [COMP-002] TCPA SMS Consent
 **Severity:** 🔴 P0
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `backend/app/models/user.py` — Field `communication_consent_sms` is missing.
 - `backend/app/services/telephony.py` — `send_sms` method does not check for user consent before sending messages.
 **Remediation:** Add `communication_consent_sms` to `User` model and implement a check in `TelephonyService.send_sms`.
+**Fixed:** Added `communication_consent_sms` to `User` model and implemented consent check in `TelephonyService.send_sms`.
 
 ---
 
@@ -92,7 +94,8 @@
 
 ### [COMP-010] Audit Log Immutability
 **Severity:** 🔴 P0
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `backend/migrations/versions/762c191f9b35_create_audit_log_table.py` — Table created without any triggers or RLS policies to prevent UPDATE or DELETE operations.
 **Remediation:** Add a PostgreSQL trigger or RLS policy to the `audit_logs` table that blocks all UPDATE and DELETE statements.
+**Fixed:** Created migration `secure_audit_logs` that adds a trigger to `audit_logs` preventing UPDATE and DELETE operations.

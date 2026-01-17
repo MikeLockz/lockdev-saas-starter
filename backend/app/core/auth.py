@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.context import current_user_id
 from app.core.db import get_db
+from app.models.consent import ConsentDocument, UserConsent
 from app.models.user import User
 
 # Initialize Firebase
@@ -74,3 +75,44 @@ def require_mfa(token: dict = Depends(verify_token)):
             detail="MFA required for this action",
         )
     return True
+
+
+async def require_hipaa_consent(
+    user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)
+) -> User:
+    """
+    Dependency to enforce HIPAA consent.
+    """
+    # Get latest HIPAA document
+    stmt = (
+        select(ConsentDocument)
+        .where(ConsentDocument.type == "HIPAA")
+        .order_by(ConsentDocument.version.desc())
+    )
+    result = await db.execute(stmt)
+    latest_doc = result.scalar_one_or_none()
+
+    if not latest_doc:
+        # If no HIPAA doc exists, we assume it's not configured yet.
+        # Blocking access might break system init.
+        # Log warning?
+        # For P0 compliance, we should fail secure.
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="HIPAA Consent Document not configured",
+        )
+
+    # Check if user has consented to THIS doc
+    stmt = select(UserConsent).where(
+        UserConsent.user_id == user.id, UserConsent.document_id == latest_doc.id
+    )
+    result = await db.execute(stmt)
+    consent = result.scalar_one_or_none()
+
+    if not consent:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="HIPAA Consent Required",
+            headers={"X-Consent-Required": "HIPAA"},
+        )
+    return user

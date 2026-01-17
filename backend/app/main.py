@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 
 import sentry_sdk
 import structlog
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
@@ -26,6 +26,7 @@ from app.api import (
     users,
     webhooks,
 )
+from app.core.auth import require_hipaa_consent
 from app.core.config import settings
 from app.core.limiter import limiter
 from app.core.logging import configure_logging
@@ -110,7 +111,12 @@ app.add_middleware(SessionMiddleware, secret_key=settings.SESSION_SECRET)
 app.include_router(health.router, tags=["Health"])
 app.include_router(admin.router, prefix="/api/admin", tags=["Admin"])
 app.include_router(consent.router, prefix="/api/consent", tags=["Consent"])
-app.include_router(documents.router, prefix="/api/documents", tags=["Documents"])
+app.include_router(
+    documents.router,
+    prefix="/api/documents",
+    tags=["Documents"],
+    dependencies=[Depends(require_hipaa_consent)],
+)
 app.include_router(events.router, prefix="/api/events", tags=["Events"])
 app.include_router(webhooks.router, prefix="/api/webhooks", tags=["Webhooks"])
 app.include_router(telemetry.router, prefix="/api/telemetry", tags=["Telemetry"])
@@ -119,7 +125,12 @@ app.include_router(
     organizations.router, prefix="/api/organizations", tags=["Organizations"]
 )
 app.include_router(invitations.router, prefix="/api/invitations", tags=["Invitations"])
-app.include_router(patients.router, prefix="/api/organizations", tags=["Patients"])
+app.include_router(
+    patients.router,
+    prefix="/api/organizations",
+    tags=["Patients"],
+    dependencies=[Depends(require_hipaa_consent)],
+)
 
 
 @app.get("/")
