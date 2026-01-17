@@ -1,10 +1,11 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from firebase_admin import auth
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.auth import get_current_user, require_mfa
 from app.core.db import get_db
+from app.core.limiter import limiter
 from app.models.audit import AuditLog
 from app.models.user import User
 
@@ -16,7 +17,9 @@ class ImpersonateRequest(BaseModel):
 
 
 @router.post("/impersonate/{patient_id}", dependencies=[Depends(require_mfa)])
+@limiter.limit("5/minute")
 async def impersonate_patient(
+    request: Request,
     patient_id: str,
     req: ImpersonateRequest,
     current_user: User = Depends(get_current_user),

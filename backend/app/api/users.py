@@ -1,10 +1,11 @@
 import pyotp
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.auth import get_current_user
 from app.core.db import get_db
+from app.core.limiter import limiter
 from app.models.device import UserDevice
 from app.models.session import UserSession
 from app.models.user import User
@@ -36,8 +37,11 @@ async def list_my_sessions(
 
 
 @router.post("/me/mfa/setup", response_model=MFASetupResponse)
+@limiter.limit("5/minute")
 async def setup_mfa(
-    current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)
+    request: Request,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
 ):
     """
     Generate MFA secret and provisioning URI.
@@ -55,7 +59,9 @@ async def setup_mfa(
 
 
 @router.post("/me/mfa/verify", response_model=MFAVerifyResponse)
+@limiter.limit("5/minute")
 async def verify_mfa(
+    request: Request,
     req: MFAVerifyRequest,
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
