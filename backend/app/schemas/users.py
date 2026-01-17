@@ -9,6 +9,19 @@ class UserUpdate(BaseModel):
     marketing_consent: bool | None = None
 
 
+class UserRead(BaseModel):
+    id: str
+    email: str
+    is_active: bool
+    is_superuser: bool
+    mfa_enabled: bool
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
 class SessionRead(BaseModel):
     id: str
     device_info: dict | None

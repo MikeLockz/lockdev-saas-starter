@@ -1,8 +1,14 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.models_base import Base
 from app.models.base import SoftDeleteMixin, TimestampMixin, pk_ulid
+
+if TYPE_CHECKING:
+    from app.models.organization import Organization
+    from app.models.profile import Patient
 
 
 class Document(Base, TimestampMixin, SoftDeleteMixin):

@@ -16,7 +16,7 @@ async def test_hipaa_consent_missing_doc(client, db):
     app.dependency_overrides[get_current_user] = lambda: user
 
     # Access protected route
-    response = client.post("/api/documents/upload-url?filename=test.pdf")
+    response = await client.post("/api/documents/upload-url?filename=test.pdf")
 
     app.dependency_overrides.pop(get_current_user)
 

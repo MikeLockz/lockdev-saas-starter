@@ -81,7 +81,15 @@ async def list_patients(
     return result.scalars().all()
 
 
-@router.get("/{org_id}/patients/{patient_id}", response_model=PatientRead)
+@router.get(
+    "/{org_id}/patients/{patient_id}",
+    response_model=PatientRead,
+    summary="Get patient details",
+    description=(
+        "Retrieves full profile details for a specific patient, including "
+        "contact methods."
+    ),
+)
 async def get_patient(
     org_id: str,
     patient_id: str,
@@ -104,7 +112,12 @@ async def get_patient(
     return patient
 
 
-@router.patch("/{org_id}/patients/{patient_id}", response_model=PatientRead)
+@router.patch(
+    "/{org_id}/patients/{patient_id}",
+    response_model=PatientRead,
+    summary="Update patient",
+    description="Updates information for an existing patient record.",
+)
 async def update_patient(
     org_id: str,
     patient_id: str,
@@ -138,6 +151,11 @@ async def update_patient(
 @router.get(
     "/{org_id}/patients/{patient_id}/contact-methods",
     response_model=list[ContactMethodRead],
+    summary="List contact methods",
+    description=(
+        "Retrieves all contact methods (phone, email, SMS) associated with "
+        "a patient."
+    ),
 )
 async def list_contact_methods(
     org_id: str,
@@ -158,7 +176,13 @@ async def list_contact_methods(
 
 
 @router.post(
-    "/{org_id}/patients/{patient_id}/contact-methods", response_model=ContactMethodRead
+    "/{org_id}/patients/{patient_id}/contact-methods",
+    response_model=ContactMethodRead,
+    summary="Add contact method",
+    description=(
+        "Adds a new contact method to a patient profile. If set as primary, "
+        "other methods of the same type will be demoted."
+    ),
 )
 async def create_contact_method(
     org_id: str,

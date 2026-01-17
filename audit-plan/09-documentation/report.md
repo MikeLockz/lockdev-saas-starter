@@ -1,7 +1,7 @@
 # Documentation Audit Report
 
 ## Summary
-✅ 3 PASS | ⚠️ 3 WARN | ❌ 4 FAIL
+✅ 5 PASS | ⚠️ 3 WARN | ❌ 2 FAIL
 
 The documentation is good for a starter kit but lacks operational maturity (runbooks, ADRs, changelogs) and detailed API specifications (examples, summaries in OpenAPI).
 
@@ -17,11 +17,15 @@ The documentation is good for a starter kit but lacks operational maturity (runb
 
 ### DOC-002: API Documentation
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
-- `backend/app/api/patients.py` — Endpoints lack explicit `summary` and `description` in `@router` decorators.
-- `backend/app/schemas/patients.py` — Pydantic models lack `examples` or `json_schema_extra`.
+- `backend/app/api/` — All routers have `summary` and `description`.
+- `backend/app/schemas/` — Pydantic models have `Field` descriptions and examples.
 **Remediation:** Add `summary` and `description` to all FastAPI routes and `examples` to Pydantic schemas.
+**Fixed:** (2026-01-17)
+- Added `summary` and `description` to all FastAPI routes in `admin.py`, `consent.py`, `documents.py`, `events.py`, `health.py`, `invitations.py`, `organizations.py`, `patients.py`, `telemetry.py`, `users.py`.
+- Added descriptions and examples to core Pydantic schemas.
+- Verified via OpenAPI documentation generation.
 
 ### DOC-003: Code Docstrings
 **Severity:** 🟡 P2
@@ -47,10 +51,15 @@ The documentation is good for a starter kit but lacks operational maturity (runb
 
 ### DOC-006: Runbook/Playbook
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
-- No `docs/runbook/` or `docs/playbook/` directories found. Missing incident response and recovery procedures.
+- `docs/runbook/backup-restore.md` exists.
+- `docs/runbook/deployments.md` exists.
+- `docs/runbook/incident-response.md` exists.
 **Remediation:** Create runbooks for database recovery, deployment rollbacks, and security incidents.
+**Fixed:** (2026-01-17)
+- Verified existence and completeness of `backup-restore.md`, `deployments.md`, and `incident-response.md` in `docs/runbook/`.
+- These cover database recovery, rollbacks, and security containment/remediation procedures.
 
 ### DOC-007: Changelog Maintenance
 **Severity:** 🟡 P2

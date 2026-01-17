@@ -9,7 +9,15 @@ from app.models.user import User
 router = APIRouter()
 
 
-@router.get("")
+@router.get(
+    "",
+    summary="Real-time event stream",
+    description=(
+        "Server-Sent Events (SSE) endpoint providing real-time heartbeats and "
+        "system notifications. Connection is automatically closed when the "
+        "client disconnects."
+    ),
+)
 async def stream_events(
     request: Request, current_user: User = Depends(get_current_user)
 ):

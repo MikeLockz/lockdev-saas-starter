@@ -6,7 +6,14 @@ from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from secure import ContentSecurityPolicy, Secure
+from secure import (
+    ContentSecurityPolicy,
+    ReferrerPolicy,
+    Secure,
+    StrictTransportSecurity,
+    XContentTypeOptions,
+    XFrameOptions,
+)
 from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 from slowapi import _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
@@ -72,7 +79,7 @@ setup_admin(app)
 
 # Rate Limiting
 app.state.limiter = limiter
-app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)  # type: ignore
 app.add_middleware(SlowAPIMiddleware)
 
 
@@ -92,7 +99,13 @@ csp = (
     )
     .frame_src("'self'", "https://*.stripe.com")
 )
-secure_headers = Secure(csp=csp)
+secure_headers = Secure(
+    csp=csp,
+    hsts=StrictTransportSecurity().include_subdomains().preload().max_age(31536000),
+    xfo=XFrameOptions().sameorigin(),
+    referrer=ReferrerPolicy().no_referrer(),
+    xcto=XContentTypeOptions().nosniff(),
+)
 
 
 @app.middleware("http")

@@ -15,7 +15,15 @@ class SignConsentRequest(BaseModel):
     document_id: str
 
 
-@router.post("")
+@router.post(
+    "",
+    summary="Sign a consent document",
+    description=(
+        "Records a user's consent to a specific version of a legal document "
+        "(e.g., TOS, HIPAA). Captures IP address and User Agent for audit "
+        "purposes."
+    ),
+)
 async def sign_consent(
     req: SignConsentRequest,
     request: Request,

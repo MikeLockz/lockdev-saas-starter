@@ -1,8 +1,13 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import JSON, Boolean, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.models_base import Base
 from app.models.base import TimestampMixin, pk_ulid
+
+if TYPE_CHECKING:
+    from app.models.profile import Patient, Provider, Staff
 
 
 class User(Base, TimestampMixin):

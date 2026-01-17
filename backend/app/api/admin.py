@@ -16,7 +16,15 @@ class ImpersonateRequest(BaseModel):
     reason: str
 
 
-@router.post("/impersonate/{patient_id}", dependencies=[Depends(require_mfa)])
+@router.post(
+    "/impersonate/{patient_id}",
+    dependencies=[Depends(require_mfa)],
+    summary="Impersonate a patient",
+    description=(
+        "Allows a superuser to generate a custom Firebase token to act as a "
+        "patient. Requires MFA and logs a BREAK_GLASS_IMPERSONATION event."
+    ),
+)
 @limiter.limit("5/minute")
 async def impersonate_patient(
     request: Request,

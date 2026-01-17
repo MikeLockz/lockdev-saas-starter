@@ -8,7 +8,7 @@ class Settings(BaseSettings):
 
     # Database
     POSTGRES_USER: str = "app"
-    POSTGRES_PASSWORD: str = "devpassword"
+    POSTGRES_PASSWORD: str = "devpassword"  # - dev default
     POSTGRES_DB: str = "app_db"
     POSTGRES_HOST: str = "localhost"
     POSTGRES_PORT: int = 54320
@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     FRONTEND_URL: str = "http://localhost:5173"
 
     # Security
-    SESSION_SECRET: str = "changeme"
+    SESSION_SECRET: str = "changeme"  # - dev default
 
     # AWS
     AWS_REGION: str = "us-east-1"

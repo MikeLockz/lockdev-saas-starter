@@ -14,7 +14,15 @@ from app.schemas.invitations import InvitationRead
 router = APIRouter()
 
 
-@router.get("/{token}", response_model=InvitationRead)
+@router.get(
+    "/{token}",
+    response_model=InvitationRead,
+    summary="Get invitation details",
+    description=(
+        "Retrieves the details of an organization invitation using its secure "
+        "token. Validates that the invitation is still pending and not expired."
+    ),
+)
 async def get_invitation(token: str, db: AsyncSession = Depends(get_db)):
     """
     Get invitation details by token.
@@ -39,7 +47,14 @@ async def get_invitation(token: str, db: AsyncSession = Depends(get_db)):
     return invite
 
 
-@router.post("/{token}/accept")
+@router.post(
+    "/{token}/accept",
+    summary="Accept an invitation",
+    description=(
+        "Accepts a pending organization invitation. Validates the user's email "
+        "and creates an OrganizationMember record with the specified role."
+    ),
+)
 async def accept_invitation(
     token: str,
     current_user: User = Depends(get_current_user),

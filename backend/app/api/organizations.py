@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -19,7 +19,15 @@ from app.schemas.organizations import (
 router = APIRouter()
 
 
-@router.get("", response_model=list[OrganizationRead])
+@router.get(
+    "",
+    response_model=list[OrganizationRead],
+    summary="List my organizations",
+    description=(
+        "Retrieves a list of all organizations the current authenticated user "
+        "belongs to."
+    ),
+)
 async def list_organizations(
     limit: int = 100,
     offset: int = 0,
@@ -40,7 +48,15 @@ async def list_organizations(
     return result.scalars().all()
 
 
-@router.post("", response_model=OrganizationRead)
+@router.post(
+    "",
+    response_model=OrganizationRead,
+    summary="Create an organization",
+    description=(
+        "Creates a new organization and automatically assigns the current user "
+        "as the primary administrator."
+    ),
+)
 async def create_organization(
     req: OrganizationCreate,
     current_user: User = Depends(get_current_user),
@@ -62,7 +78,15 @@ async def create_organization(
     return org
 
 
-@router.get("/{org_id}", response_model=OrganizationRead)
+@router.get(
+    "/{org_id}",
+    response_model=OrganizationRead,
+    summary="Get organization details",
+    description=(
+        "Retrieves the profile and configuration of a specific organization. "
+        "Requires membership in the organization."
+    ),
+)
 async def get_organization(
     org_id: str,
     _member: OrganizationMember = Depends(get_current_org_member),
@@ -74,7 +98,15 @@ async def get_organization(
     return await db.get(Organization, org_id)
 
 
-@router.patch("/{org_id}", response_model=OrganizationRead)
+@router.patch(
+    "/{org_id}",
+    response_model=OrganizationRead,
+    summary="Update organization",
+    description=(
+        "Updates the details of an organization. Requires administrator "
+        "privileges within the organization."
+    ),
+)
 async def update_organization(
     org_id: str,
     req: OrganizationUpdate,
@@ -85,6 +117,10 @@ async def update_organization(
     Update organization details.
     """
     org = await db.get(Organization, org_id)
+    if not org:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Organization not found"
+        )
     if req.name:
         org.name = req.name
     await db.commit()
@@ -92,7 +128,15 @@ async def update_organization(
     return org
 
 
-@router.get("/{org_id}/members", response_model=list[MemberRead])
+@router.get(
+    "/{org_id}/members",
+    response_model=list[MemberRead],
+    summary="List organization members",
+    description=(
+        "Retrieves a list of all users who are members of the specified "
+        "organization."
+    ),
+)
 async def list_members(
     org_id: str,
     limit: int = 100,
@@ -113,7 +157,15 @@ async def list_members(
     return result.scalars().all()
 
 
-@router.post("/{org_id}/invitations", response_model=InvitationRead)
+@router.post(
+    "/{org_id}/invitations",
+    response_model=InvitationRead,
+    summary="Invite a member",
+    description=(
+        "Sends an invitation to a new user to join the organization. Requires "
+        "administrator privileges."
+    ),
+)
 async def create_invitation(
     org_id: str,
     req: InvitationCreate,
@@ -140,7 +192,15 @@ async def create_invitation(
     return invite
 
 
-@router.get("/{org_id}/invitations", response_model=list[InvitationRead])
+@router.get(
+    "/{org_id}/invitations",
+    response_model=list[InvitationRead],
+    summary="List organization invitations",
+    description=(
+        "Retrieves a list of all active pending invitations for the specified "
+        "organization."
+    ),
+)
 async def list_invitations(
     org_id: str,
     limit: int = 100,

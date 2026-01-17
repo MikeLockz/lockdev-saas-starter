@@ -1,5 +1,9 @@
-def test_response_headers(client):
-    response = client.get("/health")
+import pytest
+
+
+@pytest.mark.asyncio
+async def test_response_headers(client):
+    response = await client.get("/health")
     assert response.status_code == 200
     assert "X-Request-ID" in response.headers
     # Security headers from secure library (default headers)

@@ -11,23 +11,29 @@ from app.models.user import User
 
 @pytest.mark.asyncio
 async def test_appointment_rls(db):
-    # Setup: Create two organizations
-    org1 = Organization(id="01KF2MCB6VZ6Z6Z6Z6Z6Z6Z6O1", name="Org 1", slug="org1")
-    org2 = Organization(id="01KF2MCB6VZ6Z6Z6Z6Z6Z6Z6O2", name="Org 2", slug="org2")
+    # Setup: Create two organizations with unique IDs
+    from ulid import ULID
+
+    org1_id = str(ULID())
+    org2_id = str(ULID())
+    org1 = Organization(id=org1_id, name="Org 1", slug=f"org1_{org1_id}")
+    org2 = Organization(id=org2_id, name="Org 2", slug=f"org2_{org2_id}")
     db.add_all([org1, org2])
     await db.flush()
 
     # Create users
-    u1 = User(id="01KF2MCB6VZ6Z6Z6Z6Z6Z6Z6U1", email="u1@test.com")
+    u1_id = str(ULID())
+    u1 = User(id=u1_id, email=f"u1_{u1_id}@test.com")
     db.add(u1)
     await db.flush()
 
     # Create a patient in Org 1
+    p1_id = str(ULID())
     p1 = Patient(
-        id="01KF2MCB6VZ6Z6Z6Z6Z6Z6Z6P1",
+        id=p1_id,
         user_id=u1.id,
         organization_id=org1.id,
-        mrn="MRN1",
+        mrn=f"MRN1_{p1_id}",
         first_name="RLS",
         last_name="Test",
     )
@@ -35,8 +41,9 @@ async def test_appointment_rls(db):
     await db.flush()
 
     # Create an appointment in Org 1
+    appt1_id = str(ULID())
     appt1 = Appointment(
-        id="01KF2MCB6VZ6Z6Z6Z6Z6Z6Z6A1",
+        id=appt1_id,
         organization_id=org1.id,
         patient_id=p1.id,
         scheduled_at=datetime.now(UTC),

@@ -55,7 +55,7 @@ async def get_current_user(
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
 
-    import structlog
+    import structlog  # - deferred to avoid circular import
 
     # Set contextvar for RLS and bind to structlog
     current_user_id.set(user.id)

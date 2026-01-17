@@ -55,10 +55,39 @@ Your mission is to resolve all **P0 (CRITICAL)** and **P1 (MAJOR)** findings fro
       - Commit ONLY the files related to this single remediation.
 
    f. **Update Report**
-      - In the corresponding `report.md`, update the finding:
+      - In the corresponding `report.md`, update the finding based on the outcome:
+
+      **If remediation SUCCEEDED:**
         - Change **Status:** from `FAIL` to `PASS`.
-        - Add a note: `**Fixed:** <commit hash or date>`
+        - Add a **Fixed:** note with:
+          1. Commit hash or date
+          2. Detailed description of the steps taken to resolve the issue
+          3. Files modified and the nature of the changes
+        - Example:
+          ```
+          **Fixed:** (2026-01-17, commit abc1234)
+          - Added `DISCARD ALL` in `backend/app/core/db.py:22` to reset connection state.
+          - Created test `test_db_cleanup.py` to verify cleanup behavior.
+          - Verified with `make test` — all tests pass.
+          ```
+
+      **If remediation FAILED:**
+        - Keep **Status:** as `FAIL`.
+        - Add a **Failed to fix:** note with:
+          1. Date of the attempt
+          2. Specific reason(s) why automatic remediation failed
+          3. What was tried and why it didn't work
+          4. Suggested manual steps or escalation path
+        - Example:
+          ```
+          **Failed to fix:** (2026-01-17)
+          - Requires manual infrastructure changes in AWS Console (Terraform state migration).
+          - Attempted to add remote backend config but existing state file is locked.
+          - Escalate to DevOps team for manual state migration.
+          ```
+
       - Update the Summary counts at the top of the report.
+      - **IMPORTANT:** Every `FAIL` or `PARTIAL` item that was attempted MUST have either a **Fixed:** or **Failed to fix:** note. Items without annotation are considered not yet attempted.
 
 3. **Repeat** until all P0 and P1 issues are resolved.
 

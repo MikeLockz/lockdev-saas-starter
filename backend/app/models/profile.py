@@ -1,10 +1,15 @@
 import datetime
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Date, DateTime, ForeignKey, Index, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.models_base import Base
 from app.models.base import SoftDeleteMixin, TimestampMixin, pk_ulid
+
+if TYPE_CHECKING:
+    from app.models.contact import ContactMethod
+    from app.models.user import User
 
 
 class Provider(Base, TimestampMixin, SoftDeleteMixin):

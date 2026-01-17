@@ -16,13 +16,34 @@ from app.schemas.users import (
     MFAVerifyRequest,
     MFAVerifyResponse,
     SessionRead,
+    UserRead,
     UserUpdate,
 )
 
 router = APIRouter()
 
 
-@router.get("/me/sessions", response_model=list[SessionRead])
+@router.get(
+    "/me",
+    response_model=UserRead,
+    summary="Get current user",
+    description=(
+        "Retrieves the profile information of the currently authenticated user."
+    ),
+)
+async def get_me(current_user: User = Depends(get_current_user)):
+    """
+    Get current user profile.
+    """
+    return current_user
+
+
+@router.get(
+    "/me/sessions",
+    response_model=list[SessionRead],
+    summary="List active sessions",
+    description="Retrieves a list of all active login sessions for the current user.",
+)
 async def list_my_sessions(
     current_user: User = Depends(get_current_user), db: AsyncSession = Depends(get_db)
 ):
@@ -30,13 +51,21 @@ async def list_my_sessions(
     List active sessions for the current user.
     """
     stmt = select(UserSession).where(
-        UserSession.user_id == current_user.id, not UserSession.is_revoked
+        UserSession.user_id == current_user.id, UserSession.is_revoked == False
     )
     result = await db.execute(stmt)
     return result.scalars().all()
 
 
-@router.post("/me/mfa/setup", response_model=MFASetupResponse)
+@router.post(
+    "/me/mfa/setup",
+    response_model=MFASetupResponse,
+    summary="Setup MFA",
+    description=(
+        "Initiates the MFA setup process by generating a new secret and TOTP "
+        "provisioning URI."
+    ),
+)
 @limiter.limit("5/minute")
 async def setup_mfa(
     request: Request,
@@ -58,7 +87,15 @@ async def setup_mfa(
     return {"provisioning_uri": provisioning_uri, "secret": secret}
 
 
-@router.post("/me/mfa/verify", response_model=MFAVerifyResponse)
+@router.post(
+    "/me/mfa/verify",
+    response_model=MFAVerifyResponse,
+    summary="Verify MFA",
+    description=(
+        "Verifies a TOTP code to complete the MFA setup process and provides "
+        "backup codes."
+    ),
+)
 @limiter.limit("5/minute")
 async def verify_mfa(
     request: Request,
@@ -88,7 +125,14 @@ async def verify_mfa(
     return {"backup_codes": backup_codes}
 
 
-@router.post("/device-token")
+@router.post(
+    "/device-token",
+    summary="Register device token",
+    description=(
+        "Registers an FCM token for the user's current device to enable push "
+        "notifications."
+    ),
+)
 async def register_device_token(
     req: DeviceTokenRequest,
     current_user: User = Depends(get_current_user),
@@ -119,7 +163,14 @@ async def register_device_token(
     return {"message": "Device token registered"}
 
 
-@router.delete("/device-token")
+@router.delete(
+    "/device-token",
+    summary="Unregister device token",
+    description=(
+        "Removes an FCM token to stop receiving push notifications on a "
+        "specific device."
+    ),
+)
 async def unregister_device_token(
     fcm_token: str,
     current_user: User = Depends(get_current_user),
@@ -141,7 +192,13 @@ async def unregister_device_token(
     return {"message": "Device token unregistered"}
 
 
-@router.patch("/me/communication-preferences")
+@router.patch(
+    "/me/communication-preferences",
+    summary="Update communication preferences",
+    description=(
+        "Updates the user's consent for transactional and marketing " "communications."
+    ),
+)
 async def update_communication_preferences(
     req: CommunicationPreferencesUpdate,
     current_user: User = Depends(get_current_user),
@@ -155,7 +212,11 @@ async def update_communication_preferences(
     return {"message": "Preferences updated"}
 
 
-@router.delete("/me/sessions/{session_id}")
+@router.delete(
+    "/me/sessions/{session_id}",
+    summary="Revoke session",
+    description="Immediately invalidates a specific user session.",
+)
 async def revoke_session(
     session_id: str,
     current_user: User = Depends(get_current_user),
@@ -175,7 +236,11 @@ async def revoke_session(
     return {"message": "Session revoked"}
 
 
-@router.patch("/me")
+@router.patch(
+    "/me",
+    summary="Update profile",
+    description="Updates the profile information for the current authenticated user.",
+)
 async def update_profile(
     req: UserUpdate,
     current_user: User = Depends(get_current_user),
@@ -188,7 +253,15 @@ async def update_profile(
     return {"message": "Profile updated"}
 
 
-@router.post("/me/export", status_code=status.HTTP_202_ACCEPTED)
+@router.post(
+    "/me/export",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Export my data",
+    description=(
+        "Triggers an asynchronous export of all data associated with the "
+        "user's account for HIPAA compliance."
+    ),
+)
 async def export_data(current_user: User = Depends(get_current_user)):
     """
     Trigger HIPAA data export.

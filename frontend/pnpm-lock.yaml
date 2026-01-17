@@ -38,6 +38,9 @@ importers:
       '@tanstack/react-router':
         specifier: ^1.150.0
         version: 1.150.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@zodios/core':
+        specifier: ^10.9.6
+        version: 10.9.6(axios@1.13.2)(zod@3.25.76)
       axios:
         specifier: ^1.13.2
         version: 1.13.2
@@ -72,8 +75,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17)
       zod:
-        specifier: ^4.3.5
-        version: 4.3.5
+        specifier: ^3.25.76
+        version: 3.25.76
       zustand:
         specifier: ^5.0.10
         version: 5.0.10(@types/react@19.2.8)(react@19.2.3)(use-sync-external-store@1.6.0(react@19.2.3))

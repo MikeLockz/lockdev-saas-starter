@@ -1,13 +1,24 @@
 import pytest
-from sqlalchemy import text
+from sqlalchemy import event, text
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from app.core.db import AsyncSessionLocal
+from app.core.config import settings
+from app.core.db import receive_reset
 
 
 @pytest.mark.asyncio
 async def test_connection_cleanup():
+    # Create a fresh engine for this test
+    test_engine = create_async_engine(settings.sqlalchemy_database_uri)
+    # Attach the same reset listener used in the app
+    event.listen(test_engine.sync_engine, "reset", receive_reset)
+
+    test_async_session_local = async_sessionmaker(
+        bind=test_engine, class_=AsyncSession, expire_on_commit=False
+    )
+
     # 1. Get session and set variable
-    async with AsyncSessionLocal() as session1:
+    async with test_async_session_local() as session1:
         await session1.execute(
             text("SELECT set_config('app.current_tenant_id', 'test_cleanup', false)")
         )
@@ -20,7 +31,7 @@ async def test_connection_cleanup():
 
     # 3. Get new session. Hopefully reusing same connection.
     # To increase chance of reuse, we do this sequentially.
-    async with AsyncSessionLocal() as session2:
+    async with test_async_session_local() as session2:
         result = await session2.execute(text("SELECT pg_backend_pid()"))
         pid2 = result.scalar()
 
@@ -38,3 +49,5 @@ async def test_connection_cleanup():
             assert val is None or val == "", f"Variable reset to: {val}"
         else:
             pytest.skip("Could not reuse the same connection, skipping cleanup test")
+
+    await test_engine.dispose()

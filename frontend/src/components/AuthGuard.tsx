@@ -33,7 +33,7 @@ export const AuthGuard = ({ children, allowedRoles, requireMfa }: AuthGuardProps
 
   // MFA check
   if (requireMfa && !userProfile?.mfa_enabled) {
-    return <Navigate to="/setup-mfa" />;
+    return <Navigate to="/settings" />;
   }
 
   return <>{children}</>;

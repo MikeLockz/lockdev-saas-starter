@@ -5,7 +5,6 @@ export const Route = createFileRoute("/invite/$token")({
 });
 
 function InviteComponent() {
-  const { token } = Route.useParams();
   return (
     <div className="flex flex-col items-center justify-center h-screen p-4">
       <div className="max-w-md w-full border rounded-lg p-6 shadow-sm">

@@ -9,7 +9,14 @@ from app.services.storage import storage_service
 router = APIRouter()
 
 
-@router.post("/upload-url")
+@router.post(
+    "/upload-url",
+    summary="Generate presigned upload URL",
+    description=(
+        "Generates an S3 presigned URL for secure document upload. The object "
+        "path is automatically prefixed with the user's ID for isolation."
+    ),
+)
 async def get_upload_url(filename: str, current_user: User = Depends(get_current_user)):
     object_name = f"users/{current_user.id}/{uuid.uuid4()}-{filename}"
     url_data = storage_service.generate_presigned_url(object_name)

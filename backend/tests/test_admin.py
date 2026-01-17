@@ -4,6 +4,7 @@ import pytest
 from sqlalchemy import select
 
 from app.core.auth import get_current_user, require_mfa
+from app.core.db import get_db
 from app.main import app
 from app.models.audit import AuditLog
 from app.models.user import User
@@ -11,23 +12,26 @@ from app.models.user import User
 
 @pytest.mark.asyncio
 async def test_impersonate_admin_success(client, db):
-    # Setup: Create an admin user in the DB
-    admin = User(
-        id="01KF2MBXMBE9PVGBM6MGP2SHVG", email="admin@test.com", is_superuser=True
-    )
+    # Setup: Create an admin user in the DB with unique ID
+    from ulid import ULID
+
+    admin_id = str(ULID())
+    admin_email = f"admin_{admin_id}@test.com"
+    admin = User(id=admin_id, email=admin_email, is_superuser=True)
     db.add(admin)
     await db.flush()
 
     # Override dependency
     app.dependency_overrides[get_current_user] = lambda: admin
     app.dependency_overrides[require_mfa] = lambda: True
+    app.dependency_overrides[get_db] = lambda: db
 
     # Mocking Firebase
     with patch("firebase_admin.auth.create_custom_token") as mock_token:
         mock_token.return_value = b"mocked_token"
 
-        response = client.post(
-            "/api/admin/impersonate/patient_123",
+        response = await client.post(
+            f"/api/admin/impersonate/{admin_id}",
             json={"reason": "Emergency access for debugging"},
             headers={"Authorization": "Bearer fake-token"},
         )
@@ -35,15 +39,14 @@ async def test_impersonate_admin_success(client, db):
         # Clean up override
         app.dependency_overrides.pop(get_current_user)
         app.dependency_overrides.pop(require_mfa)
+        app.dependency_overrides.pop(get_db)
 
         assert response.status_code == 200
         assert response.json()["custom_token"] == "mocked_token"
 
         # Verify Audit Log entry was created
-        # Use scalar_one_or_none() to avoid MultipleResultsFound
-        # if not cleaned up properly
         stmt = select(AuditLog)
-        stmt = stmt.where(AuditLog.target_id == "patient_123")
+        stmt = stmt.where(AuditLog.target_id == admin_id)
         stmt = stmt.order_by(AuditLog.created_at.desc())
         result = await db.execute(stmt)
         # We might have logs from previous runs if cleanup failed.
@@ -55,17 +58,19 @@ async def test_impersonate_admin_success(client, db):
 
 @pytest.mark.asyncio
 async def test_impersonate_non_admin_fails(client, db):
-    # Setup: Create a regular user
-    user = User(
-        id="01KF2MBXMBE9PVGBM6MGP2SHXX", email="user@test.com", is_superuser=False
-    )
+    # Setup: Create a regular user with unique ID
+    from ulid import ULID
+
+    uid = str(ULID())
+    user = User(id=uid, email=f"user_{uid}@test.com", is_superuser=False)
     db.add(user)
     await db.flush()
 
     app.dependency_overrides[get_current_user] = lambda: user
     app.dependency_overrides[require_mfa] = lambda: True
+    app.dependency_overrides[get_db] = lambda: db
 
-    response = client.post(
+    response = await client.post(
         "/api/admin/impersonate/patient_123",
         json={"reason": "I want to see"},
         headers={"Authorization": "Bearer fake-token"},
@@ -73,19 +78,22 @@ async def test_impersonate_non_admin_fails(client, db):
 
     app.dependency_overrides.pop(get_current_user)
     app.dependency_overrides.pop(require_mfa)
+    app.dependency_overrides.pop(get_db)
     assert response.status_code == 403
 
 
 @pytest.mark.asyncio
 async def test_impersonate_no_mfa_fails(client, db):
     # Even if admin, if MFA is missing, should fail
-    admin = User(
-        id="01KF2MBXMBE9PVGBM6MGP2SHMF", email="admin_nomfa@test.com", is_superuser=True
-    )
+    from ulid import ULID
+
+    uid = str(ULID())
+    admin = User(id=uid, email=f"admin_nomfa_{uid}@test.com", is_superuser=True)
     db.add(admin)
     await db.flush()
 
     app.dependency_overrides[get_current_user] = lambda: admin
+    app.dependency_overrides[get_db] = lambda: db
 
     # We DO NOT override require_mfa, but we override verify_token used by require_mfa?
     # require_mfa depends on verify_token.
@@ -99,7 +107,7 @@ async def test_impersonate_no_mfa_fails(client, db):
         "amr": ["password"],
     }
 
-    response = client.post(
+    response = await client.post(
         "/api/admin/impersonate/patient_123",
         json={"reason": "No MFA"},
         headers={"Authorization": "Bearer fake-token"},
