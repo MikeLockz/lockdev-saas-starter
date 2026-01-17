@@ -2,7 +2,7 @@
 
 **Audit Date:** 2026-01-16
 **Status:** ❌ FAIL
-**Summary:** ✅ 8 PASS | ⚠️ 1 WARN | ❌ 3 FAIL
+**Summary:** ✅ 9 PASS | ⚠️ 1 WARN | ❌ 2 FAIL
 
 ---
 
@@ -69,11 +69,12 @@
 
 ### [SEC-007] Dependency Vulnerability Scanning
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `.github/workflows/ci.yml` — Does not include `pip-audit`, `safety`, or `pnpm audit`.
 - `.github/dependabot.yml` is missing.
 **Remediation:** Add `pip-audit` to CI for backend and `pnpm audit` for frontend. Enable Dependabot for the repository.
+**Fixed:** Added `pip-audit` and `pnpm audit` steps to `ci.yml`.
 
 ---
 
