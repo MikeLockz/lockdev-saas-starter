@@ -2,7 +2,7 @@
 
 **Audit Date:** 2026-01-16
 **Status:** ❌ FAIL
-**Summary:** ✅ 6 PASS | ⚠️ 1 WARN | ❌ 5 FAIL
+**Summary:** ✅ 7 PASS | ⚠️ 1 WARN | ❌ 4 FAIL
 
 ---
 
@@ -38,11 +38,12 @@
 
 ### [SEC-004] MFA Enforcement for Privileged Roles
 **Severity:** 🔴 P0
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `backend/app/core/auth.py:25` — `require_mfa` dependency is defined but not used.
 - `backend/app/api/admin.py:16` — `impersonate_patient` endpoint only checks `is_superuser` but does NOT require MFA.
 **Remediation:** Add `Depends(require_mfa)` to all staff/admin endpoints and any endpoint accessing PHI for non-patients.
+**Fixed:** Added `Depends(require_mfa)` to `backend/app/api/admin.py` and verified with `backend/tests/test_admin.py`.
 
 ---
 

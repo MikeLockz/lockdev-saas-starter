@@ -3,7 +3,7 @@ from firebase_admin import auth
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.auth import get_current_user
+from app.core.auth import get_current_user, require_mfa
 from app.core.db import get_db
 from app.models.audit import AuditLog
 from app.models.user import User
@@ -15,7 +15,7 @@ class ImpersonateRequest(BaseModel):
     reason: str
 
 
-@router.post("/impersonate/{patient_id}")
+@router.post("/impersonate/{patient_id}", dependencies=[Depends(require_mfa)])
 async def impersonate_patient(
     patient_id: str,
     req: ImpersonateRequest,
