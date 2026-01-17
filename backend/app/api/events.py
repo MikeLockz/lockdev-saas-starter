@@ -1,13 +1,18 @@
 import asyncio
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Depends, Request
 from sse_starlette.sse import EventSourceResponse
+
+from app.core.auth import get_current_user
+from app.models.user import User
 
 router = APIRouter()
 
 
 @router.get("")
-async def stream_events(request: Request):
+async def stream_events(
+    request: Request, current_user: User = Depends(get_current_user)
+):
     """
     Server-Sent Events endpoint for real-time updates.
     """
