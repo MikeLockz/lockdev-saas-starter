@@ -58,6 +58,16 @@ jobs:
       working-directory: frontend
       run: pnpm install
 
+    - name: Security Audit (Backend)
+      working-directory: backend
+      run: |
+        uv export --format requirements-txt --output-file requirements.txt
+        uv tool run pip-audit -r requirements.txt
+
+    - name: Security Audit (Frontend)
+      working-directory: frontend
+      run: pnpm audit --prod
+
     - name: Run Linters
       run: make lint
 
