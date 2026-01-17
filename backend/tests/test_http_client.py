@@ -5,7 +5,7 @@ from app.core.http_client import SafeAsyncClient
 
 @pytest.mark.asyncio
 async def test_safe_client_allowed():
-    async with SafeAsyncClient() as client:
+    async with SafeAsyncClient():
         # We don't actually make the request, just check if it validates
         # But SafeAsyncClient.request calls super().request which might try to connect
         # So we should probably mock the transport or just test validate_url

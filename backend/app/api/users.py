@@ -29,7 +29,7 @@ async def list_my_sessions(
     List active sessions for the current user.
     """
     stmt = select(UserSession).where(
-        UserSession.user_id == current_user.id, UserSession.is_revoked == False
+        UserSession.user_id == current_user.id, not UserSession.is_revoked
     )
     result = await db.execute(stmt)
     return result.scalars().all()

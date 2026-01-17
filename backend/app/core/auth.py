@@ -31,8 +31,7 @@ async def verify_token(res: HTTPAuthorizationCredentials = Depends(security)) ->
         raise HTTPException(status_code=500, detail="Firebase not initialized")
 
     try:
-        decoded_token = auth.verify_id_token(res.credentials)
-        return decoded_token
+        return auth.verify_id_token(res.credentials)
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

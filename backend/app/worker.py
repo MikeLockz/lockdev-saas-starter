@@ -7,7 +7,6 @@ async def health_check_task(ctx):
     """
     Proof of concept task.
     """
-    print("Background task 'health_check_task' is running...")
     return "OK"
 
 
@@ -15,7 +14,6 @@ async def process_document_job(ctx, object_name: str):
     """
     Processes a document using AWS Textract.
     """
-    print(f"Processing document: {object_name}")
     # 1. Fetch from S3
     # 2. Call Textract
     # 3. Save results to DB
@@ -23,11 +21,11 @@ async def process_document_job(ctx, object_name: str):
 
 
 async def startup(ctx):
-    print("Background worker starting up...")
+    pass
 
 
 async def shutdown(ctx):
-    print("Background worker shutting down...")
+    pass
 
 
 class WorkerSettings:

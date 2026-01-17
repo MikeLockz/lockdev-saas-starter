@@ -23,8 +23,7 @@ async def stripe_webhook(request: Request, stripe_signature: str = Header(None))
 
     # Handle the event
     if event["type"] == "checkout.session.completed":
-        session = event["data"]["object"]
+        event["data"]["object"]
         # Handle completed checkout
-        print(f"Checkout completed for {session.get('customer')}")
 
     return {"status": "success"}

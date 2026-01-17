@@ -17,10 +17,9 @@ class StorageService:
         if not self.available:
             return "mock-url"
         try:
-            response = self.s3.generate_presigned_post(
+            return self.s3.generate_presigned_post(
                 self.bucket, object_name, ExpiresIn=expiration
             )
-            return response
         except Exception:
             return None
 

@@ -32,9 +32,8 @@ async def seed_patients(num_patients=50):
             )
             db.add(org)
             await db.flush()
-            print("Created default organization for seeding")
 
-        for i in range(num_patients):
+        for _i in range(num_patients):
             patient = Patient(
                 first_name=fake.first_name(),
                 last_name=fake.last_name(),
@@ -60,9 +59,6 @@ async def seed_patients(num_patients=50):
                 db.add(contact)
 
         await db.commit()
-        print(
-            f"Successfully seeded {num_patients} patients into organization '{org.name}'"
-        )
 
 
 if __name__ == "__main__":

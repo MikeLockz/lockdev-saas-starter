@@ -13,7 +13,7 @@ class BillingService:
         if not self.enabled:
             return {"url": "http://mock-stripe-url"}
 
-        session = stripe.checkout.Session.create(
+        return stripe.checkout.Session.create(
             customer=customer_id,
             payment_method_types=["card"],
             line_items=[{"price": price_id, "quantity": 1}],
@@ -21,7 +21,6 @@ class BillingService:
             success_url=settings.STRIPE_SUCCESS_URL,
             cancel_url=settings.STRIPE_CANCEL_URL,
         )
-        return session
 
 
 billing_service = BillingService()

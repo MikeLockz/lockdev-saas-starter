@@ -66,8 +66,7 @@ async def get_organization(
     """
     Get details of a specific organization.
     """
-    org = await db.get(Organization, org_id)
-    return org
+    return await db.get(Organization, org_id)
 
 
 @router.patch("/{org_id}", response_model=OrganizationRead)

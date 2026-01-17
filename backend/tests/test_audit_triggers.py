@@ -15,8 +15,7 @@ async def test_audit_trigger_works(db):
     db.add(org)
     await db.commit()
 
-    # Check activity table (postgresql-audit)
-    # We use text() because activity is managed by postgresql-audit and not necessarily in our models
+    # Check activity table (postgresql-audit uses text() for raw queries)
     result = await db.execute(
         text("SELECT count(*) FROM activity WHERE table_name = 'organizations'")
     )

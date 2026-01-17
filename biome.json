@@ -29,7 +29,9 @@
         "noExplicitAny": "off"
       },
       "style": {
-        "noNonNullAssertion": "off"
+        "noNonNullAssertion": "off",
+        "useSelfClosingElements": "off",
+        "noUnusedTemplateLiteral": "off"
       }
     }
   },

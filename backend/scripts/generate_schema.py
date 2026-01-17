@@ -12,7 +12,6 @@ def generate_schema():
     openapi_schema = app.openapi()
     with open("openapi.json", "w") as f:
         json.dump(openapi_schema, f, indent=2)
-    print("OpenAPI schema generated to openapi.json")
 
 
 if __name__ == "__main__":

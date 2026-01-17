@@ -20,9 +20,8 @@ async def seed():
             user = User(email="test-e2e@example.com", is_active=True, is_superuser=True)
             db.add(user)
             await db.commit()
-            print("E2E Seed user created")
         else:
-            print("E2E Seed user already exists")
+            pass
 
 
 if __name__ == "__main__":
