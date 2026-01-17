@@ -104,7 +104,12 @@ if settings.SESSION_SECRET == "changeme":  # noqa: S105
     else:
         logger.warning("Using default SESSION_SECRET (safe for local dev)")
 
-app.add_middleware(SessionMiddleware, secret_key=settings.SESSION_SECRET)
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=settings.SESSION_SECRET,
+    same_site="lax",
+    https_only=(settings.ENVIRONMENT != "local"),
+)
 
 
 # Routers
