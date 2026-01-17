@@ -2,7 +2,7 @@
 
 **Audit Date:** 2026-01-16
 **Status:** ❌ FAIL
-**Summary:** ✅ 7 PASS | ⚠️ 1 WARN | ❌ 4 FAIL
+**Summary:** ✅ 8 PASS | ⚠️ 1 WARN | ❌ 3 FAIL
 
 ---
 
@@ -58,11 +58,12 @@
 
 ### [SEC-006] Rate Limiting
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `backend/app/main.py:116` — `@limiter.limit("5/minute")` only applied to root endpoint.
 - No rate limits found in `api/users.py`, `api/patients.py`, or `api/admin.py`.
 **Remediation:** Apply `@limiter.limit` to all sensitive endpoints, particularly authentication-related and resource-intensive ones.
+**Fixed:** Applied `@limiter.limit` to `impersonate_patient` in `admin.py` and `setup_mfa`/`verify_mfa` in `users.py`.
 
 ---
 
