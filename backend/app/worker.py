@@ -50,7 +50,7 @@ async def enforce_data_retention(ctx):
     """
     retention_years = 7
     async with AsyncSessionLocal() as session:
-        cutoff = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(
+        cutoff = datetime.datetime.now(datetime.UTC) - datetime.timedelta(
             days=retention_years * 365
         )
         stmt = delete(AuditLog).where(AuditLog.created_at < cutoff)

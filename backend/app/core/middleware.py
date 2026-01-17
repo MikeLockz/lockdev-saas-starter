@@ -16,6 +16,10 @@ request_id_var: ContextVar[str] = ContextVar("request_id", default="")
 logger = structlog.get_logger(__name__)
 
 
+HTTP_200_OK = 200
+HTTP_300_MULTIPLE_CHOICES = 300
+
+
 class IdempotencyMiddleware(BaseHTTPMiddleware):
     """
     [API-008] Ensures idempotency for state-changing requests using X-Idempotency-Key.
@@ -47,7 +51,7 @@ class IdempotencyMiddleware(BaseHTTPMiddleware):
         response: Response = await call_next(request)
 
         # Only cache successful responses to allow retries on transient errors
-        if 200 <= response.status_code < 300:
+        if HTTP_200_OK <= response.status_code < HTTP_300_MULTIPLE_CHOICES:
             cache_data = {
                 "body": "",  # Body caching disabled to avoid stream issues
                 "status_code": response.status_code,

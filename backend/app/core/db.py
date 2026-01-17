@@ -59,9 +59,7 @@ SLOW_QUERY_THRESHOLD = 0.5
 
 
 @event.listens_for(engine.sync_engine, "before_cursor_execute", retval=True)
-def before_cursor_execute(
-    _conn, _cursor, statement, parameters, context, _executemany
-):
+def before_cursor_execute(_conn, _cursor, statement, parameters, context, _executemany):
     context._query_start_time = time.perf_counter()
     from app.core.middleware import request_id_var
 
