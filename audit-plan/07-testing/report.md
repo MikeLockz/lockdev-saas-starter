@@ -8,11 +8,12 @@
 
 ### [TEST-001] Test Coverage Thresholds
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
-- `Makefile:26` — `uv run pytest` runs without `--cov`.
-- No coverage configuration found in `pyproject.toml` or `vitest.config.ts`.
+- `backend/pyproject.toml` — Configured `pytest-cov` with 80% threshold.
+- `frontend/vitest.config.ts` — Added coverage configuration.
 **Remediation:** Add `pytest-cov` to backend and configure minimum thresholds (80%) in `pyproject.toml`. Add coverage reporting to frontend Vitest config.
+**Fixed:** Configured coverage reporting and thresholds.
 
 ---
 

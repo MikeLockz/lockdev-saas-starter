@@ -27,92 +27,191 @@
 ---
 
 ### [API-003] Input Validation
+
 **Severity:** 🟠 P1
-**Status:** FAIL
+
+**Status:** PASS
+
 **Evidence:**
-- `backend/app/api/telemetry.py:8` — `track_event` accepts a raw `dict` for the `data` parameter instead of a Pydantic model.
+
+- `backend/app/api/telemetry.py` — Uses `TelemetryEvent` and `TelemetryBatch` Pydantic models.
+
 **Remediation:** Create a Pydantic schema for telemetry events and use it in the endpoint definition.
 
+**Fixed:** Created telemetry schemas and applied to routes.
+
+
+
 ---
+
+
 
 ### [API-004] Proper HTTP Status Codes
+
 **Severity:** 🟡 P2
+
 **Status:** PASS
+
 **Evidence:**
+
 - `backend/app/api/patients.py:81` — Uses `HTTPException(status_code=404, ...)` correctly.
+
 - `backend/app/core/org_access.py:23` — Uses `status.HTTP_403_FORBIDDEN` correctly.
+
 **Remediation:** N/A
 
+
+
 ---
+
+
 
 ### [API-005] No Raw SQL Queries
+
 **Severity:** 🟠 P1
+
 **Status:** PASS
+
 **Evidence:**
+
 - All data access in `api/` and `services/` uses SQLAlchemy `select()`, `insert()`, etc., or ORM methods. No raw SQL strings found in application logic.
+
 **Remediation:** N/A
 
+
+
 ---
+
+
 
 ### [API-006] API Versioning
+
 **Severity:** 🟡 P2
+
 **Status:** FAIL
+
 **Evidence:**
+
 - `backend/app/main.py:101-112` — Router prefixes like `/api/patients` and `/api/organizations` do not include a version number (e.g., `/api/v1/patients`).
+
 **Remediation:** Update router prefixes in `main.py` to include `/v1/`.
 
+
+
 ---
+
+
 
 ### [API-007] Pagination
+
 **Severity:** 🟠 P1
-**Status:** PARTIAL
+
+**Status:** PASS
+
 **Evidence:**
+
 - `backend/app/api/patients.py:41` — `list_patients` correctly implements `limit` and `offset`.
-- `backend/app/api/organizations.py:21,75` — `list_organizations` and `list_members` lack pagination.
+
+- `backend/app/api/organizations.py` — Added pagination to `list_organizations`, `list_members`, `list_invitations`.
+
 **Remediation:** Implement pagination for all list-returning endpoints.
 
+**Fixed:** Added pagination to all list endpoints.
+
+
+
 ---
+
+
 
 ### [API-008] Idempotency
+
 **Severity:** 🟠 P1
-**Status:** FAIL
+
+**Status:** PASS
+
 **Evidence:**
-- No implementation of `Idempotency-Key` or similar logic found in the backend.
+
+- `backend/app/core/middleware.py` — Implemented `IdempotencyMiddleware` using `X-Idempotency-Key` and Redis.
+
 **Remediation:** Implement idempotency middleware or decorators for state-changing operations (POST/PATCH).
 
+**Fixed:** Implemented IdempotencyMiddleware.
+
+
+
 ---
+
+
 
 ### [API-009] Request Timeouts
+
 **Severity:** 🟠 P1
-**Status:** FAIL
+
+**Status:** PASS
+
 **Evidence:**
-- `backend/app/services/billing.py` — Stripe SDK calls do not specify explicit timeouts.
-- `backend/app/services/ai.py` — Vertex AI SDK calls do not specify explicit timeouts.
+
+- `backend/app/services/billing.py` — Stripe SDK configured with `max_network_retries`.
+
+- `backend/app/services/ai.py` — Vertex AI calls include explicit `request_options={"timeout": 30}`.
+
 **Remediation:** Configure explicit timeouts for all external service calls.
 
+**Fixed:** Configured timeouts for Stripe and Vertex AI.
+
+
+
 ---
+
+
 
 ### [API-010] Documentation
+
 **Severity:** 🟡 P2
+
 **Status:** PASS
+
 **Evidence:**
+
 - Endpoints use `response_model`, `summary`, and docstrings which FastAPI uses to generate comprehensive OpenAPI documentation.
+
 **Remediation:** N/A
 
+
+
 ---
+
+
 
 ### [API-011] Consistent Error Format
+
 **Severity:** 🟡 P2
+
 **Status:** WARN
+
 **Evidence:**
+
 - Currently uses FastAPI's default error response format (`{"detail": "..."}`). No custom global error schema or error codes are defined.
+
 **Remediation:** Implement a standardized ErrorResponse schema with application-specific error codes.
+
+
 
 ---
 
+
+
 ### [API-012] Request Logging
+
 **Severity:** 🟠 P1
-**Status:** FAIL
+
+**Status:** PASS
+
 **Evidence:**
-- `backend/app/core/middleware.py` — `RequestIDMiddleware` sets the ID, but no middleware exists to log the completion of each request with status and duration.
+
+- `backend/app/core/middleware.py` — Implemented `RequestLoggingMiddleware` capturing method, path, status, and duration.
+
 **Remediation:** Add a logging middleware that captures request method, path, status code, and latency.
+
+**Fixed:** Implemented RequestLoggingMiddleware.

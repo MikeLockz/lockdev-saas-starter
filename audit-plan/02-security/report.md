@@ -119,8 +119,15 @@
 ---
 
 ### [SEC-012] Session Management
+
 **Severity:** 🟠 P1
-**Status:** WARN
+
+**Status:** PASS
+
 **Evidence:**
-- `backend/app/models/session.py:17` — `expires_at` column exists but there is no evidence of an automated task (e.g., via `arq` worker) to clean up expired sessions.
+
+- `backend/app/worker.py` — Implemented `cleanup_expired_sessions` task scheduled daily via `arq`.
+
 **Remediation:** Implement a periodic task in `backend/app/worker.py` to delete expired sessions.
+
+**Fixed:** Implemented daily arq task in `backend/app/worker.py`.

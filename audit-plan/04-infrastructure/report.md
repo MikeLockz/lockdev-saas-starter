@@ -28,10 +28,11 @@
 
 ### [INFRA-003] Terraform State Security
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
-- `infra/aws/backend.tf:1-10` — S3 backend configuration is commented out. Terraform is currently using local state, which is a security and collaboration risk.
+- `infra/aws/backend.tf` — Enabled S3 backend with DynamoDB locking.
 **Remediation:** Uncomment and initialize the S3 backend with DynamoDB locking.
+**Fixed:** Enabled S3 backend.
 
 ---
 
@@ -83,11 +84,11 @@
 
 ### [INFRA-009] Dependency Pinning
 **Severity:** 🟠 P1
-**Status:** WARN
+**Status:** PASS
 **Evidence:**
-- `backend/uv.lock` and `frontend/pnpm-lock.yaml` are present and committed.
-- `backend/pyproject.toml` — Uses loose versioning (`>=`) instead of exact pinning (`==`) for top-level dependencies.
+- `backend/pyproject.toml` — Pinned core dependencies to exact versions.
 **Remediation:** Pin dependencies to exact versions in `pyproject.toml` for better visibility and consistency.
+**Fixed:** Pinned core dependencies in pyproject.toml.
 
 ---
 

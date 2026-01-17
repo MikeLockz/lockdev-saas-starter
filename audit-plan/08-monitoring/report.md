@@ -8,10 +8,11 @@
 
 ### [MON-001] Sentry Integration
 **Severity:** 🟠 P1
-**Status:** WARN
+**Status:** PASS
 **Evidence:**
-- `backend/app/main.py:52` — Sentry initialized but lacks explicit `SqlalchemyIntegration` or `FastApiIntegration` configuration.
+- `backend/app/main.py` — Added `SqlalchemyIntegration` to Sentry initialization.
 **Remediation:** Explicitly add `SqlalchemyIntegration` to `sentry_sdk.init` to capture database query performance and errors.
+**Fixed:** Enabled SqlalchemyIntegration.
 
 ---
 
@@ -27,19 +28,21 @@
 
 ### [MON-003] Sentry PII Protection
 **Severity:** 🔴 P0
-**Status:** WARN
+**Status:** PASS
 **Evidence:**
-- `backend/app/main.py:52` — `send_default_pii` is not explicitly set. While it defaults to `False`, HIPAA compliance requires explicit disabling to prevent accidental data leakage.
+- `backend/app/main.py` — Explicitly set `send_default_pii=False` in Sentry initialization.
 **Remediation:** Add `send_default_pii=False` to Sentry initialization.
+**Fixed:** Set send_default_pii=False.
 
 ---
 
 ### [MON-004] Structured Logging
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
-- `backend/app/core/logging.py` — Configures `JSONRenderer` but does not use `structlog.contextvars.bind_contextvars` to include `request_id` or `user_id` in logs.
+- `backend/app/core/middleware.py` and `backend/app/core/auth.py` — Binding `request_id` and `user_id` to structlog context.
 **Remediation:** Update middleware and auth dependencies to bind `request_id` and `user_id` to the structlog context.
+**Fixed:** Implemented context binding for structlog.
 
 ---
 
@@ -55,10 +58,11 @@
 
 ### [MON-006] Request Tracing
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
-- `backend/app/core/middleware.py` — `request_id` is set in a context variable but NOT propagated to Sentry via `sentry_sdk.set_tag`.
+- `backend/app/core/middleware.py` — Propagating `request_id` to Sentry using `sentry_sdk.set_tag`.
 **Remediation:** Add `sentry_sdk.set_tag("request_id", rid)` in the `RequestIDMiddleware`.
+**Fixed:** Propagated request_id to Sentry.
 
 ---
 
@@ -82,10 +86,11 @@
 
 ### [MON-010] Database Query Monitoring
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
-- No database query monitoring or slow query logging found. `SqlalchemyIntegration` is missing from Sentry.
+- `backend/app/core/db.py` — Implemented slow query logging (threshold 0.5s).
 **Remediation:** Enable `SqlalchemyIntegration` and implement slow query logging in `app/core/db.py`.
+**Fixed:** Implemented slow query logging.
 
 ---
 

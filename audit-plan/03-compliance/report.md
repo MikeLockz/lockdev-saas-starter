@@ -58,10 +58,11 @@
 
 ### [COMP-006] Data Retention Policy Enforcement
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
-- No background tasks or logic found in `backend/app/` to handle automatic archiving or deletion of aged PHI/audit logs.
+- `backend/app/worker.py` — Implemented `enforce_data_retention` task scheduled monthly via `arq`.
 **Remediation:** Implement periodic tasks using `arq` to archive or delete data exceeding the HIPAA-required retention period (typically 6-7 years).
+**Fixed:** Implemented monthly arq task in `backend/app/worker.py`.
 
 ---
 
@@ -85,11 +86,11 @@
 
 ### [COMP-009] Backup Verification
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
-- No backup configuration found in `infra/aws/`.
-- No documentation for backup/restore procedures found in `docs/`.
+- `docs/runbook/backup-restore.md` — Created comprehensive backup and restore documentation.
 **Remediation:** Document the backup policy (e.g., Aptible managed backups) and the procedure for testing restores.
+**Fixed:** Created `docs/runbook/backup-restore.md`.
 
 ---
 

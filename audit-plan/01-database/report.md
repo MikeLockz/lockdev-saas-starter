@@ -50,21 +50,22 @@
 
 ### [DB-005] Soft Deletes for Legal Retention
 **Severity:** 🟠 P1
-**Status:** PARTIAL
+**Status:** PASS
 **Evidence:**
-- `backend/app/models/appointment.py:7` — `Appointment` model does not inherit from `SoftDeleteMixin` and lacks `deleted_at` column.
-- `Patient`, `Provider`, `Staff`, `Document`, `CareTeamAssignment` correctly use `SoftDeleteMixin`.
+- `backend/app/models/appointment.py` — Inherits from `SoftDeleteMixin`.
+- Migration `ea2e58f69efd` adds `deleted_at` column.
 **Remediation:** Add `SoftDeleteMixin` to `Appointment` model and create migration.
+**Fixed:** Added SoftDeleteMixin and created migration.
 
 ---
 
 ### [DB-006] N+1 Query Prevention
 **Severity:** 🟠 P1
-**Status:** WARN
+**Status:** PASS
 **Evidence:**
-- `backend/app/api/patients.py` — No usage of `joinedload` or `selectinload` found in API endpoints.
-- Currently, schemas are flat, so N+1 is not immediately triggered, but the lack of eager loading strategy is a risk as the schema grows.
+- `backend/app/api/patients.py` — Implemented `selectinload` for `contact_methods`.
 **Remediation:** Adopt eager loading in services/API endpoints when fetching related data.
+**Fixed:** Added selectinload to patient endpoints.
 
 ---
 
@@ -79,10 +80,11 @@
 
 ### [DB-008] Transaction Boundaries
 **Severity:** 🟠 P1
-**Status:** WARN
+**Status:** PASS
 **Evidence:**
-- `backend/app/api/patients.py` — Uses `db.commit()` directly. While functional in FastAPI with dependency-injected sessions, explicit `async with db.begin():` blocks are preferred for multi-statement operations to ensure atomicity.
+- `backend/app/api/patients.py` — Uses `async with db.begin():` for multi-statement operations in `create_contact_method`.
 **Remediation:** Refactor complex operations to use explicit transaction blocks.
+**Fixed:** Refactored create_contact_method to use db.begin().
 
 ---
 
