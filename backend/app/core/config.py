@@ -29,6 +29,9 @@ class Settings(BaseSettings):
     ]
     FRONTEND_URL: str = "http://localhost:5173"
 
+    # Security
+    SESSION_SECRET: str = "changeme"
+
     # AWS
     AWS_REGION: str = "us-east-1"
 

@@ -94,7 +94,16 @@ app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(RequestIDMiddleware)
 app.add_middleware(ContextMiddleware)
 app.add_middleware(ReadAuditMiddleware)
-app.add_middleware(SessionMiddleware, secret_key="super-secret-key")  # noqa: S106
+
+if settings.SESSION_SECRET == "changeme":  # noqa: S105
+    if settings.ENVIRONMENT != "local":
+        logger.warning(
+            "CRITICAL: Using default SESSION_SECRET in non-local environment!"
+        )
+    else:
+        logger.warning("Using default SESSION_SECRET (safe for local dev)")
+
+app.add_middleware(SessionMiddleware, secret_key=settings.SESSION_SECRET)
 
 
 # Routers

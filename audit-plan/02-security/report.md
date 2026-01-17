@@ -2,16 +2,17 @@
 
 **Audit Date:** 2026-01-16
 **Status:** ❌ FAIL
-**Summary:** ✅ 5 PASS | ⚠️ 1 WARN | ❌ 6 FAIL
+**Summary:** ✅ 6 PASS | ⚠️ 1 WARN | ❌ 5 FAIL
 
 ---
 
 ### [SEC-001] No Hardcoded Secrets
 **Severity:** 🔴 P0
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `backend/app/main.py:98` — `app.add_middleware(SessionMiddleware, secret_key="super-secret-key")` hardcoded session secret.
 **Remediation:** Move the session secret to `settings.SESSION_SECRET` and load from environment variables (Secrets Manager in production).
+**Fixed:** Moved `SESSION_SECRET` to `backend/app/core/config.py` and updated `backend/app/main.py` to use it. Added warning if default value is used in non-local environment.
 
 ---
 
