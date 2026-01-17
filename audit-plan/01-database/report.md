@@ -2,7 +2,7 @@
 
 **Audit Date:** 2026-01-16
 **Status:** ❌ FAIL
-**Summary:** ✅ 2 PASS | ⚠️ 2 WARN | ❌ 6 FAIL
+**Summary:** ✅ 4 PASS | ⚠️ 2 WARN | ❌ 4 FAIL
 
 ---
 
@@ -18,21 +18,23 @@
 
 ### [DB-002] Row Level Security (RLS)
 **Severity:** 🔴 P0
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `backend/migrations/versions/8af88bf56c01_add_org_id_and_rls.py` — RLS only enabled for `patients`, `providers`, `staff`, `proxies`.
 - Critical tables added later: `appointments`, `documents`, `contact_methods`, `care_team_assignments`, `user_devices`, `support_tickets`, `tasks`, `call_logs` do NOT have RLS enabled in their respective migrations.
 **Remediation:** Create a new migration to enable RLS and add `tenant_isolation` policies for ALL tables containing organization-scoped data.
+**Fixed:** Enabled RLS and policies for all organization-scoped tables (including re-enabling for patients etc.) in migration `ec20df1795df`.
 
 ---
 
 ### [DB-003] Audit Triggers on PHI Tables
 **Severity:** 🔴 P0
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `backend/migrations/versions/8af88bf56c01_add_org_id_and_rls.py` — Audit triggers only added to `users`, `patients`, `organizations`.
 - Missing audit triggers for: `appointments`, `documents`, `user_consents`, `care_team_assignments`, `contact_methods`, `user_sessions`, `user_devices`.
 **Remediation:** Add `SELECT audit_table('table_name')` to migrations for all tables listed in the rules.
+**Fixed:** Added audit triggers for all listed tables in migration `ec20df1795df`.
 
 ---
 
