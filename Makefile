@@ -1,16 +1,25 @@
-.PHONY: dev build test lint clean help
+.PHONY: dev build test lint check clean install-all migrate help
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-dev: ## Run local development environment
-	@echo "Starting local development environment..."
-	# We will likely delegate to docker-compose here later
-	@echo "Run 'docker compose up' (once configured)"
+install-all: ## Install dependencies for backend and frontend
+	@echo "Installing backend dependencies..."
+	cd backend && uv sync
+	@echo "Installing frontend dependencies..."
+	cd frontend && pnpm install
 
-build: ## Build the project
-	@echo "Building project..."
-	cd frontend && pnpm build
+dev: ## Run local development environment via docker-compose
+	@echo "Starting local development environment..."
+	docker compose up -d
+
+migrate: ## Run database migrations
+	@echo "Running migrations..."
+	cd backend && uv run alembic upgrade head
+
+seed-patients: ## Seed dummy patient data
+	@echo "Seeding patients..."
+	cd backend && uv run scripts/seed_patients.py
 
 test: ## Run tests
 	@echo "Running tests..."
@@ -19,9 +28,9 @@ test: ## Run tests
 
 lint: ## Run linters
 	@echo "Running linters..."
-	cd backend && uv run ruff check .
-	cd backend && uv run mypy .
-	cd frontend && pnpm lint
+	pre-commit run --all-files
+
+check: lint test ## Run all checks (lint + test)
 
 clean: ## Clean up build artifacts
 	@echo "Cleaning up..."

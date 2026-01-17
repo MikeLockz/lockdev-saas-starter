@@ -16,14 +16,14 @@
 | Step 2.8 | `story-02-08-admin.md` | Pending |
 
 ## Execution Order
-1.  [ ] `story-02-01-config.md`
-2.  [ ] `story-02-02-database.md`
-3.  [ ] `story-02-03-migrations.md`
-4.  [ ] `story-02-04-models.md`
-5.  [ ] `story-02-05-auth.md`
-6.  [ ] `story-02-06-impersonation.md`
-7.  [ ] `story-02-07-consent.md`
-8.  [ ] `story-02-08-admin.md`
+1.  [x] `story-02-01-config.md`
+2.  [x] `story-02-02-database.md`
+3.  [x] `story-02-03-migrations.md`
+4.  [x] `story-02-04-models.md`
+5.  [x] `story-02-05-auth.md`
+6.  [x] `story-02-06-impersonation.md`
+7.  [x] `story-02-07-consent.md`
+8.  [x] `story-02-08-admin.md`
 
 ## Epic Verification
 **Completion Criteria:**

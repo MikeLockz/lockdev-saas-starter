@@ -1,4 +1,4 @@
-SQL_JSONB_CHANGE_KEY_NAME = '''
+SQL_JSONB_CHANGE_KEY_NAME = """
 CREATE OR REPLACE FUNCTION jsonb_change_key_name(data jsonb, old_key text, new_key text)
 RETURNS jsonb AS $$
     SELECT ('{' || string_agg(to_json(key) || ':' || value, ',') || '}')::jsonb
@@ -7,9 +7,9 @@ RETURNS jsonb AS $$
         FROM jsonb_each(data)
     ) t;
 $$ LANGUAGE SQL IMMUTABLE;
-'''
+"""
 
-SQL_GET_SETTING = '''
+SQL_GET_SETTING = """
 CREATE OR REPLACE FUNCTION get_setting(setting text, default_value text)
 RETURNS text AS $$
     SELECT coalesce(
@@ -17,9 +17,9 @@ RETURNS text AS $$
         default_value
     );
 $$ LANGUAGE SQL;
-'''
+"""
 
-SQL_JSONB_SUBTRACT = '''
+SQL_JSONB_SUBTRACT = """
 CREATE OR REPLACE FUNCTION jsonb_subtract(arg1 jsonb, arg2 jsonb)
 RETURNS jsonb AS $$
 SELECT
@@ -29,17 +29,17 @@ FROM
 WHERE
   (arg1 -> key) <> (arg2 -> key) OR (arg2 -> key) IS NULL
 $$ LANGUAGE SQL;
-'''
+"""
 
-SQL_CREATE_OPERATOR_MINUS = '''
+SQL_CREATE_OPERATOR_MINUS = """
 CREATE OPERATOR - (
   LEFTARG = jsonb,
   RIGHTARG = jsonb,
   PROCEDURE = jsonb_subtract
 );
-'''
+"""
 
-SQL_CREATE_ACTIVITY = '''
+SQL_CREATE_ACTIVITY = """
 CREATE OR REPLACE FUNCTION create_activity() RETURNS TRIGGER AS $$
 DECLARE
     audit_row activity;
@@ -131,9 +131,9 @@ $$
 LANGUAGE plpgsql
 SECURITY DEFINER
 SET search_path = pg_catalog, public;
-'''
+"""
 
-SQL_AUDIT_TABLE_MAIN = r'''
+SQL_AUDIT_TABLE_MAIN = r"""
 CREATE OR REPLACE FUNCTION
 audit_table(target_table regclass, ignored_cols text[])
 RETURNS void AS $$
@@ -174,10 +174,10 @@ BEGIN
     EXECUTE query;
 END;
 $$ language 'plpgsql';
-'''
+"""
 
-SQL_AUDIT_TABLE_WRAPPER = '''
+SQL_AUDIT_TABLE_WRAPPER = """
 CREATE OR REPLACE FUNCTION audit_table(target_table regclass) RETURNS void AS $$
 SELECT audit_table(target_table, ARRAY[]::text[]);
 $$ LANGUAGE SQL;
-'''
+"""

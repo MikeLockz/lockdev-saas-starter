@@ -12,7 +12,6 @@
 | Step 1.2 (Frontend) | `story-07-04-user-frontend.md` | Pending |
 
 ## Execution Order
-## Execution Order
 1.  [x] `story-07-01-user-endpoints.md`
 2.  [x] `story-07-02-mfa-setup.md`
 3.  [x] `story-07-03-device-tokens.md`

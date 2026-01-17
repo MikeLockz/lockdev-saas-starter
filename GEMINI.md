@@ -17,6 +17,7 @@ You must adhere to these rules at all times.
   2. Write the interface/contract.
   3. Write the implementation (it passes).
 - **Verification:** You are FORBIDDEN from marking a task done until `make test` (or specific unit test) passes.
+- **Hooks Compliance:** After EACH individual task, you MUST ensure all pre/post commit hooks run successfully. If hooks identify any problems, you MUST fix them immediately.
 
 ## 3. Technology Stack Constraints
 - **Backend:** Python + FastAPI + UV.

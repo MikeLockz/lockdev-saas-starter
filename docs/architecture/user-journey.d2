@@ -1,0 +1,29 @@
+direction: right
+
+Patient: {
+  shape: person
+}
+
+WebDashboard: {
+  shape: browser
+}
+
+Firebase: {
+  shape: cloud
+}
+
+API: {
+  shape: hexagon
+}
+
+DB: {
+  shape: cylinder
+}
+
+Patient -> WebDashboard: 1. Sign up/Login
+WebDashboard -> Firebase: 2. Authenticate
+Firebase -> WebDashboard: 3. Return ID Token
+WebDashboard -> API: 4. Request with JWT
+API -> Firebase: 5. Verify Token
+API -> DB: 6. Fetch/Create User
+API -> WebDashboard: 7. Response

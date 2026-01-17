@@ -1,0 +1,21 @@
+name: Infra Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checkov:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Checkov
+        uses: bridgecrewio/checkov-action@master
+        with:
+          directory: infra/
+          framework: terraform
+          quiet: true
+          soft_fail: false
+          download_external_modules: true
+          log_level: DEBUG

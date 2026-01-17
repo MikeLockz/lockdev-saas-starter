@@ -1,8 +1,11 @@
 import logging
 import sys
-import structlog
 from typing import Any
+
+import structlog
+
 from app.core.pii_masking import mask_pii_processor
+
 
 def configure_logging(log_level: str = "INFO", json_logs: bool = True):
     shared_processors: list[Any] = [
@@ -32,5 +35,5 @@ def configure_logging(log_level: str = "INFO", json_logs: bool = True):
     root_logger = logging.getLogger()
     if root_logger.hasHandlers():
         root_logger.handlers.clear()
-        
+
     logging.basicConfig(format="%(message)s", stream=sys.stdout, level=log_level)

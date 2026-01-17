@@ -6,11 +6,11 @@
 ## Traceability Matrix
 | Plan Step (docs/10) | Story File | Status |
 | :--- | :--- | :--- |
-| Step 2.1 (DB) | `story-10-01-patient-models.md` | Pending |
-| Step 2.1 (API) | `story-10-02-patient-api.md` | Pending |
-| Step 2.1 (Contacts) | `story-10-03-contact-methods.md` | Pending |
-| Step 2.1 (Frontend) | `story-10-04-patient-frontend.md` | Pending |
-| Step 2.1 (Seeding) | `story-10-05-patient-seeding.md` | Pending |
+| Step 2.1 (DB) | `story-10-01-patient-models.md` | Done |
+| Step 2.1 (API) | `story-10-02-patient-api.md` | Done |
+| Step 2.1 (Contacts) | `story-10-03-contact-methods.md` | Done |
+| Step 2.1 (Frontend) | `story-10-04-patient-frontend.md` | Done |
+| Step 2.1 (Seeding) | `story-10-05-patient-seeding.md` | Done |
 
 ## Execution Order
 1.  [x] `story-10-01-patient-models.md`

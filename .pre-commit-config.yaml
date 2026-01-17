@@ -1,0 +1,16 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+        files: ^backend/
+      - id: ruff-format
+        files: ^backend/
+
+  - repo: https://github.com/biomejs/pre-commit
+    rev: v0.3.0
+    hooks:
+      - id: biome-check
+        additional_dependencies: ["@biomejs/biome@1.8.3"]
+        files: ^frontend/

@@ -6,13 +6,13 @@
 ## Traceability Matrix
 | Roadmap Step (docs/03) | Story File | Status |
 | :--- | :--- | :--- |
-| Step 3.1 | `story-03-01-shadcn.md` | Pending |
-| Step 3.2 | `story-03-02-api-types.md` | Pending |
-| Step 3.3 | `story-03-03-firebase.md` | Pending |
-| Step 3.4 | `story-03-04-state-management.md` | Pending |
-| Step 3.5 | `story-03-05-auth-routes.md` | Pending |
-| Step 3.6 | `story-03-06-testing.md` | Pending |
-| Step 3.7 | `story-03-07-mobile-pwa.md` | Pending |
+| Step 3.1 | `story-03-01-shadcn.md` | Done |
+| Step 3.2 | `story-03-02-api-types.md` | Done |
+| Step 3.3 | `story-03-03-firebase.md` | Done |
+| Step 3.4 | `story-03-04-state-management.md` | Done |
+| Step 3.5 | `story-03-05-auth-routes.md` | Done |
+| Step 3.6 | `story-03-06-testing.md` | Done |
+| Step 3.7 | `story-03-07-mobile-pwa.md` | Done |
 
 ## Execution Order
 1.  [x] `story-03-01-shadcn.md`

@@ -15,7 +15,40 @@ services:
     image: redis:7-alpine
     restart: always
     ports:
-      - "6379:6379"
+      - "63790:6379"
+
+  api:
+    build:
+      context: ./backend
+    ports:
+      - "8001:8000"
+    environment:
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=devpassword
+      - POSTGRES_DB=app_db
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - ENVIRONMENT=local
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - db
+      - redis
+
+  web:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8001
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - api
 
 volumes:
   postgres_data:

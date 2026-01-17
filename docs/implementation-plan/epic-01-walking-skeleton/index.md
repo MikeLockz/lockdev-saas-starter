@@ -16,14 +16,14 @@
 | Step 1.8 | `story-01-08-secrets.md` | Pending |
 
 ## Execution Order
-1.  [ ] `story-01-01-init-repo.md`
-2.  [ ] `story-01-02-backend-bootstrap.md`
-3.  [ ] `story-01-03-fastapi-setup.md`
-4.  [ ] `story-01-04-frontend-bootstrap.md`
-5.  [ ] `story-01-05-docker-compose.md`
-6.  [ ] `story-01-06-quality-tooling.md`
-7.  [ ] `story-01-07-makefile.md`
-8.  [ ] `story-01-08-secrets.md`
+1.  [x] `story-01-01-init-repo.md`
+2.  [x] `story-01-02-backend-bootstrap.md`
+3.  [x] `story-01-03-fastapi-setup.md`
+4.  [x] `story-01-04-frontend-bootstrap.md`
+5.  [x] `story-01-05-docker-compose.md`
+6.  [x] `story-01-06-quality-tooling.md`
+7.  [x] `story-01-07-makefile.md`
+8.  [x] `story-01-08-secrets.md`
 
 ## Epic Verification
 **Completion Criteria:**

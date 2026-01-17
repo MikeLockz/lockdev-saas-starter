@@ -6,10 +6,10 @@
 ## Traceability Matrix
 | Plan Step (docs/10) | Story File | Status |
 | :--- | :--- | :--- |
-| Step 1.3 (Org API) | `story-08-01-org-api.md` | Complete |
-| Step 1.3 (Invitations) | `story-08-02-invitations.md` | Complete |
-| Step 1.3 (Frontend) | `story-08-03-org-frontend.md` | Complete |
-| Step 1.3 (Invite UI) | `story-08-04-invite-ui.md` | Complete |
+| Step 1.3 (Org API) | `story-08-01-org-api.md` | Done |
+| Step 1.3 (Invitations) | `story-08-02-invitations.md` | Done |
+| Step 1.3 (Frontend) | `story-08-03-org-frontend.md` | Done |
+| Step 1.3 (Invite UI) | `story-08-04-invite-ui.md` | Done |
 | DB Review Fix | `story-08-05-counter-maintenance.md` | Complete |
 
 ## Execution Order

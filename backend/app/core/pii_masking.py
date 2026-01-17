@@ -3,8 +3,9 @@ from presidio_anonymizer import AnonymizerEngine
 
 # Initialize engines once
 # nlp_engine_name="en_core_web_sm" helps start up faster if model matches
-analyzer = AnalyzerEngine() 
+analyzer = AnalyzerEngine()
 anonymizer = AnonymizerEngine()
+
 
 def mask_pii_processor(logger, method_name, event_dict):
     """
@@ -23,5 +24,5 @@ def mask_pii_processor(logger, method_name, event_dict):
             # Fallback if analysis fails, logs shouldn't crash app
             # Maybe log an error to stderr or just pass through
             pass
-            
+
     return event_dict

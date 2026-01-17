@@ -6,10 +6,10 @@
 ## Traceability Matrix
 | Roadmap Step (docs/03) | Story File | Status |
 | :--- | :--- | :--- |
-| Step 6.1 | `story-06-01-c4-model.md` | Complete |
-| Step 6.2 | `story-06-02-d2-diagrams.md` | Complete |
-| Step 6.3 | `story-06-03-api-ref.md` | Complete |
-| Step 6.4 | `story-06-04-dev-docs.md` | Complete |
+| Step 6.1 | `story-06-01-c4-model.md` | Done |
+| Step 6.2 | `story-06-02-d2-diagrams.md` | Done |
+| Step 6.3 | `story-06-03-api-ref.md` | Done |
+| Step 6.4 | `story-06-04-dev-docs.md` | Done |
 
 ## Execution Order
 1.  [x] `story-06-01-c4-model.md`

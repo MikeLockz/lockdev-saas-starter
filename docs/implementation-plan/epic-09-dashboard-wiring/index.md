@@ -6,9 +6,9 @@
 ## Traceability Matrix
 | Plan Step (docs/10) | Story File | Status |
 | :--- | :--- | :--- |
-| Step 1.1-1.2 (API Hooks) | `story-09-01-api-hooks.md` | Pending |
-| Step 1.2 (Dashboard Data) | `story-09-02-dashboard-data.md` | Pending |
-| Step 1.1.5 (Consent Flow) | `story-09-03-consent-flow.md` | Pending |
+| Step 1.1-1.2 (API Hooks) | `story-09-01-api-hooks.md` | Done |
+| Step 1.2 (Dashboard Data) | `story-09-02-dashboard-data.md` | Done |
+| Step 1.1.5 (Consent Flow) | `story-09-03-consent-flow.md` | Done |
 
 ## Execution Order
 1.  [x] `story-09-01-api-hooks.md`

@@ -3,13 +3,13 @@
 # Configuration
 AGENT_CMD="gemini"
 LOG_DIR="logs"
-STOP_SIGNAL="<promise>COMPLETE</promise>"
+STOP_SIGNAL="<promise>REMEDIATION_COMPLETE</promise>"
 
 # Create logs directory
 mkdir -p "$LOG_DIR"
 
 echo "Starting Ralph Loop..."
-echo "Context: GEMINI.md + AGENCY.md"
+echo "Context: GEMINI.md + REMEDIATOR.md + 00-Audit-Master.md"
 
 while :; do
   TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
@@ -18,9 +18,10 @@ while :; do
   echo "Iteration: $TIMESTAMP"
 
   # --- THE MAGIC ---
-  # We concatenate the Constitution (GEMINI.md) AND the Logic (AGENCY.md)
+  # We concatenate the Constitution (GEMINI.md), the Remediator Role (REMEDIATOR.md),
+  # AND the Master Checklist (00-Audit-Master.md).
   # This creates one powerful prompt for the agent.
-  FULL_PROMPT="$(cat GEMINI.md) $(cat AGENCY.md)"
+  FULL_PROMPT="$(cat GEMINI.md) $(cat REMEDIATOR.md) $(cat audit-plan/00-Audit-Master.md)"
 
   $AGENT_CMD --yolo --prompt "$FULL_PROMPT" < /dev/null > "$LOG_FILE" 2>&1
 

@@ -4,5 +4,5 @@
  */
 
 export interface paths {
-	[key: string]: any;
+  [key: string]: any;
 }

@@ -6,25 +6,25 @@ workspace "Healthcare SaaS Platform" "A HIPAA-compliant, AI-native care coordina
         # ---------------------------------------------------------------------
         patient = person "Patient" "Receives care. Data subject."
         proxy = person "Care Proxy" "Family/Guardian managing care for one or more patients."
-        agent = person "Call Center Agent" "Manages patient queues and workflows."
+        staff = person "Care Staff" "Manages patient workflows."
         admin = person "Platform Admin" "System config & tenant management."
 
         # ---------------------------------------------------------------------
         # External Systems (Integrations & Infra)
         # ---------------------------------------------------------------------
         group "Google Cloud Platform" {
-            gcpAuth = softwareSystem "Identity Platform" "Handles OIDC authentication & session management." "External"
+            firebase = softwareSystem "Firebase Auth" "Handles OIDC authentication & MFA." "External"
+            vertexai = softwareSystem "Vertex AI" "Gemini 1.5 for summarization." "External"
         }
 
         group "External Providers" {
-            ehr = softwareSystem "EHR System" "External Clinical Records (Source of Truth)." "External"
-            telephony = softwareSystem "Telephony Provider" "Twilio/Vonage Voice/SMS Gateway." "External"
+            stripe = softwareSystem "Stripe" "Handles billing and subscriptions." "External"
         }
 
         group "AWS Services" {
-            bedrock = softwareSystem "AWS Bedrock" "LLM for summarization & intent detection." "External"
             ses = softwareSystem "AWS SES" "Transactional Email Service." "External"
             s3 = softwareSystem "AWS S3" "Private, Encrypted Object Storage." "External"
+            pinpoint = softwareSystem "AWS Pinpoint" "SMS and Notifications." "External"
         }
 
         # ---------------------------------------------------------------------
@@ -33,60 +33,44 @@ workspace "Healthcare SaaS Platform" "A HIPAA-compliant, AI-native care coordina
         healthcareSystem = softwareSystem "Healthcare SaaS Platform" "Orchestrates multi-tenant care workflows." {
 
             # Presentation Layer
-            mobileApp = container "Mobile App" "Patient & Proxy interface." "Capacitor + React" "Mobile"
-            webApp = container "Web Dashboard" "Agent/Admin interface." "Vite + React" "Browser"
+            webApp = container "Web Dashboard" "React/Vite SPA." "Vite + React" "Browser"
 
             # Application Layer
             api = container "API Application" "Business logic, HIPAA compliance, Tenant isolation." "Python 3.11, FastAPI" "API"
-            worker = container "Background Worker" "Async processing (AI, Email, Reports)." "Python, Arq" "Worker"
+            worker = container "Background Worker" "Async processing (AI, Email)." "Python, Arq" "Worker"
 
-            # Data Layer (Aptible Managed)
-            database = container "Primary Database" "Stores patient data, audit logs." "PostgreSQL (Aptible)" "Database"
-            redis = container "Cache & Queue" "Job queue for Arq, caching." "Redis (Aptible)" "Database"
+            # Data Layer
+            database = container "Primary Database" "Stores domain data, audit logs." "PostgreSQL" "Database"
+            redis = container "Cache & Queue" "Job queue for Arq." "Redis" "Database"
 
             # -----------------------------------------------------------------
             # Internal Relationships
             # -----------------------------------------------------------------
-            # User -> UI
-            patient -> mobileApp "Views care plans, chats"
-            proxy -> mobileApp "Manages dependents"
-            agent -> webApp "Manages queues"
-            admin -> webApp "Configures tenants"
+            patient -> webApp "Uses"
+            staff -> webApp "Uses"
+            admin -> webApp "Uses"
 
-            # UI -> API
-            mobileApp -> api "JSON/HTTPS" "TanStack Query"
-            webApp -> api "JSON/HTTPS" "TanStack Query"
+            webApp -> api "JSON/HTTPS"
 
-            # API -> Backing Services
-            api -> database "Reads/Writes" "SQLAlchemy/AsyncPG"
-            api -> redis "Enqueues jobs" "Arq"
-            api -> gcpAuth "Verifies Tokens" "Firebase Admin SDK"
-            api -> s3 "Generates Pre-signed URLs" "Boto3"
+            api -> database "Reads/Writes"
+            api -> redis "Enqueues"
+            api -> firebase "Verifies"
+            api -> vertexai "Sends prompts"
+            api -> stripe "Manages billing"
             
-            # API -> External Integrations
-            api -> telephony "Controls calls" "REST API"
-            api -> ehr "Syncs data" "FHIR/HL7"
-
-            # Worker Logic
-            worker -> redis "Dequeues jobs" "Arq"
-            worker -> database "Reads/Writes" "SQLAlchemy"
-            worker -> bedrock "Sends prompts" "Boto3"
-            worker -> ses "Sends emails" "Boto3"
-            worker -> s3 "Processes files" "Boto3"
+            worker -> redis "Dequeues"
+            worker -> database "Reads/Writes"
+            worker -> vertexai "Summarizes"
+            worker -> ses "Sends emails"
         }
     }
 
-    # -------------------------------------------------------------------------
-    # Views & Styling
-    # -------------------------------------------------------------------------
     views {
-        # Level 1: Context
         systemContext healthcareSystem "SystemContext" {
             include *
             autoLayout
         }
 
-        # Level 2: Container
         container healthcareSystem "Containers" {
             include *
             autoLayout
@@ -113,9 +97,6 @@ workspace "Healthcare SaaS Platform" "A HIPAA-compliant, AI-native care coordina
             element "Database" {
                 shape Cylinder
                 background #2fa434
-            }
-            element "Mobile" {
-                shape MobileDeviceLandscape
             }
             element "Browser" {
                 shape WebBrowser

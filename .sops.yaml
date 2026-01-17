@@ -1,0 +1,6 @@
+creation_rules:
+  - path_regex: .*\.enc\.env$
+    # Example for age: age1...
+    # age: ""
+    # Example for pgp: 
+    # pgp: ""
