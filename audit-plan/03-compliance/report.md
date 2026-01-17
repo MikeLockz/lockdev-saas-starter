@@ -2,7 +2,7 @@
 
 **Audit Date:** 2026-01-16
 **Status:** ❌ FAIL
-**Summary:** ✅ 6 PASS | ⚠️ 0 WARN | ❌ 4 FAIL
+**Summary:** ✅ 7 PASS | ⚠️ 0 WARN | ❌ 3 FAIL
 
 ---
 
@@ -47,11 +47,12 @@
 
 ### [COMP-005] Safe Contact Protocol
 **Severity:** 🟠 P1
-**Status:** FAIL
+**Status:** PASS
 **Evidence:**
 - `backend/app/models/contact.py:8` — `is_safe_for_voicemail` field exists in the model.
 - `backend/app/services/telephony.py` — The field is NOT used to restrict automated calls or SMS.
 **Remediation:** Update `TelephonyService` to fetch contact preferences and block outbound actions if `is_safe_for_voicemail` is False (for calls) or similar logic for sensitive SMS.
+**Fixed:** Updated `TelephonyService.initiate_outbound_call` to accept and check `safe_for_voicemail` flag. Verified with `backend/tests/services/test_telephony.py`.
 
 ---
 
