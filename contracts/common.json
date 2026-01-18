@@ -1,0 +1,908 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Common Domain Contract",
+	"description": "Auto-generated contract for Common feature",
+	"definitions": {
+		"CommunicationPreferencesUpdate": {
+			"properties": {
+				"transactional_consent": {
+					"anyOf": [
+						{
+							"type": "boolean"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Transactional Consent"
+				},
+				"marketing_consent": {
+					"anyOf": [
+						{
+							"type": "boolean"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Marketing Consent"
+				}
+			},
+			"type": "object",
+			"title": "CommunicationPreferencesUpdate",
+			"description": "Update communication preferences."
+		},
+		"src__schemas__organizations__OrganizationCreate": {
+			"properties": {
+				"name": {
+					"type": "string",
+					"maxLength": 255,
+					"title": "Name"
+				},
+				"tax_id": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 50
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Tax Id"
+				},
+				"settings_json": {
+					"additionalProperties": true,
+					"type": "object",
+					"title": "Settings Json"
+				},
+				"timezone": {
+					"type": "string",
+					"maxLength": 50,
+					"title": "Timezone",
+					"default": "America/New_York"
+				}
+			},
+			"type": "object",
+			"required": ["name"],
+			"title": "OrganizationCreate"
+		},
+		"src__schemas__organizations__OrganizationUpdate": {
+			"properties": {
+				"name": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 255
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Name"
+				},
+				"tax_id": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 50
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Tax Id"
+				},
+				"settings_json": {
+					"anyOf": [
+						{
+							"additionalProperties": true,
+							"type": "object"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Settings Json"
+				},
+				"timezone": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 50
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Timezone"
+				}
+			},
+			"type": "object",
+			"title": "OrganizationUpdate"
+		},
+		"InvitationCreate": {
+			"properties": {
+				"email": {
+					"type": "string",
+					"format": "email",
+					"title": "Email"
+				},
+				"role": {
+					"type": "string",
+					"title": "Role"
+				}
+			},
+			"type": "object",
+			"required": ["email", "role"],
+			"title": "InvitationCreate"
+		},
+		"CommunicationPreferencesRead": {
+			"properties": {
+				"transactional_consent": {
+					"type": "boolean",
+					"title": "Transactional Consent"
+				},
+				"marketing_consent": {
+					"type": "boolean",
+					"title": "Marketing Consent"
+				},
+				"updated_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Updated At"
+				}
+			},
+			"type": "object",
+			"required": ["transactional_consent", "marketing_consent", "updated_at"],
+			"title": "CommunicationPreferencesRead",
+			"description": "Communication preferences response."
+		},
+		"UserDeleteResponse": {
+			"properties": {
+				"success": {
+					"type": "boolean",
+					"title": "Success",
+					"default": true
+				},
+				"deleted_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Deleted At"
+				}
+			},
+			"type": "object",
+			"required": ["deleted_at"],
+			"title": "UserDeleteResponse",
+			"description": "Response after account deletion."
+		},
+		"SessionListResponse": {
+			"properties": {
+				"items": {
+					"items": {
+						"$ref": "#/components/schemas/SessionRead"
+					},
+					"type": "array",
+					"title": "Items"
+				},
+				"total": {
+					"type": "integer",
+					"title": "Total"
+				},
+				"limit": {
+					"type": "integer",
+					"title": "Limit",
+					"default": 50
+				},
+				"offset": {
+					"type": "integer",
+					"title": "Offset",
+					"default": 0
+				}
+			},
+			"type": "object",
+			"required": ["items", "total"],
+			"title": "SessionListResponse",
+			"description": "Paginated list of sessions."
+		},
+		"ValidationError": {
+			"properties": {
+				"loc": {
+					"items": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "integer"
+							}
+						]
+					},
+					"type": "array",
+					"title": "Location"
+				},
+				"msg": {
+					"type": "string",
+					"title": "Message"
+				},
+				"type": {
+					"type": "string",
+					"title": "Error Type"
+				}
+			},
+			"type": "object",
+			"required": ["loc", "msg", "type"],
+			"title": "ValidationError"
+		},
+		"UserExportRequest": {
+			"properties": {
+				"format": {
+					"type": "string",
+					"pattern": "^(json|pdf)$",
+					"title": "Format",
+					"default": "json"
+				},
+				"include_documents": {
+					"type": "boolean",
+					"title": "Include Documents",
+					"default": false
+				}
+			},
+			"type": "object",
+			"title": "UserExportRequest",
+			"description": "Request body for HIPAA data export."
+		},
+		"MFAVerifyRequest": {
+			"properties": {
+				"code": {
+					"type": "string",
+					"maxLength": 6,
+					"minLength": 6,
+					"pattern": "^[0-9]{6}$",
+					"title": "Code"
+				}
+			},
+			"type": "object",
+			"required": ["code"],
+			"title": "MFAVerifyRequest",
+			"description": "Request to verify MFA code and enable MFA."
+		},
+		"TimezoneUpdateRequest": {
+			"properties": {
+				"timezone": {
+					"type": "string",
+					"title": "Timezone"
+				}
+			},
+			"type": "object",
+			"required": ["timezone"],
+			"title": "TimezoneUpdateRequest",
+			"description": "Request to update user timezone."
+		},
+		"MFADisableResponse": {
+			"properties": {
+				"success": {
+					"type": "boolean",
+					"title": "Success",
+					"default": true
+				},
+				"mfa_enabled": {
+					"type": "boolean",
+					"title": "Mfa Enabled",
+					"default": false
+				},
+				"disabled_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Disabled At"
+				}
+			},
+			"type": "object",
+			"required": ["disabled_at"],
+			"title": "MFADisableResponse",
+			"description": "Response after disabling MFA."
+		},
+		"DeviceTokenRequest": {
+			"properties": {
+				"token": {
+					"type": "string",
+					"maxLength": 512,
+					"minLength": 1,
+					"title": "Token"
+				},
+				"platform": {
+					"type": "string",
+					"pattern": "^(ios|android|web)$",
+					"title": "Platform"
+				},
+				"device_name": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 255
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Device Name"
+				}
+			},
+			"type": "object",
+			"required": ["token", "platform"],
+			"title": "DeviceTokenRequest",
+			"description": "Request to register a device token."
+		},
+		"MFAVerifyResponse": {
+			"properties": {
+				"success": {
+					"type": "boolean",
+					"title": "Success",
+					"default": true
+				},
+				"mfa_enabled": {
+					"type": "boolean",
+					"title": "Mfa Enabled",
+					"default": true
+				},
+				"backup_codes": {
+					"items": {
+						"type": "string"
+					},
+					"type": "array",
+					"title": "Backup Codes"
+				},
+				"enabled_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Enabled At"
+				}
+			},
+			"type": "object",
+			"required": ["backup_codes", "enabled_at"],
+			"title": "MFAVerifyResponse",
+			"description": "Response after MFA verification."
+		},
+		"MemberRead": {
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"user_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "User Id"
+				},
+				"organization_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Organization Id"
+				},
+				"email": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Email"
+				},
+				"display_name": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Display Name"
+				},
+				"role": {
+					"type": "string",
+					"title": "Role"
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Created At"
+				}
+			},
+			"type": "object",
+			"required": ["id", "user_id", "organization_id", "role", "created_at"],
+			"title": "MemberRead"
+		},
+		"DeviceTokenResponse": {
+			"properties": {
+				"success": {
+					"type": "boolean",
+					"title": "Success",
+					"default": true
+				}
+			},
+			"type": "object",
+			"title": "DeviceTokenResponse",
+			"description": "Response after registering device token."
+		},
+		"SessionRevokeResponse": {
+			"properties": {
+				"success": {
+					"type": "boolean",
+					"title": "Success",
+					"default": true
+				},
+				"terminated_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Terminated At"
+				}
+			},
+			"type": "object",
+			"required": ["terminated_at"],
+			"title": "SessionRevokeResponse",
+			"description": "Response after revoking a session."
+		},
+		"UserExportResponse": {
+			"properties": {
+				"export_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Export Id"
+				},
+				"status": {
+					"type": "string",
+					"title": "Status",
+					"default": "PENDING"
+				},
+				"estimated_completion": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Estimated Completion"
+				}
+			},
+			"type": "object",
+			"required": ["export_id", "estimated_completion"],
+			"title": "UserExportResponse",
+			"description": "Response after requesting data export."
+		},
+		"OrganizationRead": {
+			"properties": {
+				"name": {
+					"type": "string",
+					"maxLength": 255,
+					"title": "Name"
+				},
+				"tax_id": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 50
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Tax Id"
+				},
+				"settings_json": {
+					"additionalProperties": true,
+					"type": "object",
+					"title": "Settings Json"
+				},
+				"timezone": {
+					"type": "string",
+					"maxLength": 50,
+					"title": "Timezone",
+					"default": "America/New_York"
+				},
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"stripe_customer_id": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Stripe Customer Id"
+				},
+				"subscription_status": {
+					"type": "string",
+					"title": "Subscription Status"
+				},
+				"is_active": {
+					"type": "boolean",
+					"title": "Is Active"
+				},
+				"member_count": {
+					"type": "integer",
+					"title": "Member Count"
+				},
+				"patient_count": {
+					"type": "integer",
+					"title": "Patient Count"
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Created At"
+				},
+				"updated_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Updated At"
+				}
+			},
+			"type": "object",
+			"required": [
+				"name",
+				"id",
+				"stripe_customer_id",
+				"subscription_status",
+				"is_active",
+				"member_count",
+				"patient_count",
+				"created_at",
+				"updated_at"
+			],
+			"title": "OrganizationRead"
+		},
+		"DeviceTokenDeleteRequest": {
+			"properties": {
+				"token": {
+					"type": "string",
+					"maxLength": 512,
+					"minLength": 1,
+					"title": "Token"
+				}
+			},
+			"type": "object",
+			"required": ["token"],
+			"title": "DeviceTokenDeleteRequest",
+			"description": "Request to delete a device token."
+		},
+		"HTTPValidationError": {
+			"properties": {
+				"detail": {
+					"items": {
+						"$ref": "#/components/schemas/ValidationError"
+					},
+					"type": "array",
+					"title": "Detail"
+				}
+			},
+			"type": "object",
+			"title": "HTTPValidationError"
+		},
+		"TimezoneResponse": {
+			"properties": {
+				"timezone": {
+					"type": "string",
+					"title": "Timezone"
+				},
+				"source": {
+					"type": "string",
+					"title": "Source"
+				}
+			},
+			"type": "object",
+			"required": ["timezone", "source"],
+			"title": "TimezoneResponse",
+			"description": "Response for timezone endpoint."
+		},
+		"InvitationRead": {
+			"properties": {
+				"email": {
+					"type": "string",
+					"format": "email",
+					"title": "Email"
+				},
+				"role": {
+					"type": "string",
+					"title": "Role"
+				},
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"token": {
+					"type": "string",
+					"title": "Token"
+				},
+				"status": {
+					"type": "string",
+					"title": "Status"
+				},
+				"organization_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Organization Id"
+				},
+				"invited_by_user_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Invited By User Id"
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Created At"
+				},
+				"expires_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Expires At"
+				},
+				"accepted_at": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "date-time"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Accepted At"
+				}
+			},
+			"type": "object",
+			"required": [
+				"email",
+				"role",
+				"id",
+				"token",
+				"status",
+				"organization_id",
+				"invited_by_user_id",
+				"created_at",
+				"expires_at"
+			],
+			"title": "InvitationRead"
+		},
+		"MFASetupResponse": {
+			"properties": {
+				"secret": {
+					"type": "string",
+					"title": "Secret"
+				},
+				"provisioning_uri": {
+					"type": "string",
+					"title": "Provisioning Uri"
+				},
+				"qr_code_data_url": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Qr Code Data Url"
+				},
+				"expires_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Expires At"
+				}
+			},
+			"type": "object",
+			"required": ["secret", "provisioning_uri", "expires_at"],
+			"title": "MFASetupResponse",
+			"description": "Response for MFA setup initialization."
+		},
+		"UserRead": {
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"email": {
+					"type": "string",
+					"format": "email",
+					"title": "Email"
+				},
+				"display_name": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Display Name"
+				},
+				"is_super_admin": {
+					"type": "boolean",
+					"title": "Is Super Admin",
+					"default": false
+				},
+				"mfa_enabled": {
+					"type": "boolean",
+					"title": "Mfa Enabled",
+					"default": false
+				},
+				"requires_consent": {
+					"type": "boolean",
+					"title": "Requires Consent",
+					"default": true
+				},
+				"transactional_consent": {
+					"type": "boolean",
+					"title": "Transactional Consent",
+					"default": true
+				},
+				"marketing_consent": {
+					"type": "boolean",
+					"title": "Marketing Consent",
+					"default": false
+				},
+				"timezone": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Timezone"
+				},
+				"effective_timezone": {
+					"type": "string",
+					"title": "Effective Timezone",
+					"default": "America/New_York"
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Created At"
+				},
+				"updated_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Updated At"
+				}
+			},
+			"type": "object",
+			"required": ["id", "email", "created_at", "updated_at"],
+			"title": "UserRead",
+			"description": "Full user profile response."
+		},
+		"SessionRead": {
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"device": {
+					"type": "string",
+					"title": "Device"
+				},
+				"ip_address": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Ip Address"
+				},
+				"location": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Location"
+				},
+				"is_current": {
+					"type": "boolean",
+					"title": "Is Current",
+					"default": false
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Created At"
+				},
+				"last_active_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Last Active At"
+				}
+			},
+			"type": "object",
+			"required": ["id", "device", "created_at", "last_active_at"],
+			"title": "SessionRead",
+			"description": "Session information response."
+		},
+		"UserUpdate": {
+			"properties": {
+				"display_name": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 255
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Display Name"
+				},
+				"timezone": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 50
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Timezone"
+				}
+			},
+			"type": "object",
+			"title": "UserUpdate",
+			"description": "Update user profile fields."
+		},
+		"UserDeleteRequest": {
+			"properties": {
+				"password": {
+					"type": "string",
+					"minLength": 1,
+					"title": "Password"
+				},
+				"reason": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Reason"
+				}
+			},
+			"type": "object",
+			"required": ["password"],
+			"title": "UserDeleteRequest",
+			"description": "Request body for account deletion."
+		},
+		"MFADisableRequest": {
+			"properties": {
+				"password": {
+					"type": "string",
+					"minLength": 1,
+					"title": "Password"
+				}
+			},
+			"type": "object",
+			"required": ["password"],
+			"title": "MFADisableRequest",
+			"description": "Request to disable MFA."
+		}
+	}
+}

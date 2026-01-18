@@ -1,0 +1,128 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "billing Domain Contract",
+	"description": "Auto-generated contract for billing feature",
+	"definitions": {
+		"CheckoutSessionRequest": {
+			"properties": {
+				"price_id": {
+					"type": "string",
+					"title": "Price Id"
+				}
+			},
+			"type": "object",
+			"required": ["price_id"],
+			"title": "CheckoutSessionRequest",
+			"description": "Request to create a Stripe checkout session."
+		},
+		"CheckoutSessionResponse": {
+			"properties": {
+				"session_id": {
+					"type": "string",
+					"title": "Session Id"
+				},
+				"checkout_url": {
+					"type": "string",
+					"title": "Checkout Url"
+				}
+			},
+			"type": "object",
+			"required": ["session_id", "checkout_url"],
+			"title": "CheckoutSessionResponse",
+			"description": "Response from creating a checkout session."
+		},
+		"ValidationError": {
+			"properties": {
+				"loc": {
+					"items": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "integer"
+							}
+						]
+					},
+					"type": "array",
+					"title": "Location"
+				},
+				"msg": {
+					"type": "string",
+					"title": "Message"
+				},
+				"type": {
+					"type": "string",
+					"title": "Error Type"
+				}
+			},
+			"type": "object",
+			"required": ["loc", "msg", "type"],
+			"title": "ValidationError"
+		},
+		"PortalSessionResponse": {
+			"properties": {
+				"portal_url": {
+					"type": "string",
+					"title": "Portal Url"
+				}
+			},
+			"type": "object",
+			"required": ["portal_url"],
+			"title": "PortalSessionResponse",
+			"description": "Response from creating a billing portal session."
+		},
+		"HTTPValidationError": {
+			"properties": {
+				"detail": {
+					"items": {
+						"$ref": "#/components/schemas/ValidationError"
+					},
+					"type": "array",
+					"title": "Detail"
+				}
+			},
+			"type": "object",
+			"title": "HTTPValidationError"
+		},
+		"SubscriptionStatusResponse": {
+			"properties": {
+				"status": {
+					"type": "string",
+					"title": "Status"
+				},
+				"plan_id": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Plan Id"
+				},
+				"current_period_end": {
+					"anyOf": [
+						{
+							"type": "integer"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Current Period End"
+				},
+				"cancel_at_period_end": {
+					"type": "boolean",
+					"title": "Cancel At Period End",
+					"default": false
+				}
+			},
+			"type": "object",
+			"required": ["status"],
+			"title": "SubscriptionStatusResponse",
+			"description": "Current subscription status for an organization."
+		}
+	}
+}

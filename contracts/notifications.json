@@ -1,0 +1,154 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "notifications Domain Contract",
+	"description": "Auto-generated contract for notifications feature",
+	"definitions": {
+		"NotificationListResponse": {
+			"properties": {
+				"items": {
+					"items": {
+						"$ref": "#/components/schemas/NotificationRead"
+					},
+					"type": "array",
+					"title": "Items"
+				},
+				"total": {
+					"type": "integer",
+					"title": "Total"
+				},
+				"unread_count": {
+					"type": "integer",
+					"title": "Unread Count"
+				},
+				"page": {
+					"type": "integer",
+					"title": "Page"
+				},
+				"size": {
+					"type": "integer",
+					"title": "Size"
+				}
+			},
+			"type": "object",
+			"required": ["items", "total", "unread_count", "page", "size"],
+			"title": "NotificationListResponse"
+		},
+		"ValidationError": {
+			"properties": {
+				"loc": {
+					"items": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "integer"
+							}
+						]
+					},
+					"type": "array",
+					"title": "Location"
+				},
+				"msg": {
+					"type": "string",
+					"title": "Message"
+				},
+				"type": {
+					"type": "string",
+					"title": "Error Type"
+				}
+			},
+			"type": "object",
+			"required": ["loc", "msg", "type"],
+			"title": "ValidationError"
+		},
+		"UnreadCountResponse": {
+			"properties": {
+				"count": {
+					"type": "integer",
+					"title": "Count"
+				}
+			},
+			"type": "object",
+			"required": ["count"],
+			"title": "UnreadCountResponse"
+		},
+		"HTTPValidationError": {
+			"properties": {
+				"detail": {
+					"items": {
+						"$ref": "#/components/schemas/ValidationError"
+					},
+					"type": "array",
+					"title": "Detail"
+				}
+			},
+			"type": "object",
+			"title": "HTTPValidationError"
+		},
+		"NotificationRead": {
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"type": {
+					"type": "string",
+					"title": "Type"
+				},
+				"title": {
+					"type": "string",
+					"title": "Title"
+				},
+				"body": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Body"
+				},
+				"data_json": {
+					"anyOf": [
+						{
+							"additionalProperties": true,
+							"type": "object"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Data Json"
+				},
+				"is_read": {
+					"type": "boolean",
+					"title": "Is Read"
+				},
+				"read_at": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "date-time"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Read At"
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Created At"
+				}
+			},
+			"type": "object",
+			"required": ["id", "type", "title", "is_read", "created_at"],
+			"title": "NotificationRead"
+		}
+	}
+}

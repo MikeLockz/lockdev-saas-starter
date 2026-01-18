@@ -1,0 +1,49 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Real-Time Events Domain Contract",
+	"description": "Auto-generated contract for Real-Time Events feature",
+	"definitions": {
+		"HTTPValidationError": {
+			"properties": {
+				"detail": {
+					"items": {
+						"$ref": "#/components/schemas/ValidationError"
+					},
+					"type": "array",
+					"title": "Detail"
+				}
+			},
+			"type": "object",
+			"title": "HTTPValidationError"
+		},
+		"ValidationError": {
+			"properties": {
+				"loc": {
+					"items": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "integer"
+							}
+						]
+					},
+					"type": "array",
+					"title": "Location"
+				},
+				"msg": {
+					"type": "string",
+					"title": "Message"
+				},
+				"type": {
+					"type": "string",
+					"title": "Error Type"
+				}
+			},
+			"type": "object",
+			"required": ["loc", "msg", "type"],
+			"title": "ValidationError"
+		}
+	}
+}

@@ -1,0 +1,341 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "documents Domain Contract",
+	"description": "Auto-generated contract for documents feature",
+	"definitions": {
+		"DocumentUploadResponse": {
+			"properties": {
+				"document_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Document Id"
+				},
+				"upload_url": {
+					"type": "string",
+					"title": "Upload Url"
+				},
+				"upload_fields": {
+					"additionalProperties": true,
+					"type": "object",
+					"title": "Upload Fields"
+				},
+				"s3_key": {
+					"type": "string",
+					"title": "S3 Key"
+				}
+			},
+			"type": "object",
+			"required": ["document_id", "upload_url", "upload_fields", "s3_key"],
+			"title": "DocumentUploadResponse",
+			"description": "Response with presigned upload URL."
+		},
+		"HTTPValidationError": {
+			"properties": {
+				"detail": {
+					"items": {
+						"$ref": "#/components/schemas/ValidationError"
+					},
+					"type": "array",
+					"title": "Detail"
+				}
+			},
+			"type": "object",
+			"title": "HTTPValidationError"
+		},
+		"DocumentDownloadResponse": {
+			"properties": {
+				"document_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Document Id"
+				},
+				"download_url": {
+					"type": "string",
+					"title": "Download Url"
+				},
+				"expires_in": {
+					"type": "integer",
+					"title": "Expires In",
+					"default": 3600
+				}
+			},
+			"type": "object",
+			"required": ["document_id", "download_url"],
+			"title": "DocumentDownloadResponse",
+			"description": "Response with presigned download URL."
+		},
+		"PaginatedDocuments": {
+			"properties": {
+				"items": {
+					"items": {
+						"$ref": "#/components/schemas/DocumentListItem"
+					},
+					"type": "array",
+					"title": "Items"
+				},
+				"total": {
+					"type": "integer",
+					"title": "Total"
+				},
+				"limit": {
+					"type": "integer",
+					"title": "Limit"
+				},
+				"offset": {
+					"type": "integer",
+					"title": "Offset"
+				}
+			},
+			"type": "object",
+			"required": ["items", "total", "limit", "offset"],
+			"title": "PaginatedDocuments",
+			"description": "Paginated list of documents."
+		},
+		"ValidationError": {
+			"properties": {
+				"loc": {
+					"items": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "integer"
+							}
+						]
+					},
+					"type": "array",
+					"title": "Location"
+				},
+				"msg": {
+					"type": "string",
+					"title": "Message"
+				},
+				"type": {
+					"type": "string",
+					"title": "Error Type"
+				}
+			},
+			"type": "object",
+			"required": ["loc", "msg", "type"],
+			"title": "ValidationError"
+		},
+		"DocumentRead": {
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"organization_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Organization Id"
+				},
+				"patient_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Patient Id"
+				},
+				"uploaded_by_user_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Uploaded By User Id"
+				},
+				"file_name": {
+					"type": "string",
+					"title": "File Name"
+				},
+				"file_type": {
+					"type": "string",
+					"title": "File Type"
+				},
+				"file_size": {
+					"type": "integer",
+					"title": "File Size"
+				},
+				"s3_key": {
+					"type": "string",
+					"title": "S3 Key"
+				},
+				"document_type": {
+					"type": "string",
+					"title": "Document Type"
+				},
+				"description": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Description"
+				},
+				"status": {
+					"type": "string",
+					"title": "Status"
+				},
+				"uploaded_at": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "date-time"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Uploaded At"
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Created At"
+				},
+				"updated_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Updated At"
+				},
+				"uploaded_by_name": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Uploaded By Name"
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"organization_id",
+				"patient_id",
+				"uploaded_by_user_id",
+				"file_name",
+				"file_type",
+				"file_size",
+				"s3_key",
+				"document_type",
+				"description",
+				"status",
+				"uploaded_at",
+				"created_at",
+				"updated_at"
+			],
+			"title": "DocumentRead",
+			"description": "Full document read model."
+		},
+		"DocumentListItem": {
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"file_name": {
+					"type": "string",
+					"title": "File Name"
+				},
+				"file_type": {
+					"type": "string",
+					"title": "File Type"
+				},
+				"file_size": {
+					"type": "integer",
+					"title": "File Size"
+				},
+				"document_type": {
+					"type": "string",
+					"title": "Document Type"
+				},
+				"status": {
+					"type": "string",
+					"title": "Status"
+				},
+				"uploaded_at": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "date-time"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Uploaded At"
+				},
+				"uploaded_by_name": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Uploaded By Name"
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"file_name",
+				"file_type",
+				"file_size",
+				"document_type",
+				"status",
+				"uploaded_at"
+			],
+			"title": "DocumentListItem",
+			"description": "Lightweight document for list views."
+		},
+		"DocumentUploadRequest": {
+			"properties": {
+				"file_name": {
+					"type": "string",
+					"maxLength": 255,
+					"minLength": 1,
+					"title": "File Name"
+				},
+				"file_type": {
+					"type": "string",
+					"maxLength": 100,
+					"title": "File Type",
+					"default": "application/pdf"
+				},
+				"file_size": {
+					"type": "integer",
+					"maximum": 10485760.0,
+					"exclusiveMinimum": 0.0,
+					"title": "File Size"
+				},
+				"document_type": {
+					"type": "string",
+					"title": "Document Type",
+					"default": "OTHER"
+				},
+				"description": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Description"
+				}
+			},
+			"type": "object",
+			"required": ["file_name", "file_size"],
+			"title": "DocumentUploadRequest",
+			"description": "Request to get a presigned upload URL."
+		}
+	}
+}

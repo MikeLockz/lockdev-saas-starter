@@ -1,0 +1,316 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "tasks Domain Contract",
+	"description": "Auto-generated contract for tasks feature",
+	"definitions": {
+		"ValidationError": {
+			"properties": {
+				"loc": {
+					"items": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "integer"
+							}
+						]
+					},
+					"type": "array",
+					"title": "Location"
+				},
+				"msg": {
+					"type": "string",
+					"title": "Message"
+				},
+				"type": {
+					"type": "string",
+					"title": "Error Type"
+				}
+			},
+			"type": "object",
+			"required": ["loc", "msg", "type"],
+			"title": "ValidationError"
+		},
+		"TaskUpdate": {
+			"properties": {
+				"title": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Title"
+				},
+				"description": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Description"
+				},
+				"priority": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Priority"
+				},
+				"status": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Status",
+					"description": "TODO, IN_PROGRESS, DONE, CANCELLED"
+				},
+				"due_date": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "date"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Due Date"
+				},
+				"assignee_id": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "uuid"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Assignee Id"
+				}
+			},
+			"type": "object",
+			"title": "TaskUpdate"
+		},
+		"HTTPValidationError": {
+			"properties": {
+				"detail": {
+					"items": {
+						"$ref": "#/components/schemas/ValidationError"
+					},
+					"type": "array",
+					"title": "Detail"
+				}
+			},
+			"type": "object",
+			"title": "HTTPValidationError"
+		},
+		"TaskRead": {
+			"properties": {
+				"created_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Created At"
+				},
+				"updated_at": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "date-time"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Updated At"
+				},
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"title": {
+					"type": "string",
+					"title": "Title"
+				},
+				"description": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Description"
+				},
+				"priority": {
+					"type": "string",
+					"title": "Priority",
+					"description": "LOW, MEDIUM, HIGH, URGENT"
+				},
+				"due_date": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "date"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Due Date"
+				},
+				"patient_id": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "uuid"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Patient Id"
+				},
+				"assignee_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Assignee Id"
+				},
+				"organization_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Organization Id"
+				},
+				"created_by_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Created By Id"
+				},
+				"status": {
+					"type": "string",
+					"title": "Status"
+				},
+				"completed_at": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "date-time"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Completed At"
+				},
+				"assignee_name": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Assignee Name"
+				},
+				"patient_name": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Patient Name"
+				}
+			},
+			"type": "object",
+			"required": [
+				"created_at",
+				"id",
+				"title",
+				"priority",
+				"assignee_id",
+				"organization_id",
+				"created_by_id",
+				"status",
+				"completed_at"
+			],
+			"title": "TaskRead"
+		},
+		"TaskCreate": {
+			"properties": {
+				"title": {
+					"type": "string",
+					"title": "Title"
+				},
+				"description": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Description"
+				},
+				"priority": {
+					"type": "string",
+					"title": "Priority",
+					"description": "LOW, MEDIUM, HIGH, URGENT"
+				},
+				"due_date": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "date"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Due Date"
+				},
+				"patient_id": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "uuid"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Patient Id"
+				},
+				"assignee_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Assignee Id"
+				}
+			},
+			"type": "object",
+			"required": ["title", "priority", "assignee_id"],
+			"title": "TaskCreate"
+		}
+	}
+}

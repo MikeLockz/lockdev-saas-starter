@@ -1,0 +1,348 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "staff Domain Contract",
+	"description": "Auto-generated contract for staff feature",
+	"definitions": {
+		"StaffRead": {
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"user_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "User Id"
+				},
+				"organization_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Organization Id"
+				},
+				"job_title": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Job Title"
+				},
+				"department": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Department"
+				},
+				"employee_id": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Employee Id"
+				},
+				"is_active": {
+					"type": "boolean",
+					"title": "Is Active"
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Created At"
+				},
+				"updated_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Updated At"
+				},
+				"user_email": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "User Email"
+				},
+				"user_display_name": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "User Display Name"
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"user_id",
+				"organization_id",
+				"job_title",
+				"department",
+				"employee_id",
+				"is_active",
+				"created_at",
+				"updated_at"
+			],
+			"title": "StaffRead",
+			"description": "Full staff profile response."
+		},
+		"StaffUpdate": {
+			"properties": {
+				"job_title": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 100
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Job Title"
+				},
+				"department": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 100
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Department"
+				},
+				"employee_id": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 50
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Employee Id"
+				},
+				"is_active": {
+					"anyOf": [
+						{
+							"type": "boolean"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Is Active"
+				}
+			},
+			"type": "object",
+			"title": "StaffUpdate",
+			"description": "Partial update for staff profile."
+		},
+		"StaffCreate": {
+			"properties": {
+				"user_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "User Id",
+					"description": "User to become staff"
+				},
+				"job_title": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 100
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Job Title"
+				},
+				"department": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 100
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Department"
+				},
+				"employee_id": {
+					"anyOf": [
+						{
+							"type": "string",
+							"maxLength": 50
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Employee Id"
+				}
+			},
+			"type": "object",
+			"required": ["user_id"],
+			"title": "StaffCreate",
+			"description": "Create a staff profile for a user."
+		},
+		"HTTPValidationError": {
+			"properties": {
+				"detail": {
+					"items": {
+						"$ref": "#/components/schemas/ValidationError"
+					},
+					"type": "array",
+					"title": "Detail"
+				}
+			},
+			"type": "object",
+			"title": "HTTPValidationError"
+		},
+		"PaginatedStaff": {
+			"properties": {
+				"items": {
+					"items": {
+						"$ref": "#/components/schemas/StaffListItem"
+					},
+					"type": "array",
+					"title": "Items"
+				},
+				"total": {
+					"type": "integer",
+					"title": "Total"
+				},
+				"limit": {
+					"type": "integer",
+					"title": "Limit"
+				},
+				"offset": {
+					"type": "integer",
+					"title": "Offset"
+				}
+			},
+			"type": "object",
+			"required": ["items", "total", "limit", "offset"],
+			"title": "PaginatedStaff",
+			"description": "Paginated staff list response."
+		},
+		"ValidationError": {
+			"properties": {
+				"loc": {
+					"items": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "integer"
+							}
+						]
+					},
+					"type": "array",
+					"title": "Location"
+				},
+				"msg": {
+					"type": "string",
+					"title": "Message"
+				},
+				"type": {
+					"type": "string",
+					"title": "Error Type"
+				}
+			},
+			"type": "object",
+			"required": ["loc", "msg", "type"],
+			"title": "ValidationError"
+		},
+		"StaffListItem": {
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"user_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "User Id"
+				},
+				"job_title": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Job Title"
+				},
+				"department": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Department"
+				},
+				"is_active": {
+					"type": "boolean",
+					"title": "Is Active"
+				},
+				"user_email": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "User Email"
+				},
+				"user_display_name": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "User Display Name"
+				}
+			},
+			"type": "object",
+			"required": ["id", "user_id", "job_title", "department", "is_active"],
+			"title": "StaffListItem",
+			"description": "Compact staff for list views."
+		}
+	}
+}

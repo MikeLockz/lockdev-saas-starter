@@ -1,0 +1,458 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "admin Domain Contract",
+	"description": "Auto-generated contract for admin feature",
+	"definitions": {
+		"OrganizationAdminRead": {
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"name": {
+					"type": "string",
+					"title": "Name"
+				},
+				"member_count": {
+					"type": "integer",
+					"title": "Member Count"
+				},
+				"patient_count": {
+					"type": "integer",
+					"title": "Patient Count"
+				},
+				"subscription_status": {
+					"type": "string",
+					"title": "Subscription Status"
+				},
+				"is_active": {
+					"type": "boolean",
+					"title": "Is Active"
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Created At"
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"name",
+				"member_count",
+				"patient_count",
+				"subscription_status",
+				"is_active",
+				"created_at"
+			],
+			"title": "OrganizationAdminRead"
+		},
+		"AuditLogRead": {
+			"properties": {
+				"action_type": {
+					"type": "string",
+					"title": "Action Type",
+					"description": "Action performed (READ, CREATE, UPDATE, DELETE, etc.)"
+				},
+				"resource_type": {
+					"type": "string",
+					"title": "Resource Type",
+					"description": "Type of resource effected (PATIENT, USER, etc.)"
+				},
+				"resource_id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Resource Id"
+				},
+				"changes_json": {
+					"anyOf": [
+						{
+							"additionalProperties": true,
+							"type": "object"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Changes Json"
+				},
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"actor_user_id": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "uuid"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Actor User Id"
+				},
+				"organization_id": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "uuid"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Organization Id"
+				},
+				"ip_address": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "ipvanyaddress"
+						},
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Ip Address"
+				},
+				"user_agent": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "User Agent"
+				},
+				"impersonator_id": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "uuid"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Impersonator Id"
+				},
+				"occurred_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Occurred At"
+				}
+			},
+			"type": "object",
+			"required": [
+				"action_type",
+				"resource_type",
+				"resource_id",
+				"id",
+				"actor_user_id",
+				"organization_id",
+				"ip_address",
+				"user_agent",
+				"impersonator_id",
+				"occurred_at"
+			],
+			"title": "AuditLogRead"
+		},
+		"UserListResponse": {
+			"properties": {
+				"items": {
+					"items": {
+						"$ref": "#/components/schemas/UserAdminRead"
+					},
+					"type": "array",
+					"title": "Items"
+				},
+				"total": {
+					"type": "integer",
+					"title": "Total"
+				},
+				"page": {
+					"type": "integer",
+					"title": "Page"
+				},
+				"page_size": {
+					"type": "integer",
+					"title": "Page Size"
+				}
+			},
+			"type": "object",
+			"required": ["items", "total", "page", "page_size"],
+			"title": "UserListResponse"
+		},
+		"OrganizationUpdate": {
+			"properties": {
+				"is_active": {
+					"anyOf": [
+						{
+							"type": "boolean"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Is Active"
+				},
+				"subscription_status": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Subscription Status"
+				}
+			},
+			"type": "object",
+			"title": "OrganizationUpdate"
+		},
+		"UserAdminRead": {
+			"properties": {
+				"id": {
+					"type": "string",
+					"format": "uuid",
+					"title": "Id"
+				},
+				"email": {
+					"type": "string",
+					"title": "Email"
+				},
+				"display_name": {
+					"anyOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Display Name"
+				},
+				"is_super_admin": {
+					"type": "boolean",
+					"title": "Is Super Admin"
+				},
+				"locked_until": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "date-time"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Locked Until"
+				},
+				"failed_login_attempts": {
+					"type": "integer",
+					"title": "Failed Login Attempts"
+				},
+				"last_login_at": {
+					"anyOf": [
+						{
+							"type": "string",
+							"format": "date-time"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Last Login At"
+				},
+				"created_at": {
+					"type": "string",
+					"format": "date-time",
+					"title": "Created At"
+				}
+			},
+			"type": "object",
+			"required": [
+				"id",
+				"email",
+				"display_name",
+				"is_super_admin",
+				"locked_until",
+				"failed_login_attempts",
+				"last_login_at",
+				"created_at"
+			],
+			"title": "UserAdminRead"
+		},
+		"UserAdminUpdate": {
+			"properties": {
+				"is_super_admin": {
+					"anyOf": [
+						{
+							"type": "boolean"
+						},
+						{
+							"type": "null"
+						}
+					],
+					"title": "Is Super Admin"
+				}
+			},
+			"type": "object",
+			"title": "UserAdminUpdate"
+		},
+		"HTTPValidationError": {
+			"properties": {
+				"detail": {
+					"items": {
+						"$ref": "#/components/schemas/ValidationError"
+					},
+					"type": "array",
+					"title": "Detail"
+				}
+			},
+			"type": "object",
+			"title": "HTTPValidationError"
+		},
+		"OrganizationCreate": {
+			"properties": {
+				"name": {
+					"type": "string",
+					"title": "Name"
+				},
+				"subscription_status": {
+					"type": "string",
+					"title": "Subscription Status",
+					"default": "trial"
+				}
+			},
+			"type": "object",
+			"required": ["name"],
+			"title": "OrganizationCreate"
+		},
+		"ImpersonationRequest": {
+			"properties": {
+				"reason": {
+					"type": "string",
+					"title": "Reason"
+				}
+			},
+			"type": "object",
+			"required": ["reason"],
+			"title": "ImpersonationRequest"
+		},
+		"AuditLogListResponse": {
+			"properties": {
+				"items": {
+					"items": {
+						"$ref": "#/components/schemas/AuditLogRead"
+					},
+					"type": "array",
+					"title": "Items"
+				},
+				"total": {
+					"type": "integer",
+					"title": "Total"
+				},
+				"page": {
+					"type": "integer",
+					"title": "Page"
+				},
+				"page_size": {
+					"type": "integer",
+					"title": "Page Size"
+				}
+			},
+			"type": "object",
+			"required": ["items", "total", "page", "page_size"],
+			"title": "AuditLogListResponse"
+		},
+		"ValidationError": {
+			"properties": {
+				"loc": {
+					"items": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "integer"
+							}
+						]
+					},
+					"type": "array",
+					"title": "Location"
+				},
+				"msg": {
+					"type": "string",
+					"title": "Message"
+				},
+				"type": {
+					"type": "string",
+					"title": "Error Type"
+				}
+			},
+			"type": "object",
+			"required": ["loc", "msg", "type"],
+			"title": "ValidationError"
+		},
+		"SystemHealth": {
+			"properties": {
+				"db_status": {
+					"type": "string",
+					"title": "Db Status"
+				},
+				"redis_status": {
+					"type": "string",
+					"title": "Redis Status"
+				},
+				"worker_status": {
+					"type": "string",
+					"title": "Worker Status"
+				},
+				"metrics": {
+					"additionalProperties": true,
+					"type": "object",
+					"title": "Metrics"
+				}
+			},
+			"type": "object",
+			"required": ["db_status", "redis_status", "worker_status", "metrics"],
+			"title": "SystemHealth"
+		},
+		"OrganizationListResponse": {
+			"properties": {
+				"items": {
+					"items": {
+						"$ref": "#/components/schemas/OrganizationAdminRead"
+					},
+					"type": "array",
+					"title": "Items"
+				},
+				"total": {
+					"type": "integer",
+					"title": "Total"
+				},
+				"page": {
+					"type": "integer",
+					"title": "Page"
+				},
+				"page_size": {
+					"type": "integer",
+					"title": "Page Size"
+				}
+			},
+			"type": "object",
+			"required": ["items", "total", "page", "page_size"],
+			"title": "OrganizationListResponse"
+		}
+	}
+}

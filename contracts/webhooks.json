@@ -1,0 +1,6 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "Webhooks Domain Contract",
+	"description": "Auto-generated contract for Webhooks feature",
+	"definitions": {}
+}
